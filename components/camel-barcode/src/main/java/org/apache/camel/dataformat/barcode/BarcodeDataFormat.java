@@ -22,7 +22,7 @@ import java.io.OutputStream;
 import java.util.EnumMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

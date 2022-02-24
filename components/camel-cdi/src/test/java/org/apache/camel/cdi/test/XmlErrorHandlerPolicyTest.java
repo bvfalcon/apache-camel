@@ -19,10 +19,9 @@ package org.apache.camel.cdi.test;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.CamelException;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;

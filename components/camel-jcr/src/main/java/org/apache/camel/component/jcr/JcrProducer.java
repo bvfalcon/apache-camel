@@ -22,13 +22,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.PropertyIterator;
-import javax.jcr.PropertyType;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import javax.jcr.Value;
+import jakarta.jcr.Node;
+import jakarta.jcr.Property;
+import jakarta.jcr.PropertyIterator;
+import jakarta.jcr.PropertyType;
+import jakarta.jcr.RepositoryException;
+import jakarta.jcr.Session;
+import jakarta.jcr.Value;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;

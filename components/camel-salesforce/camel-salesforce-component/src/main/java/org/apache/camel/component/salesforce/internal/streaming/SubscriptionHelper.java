@@ -41,7 +41,9 @@ import org.cometd.client.BayeuxClient;
 import org.cometd.client.BayeuxClient.State;
 import org.cometd.client.transport.ClientTransport;
 import org.cometd.client.transport.LongPollingTransport;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -401,7 +403,9 @@ public class SubscriptionHelper extends ServiceSupport {
                         throw new RuntimeException(e);
                     }
                 }
-                request.getHeaders().put(HttpHeader.AUTHORIZATION, "OAuth " + accessToken);
+                if (request instanceof HttpRequest) {
+                    ((HttpRequest) request).addHeader(new HttpField(HttpHeader.AUTHORIZATION, "OAuth " + accessToken));
+                }
             }
         };
 

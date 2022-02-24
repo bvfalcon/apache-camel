@@ -18,7 +18,7 @@ package org.apache.camel.component.ignite.cache;
 
 import java.util.Map;
 
-import javax.cache.Cache.Entry;
+import jakarta.cache.Cache.Entry;
 
 import org.apache.camel.CamelException;
 import org.apache.camel.Category;

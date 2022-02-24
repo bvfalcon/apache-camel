@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.wsdl.Definition;
-import javax.wsdl.WSDLException;
+import jakarta.wsdl.Definition;
+import jakarta.wsdl.WSDLException;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;

@@ -33,7 +33,7 @@
 
     <properties>
         <camel.osgi.import.pkg>
-            org.eclipse.jetty.*;version="[9.4,10)",
+            org.eclipse.jetty.*;version="[11,12)",
             ${camel.osgi.import.defaults},
             *
         </camel.osgi.import.pkg>
@@ -80,8 +80,8 @@
             <version>${cometd-java-server}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->

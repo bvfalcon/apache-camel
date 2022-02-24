@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.security.auth.Subject;
+import jakarta.security.auth.Subject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;

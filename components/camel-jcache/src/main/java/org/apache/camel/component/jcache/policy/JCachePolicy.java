@@ -18,11 +18,11 @@ package org.apache.camel.component.jcache.policy;
 
 import java.util.Set;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.configuration.Configuration;
-import javax.cache.configuration.MutableConfiguration;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.Caching;
+import jakarta.cache.configuration.Configuration;
+import jakarta.cache.configuration.MutableConfiguration;
 
 import org.apache.camel.Expression;
 import org.apache.camel.NamedNode;

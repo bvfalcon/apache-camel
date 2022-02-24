@@ -28,6 +28,7 @@ import org.apache.camel.component.salesforce.api.dto.RestError;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
 import org.eclipse.jetty.client.HttpContentResponse;
 import org.eclipse.jetty.client.HttpConversation;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.ProtocolHandler;
 import org.eclipse.jetty.client.ResponseNotifier;
 import org.eclipse.jetty.client.api.ContentResponse;
@@ -36,7 +37,6 @@ import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.api.Result;
 import org.eclipse.jetty.client.util.BufferingResponseListener;
 import org.eclipse.jetty.http.HttpField;
-import org.eclipse.jetty.http.HttpFields;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
@@ -250,17 +250,16 @@ public class SalesforceSecurityHandler implements ProtocolHandler {
             // copy the request to resend
             // TODO handle a change in Salesforce instanceUrl, right now we
             // retry with the same destination
-            final Request newRequest;
+            final HttpRequest newRequest;
             if (copy) {
-                newRequest = httpClient.copyRequest(request, request.getURI());
+                newRequest = (HttpRequest) httpClient.copyRequest(request, request.getURI());
                 newRequest.method(request.getMethod());
-                HttpFields headers = newRequest.getHeaders();
                 // copy cookies and host for subscriptions to avoid
                 // '403::Unknown Client' errors
                 for (HttpField field : request.getHeaders()) {
                     HttpHeader header = field.getHeader();
                     if (HttpHeader.COOKIE.equals(header) || HttpHeader.HOST.equals(header)) {
-                        headers.add(header, field.getValue());
+                        newRequest.addHeader(new HttpField(header.asString(), field.getValue()));
                     }
                 }
             } else {

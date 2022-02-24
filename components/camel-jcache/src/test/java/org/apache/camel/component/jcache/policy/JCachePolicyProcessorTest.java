@@ -16,10 +16,10 @@
  */
 package org.apache.camel.component.jcache.policy;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.configuration.MutableConfiguration;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.Caching;
+import jakarta.cache.configuration.MutableConfiguration;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;

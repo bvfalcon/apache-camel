@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.resteasy.test;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

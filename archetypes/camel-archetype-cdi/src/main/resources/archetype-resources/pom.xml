@@ -31,7 +31,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <deltaspike-version>1.9.0</deltaspike-version>
-    <weld3-version>3.0.5.Final</weld3-version>
+    <weld4-version>4.0.3.Final</weld3-version>
     <log4j2-version>2.13.3</log4j2-version>
     <cdi-api-version>2.0</cdi-api-version>
   </properties>
@@ -125,7 +125,7 @@
           <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-shaded</artifactId>
-            <version>${weld3-version}</version>
+            <version>${weld4-version}</version>
           </dependency>
         </dependencies>
       </plugin>

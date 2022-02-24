@@ -18,8 +18,7 @@ package org.apache.camel.test.cdi;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.Uri;

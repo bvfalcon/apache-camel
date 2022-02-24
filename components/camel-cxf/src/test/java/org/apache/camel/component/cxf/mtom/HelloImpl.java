@@ -20,7 +20,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 import javax.xml.ws.Holder;
 
 import org.apache.camel.cxf.mtom_feature.Hello;

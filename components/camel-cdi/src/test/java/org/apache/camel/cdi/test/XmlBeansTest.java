@@ -19,8 +19,7 @@ package org.apache.camel.cdi.test;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.cdi.CdiCamelExtension;
 import org.apache.camel.cdi.ImportResource;

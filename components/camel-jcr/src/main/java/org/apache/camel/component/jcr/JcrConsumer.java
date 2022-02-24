@@ -21,9 +21,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import javax.jcr.observation.EventListener;
+import jakarta.jcr.RepositoryException;
+import jakarta.jcr.Session;
+import jakarta.jcr.observation.EventListener;
 
 import org.apache.camel.Processor;
 import org.apache.camel.support.DefaultConsumer;

@@ -20,8 +20,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServletRequest;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;

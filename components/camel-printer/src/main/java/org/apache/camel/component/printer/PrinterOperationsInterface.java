@@ -16,8 +16,8 @@
  */
 package org.apache.camel.component.printer;
 
-import javax.print.Doc;
-import javax.print.PrintException;
+import jakarta.print.Doc;
+import jakarta.print.PrintException;
 
 public interface PrinterOperationsInterface {
 

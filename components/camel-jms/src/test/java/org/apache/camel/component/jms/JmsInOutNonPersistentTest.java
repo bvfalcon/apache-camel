@@ -16,9 +16,8 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
-
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.DeliveryMode;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.junit5.CamelTestSupport;

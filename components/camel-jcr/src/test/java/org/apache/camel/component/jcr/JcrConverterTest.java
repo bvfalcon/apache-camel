@@ -19,7 +19,7 @@ package org.apache.camel.component.jcr;
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 
-import javax.jcr.Value;
+import jakarta.jcr.Value;
 
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.converter.DefaultTypeConverter;

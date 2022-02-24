@@ -26,7 +26,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
-import javax.security.auth.login.Configuration;
+import jakarta.security.auth.login.Configuration;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePropertyKey;

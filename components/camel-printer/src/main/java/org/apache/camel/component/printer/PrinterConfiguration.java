@@ -19,10 +19,10 @@ package org.apache.camel.component.printer;
 import java.net.URI;
 import java.util.Map;
 
-import javax.print.DocFlavor;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.OrientationRequested;
-import javax.print.attribute.standard.Sides;
+import jakarta.print.DocFlavor;
+import jakarta.print.attribute.standard.MediaSizeName;
+import jakarta.print.attribute.standard.OrientationRequested;
+import jakarta.print.attribute.standard.Sides;
 
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriParam;

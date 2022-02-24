@@ -106,9 +106,9 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>javax.transaction-api</artifactId>
-            <version>${jta-api-1.2-version}</version>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <version>${jta-api-version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -242,16 +242,16 @@
 
             <dependencies>
                 <dependency>
-                    <groupId>javax.enterprise</groupId>
-                    <artifactId>cdi-api</artifactId>
-                    <version>${cdi-api-2.0-version}</version>
+                    <groupId>jakarta.enterprise</groupId>
+                    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                    <version>${cdi-api-version}</version>
                     <scope>provided</scope>
                 </dependency>
 
                 <dependency>
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-core-impl</artifactId>
-                    <version>${weld3-version}</version>
+                    <version>${weld4-version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>

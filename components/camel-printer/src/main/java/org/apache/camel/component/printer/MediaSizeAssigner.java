@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.printer;
 
-import javax.print.attribute.standard.MediaSizeName;
+import jakarta.print.attribute.standard.MediaSizeName;
 
 public class MediaSizeAssigner {
     private MediaSizeName mediaSizeName;

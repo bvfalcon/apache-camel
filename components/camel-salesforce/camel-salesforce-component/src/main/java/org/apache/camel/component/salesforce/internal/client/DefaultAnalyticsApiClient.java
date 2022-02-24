@@ -40,9 +40,11 @@ import org.apache.camel.component.salesforce.api.dto.analytics.reports.ReportMet
 import org.apache.camel.component.salesforce.api.dto.analytics.reports.SyncReportResults;
 import org.apache.camel.component.salesforce.api.utils.JsonUtils;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.BytesContentProvider;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
@@ -65,7 +67,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
 
     @Override
     public void getRecentReports(final Map<String, List<String>> headers, final RecentReportsResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, reportsUrl(), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, reportsUrl(), headers);
 
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
@@ -87,7 +89,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
     public void getReportDescription(
             String reportId, final Map<String, List<String>> headers, final ReportDescriptionResponseCallback callback) {
 
-        final Request request = getRequest(HttpMethod.GET, reportsDescribeUrl(reportId), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, reportsDescribeUrl(reportId), headers);
 
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
@@ -109,7 +111,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
             final ReportResultsResponseCallback callback) {
 
         final boolean useGet = reportMetadata == null;
-        final Request request
+        final HttpRequest request
                 = getRequest(useGet ? HttpMethod.GET : HttpMethod.POST, reportsUrl(reportId, includeDetails), headers);
 
         // set POST data
@@ -144,7 +146,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
             String reportId, Boolean includeDetails, ReportMetadata reportMetadata, final Map<String, List<String>> headers,
             final ReportInstanceResponseCallback callback) {
 
-        final Request request = getRequest(HttpMethod.POST, reportInstancesUrl(reportId, includeDetails), headers);
+        final HttpRequest request = getRequest(HttpMethod.POST, reportInstancesUrl(reportId, includeDetails), headers);
 
         // set POST data
         if (reportMetadata != null) {
@@ -177,7 +179,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
     public void getReportInstances(
             String reportId, final Map<String, List<String>> headers, final ReportInstanceListResponseCallback callback) {
 
-        final Request request = getRequest(HttpMethod.GET, reportInstancesUrl(reportId), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, reportInstancesUrl(reportId), headers);
 
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
@@ -200,7 +202,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
             String reportId, String instanceId, final Map<String, List<String>> headers,
             final ReportResultsResponseCallback callback) {
 
-        final Request request = getRequest(HttpMethod.GET, reportInstancesUrl(reportId, instanceId), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, reportInstancesUrl(reportId, instanceId), headers);
 
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
@@ -248,9 +250,9 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
     }
 
     @Override
-    protected void setAccessToken(Request request) {
+    protected void setAccessToken(HttpRequest request) {
         // replace old token
-        request.getHeaders().put(HttpHeader.AUTHORIZATION, TOKEN_PREFIX + accessToken);
+        request.addHeader(new HttpField(HttpHeader.AUTHORIZATION, TOKEN_PREFIX + accessToken));
     }
 
     @Override
@@ -283,7 +285,7 @@ public class DefaultAnalyticsApiClient extends AbstractClientBase implements Ana
     }
 
     @Override
-    protected void doHttpRequest(Request request, ClientResponseCallback callback) {
+    protected void doHttpRequest(HttpRequest request, ClientResponseCallback callback) {
 
         // set access token for all requests
         setAccessToken(request);

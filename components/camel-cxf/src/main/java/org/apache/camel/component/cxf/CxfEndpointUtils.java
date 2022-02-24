@@ -18,7 +18,7 @@ package org.apache.camel.component.cxf;
 
 import java.lang.annotation.Annotation;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceProvider;
 

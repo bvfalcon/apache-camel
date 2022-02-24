@@ -50,10 +50,12 @@ import org.apache.camel.component.salesforce.api.dto.bulk.JobStateEnum;
 import org.apache.camel.component.salesforce.api.dto.bulk.ObjectFactory;
 import org.apache.camel.component.salesforce.api.dto.bulk.QueryResultList;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.BytesContentProvider;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.util.StringUtil;
@@ -85,7 +87,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
         // clear system fields if set
         sanitizeJobRequest(request);
 
-        final Request post = getRequest(HttpMethod.POST, jobUrl(null), headers);
+        final HttpRequest post = getRequest(HttpMethod.POST, jobUrl(null), headers);
         try {
             marshalRequest(objectFactory.createJobInfo(request), post, APPLICATION_XML_UTF8);
         } catch (Exception e) {
@@ -134,7 +136,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
 
     @Override
     public void getJob(String jobId, Map<String, List<String>> headers, final JobInfoResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, jobUrl(jobId), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, jobUrl(jobId), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -156,7 +158,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
         final JobInfo request = new JobInfo();
         request.setState(JobStateEnum.CLOSED);
 
-        final Request post = getRequest(HttpMethod.POST, jobUrl(jobId), headers);
+        final HttpRequest post = getRequest(HttpMethod.POST, jobUrl(jobId), headers);
         try {
             marshalRequest(objectFactory.createJobInfo(request), post, APPLICATION_XML_UTF8);
         } catch (SalesforceException e) {
@@ -184,7 +186,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
         final JobInfo request = new JobInfo();
         request.setState(JobStateEnum.ABORTED);
 
-        final Request post = getRequest(HttpMethod.POST, jobUrl(jobId), headers);
+        final HttpRequest post = getRequest(HttpMethod.POST, jobUrl(jobId), headers);
         try {
             marshalRequest(objectFactory.createJobInfo(request), post, APPLICATION_XML_UTF8);
         } catch (SalesforceException e) {
@@ -211,7 +213,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     public void createBatch(
             InputStream batchStream, String jobId, ContentType contentTypeEnum, Map<String, List<String>> headers,
             final BatchInfoResponseCallback callback) {
-        final Request post = getRequest(HttpMethod.POST, batchUrl(jobId, null), headers);
+        final HttpRequest post = getRequest(HttpMethod.POST, batchUrl(jobId, null), headers);
         post.content(new InputStreamContentProvider(batchStream));
         post.header(HttpHeader.CONTENT_TYPE, getContentType(contentTypeEnum) + ";charset=" + StringUtil.__UTF8);
 
@@ -233,7 +235,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     @Override
     public void getBatch(
             String jobId, String batchId, Map<String, List<String>> headers, final BatchInfoResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchUrl(jobId, batchId), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchUrl(jobId, batchId), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -252,7 +254,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
 
     @Override
     public void getAllBatches(String jobId, Map<String, List<String>> headers, final BatchInfoListResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchUrl(jobId, null), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchUrl(jobId, null), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -272,7 +274,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     @Override
     public void getRequest(
             String jobId, String batchId, Map<String, List<String>> headers, final StreamResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchRequestUrl(jobId, batchId, null), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchRequestUrl(jobId, batchId, null), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -286,7 +288,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     @Override
     public void getResults(
             String jobId, String batchId, Map<String, List<String>> headers, final StreamResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, null), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, null), headers);
 
         // make the call and return the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -301,7 +303,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     public void createBatchQuery(
             String jobId, String soqlQuery, ContentType jobContentType, Map<String, List<String>> headers,
             final BatchInfoResponseCallback callback) {
-        final Request post = getRequest(HttpMethod.POST, batchUrl(jobId, null), headers);
+        final HttpRequest post = getRequest(HttpMethod.POST, batchUrl(jobId, null), headers);
         final byte[] queryBytes;
         try {
             queryBytes = soqlQuery.getBytes(StringUtil.__UTF8);
@@ -331,7 +333,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     @Override
     public void getQueryResultIds(
             String jobId, String batchId, Map<String, List<String>> headers, final QueryResultIdsCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, null), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, null), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -352,7 +354,7 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     public void getQueryResult(
             String jobId, String batchId, String resultId, Map<String, List<String>> headers,
             final StreamResponseCallback callback) {
-        final Request get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, resultId), headers);
+        final HttpRequest get = getRequest(HttpMethod.GET, batchResultUrl(jobId, batchId, resultId), headers);
 
         // make the call and parse the result
         doHttpRequest(get, new ClientResponseCallback() {
@@ -364,13 +366,13 @@ public class DefaultBulkApiClient extends AbstractClientBase implements BulkApiC
     }
 
     @Override
-    protected void setAccessToken(Request request) {
+    protected void setAccessToken(HttpRequest request) {
         // replace old token
-        request.getHeaders().put(TOKEN_HEADER, accessToken);
+        request.addHeader(new HttpField(TOKEN_HEADER, accessToken));
     }
 
     @Override
-    protected void doHttpRequest(Request request, ClientResponseCallback callback) {
+    protected void doHttpRequest(HttpRequest request, ClientResponseCallback callback) {
         // set access token for all requests
         setAccessToken(request);
 

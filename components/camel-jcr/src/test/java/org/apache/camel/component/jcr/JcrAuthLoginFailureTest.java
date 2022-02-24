@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.jcr;
 
-import javax.jcr.LoginException;
+import jakarta.jcr.LoginException;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;

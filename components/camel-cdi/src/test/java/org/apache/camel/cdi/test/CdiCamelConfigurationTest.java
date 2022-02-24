@@ -16,9 +16,8 @@
  */
 package org.apache.camel.cdi.test;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.cdi.CdiCamelConfiguration;
 import org.apache.camel.cdi.CdiCamelExtension;

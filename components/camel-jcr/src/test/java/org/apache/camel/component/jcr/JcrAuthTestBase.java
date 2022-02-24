@@ -18,11 +18,11 @@ package org.apache.camel.component.jcr;
 
 import java.io.File;
 
-import javax.jcr.Repository;
-import javax.jcr.SimpleCredentials;
-import javax.jcr.security.AccessControlList;
-import javax.jcr.security.AccessControlManager;
-import javax.jcr.security.AccessControlPolicyIterator;
+import jakarta.jcr.Repository;
+import jakarta.jcr.SimpleCredentials;
+import jakarta.jcr.security.AccessControlList;
+import jakarta.jcr.security.AccessControlManager;
+import jakarta.jcr.security.AccessControlPolicyIterator;
 
 import org.apache.camel.spi.Registry;
 import org.apache.camel.test.junit5.CamelTestSupport;

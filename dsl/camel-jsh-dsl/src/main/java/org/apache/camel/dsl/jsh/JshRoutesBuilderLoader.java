@@ -18,7 +18,7 @@ package org.apache.camel.dsl.jsh;
 
 import java.io.Reader;
 
-import javax.script.ScriptException;
+import jakarta.script.ScriptException;
 
 import jdk.jshell.JShell;
 import jdk.jshell.execution.DirectExecutionControl;

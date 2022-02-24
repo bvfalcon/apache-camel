@@ -16,12 +16,12 @@
  */
 package org.apache.camel.component.jcache;
 
-import javax.cache.event.CacheEntryCreatedListener;
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryExpiredListener;
-import javax.cache.event.CacheEntryListenerException;
-import javax.cache.event.CacheEntryRemovedListener;
-import javax.cache.event.CacheEntryUpdatedListener;
+import jakarta.cache.event.CacheEntryCreatedListener;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryExpiredListener;
+import jakarta.cache.event.CacheEntryListenerException;
+import jakarta.cache.event.CacheEntryRemovedListener;
+import jakarta.cache.event.CacheEntryUpdatedListener;
 
 class JCacheEntryEventListener
         implements CacheEntryCreatedListener<Object, Object>,

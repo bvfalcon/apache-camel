@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import javax.activation.DataHandler;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.vertx.core.Vertx;
@@ -34,6 +32,7 @@ import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authentication.AuthenticationProvider;
 import io.vertx.ext.auth.properties.PropertyFileAuthentication;
 import io.vertx.ext.web.handler.BasicAuthHandler;
+import jakarta.activation.DataHandler;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.attachment.AttachmentMessage;

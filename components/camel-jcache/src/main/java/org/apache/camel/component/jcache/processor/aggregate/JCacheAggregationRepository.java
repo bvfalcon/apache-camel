@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.cache.Cache;
+import jakarta.cache.Cache;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;

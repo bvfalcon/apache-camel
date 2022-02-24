@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
-import javax.security.auth.x500.X500Principal;
+import jakarta.security.auth.x500.X500Principal;
 import javax.xml.crypto.dom.DOMStructure;
 import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.Reference;

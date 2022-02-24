@@ -21,7 +21,6 @@ import java.time.Instant;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
-import javax.annotation.Generated;
 import javax.lang.model.element.Modifier;
 
 import com.squareup.javapoet.AnnotationSpec;
@@ -31,6 +30,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import io.swagger.models.Info;
 import io.swagger.models.Swagger;
+import jakarta.annotation.Generated;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.util.ObjectHelper;
 

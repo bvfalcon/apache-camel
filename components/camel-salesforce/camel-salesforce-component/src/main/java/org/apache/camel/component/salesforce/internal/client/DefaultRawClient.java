@@ -28,9 +28,10 @@ import org.apache.camel.component.salesforce.api.SalesforceException;
 import org.apache.camel.component.salesforce.internal.PayloadFormat;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
 import org.apache.commons.io.IOUtils;
-import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.util.StringUtil;
 
@@ -47,10 +48,10 @@ public class DefaultRawClient extends AbstractClientBase implements RawClient {
     }
 
     @Override
-    protected void setAccessToken(Request request) {
+    protected void setAccessToken(HttpRequest request) {
         // replace old token
-        request.getHeaders().put(BULK_TOKEN_HEADER, accessToken);
-        request.getHeaders().put(REST_TOKEN_HEADER, TOKEN_PREFIX + accessToken);
+        request.addHeader(new HttpField(BULK_TOKEN_HEADER, accessToken));
+        request.addHeader(new HttpField(REST_TOKEN_HEADER, TOKEN_PREFIX + accessToken));
     }
 
     @Override
@@ -78,7 +79,7 @@ public class DefaultRawClient extends AbstractClientBase implements RawClient {
     public void makeRequest(
             String method, String path, PayloadFormat format, InputStream body, Map<String, List<String>> headers,
             ResponseCallback callback) {
-        final Request request = getRequest(method, instanceUrl + path, headers);
+        final HttpRequest request = getRequest(method, instanceUrl + path, headers);
         final String contentType = PayloadFormat.JSON.equals(format) ? APPLICATION_JSON_UTF8 : APPLICATION_XML_UTF8;
         if (!request.getHeaders().contains(HttpHeader.ACCEPT)) {
             request.header(HttpHeader.ACCEPT, contentType);

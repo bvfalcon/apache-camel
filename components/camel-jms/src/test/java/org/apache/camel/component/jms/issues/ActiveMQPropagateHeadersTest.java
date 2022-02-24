@@ -19,8 +19,7 @@ package org.apache.camel.component.jms.issues;
 import java.util.Date;
 import java.util.List;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;

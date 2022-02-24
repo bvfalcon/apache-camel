@@ -16,13 +16,13 @@
  */
 package org.apache.camel.component.jcache;
 
-import javax.cache.Cache;
-import javax.cache.configuration.CacheEntryListenerConfiguration;
-import javax.cache.configuration.Factory;
-import javax.cache.configuration.MutableCacheEntryListenerConfiguration;
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryEventFilter;
-import javax.cache.event.CacheEntryListener;
+import jakarta.cache.Cache;
+import jakarta.cache.configuration.CacheEntryListenerConfiguration;
+import jakarta.cache.configuration.Factory;
+import jakarta.cache.configuration.MutableCacheEntryListenerConfiguration;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryEventFilter;
+import jakarta.cache.event.CacheEntryListener;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;

@@ -18,13 +18,13 @@ package org.apache.camel.component.jcache.policy;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.configuration.CompleteConfiguration;
-import javax.cache.configuration.MutableConfiguration;
-import javax.cache.expiry.CreatedExpiryPolicy;
-import javax.cache.expiry.Duration;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.Caching;
+import jakarta.cache.configuration.CompleteConfiguration;
+import jakarta.cache.configuration.MutableConfiguration;
+import jakarta.cache.expiry.CreatedExpiryPolicy;
+import jakarta.cache.expiry.Duration;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.junit.jupiter.api.Test;

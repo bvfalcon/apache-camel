@@ -21,10 +21,10 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-import javax.jms.Connection;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import jakarta.jms.Connection;
+import jakarta.jms.MessageProducer;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
 import javax.sql.DataSource;
 
 import org.apache.activemq.ActiveMQConnectionFactory;

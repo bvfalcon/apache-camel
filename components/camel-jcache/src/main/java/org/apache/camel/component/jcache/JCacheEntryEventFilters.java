@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryEventFilter;
-import javax.cache.event.CacheEntryListenerException;
-import javax.cache.event.EventType;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryEventFilter;
+import jakarta.cache.event.CacheEntryListenerException;
+import jakarta.cache.event.EventType;
 
 class JCacheEntryEventFilters {
     public static class Named implements CacheEntryEventFilter<Object, Object> {

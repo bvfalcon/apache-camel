@@ -18,8 +18,8 @@ package org.apache.camel.component.cxf;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import javax.xml.ws.Endpoint;
 
 import org.apache.camel.builder.RouteBuilder;

@@ -18,8 +18,7 @@ package org.apache.camel.component.jetty.rest;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.component.jetty.JettyRestHttpBinding;

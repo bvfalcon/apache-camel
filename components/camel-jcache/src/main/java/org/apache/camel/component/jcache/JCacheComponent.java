@@ -19,9 +19,9 @@ package org.apache.camel.component.jcache;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.configuration.Configuration;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.configuration.Configuration;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;

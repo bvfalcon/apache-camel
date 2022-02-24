@@ -19,8 +19,8 @@ package org.apache.camel.component.jcr;
 import java.io.InputStream;
 import java.util.Calendar;
 
-import javax.jcr.RepositoryException;
-import javax.jcr.Value;
+import jakarta.jcr.RepositoryException;
+import jakarta.jcr.Value;
 
 import org.apache.camel.Converter;
 import org.apache.jackrabbit.value.BinaryValue;

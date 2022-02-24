@@ -19,7 +19,7 @@ package org.apache.camel.component.cxf.mtom;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.Holder;
 import javax.xml.ws.soap.SOAPBinding;

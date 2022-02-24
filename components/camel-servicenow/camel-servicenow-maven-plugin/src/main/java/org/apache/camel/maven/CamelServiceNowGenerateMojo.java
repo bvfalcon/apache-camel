@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 import javax.lang.model.element.Modifier;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

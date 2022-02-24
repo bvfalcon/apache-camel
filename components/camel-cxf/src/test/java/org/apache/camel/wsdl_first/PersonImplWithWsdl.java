@@ -16,7 +16,7 @@
  */
 package org.apache.camel.wsdl_first;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.ws.Holder;
 
 @WebService(serviceName = "PersonService",

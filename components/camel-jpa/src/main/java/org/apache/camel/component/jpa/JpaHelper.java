@@ -19,8 +19,8 @@ package org.apache.camel.component.jpa;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExtendedExchange;

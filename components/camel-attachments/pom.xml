@@ -50,9 +50,9 @@
 
         <!-- attachments api -->
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>javax.activation</artifactId>
-            <version>${javax-activation-version}</version>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>${jakarta-activation-version}</version>
         </dependency>
 
         <!-- testing -->

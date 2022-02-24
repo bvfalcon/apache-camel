@@ -18,9 +18,9 @@ package org.apache.camel.component.jcache.policy;
 
 import java.net.URI;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.Caching;
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;

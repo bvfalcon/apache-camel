@@ -45,8 +45,8 @@
             <version>${fop-version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
 
                 <!-- exclude the dependency of xalan to fix CAMEL-7737 -->

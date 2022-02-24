@@ -47,9 +47,9 @@ import org.apache.camel.component.salesforce.internal.SalesforceSession;
 import org.apache.camel.support.service.ServiceSupport;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.HttpContentResponse;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.ContentResponse;
-import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.api.Result;
 import org.eclipse.jetty.client.util.BufferingResponseListener;
@@ -57,6 +57,7 @@ import org.eclipse.jetty.client.util.ByteBufferContentProvider;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
 import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpFields;
+import org.eclipse.jetty.http.HttpFields.Mutable;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
@@ -151,15 +152,16 @@ public abstract class AbstractClientBase extends ServiceSupport
         // SalesforceSecurityListener will auto login!
     }
 
-    protected Request getRequest(HttpMethod method, String url, Map<String, List<String>> headers) {
+    protected HttpRequest getRequest(HttpMethod method, String url, Map<String, List<String>> headers) {
         return getRequest(method.asString(), url, headers);
     }
 
-    protected Request getRequest(String method, String url, Map<String, List<String>> headers) {
-        SalesforceHttpRequest request = (SalesforceHttpRequest) httpClient.newRequest(url).method(method)
+    protected HttpRequest getRequest(String method, String url, Map<String, List<String>> headers) {
+        Mutable httpHeaders = getHeaders(headers);
+        final SalesforceHttpRequest request = (SalesforceHttpRequest) httpClient.newRequest(url).method(method)
                 .timeout(session.getTimeout(), TimeUnit.MILLISECONDS);
         request.getConversation().setAttribute(SalesforceSecurityHandler.CLIENT_ATTRIBUTE, this);
-        addHeadersTo(request, headers);
+        httpHeaders.listIterator().forEachRemaining(o -> request.addHeader(o));
 
         return request;
     }
@@ -168,7 +170,7 @@ public abstract class AbstractClientBase extends ServiceSupport
         void onResponse(InputStream response, Map<String, String> headers, SalesforceException ex);
     }
 
-    protected void doHttpRequest(final Request request, final ClientResponseCallback callback) {
+    protected void doHttpRequest(final HttpRequest request, final ClientResponseCallback callback) {
         // Highly memory inefficient,
         // but buffer the request content to allow it to be replayed for
         // authentication retries
@@ -290,7 +292,7 @@ public abstract class AbstractClientBase extends ServiceSupport
         return restErrors;
     }
 
-    protected abstract void setAccessToken(Request request);
+    protected abstract void setAccessToken(HttpRequest request);
 
     protected abstract SalesforceException createRestException(Response response, InputStream responseContent);
 
@@ -311,15 +313,16 @@ public abstract class AbstractClientBase extends ServiceSupport
         return answer;
     }
 
-    private static void addHeadersTo(final Request request, final Map<String, List<String>> headers) {
+    private static Mutable getHeaders(final Map<String, List<String>> headers) {
+        Mutable requestHeaders = HttpFields.build();
         if (headers == null || headers.isEmpty()) {
-            return;
+            return requestHeaders;
         }
 
-        final HttpFields requestHeaders = request.getHeaders();
         for (Entry<String, List<String>> header : headers.entrySet()) {
             requestHeaders.put(header.getKey(), header.getValue());
         }
+        return requestHeaders;
     }
 
     static Map<String, List<String>> determineHeaders(final Exchange exchange) {

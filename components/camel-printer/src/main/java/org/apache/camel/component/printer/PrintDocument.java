@@ -22,9 +22,9 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.attribute.DocAttributeSet;
+import jakarta.print.Doc;
+import jakarta.print.DocFlavor;
+import jakarta.print.attribute.DocAttributeSet;
 
 class PrintDocument implements Doc {
     private DocFlavor docFlavor;

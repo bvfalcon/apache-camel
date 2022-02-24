@@ -31,12 +31,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.management.MBeanServer;
-import javax.servlet.Filter;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
@@ -74,7 +74,6 @@ import org.eclipse.jetty.server.AbstractConnector;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.MultiPartFormDataCompliance;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -436,7 +435,7 @@ public abstract class JettyHttpComponent extends HttpCommonComponent
                         "The temp file directory of camel-jetty is not exists, please recheck it with directory name :"
                                                 + camelContext.getGlobalOptions().get(TMP_DIR));
             }
-            context.setAttribute("javax.servlet.context.tempdir", file);
+            context.setAttribute("jakarta.servlet.context.tempdir", file);
         }
         // if a filter ref was provided, use it.
         Filter filter = ((JettyHttpEndpoint) endpoint).getMultipartFilter();
@@ -606,7 +605,7 @@ public abstract class JettyHttpComponent extends HttpCommonComponent
                 throw new RuntimeCamelException(e);
             }
         } else if ("https".equals(endpoint.getProtocol())) {
-            sslcf = new SslContextFactory();
+            sslcf = new SslContextFactory.Server();
             sslcf.setEndpointIdentificationAlgorithm(null);
             String keystoreProperty = System.getProperty(JETTY_SSL_KEYSTORE);
             if (keystoreProperty != null) {
@@ -1177,10 +1176,8 @@ public abstract class JettyHttpComponent extends HttpCommonComponent
         // use rest enabled resolver in case we use rest
         camelServlet.setServletResolveConsumerStrategy(new HttpRestServletResolveConsumerStrategy());
 
-        //must make RFC7578 as default to avoid using the deprecated MultiPartInputStreamParser
         try {
-            connector.getConnectionFactory(HttpConnectionFactory.class).getHttpConfiguration()
-                    .setMultiPartFormDataCompliance(MultiPartFormDataCompliance.RFC7578);
+            connector.getConnectionFactory(HttpConnectionFactory.class).getHttpConfiguration();
         } catch (Exception e) {
             // ignore this due to OSGi problems
             LOG.debug("Cannot set MultiPartFormDataCompliance to RFC7578 due to {}. This exception is ignored.",

@@ -23,7 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.security.auth.login.Configuration;
+import jakarta.security.auth.login.Configuration;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;

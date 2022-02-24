@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.cache.Cache;
+import jakarta.cache.Cache;
 
 import org.apache.camel.component.jcache.support.HazelcastTest;
 import org.apache.camel.test.junit5.CamelTestSupport;

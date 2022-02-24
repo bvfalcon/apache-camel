@@ -16,8 +16,8 @@
  */
 package org.apache.camel.component.ahc;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Exchange;

@@ -16,12 +16,11 @@
  */
 package org.apache.camel.cdi;
 
-import javax.enterprise.inject.CreationException;
-import javax.enterprise.inject.InjectionException;
-import javax.enterprise.inject.Vetoed;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-
+import jakarta.enterprise.inject.CreationException;
+import jakarta.enterprise.inject.InjectionException;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.CamelContext;
 import org.apache.camel.core.xml.AbstractCamelFactoryBean;
 

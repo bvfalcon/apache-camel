@@ -22,14 +22,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.configuration.Configuration;
-import javax.cache.configuration.MutableConfiguration;
-import javax.cache.event.CacheEntryEventFilter;
-import javax.cache.event.EventType;
-import javax.cache.spi.CachingProvider;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.Caching;
+import jakarta.cache.configuration.Configuration;
+import jakarta.cache.configuration.MutableConfiguration;
+import jakarta.cache.event.CacheEntryEventFilter;
+import jakarta.cache.event.EventType;
+import jakarta.cache.spi.CachingProvider;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.util.ObjectHelper;

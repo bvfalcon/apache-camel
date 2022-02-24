@@ -19,8 +19,8 @@ package org.apache.camel.component.ignite;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.cache.expiry.CreatedExpiryPolicy;
-import javax.cache.expiry.Duration;
+import jakarta.cache.expiry.CreatedExpiryPolicy;
+import jakarta.cache.expiry.Duration;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;

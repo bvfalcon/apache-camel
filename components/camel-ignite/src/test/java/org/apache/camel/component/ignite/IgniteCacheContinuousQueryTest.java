@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryListenerException;
-import javax.cache.event.EventType;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryListenerException;
+import jakarta.cache.event.EventType;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;

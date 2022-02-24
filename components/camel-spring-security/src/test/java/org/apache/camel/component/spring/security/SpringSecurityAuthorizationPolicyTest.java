@@ -19,7 +19,7 @@ package org.apache.camel.component.spring.security;
 import java.util.Collections;
 import java.util.List;
 
-import javax.security.auth.Subject;
+import jakarta.security.auth.Subject;
 
 import org.apache.camel.CamelAuthorizationException;
 import org.apache.camel.Exchange;

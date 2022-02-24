@@ -20,14 +20,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.configuration.Configuration;
-import javax.cache.configuration.Factory;
-import javax.cache.event.CacheEntryEventFilter;
-import javax.cache.expiry.ExpiryPolicy;
-import javax.cache.integration.CacheLoader;
-import javax.cache.integration.CacheWriter;
+import jakarta.cache.Cache;
+import jakarta.cache.CacheManager;
+import jakarta.cache.configuration.Configuration;
+import jakarta.cache.configuration.Factory;
+import jakarta.cache.event.CacheEntryEventFilter;
+import jakarta.cache.expiry.ExpiryPolicy;
+import jakarta.cache.integration.CacheLoader;
+import jakarta.cache.integration.CacheWriter;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spi.UriParam;

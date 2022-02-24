@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.mail;
 
-import javax.mail.PasswordAuthentication;
+import jakarta.mail.PasswordAuthentication;
 
 /**
  * Mail authenticator that supplies username and password

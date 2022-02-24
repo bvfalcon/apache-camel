@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.jms.Message;
-
+import jakarta.jms.Message;
 import org.apache.camel.Exchange;
 import org.springframework.jms.core.BrowserCallback;
 import org.springframework.jms.core.JmsOperations;

@@ -44,7 +44,7 @@ public class BulkApiIntegrationTest extends AbstractBulkApiTestBase {
 
         final SslContextFactory sslContextFactory = new SslContextFactory.Client();
         sslContextFactory.setSslContext(new SSLContextParameters().createSSLContext(context));
-        final HttpClient httpClient = new HttpClient(sslContextFactory);
+        final HttpClient httpClient = new HttpClient();
         httpClient.setConnectTimeout(60000);
         httpClient.start();
 

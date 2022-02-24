@@ -18,8 +18,7 @@ package org.apache.camel.component.jms;
 
 import java.util.Map;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;

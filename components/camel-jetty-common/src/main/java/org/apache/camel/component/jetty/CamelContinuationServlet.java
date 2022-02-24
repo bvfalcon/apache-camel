@@ -23,9 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
@@ -41,8 +41,8 @@ import org.apache.camel.http.common.HttpMessage;
 import org.apache.camel.spi.UnitOfWork;
 import org.apache.camel.support.ObjectHelper;
 import org.apache.camel.util.UnsafeUriCharactersEncoder;
-import org.eclipse.jetty.continuation.Continuation;
-import org.eclipse.jetty.continuation.ContinuationSupport;
+//import org.eclipse.jetty.continuation.Continuation;
+//import org.eclipse.jetty.continuation.ContinuationSupport;
 
 /**
  * Servlet which leverage <a href="http://wiki.eclipse.org/Jetty/Feature/Continuations">Jetty Continuations</a>.
@@ -160,7 +160,7 @@ public class CamelContinuationServlet extends CamelServlet {
         }
 
         final Exchange result = (Exchange) request.getAttribute(EXCHANGE_ATTRIBUTE_NAME);
-        if (result == null) {
+        if (result == null) {/*
             // no asynchronous result so leverage continuation
             final Continuation continuation = ContinuationSupport.getContinuation(request);
             if (continuation.isInitial() && continuationTimeout != null) {
@@ -267,7 +267,7 @@ public class CamelContinuationServlet extends CamelServlet {
             // return to let Jetty continuation to work as it will resubmit and invoke the service
             // method again when its resumed
             return;
-        }
+        */}
 
         try {
             // now lets output to the response
@@ -293,13 +293,13 @@ public class CamelContinuationServlet extends CamelServlet {
     }
 
     private void updateHttpPath(Exchange exchange, String contextPath) {
-        String httpPath = (String) exchange.getIn().getHeader(JettyHttpConstants.HTTP_PATH);
+        String httpPath = (String) exchange.getIn().getHeader(Exchange.HTTP_PATH);
         // encode context path in case it contains unsafe chars, because HTTP_PATH isn't decoded at this moment
         String encodedContextPath = UnsafeUriCharactersEncoder.encodeHttpURI(contextPath);
 
         // here we just remove the CamelServletContextPath part from the HTTP_PATH
         if (contextPath != null && httpPath.startsWith(encodedContextPath)) {
-            exchange.getIn().setHeader(JettyHttpConstants.HTTP_PATH, httpPath.substring(encodedContextPath.length()));
+            exchange.getIn().setHeader(Exchange.HTTP_PATH, httpPath.substring(encodedContextPath.length()));
         }
     }
 

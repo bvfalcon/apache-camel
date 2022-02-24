@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.Exchange;

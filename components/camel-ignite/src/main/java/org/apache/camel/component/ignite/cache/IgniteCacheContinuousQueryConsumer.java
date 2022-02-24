@@ -16,10 +16,10 @@
  */
 package org.apache.camel.component.ignite.cache;
 
-import javax.cache.Cache.Entry;
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryListenerException;
-import javax.cache.event.CacheEntryUpdatedListener;
+import jakarta.cache.Cache.Entry;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryListenerException;
+import jakarta.cache.event.CacheEntryUpdatedListener;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;

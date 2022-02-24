@@ -32,8 +32,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.activation.DataHandler;
-import javax.security.auth.Subject;
+import jakarta.activation.DataHandler;
+import jakarta.security.auth.Subject;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;

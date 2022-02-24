@@ -18,8 +18,8 @@ package org.apache.camel.component.cxf;
 
 import java.util.Map;
 
-import javax.wsdl.Definition;
-import javax.wsdl.Service;
+import jakarta.wsdl.Definition;
+import jakarta.wsdl.Service;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Provider;
 

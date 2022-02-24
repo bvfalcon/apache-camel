@@ -40,7 +40,7 @@
         <camel.osgi.import>
             !org.apache.camel.component.cxf.*,
             !META-INF.cxf.camel,
-            javax.servlet.*;version="${servlet-version-range}",
+            jakarta.servlet.*;version="${servlet-version-range}",
             org.apache.camel.*;${camel.osgi.import.camel.version},
             org.apache.camel.component.cxf.transport.blueprint;${camel.osgi.import.camel.version};resolution:=optional,
             org.springframework*;version="${spring-version-range}";resolution:=optional,
@@ -77,8 +77,8 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <!-- for testing -->

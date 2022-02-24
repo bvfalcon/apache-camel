@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.printer;
 
-import javax.print.DocFlavor;
+import jakarta.print.DocFlavor;
 
 public class DocFlavorAssigner {
     private DocFlavor d = DocFlavor.BYTE_ARRAY.AUTOSENSE;

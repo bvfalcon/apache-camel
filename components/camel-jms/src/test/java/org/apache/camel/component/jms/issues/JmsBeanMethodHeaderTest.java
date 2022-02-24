@@ -16,8 +16,7 @@
  */
 package org.apache.camel.component.jms.issues;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Body;
 import org.apache.camel.CamelContext;

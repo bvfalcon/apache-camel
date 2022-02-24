@@ -32,11 +32,12 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.support.DefaultMessage;
 import org.eclipse.jetty.client.HttpConversation;
-import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.api.Response.CompleteListener;
 import org.eclipse.jetty.client.api.Result;
-import org.eclipse.jetty.http.HttpFields;
+import org.eclipse.jetty.http.HttpFields.Mutable;
+import org.eclipse.jetty.http.HttpTester;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -65,7 +66,7 @@ public class AbstractClientBaseTest {
         }
 
         @Override
-        protected void setAccessToken(final Request request) {
+        protected void setAccessToken(final HttpRequest request) {
         }
 
     }
@@ -113,7 +114,7 @@ public class AbstractClientBaseTest {
     @Test
     public void shouldDetermineHeadersFromResponse() {
         final Response response = mock(Response.class);
-        final HttpFields httpHeaders = new HttpFields();
+        final Mutable httpHeaders = new HttpTester.Response();
         httpHeaders.add("Date", "Mon, 20 May 2013 22:21:46 GMT");
         httpHeaders.add("Sforce-Limit-Info", "api-usage=18/5000");
         httpHeaders.add("Last-Modified", "Mon, 20 May 2013 20:49:32 GMT");
@@ -128,7 +129,7 @@ public class AbstractClientBaseTest {
 
     @Test
     public void shouldNotHangIfRequestsHaveFinished() throws Exception {
-        final Request request = mock(Request.class);
+        final HttpRequest request = mock(HttpRequest.class);
         final ArgumentCaptor<CompleteListener> listener = ArgumentCaptor.forClass(CompleteListener.class);
 
         doNothing().when(request).send(listener.capture());
@@ -139,7 +140,7 @@ public class AbstractClientBaseTest {
         final Result result = mock(Result.class);
         final Response response = mock(Response.class);
         when(result.getResponse()).thenReturn(response);
-        when(response.getHeaders()).thenReturn(new HttpFields());
+        when(response.getHeaders()).thenReturn(new HttpTester.Response());
 
         final SalesforceHttpRequest salesforceRequest = mock(SalesforceHttpRequest.class);
         when(result.getRequest()).thenReturn(salesforceRequest);
@@ -166,7 +167,7 @@ public class AbstractClientBaseTest {
 
     @Test
     public void shouldTimeoutWhenRequestsAreStillOngoing() throws Exception {
-        client.doHttpRequest(mock(Request.class), (response, headers, exception) -> {
+        client.doHttpRequest(mock(HttpRequest.class), (response, headers, exception) -> {
         });
 
         // the request never completes

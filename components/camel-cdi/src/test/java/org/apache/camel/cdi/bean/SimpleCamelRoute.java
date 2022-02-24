@@ -16,8 +16,7 @@
  */
 package org.apache.camel.cdi.bean;
 
-import javax.inject.Inject;
-
+import jakarta.inject.Inject;
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.Uri;

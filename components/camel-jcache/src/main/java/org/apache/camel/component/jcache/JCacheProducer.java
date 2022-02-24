@@ -21,8 +21,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import javax.cache.Cache;
-import javax.cache.processor.EntryProcessor;
+import jakarta.cache.Cache;
+import jakarta.cache.processor.EntryProcessor;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;

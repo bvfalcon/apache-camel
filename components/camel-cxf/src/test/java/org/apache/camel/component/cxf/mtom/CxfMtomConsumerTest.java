@@ -20,7 +20,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;

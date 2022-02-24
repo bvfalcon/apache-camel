@@ -16,8 +16,8 @@
  */
 package org.apache.camel.component.jcr;
 
-import javax.jcr.Node;
-import javax.jcr.Session;
+import jakarta.jcr.Node;
+import jakarta.jcr.Session;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.ExchangeBuilder;

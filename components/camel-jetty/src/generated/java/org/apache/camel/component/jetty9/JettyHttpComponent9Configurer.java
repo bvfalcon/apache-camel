@@ -4,6 +4,7 @@ package org.apache.camel.component.jetty9;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.jetty11.JettyHttpComponent11;
 import org.apache.camel.spi.ExtendedPropertyConfigurerGetter;
 import org.apache.camel.spi.PropertyConfigurerGetter;
 import org.apache.camel.spi.ConfigurerStrategy;
@@ -19,7 +20,7 @@ public class JettyHttpComponent9Configurer extends PropertyConfigurerSupport imp
 
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
-        JettyHttpComponent9 target = (JettyHttpComponent9) obj;
+        JettyHttpComponent11 target = (JettyHttpComponent11) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "allowjavaserializedobject":
         case "allowJavaSerializedObject": target.setAllowJavaSerializedObject(property(camelContext, boolean.class, value)); return true;
@@ -164,7 +165,7 @@ public class JettyHttpComponent9Configurer extends PropertyConfigurerSupport imp
 
     @Override
     public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
-        JettyHttpComponent9 target = (JettyHttpComponent9) obj;
+        JettyHttpComponent11 target = (JettyHttpComponent11) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "allowjavaserializedobject":
         case "allowJavaSerializedObject": return target.isAllowJavaSerializedObject();

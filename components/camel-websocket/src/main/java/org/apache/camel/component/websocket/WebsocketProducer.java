@@ -27,6 +27,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.support.DefaultProducer;
 import org.apache.camel.util.StopWatch;
+import org.eclipse.jetty.websocket.api.WriteCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -165,6 +166,7 @@ public class WebsocketProducer extends DefaultProducer implements WebsocketProdu
         if (websocket != null && websocket.getSession().isOpen()) {
             LOG.trace("Sending to websocket {} -> {}", websocket.getConnectionKey(), message);
             if (message instanceof String) {
+            	WriteCallback callback = new WriteCallback.Adaptor();
                 future = websocket.getSession().getRemote().sendStringByFuture((String) message);
             } else if (message instanceof byte[]) {
                 ByteBuffer buf = ByteBuffer.wrap((byte[]) message);

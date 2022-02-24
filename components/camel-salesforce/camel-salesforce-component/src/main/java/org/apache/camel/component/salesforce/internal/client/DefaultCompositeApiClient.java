@@ -45,10 +45,11 @@ import org.apache.camel.component.salesforce.api.utils.Version;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.ContentProvider;
-import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
@@ -82,7 +83,7 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
         if (compositeMethod == null) {
             compositeMethod = HttpMethod.POST.asString();
         }
-        Request request = createRequest(compositeMethod, url, headers);
+        HttpRequest request = createRequest(compositeMethod, url, headers);
 
         final ContentProvider content = new InputStreamContentProvider(raw);
         request.content(content);
@@ -101,7 +102,7 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
             final ResponseCallback<SObjectCompositeResponse> callback)
             throws SalesforceException {
         final String url = versionUrl() + "composite";
-        final Request post = createRequest(HttpMethod.POST, url, headers);
+        final HttpRequest post = createRequest(HttpMethod.POST, url, headers);
         final ContentProvider content = serialize(composite, composite.objectTypes());
         post.content(content);
 
@@ -120,7 +121,7 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
 
         final String url = versionUrl() + "composite/batch";
 
-        final Request post = createRequest(HttpMethod.POST, url, headers);
+        final HttpRequest post = createRequest(HttpMethod.POST, url, headers);
 
         final ContentProvider content = serialize(batch, batch.objectTypes());
         post.content(content);
@@ -138,7 +139,7 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
             throws SalesforceException {
         final String url = versionUrl() + "composite/tree/" + tree.getObjectType();
 
-        final Request post = createRequest(HttpMethod.POST, url, headers);
+        final HttpRequest post = createRequest(HttpMethod.POST, url, headers);
 
         final ContentProvider content = serialize(tree, tree.objectTypes());
         post.content(content);
@@ -149,17 +150,17 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
                         responseHeaders, exception));
     }
 
-    Request createRequest(final String method, final String url, final Map<String, List<String>> headers) {
-        final Request request = getRequest(method, url, headers);
+    HttpRequest createRequest(final String method, final String url, final Map<String, List<String>> headers) {
+        final HttpRequest request = getRequest(method, url, headers);
         return populateRequest(request);
     }
 
-    Request createRequest(final HttpMethod method, final String url, final Map<String, List<String>> headers) {
-        final Request request = getRequest(method, url, headers);
+    HttpRequest createRequest(final HttpMethod method, final String url, final Map<String, List<String>> headers) {
+        final HttpRequest request = getRequest(method, url, headers);
         return populateRequest(request);
     }
 
-    private Request populateRequest(Request request) {
+    private HttpRequest populateRequest(HttpRequest request) {
         // setup authorization
         setAccessToken(request);
 
@@ -251,8 +252,8 @@ public class DefaultCompositeApiClient extends AbstractClientBase implements Com
     }
 
     @Override
-    protected void setAccessToken(final Request request) {
-        request.getHeaders().put("Authorization", "Bearer " + accessToken);
+    protected void setAccessToken(final HttpRequest request) {
+        request.addHeader(new HttpField("Authorization", "Bearer " + accessToken));
     }
 
     static void checkCompositeBatchVersion(final String configuredVersion, final Version batchVersion)

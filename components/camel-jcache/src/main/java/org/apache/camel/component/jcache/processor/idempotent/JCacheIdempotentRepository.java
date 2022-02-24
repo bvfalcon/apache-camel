@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.jcache.processor.idempotent;
 
-import javax.cache.Cache;
+import jakarta.cache.Cache;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;

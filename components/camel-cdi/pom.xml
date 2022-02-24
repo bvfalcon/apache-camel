@@ -181,9 +181,9 @@
 
         <!-- provided dependencies -->
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>${cdi-api-2.0-version}</version>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${cdi-api-version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -192,7 +192,7 @@
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core-impl</artifactId>
-            <version>${weld3-version}</version>
+            <version>${weld4-version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -306,9 +306,9 @@
                 <!-- provided dependencies -->
 
                 <dependency>
-                    <groupId>javax.enterprise</groupId>
-                    <artifactId>cdi-api</artifactId>
-                    <version>${cdi-api-2.0-version}</version>
+                    <groupId>jakarta.enterprise</groupId>
+                    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                    <version>${cdi-api-version}</version>
                     <scope>provided</scope>
                 </dependency>
 
@@ -317,7 +317,7 @@
                 <dependency>
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-core-impl</artifactId>
-                    <version>${weld3-version}</version>
+                    <version>${weld4-version}</version>
                     <scope>test</scope>
                 </dependency>
 

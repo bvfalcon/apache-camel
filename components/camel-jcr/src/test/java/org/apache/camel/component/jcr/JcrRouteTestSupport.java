@@ -19,10 +19,10 @@ package org.apache.camel.component.jcr;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.jcr.Repository;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import javax.jcr.SimpleCredentials;
+import jakarta.jcr.Repository;
+import jakarta.jcr.RepositoryException;
+import jakarta.jcr.Session;
+import jakarta.jcr.SimpleCredentials;
 
 import org.apache.camel.spi.Registry;
 import org.apache.camel.test.junit5.CamelTestSupport;

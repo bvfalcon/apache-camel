@@ -20,17 +20,17 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.cache.Cache;
-import javax.cache.configuration.CompleteConfiguration;
-import javax.cache.configuration.Factory;
-import javax.cache.configuration.FactoryBuilder;
-import javax.cache.expiry.AccessedExpiryPolicy;
-import javax.cache.expiry.Duration;
-import javax.cache.expiry.ExpiryPolicy;
-import javax.cache.integration.CacheLoader;
-import javax.cache.integration.CacheLoaderException;
-import javax.cache.integration.CacheWriter;
-import javax.cache.integration.CacheWriterException;
+import jakarta.cache.Cache;
+import jakarta.cache.configuration.CompleteConfiguration;
+import jakarta.cache.configuration.Factory;
+import jakarta.cache.configuration.FactoryBuilder;
+import jakarta.cache.expiry.AccessedExpiryPolicy;
+import jakarta.cache.expiry.Duration;
+import jakarta.cache.expiry.ExpiryPolicy;
+import jakarta.cache.integration.CacheLoader;
+import jakarta.cache.integration.CacheLoaderException;
+import jakarta.cache.integration.CacheWriter;
+import jakarta.cache.integration.CacheWriterException;
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.EndpointInject;

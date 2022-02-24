@@ -292,7 +292,7 @@ as an OSGi service with Blueprint like this:
     -->
     <service ref="camelServlet">
         <interfaces>
-            <value>javax.servlet.Servlet</value>
+            <value>jakarta.servlet.Servlet</value>
             <value>org.apache.camel.http.common.CamelServlet</value>
         </interfaces>
         <service-properties>

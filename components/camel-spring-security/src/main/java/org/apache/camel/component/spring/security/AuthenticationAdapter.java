@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.spring.security;
 
-import javax.security.auth.Subject;
+import jakarta.security.auth.Subject;
 
 import org.springframework.security.core.Authentication;
 

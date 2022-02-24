@@ -16,9 +16,9 @@
  */
 package org.apache.camel.websocket.jsr356;
 
-import javax.websocket.EncodeException;
-import javax.websocket.Encoder;
-import javax.websocket.EndpointConfig;
+import jakarta.websocket.EncodeException;
+import jakarta.websocket.Encoder;
+import jakarta.websocket.EndpointConfig;
 
 public class GreetingEncoder implements Encoder.Text<String> {
 

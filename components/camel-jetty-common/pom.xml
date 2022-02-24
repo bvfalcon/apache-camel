@@ -34,8 +34,8 @@
 
     <properties>
         <camel.osgi.import.before.defaults>
-            org.eclipse.jetty.*;version="[9.4,10)",
-            javax.servlet.*;version="${servlet-version-range}"
+            org.eclipse.jetty.*;version="[11,12)",
+            jakarta.servlet.*;version="${servlet-version-range}"
         </camel.osgi.import.before.defaults>
         <firstVersion>2.15.0</firstVersion>
     </properties>
@@ -51,9 +51,9 @@
             <artifactId>camel-http-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax-servlet-api-version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta-servlet-api-version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -63,8 +63,8 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.eclipse.jetty.orbit</groupId>

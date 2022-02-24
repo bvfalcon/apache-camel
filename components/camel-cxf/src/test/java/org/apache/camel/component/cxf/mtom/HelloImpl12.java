@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.cxf.mtom;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.apache.camel.cxf.mtom_feature.Hello;

@@ -18,8 +18,7 @@ package org.apache.camel.component.jms.discovery;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ShutdownRoute;
 import org.apache.camel.builder.RouteBuilder;

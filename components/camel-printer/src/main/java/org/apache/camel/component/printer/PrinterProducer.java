@@ -19,15 +19,15 @@ package org.apache.camel.component.printer;
 import java.io.InputStream;
 import java.util.Locale;
 
-import javax.print.DocFlavor;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.Media;
-import javax.print.attribute.standard.MediaTray;
+import jakarta.print.DocFlavor;
+import jakarta.print.PrintException;
+import jakarta.print.PrintService;
+import jakarta.print.PrintServiceLookup;
+import jakarta.print.attribute.HashPrintRequestAttributeSet;
+import jakarta.print.attribute.PrintRequestAttributeSet;
+import jakarta.print.attribute.standard.Copies;
+import jakarta.print.attribute.standard.Media;
+import jakarta.print.attribute.standard.MediaTray;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;

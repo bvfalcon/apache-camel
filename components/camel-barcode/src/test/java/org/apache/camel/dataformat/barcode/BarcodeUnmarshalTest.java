@@ -18,7 +18,7 @@ package org.apache.camel.dataformat.barcode;
 
 import java.io.*;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

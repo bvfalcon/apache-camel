@@ -20,7 +20,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.Holder;

@@ -119,7 +119,7 @@
     <camel.surefire.reuseForks>true</camel.surefire.reuseForks>
     <cassandra-driver-version>4.14.0</cassandra-driver-version>
     <cassandra-version>3.11.12</cassandra-version>
-    <cdi-api-2.0-version>2.0</cdi-api-2.0-version>
+    <cdi-api-version>3.0.1</cdi-api-version>
     <cglib-version>3.2.12</cglib-version>
     <checkstyle.failOnViolation>false</checkstyle.failOnViolation>
     <chunk-templates-version>3.6.2</chunk-templates-version>
@@ -210,11 +210,10 @@
     <geronimo-jcdi-1.0-spec-version>1.0</geronimo-jcdi-1.0-spec-version>
     <geronimo-jcdi-1.1-spec-version>1.0</geronimo-jcdi-1.1-spec-version>
     <geronimo-jms-spec-version>1.1.1</geronimo-jms-spec-version>
-    <geronimo-jms2-spec-version>1.0-alpha-2</geronimo-jms2-spec-version>
-    <geronimo-jpa-spec-version>1.0-alpha-1</geronimo-jpa-spec-version>
+    <jms-api-version>3.0.0</jms-api-version>
+    <jpa-api-version>3.0.0</jpa-api-version>
     <geronimo-json-spec-version>1.1</geronimo-json-spec-version>
     <geronimo-jsonb-spec-version>1.0</geronimo-jsonb-spec-version>
-    <geronimo-jta-spec-version>1.1.1</geronimo-jta-spec-version>
     <geronimo-ws-metadata-spec-version>1.1.3</geronimo-ws-metadata-spec-version>
     <glassfish-javax-json>1.0.4</glassfish-javax-json>
     <glassfish-jaxb-runtime-version>2.3.3</glassfish-jaxb-runtime-version>
@@ -282,7 +281,7 @@
     <jakarta-api-version>2.1.5</jakarta-api-version>
     <jakarta-cdi-api-version>2.0.2</jakarta-cdi-api-version>
     <jakarta-jaxb-version>2.3.3</jakarta-jaxb-version>
-    <jakarta-mail-version>1.6.6</jakarta-mail-version>
+    <jakarta-mail-version>2.0.1</jakarta-mail-version>
     <jakarta.el-version>3.0.3</jakarta.el-version>
     <jandex-version>2.4.2.Final</jandex-version>
     <jansi-version>2.4.0</jansi-version>
@@ -296,13 +295,13 @@
     <javaparser-version>3.13.10</javaparser-version>
     <javapoet-version>1.11.1</javapoet-version>
     <javassist-version>3.28.0-GA</javassist-version>
-    <javax-activation-version>1.2.0</javax-activation-version>
-    <javax-activation-version-range>[0,2)</javax-activation-version-range>
-    <javax-annotation-api-version>1.3.2</javax-annotation-api-version>
+    <jakarta-activation-version>2.0.1</jakarta-activation-version>
+    <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
+    <jakarta-annotation-api-version>2.0.0</jakarta-annotation-api-version>
     <javax-el-api-hibernate-validator-version>3.0.1-b04</javax-el-api-hibernate-validator-version>
     <javax-el-hibernate-validator-version>3.0.1-b10</javax-el-hibernate-validator-version>
     <javax-el3-version>3.0.0</javax-el3-version>
-    <javax-servlet-api-version>3.1.0</javax-servlet-api-version>
+    <jakarta-servlet-api-version>5.0.0</jakarta-servlet-api-version>
     <javax-soap-api-version>1.4.0</javax-soap-api-version>
     <jaxb2-maven-plugin-version>2.5.0</jaxb2-maven-plugin-version>
     <jaxws-api-version>2.3.0</jaxws-api-version>
@@ -323,8 +322,8 @@
     <jettison-version>1.4.1</jettison-version>
     <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
     <jetty-runner-groupId>org.eclipse.jetty</jetty-runner-groupId>
-    <jetty-version>${jetty9-version}</jetty-version>
-    <jetty9-version>9.4.45.v20220203</jetty9-version>
+    <jetty-version>${jetty11-version}</jetty-version>
+    <jetty11-version>11.0.8</jetty11-version>
     <jgit-version>5.13.0.202109080827-r</jgit-version>
     <jgroups-raft-leveldbjni-version>1.8</jgroups-raft-leveldbjni-version>
     <jgroups-raft-mapdb-version>1.0.8</jgroups-raft-mapdb-version>
@@ -354,7 +353,7 @@
     <jsonata4java-version>1.5.8</jsonata4java-version>
     <jsoup-version>1.14.3</jsoup-version>
     <jt400-version>10.7</jt400-version>
-    <jta-api-1.2-version>1.2</jta-api-1.2-version>
+    <jta-api-version>2.0.0</jta-api-version>
     <junit-jupiter-version>5.8.2</junit-jupiter-version>
     <junit-toolbox-version>2.4</junit-toolbox-version>
     <junit-version>4.13.2</junit-version>
@@ -482,7 +481,7 @@
     <scala-datasonnet-version>2.13.3</scala-datasonnet-version>
     <scala-version>2.11.11</scala-version>
     <servicemix-specs-version>2.9.0</servicemix-specs-version>
-    <servlet-version-range>[3,4)</servlet-version-range>
+    <servlet-version-range>[5,6)</servlet-version-range>
     <servo-version>0.10.1</servo-version>
     <shiro-version>1.8.0</shiro-version>
     <shrinkwrap-descriptors-version>2.0.0</shrinkwrap-descriptors-version>
@@ -514,7 +513,7 @@
     <spring-version>${spring5-version}</spring-version>
     <spring-version-range>[5,6)</spring-version-range>
     <spring-ws-version>3.1.3</spring-ws-version>
-    <spring5-version>5.3.18</spring5-version>
+    <spring6-version>6.0.0-M2</spring6-version>
     <sql-maven-plugin-version>1.5</sql-maven-plugin-version>
     <squareup-okhttp-version>3.14.7</squareup-okhttp-version>
     <squareup-okio-version>1.17.2</squareup-okio-version>
@@ -542,7 +541,7 @@
     <vysper-version>0.7</vysper-version>
     <web3j-quorum-version>0.8.0</web3j-quorum-version>
     <web3j-version>3.6.0</web3j-version>
-    <weld3-version>3.1.8.Final</weld3-version>
+    <weld4-version>4.0.3.Final</weld4-version>
     <wildfly-elytron>1.11.4.Final</wildfly-elytron>
     <wiremock-version>2.32.0</wiremock-version>
     <woodstox-core-version>6.1.1</woodstox-core-version>

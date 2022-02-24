@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.jcache.policy;
 
-import javax.cache.Cache;
+import jakarta.cache.Cache;
 
 import org.apache.camel.component.jcache.support.HazelcastTest;
 import org.apache.camel.component.mock.MockEndpoint;

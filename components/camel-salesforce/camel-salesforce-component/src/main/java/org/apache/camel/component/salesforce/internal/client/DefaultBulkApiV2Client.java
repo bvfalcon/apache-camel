@@ -37,10 +37,12 @@ import org.apache.camel.component.salesforce.api.dto.bulkv2.QueryJob;
 import org.apache.camel.component.salesforce.api.dto.bulkv2.QueryJobs;
 import org.apache.camel.component.salesforce.api.utils.JsonUtils;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
+import org.eclipse.jetty.client.HttpRequest;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.BytesContentProvider;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
+import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.util.StringUtil;
@@ -64,7 +66,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
 
     @Override
     public void createJob(Job job, Map<String, List<String>> headers, JobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.POST, jobUrl(null), headers);
+        final HttpRequest request = getRequest(HttpMethod.POST, jobUrl(null), headers);
         try {
             marshalRequest(job, request);
         } catch (SalesforceException e) {
@@ -76,14 +78,14 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
 
     @Override
     public void getJob(String jobId, Map<String, List<String>> headers, JobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, jobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, jobUrl(jobId), headers);
         doHttpRequestWithJobResponse(callback, request);
     }
 
     @Override
     public void createBatch(
             InputStream batchStream, String jobId, Map<String, List<String>> headers, ResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.PUT, jobUrl(jobId) + "/batches", headers);
+        final HttpRequest request = getRequest(HttpMethod.PUT, jobUrl(jobId) + "/batches", headers);
         request.content(new InputStreamContentProvider(batchStream));
         request.header(HttpHeader.CONTENT_TYPE, "text/csv");
         doHttpRequest(request, new ClientResponseCallback() {
@@ -98,7 +100,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
     @Override
     public void changeJobState(
             String jobId, JobStateEnum state, Map<String, List<String>> headers, JobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.PATCH, jobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.PATCH, jobUrl(jobId), headers);
         Job job = new Job();
         job.setId(jobId);
         job.setState(state);
@@ -127,7 +129,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
 
     @Override
     public void deleteJob(String jobId, Map<String, List<String>> headers, ResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.DELETE, jobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.DELETE, jobUrl(jobId), headers);
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> headers, SalesforceException ex) {
@@ -139,20 +141,20 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
     @Override
     public void getSuccessfulResults(
             String jobId, Map<String, List<String>> headers, StreamResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/successfulResults", headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/successfulResults", headers);
         doRequestWithCsvResponse(callback, request);
     }
 
     @Override
     public void getFailedResults(String jobId, Map<String, List<String>> headers, StreamResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/failedResults", headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/failedResults", headers);
         doRequestWithCsvResponse(callback, request);
     }
 
     @Override
     public void getUnprocessedRecords(
             String jobId, Map<String, List<String>> headers, StreamResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/unprocessedrecords", headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, jobUrl(jobId) + "/unprocessedrecords", headers);
         doRequestWithCsvResponse(callback, request);
     }
 
@@ -162,7 +164,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
         if (queryLocator != null) {
             url = url + "?queryLocator=" + queryLocator;
         }
-        final Request request = getRequest(HttpMethod.GET, url, headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, url, headers);
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> responseHeaders, SalesforceException ex) {
@@ -183,7 +185,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
     @Override
     public void createQueryJob(
             QueryJob queryJob, Map<String, List<String>> headers, QueryJobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.POST, queryJobUrl(null), headers);
+        final HttpRequest request = getRequest(HttpMethod.POST, queryJobUrl(null), headers);
         try {
             marshalRequest(queryJob, request);
         } catch (SalesforceException e) {
@@ -195,7 +197,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
 
     @Override
     public void getQueryJob(String jobId, Map<String, List<String>> headers, QueryJobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.GET, queryJobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, queryJobUrl(jobId), headers);
         doHttpRequestWithQueryJobResponse(callback, request);
     }
 
@@ -214,14 +216,14 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
         if (query != null) {
             url = url + "?" + query;
         }
-        final Request request = getRequest(HttpMethod.GET, url, headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, url, headers);
         doRequestWithCsvResponse(callback, request);
     }
 
     @Override
     public void changeQueryJobState(
             String jobId, JobStateEnum state, Map<String, List<String>> headers, QueryJobResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.PATCH, queryJobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.PATCH, queryJobUrl(jobId), headers);
         QueryJob job = new QueryJob();
         job.setId(jobId);
         job.setState(state);
@@ -250,7 +252,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
 
     @Override
     public void deleteQueryJob(String jobId, Map<String, List<String>> headers, ResponseCallback callback) {
-        final Request request = getRequest(HttpMethod.DELETE, queryJobUrl(jobId), headers);
+        final HttpRequest request = getRequest(HttpMethod.DELETE, queryJobUrl(jobId), headers);
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> headers, SalesforceException ex) {
@@ -266,7 +268,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
         if (queryLocator != null) {
             url = url + "?queryLocator=" + queryLocator;
         }
-        final Request request = getRequest(HttpMethod.GET, url, headers);
+        final HttpRequest request = getRequest(HttpMethod.GET, url, headers);
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> responseHeaders, SalesforceException ex) {
@@ -285,7 +287,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
     }
 
     @Override
-    protected void doHttpRequest(Request request, ClientResponseCallback callback) {
+    protected void doHttpRequest(HttpRequest request, ClientResponseCallback callback) {
         // set access token for all requests
         setAccessToken(request);
         if (!request.getHeaders().contains(HttpHeader.CONTENT_TYPE)) {
@@ -311,8 +313,8 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
     }
 
     @Override
-    protected void setAccessToken(Request request) {
-        request.getHeaders().put(AUTHORIZATION_HEADER, BEARER_PREFIX + accessToken);
+    protected void setAccessToken(HttpRequest request) {
+        request.addHeader(new HttpField(AUTHORIZATION_HEADER, BEARER_PREFIX + accessToken));
     }
 
     private String jobUrl(String jobId) {
@@ -325,12 +327,12 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
                (jobId != null ? "/" + jobId : "");
     }
 
-    private void doRequestWithCsvResponse(StreamResponseCallback callback, Request request) {
+    private void doRequestWithCsvResponse(StreamResponseCallback callback, HttpRequest request) {
         request.accept("text/csv");
         doHttpRequest(request, callback::onResponse);
     }
 
-    private void doHttpRequestWithJobResponse(JobResponseCallback callback, Request request) {
+    private void doHttpRequestWithJobResponse(JobResponseCallback callback, HttpRequest request) {
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> responseHeaders, SalesforceException ex) {
@@ -349,7 +351,7 @@ public class DefaultBulkApiV2Client extends AbstractClientBase implements BulkAp
         });
     }
 
-    private void doHttpRequestWithQueryJobResponse(QueryJobResponseCallback callback, Request request) {
+    private void doHttpRequestWithQueryJobResponse(QueryJobResponseCallback callback, HttpRequest request) {
         doHttpRequest(request, new ClientResponseCallback() {
             @Override
             public void onResponse(InputStream response, Map<String, String> responseHeaders, SalesforceException ex) {

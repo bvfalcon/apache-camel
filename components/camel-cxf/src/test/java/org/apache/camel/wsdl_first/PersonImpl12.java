@@ -16,7 +16,7 @@
  */
 package org.apache.camel.wsdl_first;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(serviceName = "PersonService12",
             targetNamespace = "http://camel.apache.org/wsdl-first",

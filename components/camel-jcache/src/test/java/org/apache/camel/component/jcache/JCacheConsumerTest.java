@@ -16,11 +16,11 @@
  */
 package org.apache.camel.component.jcache;
 
-import javax.cache.Cache;
-import javax.cache.event.CacheEntryEvent;
-import javax.cache.event.CacheEntryEventFilter;
-import javax.cache.event.CacheEntryListenerException;
-import javax.cache.event.EventType;
+import jakarta.cache.Cache;
+import jakarta.cache.event.CacheEntryEvent;
+import jakarta.cache.event.CacheEntryEventFilter;
+import jakarta.cache.event.CacheEntryListenerException;
+import jakarta.cache.event.EventType;
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Exchange;

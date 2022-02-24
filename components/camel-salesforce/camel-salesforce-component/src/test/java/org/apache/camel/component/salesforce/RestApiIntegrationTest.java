@@ -59,8 +59,10 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.HttpClientTransport;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.http.HttpClientTransportOverHTTP;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
@@ -587,7 +589,7 @@ public class RestApiIntegrationTest extends AbstractSalesforceTestBase {
 
         final SslContextFactory sslContextFactory = new SslContextFactory.Client();
         sslContextFactory.setSslContext(new SSLContextParameters().createSSLContext(context));
-        final HttpClient httpClient = new HttpClient(sslContextFactory);
+        final HttpClient httpClient = new HttpClient();
         httpClient.setConnectTimeout(60000);
         httpClient.start();
 
@@ -607,7 +609,10 @@ public class RestApiIntegrationTest extends AbstractSalesforceTestBase {
 
         final SslContextFactory sslContextFactory = new SslContextFactory.Client();
         sslContextFactory.setSslContext(new SSLContextParameters().createSSLContext(context));
-        final HttpClient httpClient = new HttpClient(sslContextFactory);
+
+        HttpClientTransport transport = new HttpClientTransportOverHTTP();
+
+        final HttpClient httpClient = new HttpClient();
         httpClient.setConnectTimeout(60000);
         httpClient.start();
 

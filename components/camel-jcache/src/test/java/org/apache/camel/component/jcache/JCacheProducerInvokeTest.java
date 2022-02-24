@@ -19,11 +19,11 @@ package org.apache.camel.component.jcache;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.cache.Cache;
-import javax.cache.processor.EntryProcessor;
-import javax.cache.processor.EntryProcessorException;
-import javax.cache.processor.EntryProcessorResult;
-import javax.cache.processor.MutableEntry;
+import jakarta.cache.Cache;
+import jakarta.cache.processor.EntryProcessor;
+import jakarta.cache.processor.EntryProcessorException;
+import jakarta.cache.processor.EntryProcessorResult;
+import jakarta.cache.processor.MutableEntry;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Predicate;

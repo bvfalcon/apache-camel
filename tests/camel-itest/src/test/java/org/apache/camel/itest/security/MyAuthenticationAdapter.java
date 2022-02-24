@@ -18,7 +18,7 @@ package org.apache.camel.itest.security;
 
 import java.security.Principal;
 
-import javax.security.auth.Subject;
+import jakarta.security.auth.Subject;
 
 import org.apache.camel.component.spring.security.DefaultAuthenticationAdapter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

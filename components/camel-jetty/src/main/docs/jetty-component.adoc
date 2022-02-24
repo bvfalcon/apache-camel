@@ -333,7 +333,7 @@ which you can access from code as follows:
 [source,java]
 ----
 HttpServletRequest req = exchange.getIn().getBody(HttpServletRequest.class);
-X509Certificate cert = (X509Certificate) req.getAttribute("javax.servlet.request.X509Certificate")
+X509Certificate cert = (X509Certificate) req.getAttribute("jakarta.servlet.request.X509Certificate")
 ----
 
 === Configuring general HTTP properties

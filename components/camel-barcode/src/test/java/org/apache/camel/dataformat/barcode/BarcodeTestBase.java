@@ -21,9 +21,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
+import jakarta.imageio.ImageIO;
+import jakarta.imageio.ImageReader;
+import jakarta.imageio.stream.ImageInputStream;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

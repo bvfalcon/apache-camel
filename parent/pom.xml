@@ -104,8 +104,8 @@
         <californium-version>2.6.6</californium-version>
         <cassandra-driver-version>4.14.0</cassandra-driver-version>
         <cassandra-version>3.11.12</cassandra-version>
-        <cdi-api-2.0-version>2.0</cdi-api-2.0-version>
-        <jta-api-1.2-version>1.2</jta-api-1.2-version>
+        <cdi-api-version>3.0.1</cdi-api-version>
+        <jta-api-version>2.0.0</jta-api-version>
         <cglib-version>3.2.12</cglib-version>
         <chunk-templates-version>3.6.2</chunk-templates-version>
         <citrus-version>2.8.0</citrus-version>
@@ -193,11 +193,10 @@
         <geronimo-jcdi-1.0-spec-version>1.0</geronimo-jcdi-1.0-spec-version>
         <geronimo-jcdi-1.1-spec-version>1.0</geronimo-jcdi-1.1-spec-version>
         <geronimo-jms-spec-version>1.1.1</geronimo-jms-spec-version>
-        <geronimo-jms2-spec-version>1.0-alpha-2</geronimo-jms2-spec-version>
-        <geronimo-jpa-spec-version>1.0-alpha-1</geronimo-jpa-spec-version>
+        <jms-api-version>3.0.0</jms-api-version>
+        <jpa-api-version>3.0.0</jpa-api-version>
         <geronimo-json-spec-version>1.1</geronimo-json-spec-version>
         <geronimo-jsonb-spec-version>1.0</geronimo-jsonb-spec-version>
-        <geronimo-jta-spec-version>1.1.1</geronimo-jta-spec-version>
         <geronimo-ws-metadata-spec-version>1.1.3</geronimo-ws-metadata-spec-version>
         <gmavenplus-plugin-version>1.13.1</gmavenplus-plugin-version>
         <google-auth-library-oauth2-http-version>1.4.0</google-auth-library-oauth2-http-version>
@@ -276,12 +275,11 @@
         <javax-el3-version>3.0.0</javax-el3-version>
         <javax-el-api-hibernate-validator-version>3.0.1-b04</javax-el-api-hibernate-validator-version>
         <javax-el-hibernate-validator-version>3.0.1-b10</javax-el-hibernate-validator-version>
-        <javax-activation-version-range>[0,2)</javax-activation-version-range>
-        <javax-activation-version>1.2.0</javax-activation-version>
-        <javax-annotation-api-version>1.3.2</javax-annotation-api-version>
-        <jakarta-mail-version>1.6.6</jakarta-mail-version>
-        <javax-servlet-api-version>3.1.0</javax-servlet-api-version>
-        <jakarta-cdi-api-version>2.0.2</jakarta-cdi-api-version>
+        <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
+        <jakarta-activation-version>2.0.1</jakarta-activation-version>
+        <jakarta-annotation-api-version>2.0.0</jakarta-annotation-api-version>
+        <jakarta-mail-version>2.0.1</jakarta-mail-version>
+        <jakarta-servlet-api-version>5.0.0</jakarta-servlet-api-version>
         <jakarta-api-version>2.1.5</jakarta-api-version>
         <jakarta.el-version>3.0.3</jakarta.el-version>
         <jakarta-jaxb-version>2.3.3</jakarta-jaxb-version>
@@ -304,9 +302,10 @@
         <jcommander-version>1.72</jcommander-version>
         <jcr-version>2.0</jcr-version>
         <jedis-client-version>3.7.1</jedis-client-version>
+        <jersey-version>2.35</jersey-version>
         <jetcd-version>0.5.11</jetcd-version>
-        <jetty9-version>9.4.45.v20220203</jetty9-version>
-        <jetty-version>${jetty9-version}</jetty-version>
+        <jetty11-version>11.0.9</jetty11-version>
+        <jetty-version>${jetty11-version}</jetty-version>
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
         <jetty-runner-groupId>org.eclipse.jetty</jetty-runner-groupId>
         <jettison-version>1.4.1</jettison-version>
@@ -497,9 +496,9 @@
         <spring-data-redis-version>2.6.2</spring-data-redis-version>
         <spring-integration-version>5.5.10</spring-integration-version>
         <spring-ldap-version>2.3.6.RELEASE</spring-ldap-version>
-        <spring-version-range>[5,6)</spring-version-range>
-        <spring-version>${spring5-version}</spring-version>
-        <spring5-version>5.3.18</spring5-version>
+        <spring-version-range>[6,7)</spring-version-range>
+        <spring-version>${spring6-version}</spring-version>
+        <spring6-version>6.0.0-M2</spring6-version>
         <spring-rabbitmq-version>2.4.2</spring-rabbitmq-version>
         <spring-security-version>5.6.2</spring-security-version>
         <spring-ws-version>3.1.3</spring-ws-version>
@@ -529,7 +528,7 @@
         <vysper-version>0.7</vysper-version>
         <web3j-version>3.6.0</web3j-version>
         <web3j-quorum-version>0.8.0</web3j-quorum-version>
-        <weld3-version>3.1.8.Final</weld3-version>
+        <weld4-version>4.0.3.Final</weld4-version>
         <wildfly-elytron>1.11.4.Final</wildfly-elytron>
         <wiremock-version>2.32.0</wiremock-version>
         <woodstox-version>4.4.1</woodstox-version>
@@ -3355,24 +3354,24 @@
                 <version>${geronimo-jms-spec-version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jms_2.0_spec</artifactId>
-                <version>${geronimo-jms2-spec-version}</version>
+                <groupId>jakarta.jms</groupId>
+                <artifactId>jakarta.jms-api</artifactId>
+                <version>${jms-api-version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jpa_2.1_spec</artifactId>
-                <version>${geronimo-jpa-spec-version}</version>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>${jpa-api-version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jta_1.1_spec</artifactId>
-                <version>${geronimo-jta-spec-version}</version>
+                <groupId>jakarta.transaction</groupId>
+                <artifactId>jakarta.transaction-api</artifactId>
+                <version>${jta-api-version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax-servlet-api-version}</version>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta-servlet-api-version}</version>
             </dependency>
             <!-- Optional Spring Support -->
             <dependency>
@@ -4041,9 +4040,9 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${javax-annotation-api-version}</version>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta-annotation-api-version}</version>
             </dependency>
 
             <dependency>

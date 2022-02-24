@@ -35,8 +35,8 @@
     <properties>
         <camel.osgi.import.pkg>
             !org.apache.camel.component.atmosphere.websocket.*,
-            javax.activation.*;version="${javax-activation-version-range}",
-            javax.servlet.*;version="${servlet-version-range}",
+            javax.activation.*;version="${jakarta-activation-version-range}",
+            jakarta.servlet.*;version="${servlet-version-range}",
             org.atmosphere.*;version="${atmosphere-version-range}",
             org.apache.catalina;resolution:=optional,
             org.apache.catalina.comet;resolution:=optional,
@@ -59,9 +59,9 @@
             <artifactId>camel-servlet</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax-servlet-api-version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta-servlet-api-version}</version>
         </dependency>
 
         <!--  atmosphere -->
