@@ -281,6 +281,7 @@
         <jakarta-mail-version>2.0.1</jakarta-mail-version>
         <jakarta-servlet-api-version>5.0.0</jakarta-servlet-api-version>
         <jakarta-api-version>2.1.5</jakarta-api-version>
+        <jakarta-cdi-api-version>2.0.2</jakarta-cdi-api-version>
         <jakarta.el-version>3.0.3</jakarta.el-version>
         <jakarta-jaxb-version>2.3.3</jakarta-jaxb-version>
         <javax-soap-api-version>1.4.0</javax-soap-api-version>
