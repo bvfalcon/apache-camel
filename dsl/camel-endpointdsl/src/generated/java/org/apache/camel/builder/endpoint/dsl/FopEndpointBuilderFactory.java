@@ -38,6 +38,9 @@ public interface FopEndpointBuilderFactory {
      * Builder for endpoint for the FOP component.
      */
     public interface FopEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedFopEndpointBuilder advanced() {
+            return (AdvancedFopEndpointBuilder) this;
+        }
         /**
          * Allows to use a custom configured or implementation of
          * org.apache.fop.apps.FopFactory.
@@ -72,6 +75,32 @@ public interface FopEndpointBuilderFactory {
             return this;
         }
         /**
+         * The location of a configuration file which can be loaded from
+         * classpath or file system.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: producer
+         * 
+         * @param userConfigURL the value to set
+         * @return the dsl builder
+         */
+        default FopEndpointBuilder userConfigURL(String userConfigURL) {
+            doSetProperty("userConfigURL", userConfigURL);
+            return this;
+        }
+    }
+
+    /**
+     * Advanced builder for endpoint for the FOP component.
+     */
+    public interface AdvancedFopEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default FopEndpointBuilder basic() {
+            return (FopEndpointBuilder) this;
+        }
+        /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
          * startup in situations where a producer may otherwise fail during
@@ -85,12 +114,13 @@ public interface FopEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default FopEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
+        default AdvancedFopEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
@@ -109,33 +139,33 @@ public interface FopEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default FopEndpointBuilder lazyStartProducer(String lazyStartProducer) {
+        default AdvancedFopEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * The location of a configuration file which can be loaded from
-         * classpath or file system.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: producer
-         * 
-         * @param userConfigURL the value to set
-         * @return the dsl builder
-         */
-        default FopEndpointBuilder userConfigURL(String userConfigURL) {
-            doSetProperty("userConfigURL", userConfigURL);
             return this;
         }
     }
 
     public interface FopBuilders {
+        /**
+         * FOP (camel-fop)
+         * Render messages into PDF and other output formats supported by Apache
+         * FOP.
+         * 
+         * Category: file,transformation
+         * Since: 2.10
+         * Maven coordinates: org.apache.camel:camel-fop
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FopHeaderNameBuilder fop() {
+            return FopHeaderNameBuilder.INSTANCE;
+        }
         /**
          * FOP (camel-fop)
          * Render messages into PDF and other output formats supported by Apache
@@ -185,8 +215,32 @@ public interface FopEndpointBuilderFactory {
             return FopEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the FOP component.
+     */
+    public static class FopHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FopHeaderNameBuilder INSTANCE = new FopHeaderNameBuilder();
+
+        /**
+         * The output format.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code Fop.Output.Format}.
+         */
+        public String fopOutputFormat() {
+            return "Fop.Output.Format";
+        }
+    }
     static FopEndpointBuilder endpointBuilder(String componentName, String path) {
-        class FopEndpointBuilderImpl extends AbstractEndpointBuilder implements FopEndpointBuilder {
+        class FopEndpointBuilderImpl extends AbstractEndpointBuilder implements FopEndpointBuilder, AdvancedFopEndpointBuilder {
             public FopEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

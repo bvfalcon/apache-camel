@@ -617,51 +617,6 @@ public interface PahoEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default PahoEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default PahoEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Whether SSL HostnameVerifier is enabled or not. The default value is
          * true.
          * 
@@ -915,6 +870,51 @@ public interface PahoEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default PahoEndpointConsumerBuilder basic() {
             return (PahoEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPahoEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPahoEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -1671,55 +1671,6 @@ public interface PahoEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PahoEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PahoEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Whether SSL HostnameVerifier is enabled or not. The default value is
          * true.
          * 
@@ -1973,6 +1924,55 @@ public interface PahoEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default PahoEndpointProducerBuilder basic() {
             return (PahoEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPahoEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPahoEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * To use an existing mqtt client.
@@ -3018,6 +3018,19 @@ public interface PahoEndpointBuilderFactory {
          * Since: 2.16
          * Maven coordinates: org.apache.camel:camel-paho
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default PahoHeaderNameBuilder paho() {
+            return PahoHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Paho (camel-paho)
+         * Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
+         * 
+         * Category: messaging,iot
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-paho
+         * 
          * Syntax: <code>paho:topic</code>
          * 
          * Path parameter: topic (required)
@@ -3049,6 +3062,83 @@ public interface PahoEndpointBuilderFactory {
          */
         default PahoEndpointBuilder paho(String componentName, String path) {
             return PahoEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Paho component.
+     */
+    public static class PahoHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final PahoHeaderNameBuilder INSTANCE = new PahoHeaderNameBuilder();
+
+        /**
+         * The name of the topic.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MqttTopic}.
+         */
+        public String mqttTopic() {
+            return "MqttTopic";
+        }
+
+        /**
+         * The quality of service of the incoming message.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MqttQoS}.
+         */
+        public String mqttQoS() {
+            return "MqttQoS";
+        }
+
+        /**
+         * The client quality of service level (0-2).
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code PahoQos}.
+         */
+        public String pahoQos() {
+            return "PahoQos";
+        }
+
+        /**
+         * Retain option.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code PahoRetained}.
+         */
+        public String pahoRetained() {
+            return "PahoRetained";
+        }
+
+        /**
+         * The name of topic to override and send to instead of topic specified
+         * on endpoint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code PahoOverrideTopic}.
+         */
+        public String pahoOverrideTopic() {
+            return "PahoOverrideTopic";
         }
     }
     static PahoEndpointBuilder endpointBuilder(String componentName, String path) {

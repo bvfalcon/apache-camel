@@ -100,51 +100,6 @@ public interface AtmosEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default AtmosEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default AtmosEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Atmos client fullTokenId.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -214,6 +169,51 @@ public interface AtmosEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default AtmosEndpointConsumerBuilder basic() {
             return (AtmosEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedAtmosEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedAtmosEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -367,55 +367,6 @@ public interface AtmosEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default AtmosEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default AtmosEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Atmos client fullTokenId.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -485,6 +436,55 @@ public interface AtmosEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default AtmosEndpointProducerBuilder basic() {
             return (AtmosEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedAtmosEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedAtmosEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Atomos server uri.
@@ -666,6 +666,20 @@ public interface AtmosEndpointBuilderFactory {
          * Since: 2.15
          * Maven coordinates: org.apache.camel:camel-atmos
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default AtmosHeaderNameBuilder atmos() {
+            return AtmosHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Atmos (camel-atmos)
+         * Integrate with EMC's ViPR object data services using the Atmos
+         * Client.
+         * 
+         * Category: cloud,file
+         * Since: 2.15
+         * Maven coordinates: org.apache.camel:camel-atmos
+         * 
          * Syntax: <code>atmos:name/operation</code>
          * 
          * Path parameter: name
@@ -708,6 +722,97 @@ public interface AtmosEndpointBuilderFactory {
          */
         default AtmosEndpointBuilder atmos(String componentName, String path) {
             return AtmosEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Atmos component.
+     */
+    public static class AtmosHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final AtmosHeaderNameBuilder INSTANCE = new AtmosHeaderNameBuilder();
+
+        /**
+         * The name of the remote path downloaded in case of a single file.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code DOWNLOADED_FILE}.
+         */
+        public String downloadedFile() {
+            return "DOWNLOADED_FILE";
+        }
+
+        /**
+         * The name of the remote paths downloaded in case of multiple files
+         * (one per line).
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code DOWNLOADED_FILES}.
+         */
+        public String downloadedFiles() {
+            return "DOWNLOADED_FILES";
+        }
+
+        /**
+         * The name of the remote path uploaded in case of a single file.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code UPLOADED_FILE}.
+         */
+        public String uploadedFile() {
+            return "UPLOADED_FILE";
+        }
+
+        /**
+         * The name of the remote paths uploaded in case of multiple files (one
+         * per line).
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code UPLOADED_FILES}.
+         */
+        public String uploadedFiles() {
+            return "UPLOADED_FILES";
+        }
+
+        /**
+         * The remote path deleted on Atmos.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DELETED_PATH}.
+         */
+        public String deletedPath() {
+            return "DELETED_PATH";
+        }
+
+        /**
+         * The moved path.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MOVED_PATH}.
+         */
+        public String movedPath() {
+            return "MOVED_PATH";
         }
     }
     static AtmosEndpointBuilder endpointBuilder(

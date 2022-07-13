@@ -30,25 +30,20 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import org.apache.camel.component.salesforce.SalesforceEndpointConfig;
 import org.apache.camel.component.salesforce.SalesforceHttpClient;
 import org.apache.camel.component.salesforce.SalesforceLoginConfig;
-import org.apache.camel.component.salesforce.api.NoSuchSObjectException;
 import org.apache.camel.component.salesforce.api.SalesforceException;
 import org.apache.camel.component.salesforce.api.dto.DeleteSObjectResult;
-import org.apache.camel.component.salesforce.api.dto.RestError;
 import org.apache.camel.component.salesforce.api.dto.SaveSObjectResult;
 import org.apache.camel.component.salesforce.api.dto.UpsertSObjectResult;
 import org.apache.camel.component.salesforce.api.dto.composite.SObjectCollection;
 import org.apache.camel.component.salesforce.api.utils.JsonUtils;
-import org.apache.camel.component.salesforce.internal.PayloadFormat;
 import org.apache.camel.component.salesforce.internal.SalesforceSession;
 import org.apache.camel.component.salesforce.internal.dto.composite.RetrieveSObjectCollectionsDto;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.client.api.Response;
 import org.eclipse.jetty.client.util.InputStreamContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
-import org.eclipse.jetty.http.HttpStatus;
 
 public class DefaultCompositeSObjectCollectionsApiClient extends AbstractClientBase
         implements CompositeSObjectCollectionsApiClient {
@@ -186,23 +181,6 @@ public class DefaultCompositeSObjectCollectionsApiClient extends AbstractClientB
     }
 
     @Override
-    protected SalesforceException createRestException(final Response response, final InputStream responseContent) {
-        final List<RestError> errors;
-        try {
-            errors = readErrorsFrom(responseContent, PayloadFormat.JSON, mapper);
-        } catch (final IOException e) {
-            return new SalesforceException("Unable to read error response", e);
-        }
-
-        final int status = response.getStatus();
-        if (status == HttpStatus.NOT_FOUND_404) {
-            return new NoSuchSObjectException(errors);
-        }
-        final String reason = response.getReason();
-        return new SalesforceException(errors, status, "Unexpected error: " + reason);
-    }
-
-    @Override
     protected void setAccessToken(final Request request) {
         request.getHeaders().put("Authorization", "Bearer " + accessToken);
     }
@@ -233,7 +211,7 @@ public class DefaultCompositeSObjectCollectionsApiClient extends AbstractClientB
         return mapper.writerFor(type);
     }
 
-    private ContentProvider serialize(final Object body, final Class<?>... additionalTypes)
+    private ContentProvider serialize(final Object body)
             throws SalesforceException {
         return new InputStreamContentProvider(toJson(body));
     }

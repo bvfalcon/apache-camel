@@ -401,14 +401,7 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor implements In
             // CAMEL END USER - DEBUG ME HERE +++ END +++
             // ----------------------------------------------------------
 
-            // optimize to only do after uow processing if really needed
-            if (beforeAndAfter) {
-                // use the same callback as with beforeProcess
-                final CamelInternalTask afterCallback = afterTask;
-                reactiveExecutor.schedule(() -> {
-                    uow.afterProcess(processor, exchange, afterCallback, sync);
-                });
-            }
+            // CAMEL-18255: move uow.afterProcess handling to the callback
 
             if (LOG.isTraceEnabled()) {
                 LOG.trace("Exchange processed and is continued routed {} for exchangeId: {} -> {}",
@@ -639,24 +632,16 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor implements In
         private final BacklogDebugger backlogDebugger;
         private final Processor target;
         private final NamedNode definition;
-        private final String nodeId;
 
         public BacklogDebuggerAdvice(BacklogDebugger backlogDebugger, Processor target, NamedNode definition) {
             this.backlogDebugger = backlogDebugger;
             this.target = target;
             this.definition = definition;
-            this.nodeId = definition.getId();
         }
 
         @Override
         public StopWatch before(Exchange exchange) throws Exception {
-            if (backlogDebugger.isEnabled() && (backlogDebugger.hasBreakpoint(nodeId) || backlogDebugger.isSingleStepMode())) {
-                StopWatch watch = new StopWatch();
-                backlogDebugger.beforeProcess(exchange, target, definition);
-                return watch;
-            } else {
-                return null;
-            }
+            return backlogDebugger.beforeProcess(exchange, target, definition);
         }
 
         @Override

@@ -127,51 +127,6 @@ public interface SshEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default SshEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default SshEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Sets the command string to send to the remote SSH server during every
          * poll cycle. Only works with camel-ssh component being used as a
          * consumer, i.e. from(ssh://...) You may need to end your command with
@@ -821,6 +776,51 @@ public interface SshEndpointBuilderFactory {
             return (SshEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSshEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSshEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -1089,55 +1089,6 @@ public interface SshEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SshEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SshEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Sets the resource path of the certificate to use for Authentication.
          * Will use ResourceHelperKeyPairProvider to resolve file based
          * certificate, and depends on keyType setting.
@@ -1260,6 +1211,55 @@ public interface SshEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default SshEndpointProducerBuilder basic() {
             return (SshEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSshEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSshEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Sets the channel type to pass to the Channel as part of command
@@ -1619,6 +1619,19 @@ public interface SshEndpointBuilderFactory {
          * Since: 2.10
          * Maven coordinates: org.apache.camel:camel-ssh
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default SshHeaderNameBuilder ssh() {
+            return SshHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * SSH (camel-ssh)
+         * Execute commands on remote hosts using SSH.
+         * 
+         * Category: file
+         * Since: 2.10
+         * Maven coordinates: org.apache.camel:camel-ssh
+         * 
          * Syntax: <code>ssh:host:port</code>
          * 
          * Path parameter: host (required)
@@ -1658,6 +1671,72 @@ public interface SshEndpointBuilderFactory {
          */
         default SshEndpointBuilder ssh(String componentName, String path) {
             return SshEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the SSH component.
+     */
+    public static class SshHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final SshHeaderNameBuilder INSTANCE = new SshHeaderNameBuilder();
+
+        /**
+         * The user name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code SshUsername}.
+         */
+        public String sshUsername() {
+            return "SshUsername";
+        }
+
+        /**
+         * The password.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code SshPassword}.
+         */
+        public String sshPassword() {
+            return "SshPassword";
+        }
+
+        /**
+         * The value of this header is a InputStream with the standard error
+         * stream of the executable.
+         * 
+         * The option is a: {@code InputStream} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code SshStderr}.
+         */
+        public String sshStderr() {
+            return "SshStderr";
+        }
+
+        /**
+         * The value of this header is the exit value that is returned, after
+         * the execution. By convention a non-zero status exit value indicates
+         * abnormal termination. Note that the exit value is OS dependent.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code SshExitValue}.
+         */
+        public String sshExitValue() {
+            return "SshExitValue";
         }
     }
     static SshEndpointBuilder endpointBuilder(String componentName, String path) {

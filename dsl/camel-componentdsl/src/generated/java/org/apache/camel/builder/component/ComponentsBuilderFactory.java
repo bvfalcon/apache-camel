@@ -964,13 +964,13 @@ public interface ComponentsBuilderFactory {
         return org.apache.camel.builder.component.dsl.CryptoComponentBuilderFactory.crypto();
     }
     /**
-     * CXF (camel-cxf)
+     * CXF (camel-cxf-soap)
      * Expose SOAP WebServices using Apache CXF or connect to external
      * WebServices using CXF WS client.
      * 
      * Category: soap,webservice
      * Since: 1.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-soap
      * 
      * @return the dsl builder
      */
@@ -978,13 +978,13 @@ public interface ComponentsBuilderFactory {
         return org.apache.camel.builder.component.dsl.CxfComponentBuilderFactory.cxf();
     }
     /**
-     * CXF-RS (camel-cxf)
+     * CXF-RS (camel-cxf-rest)
      * Expose JAX-RS REST services using Apache CXF or connect to external REST
      * services using CXF REST client.
      * 
      * Category: rest
      * Since: 2.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-rest
      * 
      * @return the dsl builder
      */
@@ -1033,7 +1033,7 @@ public interface ComponentsBuilderFactory {
     }
     /**
      * Debezium DB2 Connector (camel-debezium-db2)
-     * Capture changes from a Oracle database.
+     * Capture changes from a DB2 database.
      * 
      * Category: database,sql
      * Since: 3.17
@@ -1718,6 +1718,19 @@ public interface ComponentsBuilderFactory {
      */
     static org.apache.camel.builder.component.dsl.GuavaEventbusComponentBuilderFactory.GuavaEventbusComponentBuilder guavaEventbus() {
         return org.apache.camel.builder.component.dsl.GuavaEventbusComponentBuilderFactory.guavaEventbus();
+    }
+    /**
+     * Hashicorp Vault (camel-hashicorp-vault)
+     * Manage secrets in Hashicorp Vault Service
+     * 
+     * Category: cloud,cloud
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-hashicorp-vault
+     * 
+     * @return the dsl builder
+     */
+    static org.apache.camel.builder.component.dsl.HashicorpVaultComponentBuilderFactory.HashicorpVaultComponentBuilder hashicorpVault() {
+        return org.apache.camel.builder.component.dsl.HashicorpVaultComponentBuilderFactory.hashicorpVault();
     }
     /**
      * Hazelcast Atomic Number (camel-hazelcast)
@@ -3197,6 +3210,20 @@ public interface ComponentsBuilderFactory {
         return org.apache.camel.builder.component.dsl.OpenshiftBuildsComponentBuilderFactory.openshiftBuilds();
     }
     /**
+     * Openshift Deployment Configs (camel-kubernetes)
+     * Perform operations on Openshift Deployment Configs and get notified on
+     * Deployment Config changes.
+     * 
+     * Category: container,cloud,paas
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-kubernetes
+     * 
+     * @return the dsl builder
+     */
+    static org.apache.camel.builder.component.dsl.OpenshiftDeploymentconfigsComponentBuilderFactory.OpenshiftDeploymentconfigsComponentBuilder openshiftDeploymentconfigs() {
+        return org.apache.camel.builder.component.dsl.OpenshiftDeploymentconfigsComponentBuilderFactory.openshiftDeploymentconfigs();
+    }
+    /**
      * OpenStack Cinder (camel-openstack)
      * Access data in OpenStack Cinder block storage.
      * 
@@ -4432,6 +4459,19 @@ public interface ComponentsBuilderFactory {
      */
     static org.apache.camel.builder.component.dsl.WekaComponentBuilderFactory.WekaComponentBuilder weka() {
         return org.apache.camel.builder.component.dsl.WekaComponentBuilderFactory.weka();
+    }
+    /**
+     * WhatsApp (camel-whatsapp)
+     * Send messages.
+     * 
+     * Category: cloud,api,chat
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-whatsapp
+     * 
+     * @return the dsl builder
+     */
+    static org.apache.camel.builder.component.dsl.WhatsappComponentBuilderFactory.WhatsappComponentBuilder whatsapp() {
+        return org.apache.camel.builder.component.dsl.WhatsappComponentBuilderFactory.whatsapp();
     }
     /**
      * Wordpress (camel-wordpress)

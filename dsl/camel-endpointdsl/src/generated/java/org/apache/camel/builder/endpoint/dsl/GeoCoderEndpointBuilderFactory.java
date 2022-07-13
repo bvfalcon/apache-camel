@@ -39,6 +39,9 @@ public interface GeoCoderEndpointBuilderFactory {
      * Builder for endpoint for the Geocoder component.
      */
     public interface GeoCoderEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedGeoCoderEndpointBuilder advanced() {
+            return (AdvancedGeoCoderEndpointBuilder) this;
+        }
         /**
          * Whether to only enrich the Exchange with headers, and leave the body
          * as-is.
@@ -85,55 +88,6 @@ public interface GeoCoderEndpointBuilderFactory {
          */
         default GeoCoderEndpointBuilder language(String language) {
             doSetProperty("language", language);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GeoCoderEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GeoCoderEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -340,7 +294,81 @@ public interface GeoCoderEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Geocoder component.
+     */
+    public interface AdvancedGeoCoderEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default GeoCoderEndpointBuilder basic() {
+            return (GeoCoderEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGeoCoderEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGeoCoderEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface GeoCoderBuilders {
+        /**
+         * Geocoder (camel-geocoder)
+         * Find geocodes (latitude and longitude) for a given address or the
+         * other way round.
+         * 
+         * Category: api,location
+         * Since: 2.12
+         * Maven coordinates: org.apache.camel:camel-geocoder
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GeoCoderHeaderNameBuilder geocoder() {
+            return GeoCoderHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Geocoder (camel-geocoder)
          * Find geocodes (latitude and longitude) for a given address or the
@@ -392,10 +420,167 @@ public interface GeoCoderEndpointBuilderFactory {
             return GeoCoderEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Geocoder component.
+     */
+    public static class GeoCoderHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GeoCoderHeaderNameBuilder INSTANCE = new GeoCoderHeaderNameBuilder();
+
+        /**
+         * The formatted address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderAddress}.
+         */
+        public String geoCoderAddress() {
+            return "GeoCoderAddress";
+        }
+
+        /**
+         * The latitude and longitude of the location. Separated by comma.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderLatlng}.
+         */
+        public String geoCoderLatlng() {
+            return "GeoCoderLatlng";
+        }
+
+        /**
+         * The latitude of the location.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderLat}.
+         */
+        public String geoCoderLat() {
+            return "GeoCoderLat";
+        }
+
+        /**
+         * The longitude of the location.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderLng}.
+         */
+        public String geoCoderLng() {
+            return "GeoCoderLng";
+        }
+
+        /**
+         * Status code from the geocoder library. If status is GeocoderStatus.OK
+         * then additional headers is enriched.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.geocoder.GeocoderStatus} type.
+         * 
+         * Required: true
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderStatus}.
+         */
+        public String geoCoderStatus() {
+            return "GeoCoderStatus";
+        }
+
+        /**
+         * The region code.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderRegionCode}.
+         */
+        public String geoCoderRegionCode() {
+            return "GeoCoderRegionCode";
+        }
+
+        /**
+         * The region name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderRegionName}.
+         */
+        public String geoCoderRegionName() {
+            return "GeoCoderRegionName";
+        }
+
+        /**
+         * The city long name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderCity}.
+         */
+        public String geoCoderCity() {
+            return "GeoCoderCity";
+        }
+
+        /**
+         * The country long name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderCountryLong}.
+         */
+        public String geoCoderCountryLong() {
+            return "GeoCoderCountryLong";
+        }
+
+        /**
+         * The country short name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderCountryShort}.
+         */
+        public String geoCoderCountryShort() {
+            return "GeoCoderCountryShort";
+        }
+
+        /**
+         * The postal code.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GeoCoderPostalCode}.
+         */
+        public String geoCoderPostalCode() {
+            return "GeoCoderPostalCode";
+        }
+    }
     static GeoCoderEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class GeoCoderEndpointBuilderImpl extends AbstractEndpointBuilder implements GeoCoderEndpointBuilder {
+        class GeoCoderEndpointBuilderImpl extends AbstractEndpointBuilder implements GeoCoderEndpointBuilder, AdvancedGeoCoderEndpointBuilder {
             public GeoCoderEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

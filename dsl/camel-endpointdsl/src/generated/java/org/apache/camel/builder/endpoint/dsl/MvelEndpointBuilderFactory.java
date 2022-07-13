@@ -38,6 +38,9 @@ public interface MvelEndpointBuilderFactory {
      * Builder for endpoint for the MVEL component.
      */
     public interface MvelEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedMvelEndpointBuilder advanced() {
+            return (AdvancedMvelEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -164,6 +167,17 @@ public interface MvelEndpointBuilderFactory {
             doSetProperty("encoding", encoding);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint for the MVEL component.
+     */
+    public interface AdvancedMvelEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MvelEndpointBuilder basic() {
+            return (MvelEndpointBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -178,12 +192,13 @@ public interface MvelEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MvelEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
+        default AdvancedMvelEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
@@ -202,18 +217,32 @@ public interface MvelEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MvelEndpointBuilder lazyStartProducer(String lazyStartProducer) {
+        default AdvancedMvelEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
     }
 
     public interface MvelBuilders {
+        /**
+         * MVEL (camel-mvel)
+         * Transform messages using an MVEL template.
+         * 
+         * Category: transformation,script
+         * Since: 2.12
+         * Maven coordinates: org.apache.camel:camel-mvel
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MvelHeaderNameBuilder mvel() {
+            return MvelHeaderNameBuilder.INSTANCE;
+        }
         /**
          * MVEL (camel-mvel)
          * Transform messages using an MVEL template.
@@ -265,8 +294,46 @@ public interface MvelEndpointBuilderFactory {
             return MvelEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the MVEL component.
+     */
+    public static class MvelHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MvelHeaderNameBuilder INSTANCE = new MvelHeaderNameBuilder();
+
+        /**
+         * A URI for the template resource to use instead of the endpoint
+         * configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MvelResourceUri}.
+         */
+        public String mvelResourceUri() {
+            return "MvelResourceUri";
+        }
+
+        /**
+         * The template to use instead of the endpoint configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MvelTemplate}.
+         */
+        public String mvelTemplate() {
+            return "MvelTemplate";
+        }
+    }
     static MvelEndpointBuilder endpointBuilder(String componentName, String path) {
-        class MvelEndpointBuilderImpl extends AbstractEndpointBuilder implements MvelEndpointBuilder {
+        class MvelEndpointBuilderImpl extends AbstractEndpointBuilder implements MvelEndpointBuilder, AdvancedMvelEndpointBuilder {
             public MvelEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

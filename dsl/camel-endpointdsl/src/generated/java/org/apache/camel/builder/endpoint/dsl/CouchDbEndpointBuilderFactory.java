@@ -78,51 +78,6 @@ public interface CouchDbEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CouchDbEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CouchDbEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Document deletes are published as events.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -272,6 +227,51 @@ public interface CouchDbEndpointBuilderFactory {
             return (CouchDbEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCouchDbEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCouchDbEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -386,55 +386,6 @@ public interface CouchDbEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CouchDbEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CouchDbEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Password for authenticated databases.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -472,6 +423,55 @@ public interface CouchDbEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default CouchDbEndpointProducerBuilder basic() {
             return (CouchDbEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCouchDbEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCouchDbEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -569,6 +569,21 @@ public interface CouchDbEndpointBuilderFactory {
          * Since: 2.11
          * Maven coordinates: org.apache.camel:camel-couchdb
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default CouchDbHeaderNameBuilder couchdb() {
+            return CouchDbHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * CouchDB (camel-couchdb)
+         * Consume changesets for inserts, updates and deletes in a CouchDB
+         * database, as well as get, save, update and delete documents from a
+         * CouchDB database.
+         * 
+         * Category: database,nosql
+         * Since: 2.11
+         * Maven coordinates: org.apache.camel:camel-couchdb
+         * 
          * Syntax: <code>couchdb:protocol:hostname:port/database</code>
          * 
          * Path parameter: protocol (required)
@@ -624,6 +639,95 @@ public interface CouchDbEndpointBuilderFactory {
          */
         default CouchDbEndpointBuilder couchdb(String componentName, String path) {
             return CouchDbEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the CouchDB component.
+     */
+    public static class CouchDbHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final CouchDbHeaderNameBuilder INSTANCE = new CouchDbHeaderNameBuilder();
+
+        /**
+         * The database the message came from.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code CouchDbDatabase}.
+         */
+        public String couchDbDatabase() {
+            return "CouchDbDatabase";
+        }
+
+        /**
+         * The couchdb changeset sequence number of the update / delete message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code CouchDbSeq}.
+         */
+        public String couchDbSeq() {
+            return "CouchDbSeq";
+        }
+
+        /**
+         * The couchdb document id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CouchDbId}.
+         */
+        public String couchDbId() {
+            return "CouchDbId";
+        }
+
+        /**
+         * The couchdb document revision.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CouchDbRev}.
+         */
+        public String couchDbRev() {
+            return "CouchDbRev";
+        }
+
+        /**
+         * The method (delete / update).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CouchDbMethod}.
+         */
+        public String couchDbMethod() {
+            return "CouchDbMethod";
+        }
+
+        /**
+         * The resume action to execute when resuming.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code CouchDbResumeAction}.
+         */
+        public String couchDbResumeAction() {
+            return "CouchDbResumeAction";
         }
     }
     static CouchDbEndpointBuilder endpointBuilder(

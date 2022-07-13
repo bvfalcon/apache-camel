@@ -387,7 +387,7 @@ public class ManagedBacklogDebugger implements ManagedBacklogDebuggerMBean {
                 // add incoming origin of message on the top
                 String routeId = suspendedExchange.getFromRouteId();
                 Route route = suspendedExchange.getContext().getRoute(routeId);
-                String loc = route != null ? route.getSourceLocation() : "";
+                String loc = route != null ? route.getSourceLocationShort() : "";
                 String id = routeId;
                 String label = "";
                 if (suspendedExchange.getFromEndpoint() != null) {
@@ -439,6 +439,16 @@ public class ManagedBacklogDebugger implements ManagedBacklogDebuggerMBean {
         }
         messageHistoryBuffer.append("</messageHistory>\n");
         return messageHistoryBuffer.toString();
+    }
+
+    @Override
+    public void attach() {
+        backlogDebugger.attach();
+    }
+
+    @Override
+    public void detach() {
+        backlogDebugger.detach();
     }
 
     private String dumpExchangePropertiesAsXml(String id) {

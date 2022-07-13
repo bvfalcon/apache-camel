@@ -231,51 +231,6 @@ public interface IrcEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default IrcEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default IrcEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Handle user join events.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -683,6 +638,51 @@ public interface IrcEndpointBuilderFactory {
             return (IrcEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIrcEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIrcEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -979,55 +979,6 @@ public interface IrcEndpointBuilderFactory {
          */
         default IrcEndpointProducerBuilder realname(String realname) {
             doSetProperty("realname", realname);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IrcEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IrcEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1436,6 +1387,55 @@ public interface IrcEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default IrcEndpointProducerBuilder basic() {
             return (IrcEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIrcEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIrcEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Whether or not the server supports color codes.
@@ -2117,6 +2117,19 @@ public interface IrcEndpointBuilderFactory {
          * Since: 1.1
          * Maven coordinates: org.apache.camel:camel-irc
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default IrcHeaderNameBuilder irc() {
+            return IrcHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * IRC (camel-irc)
+         * Send and receive messages to/from and IRC chat.
+         * 
+         * Category: chat
+         * Since: 1.1
+         * Maven coordinates: org.apache.camel:camel-irc
+         * 
          * Syntax: <code>irc:hostname:port</code>
          * 
          * Path parameter: hostname (required)
@@ -2156,6 +2169,149 @@ public interface IrcEndpointBuilderFactory {
          */
         default IrcEndpointBuilder irc(String componentName, String path) {
             return IrcEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the IRC component.
+     */
+    public static class IrcHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final IrcHeaderNameBuilder INSTANCE = new IrcHeaderNameBuilder();
+
+        /**
+         * The type of message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.messageType}.
+         */
+        public String ircMessagetype() {
+            return "irc.messageType";
+        }
+
+        /**
+         * The target.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.target}.
+         */
+        public String ircTarget() {
+            return "irc.target";
+        }
+
+        /**
+         * The nickname or channel the message should be sent to.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.sendTo}.
+         */
+        public String ircSendto() {
+            return "irc.sendTo";
+        }
+
+        /**
+         * The nickname of the user who is kicked from a channel (passive).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.user.kicked}.
+         */
+        public String ircUserKicked() {
+            return "irc.user.kicked";
+        }
+
+        /**
+         * The host of the person who sent the line.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.user.host}.
+         */
+        public String ircUserHost() {
+            return "irc.user.host";
+        }
+
+        /**
+         * The nickname of the person who sent the line or the server name of
+         * the server which sent the line.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.user.nick}.
+         */
+        public String ircUserNick() {
+            return "irc.user.nick";
+        }
+
+        /**
+         * The server name of the server which sent the line or the nickname of
+         * the person who sent the line.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.user.servername}.
+         */
+        public String ircUserServername() {
+            return "irc.user.servername";
+        }
+
+        /**
+         * The username of the person who sent the line.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.user.username}.
+         */
+        public String ircUserUsername() {
+            return "irc.user.username";
+        }
+
+        /**
+         * The numeric reply.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.num}.
+         */
+        public String ircNum() {
+            return "irc.num";
+        }
+
+        /**
+         * The first part of the message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code irc.value}.
+         */
+        public String ircValue() {
+            return "irc.value";
         }
     }
     static IrcEndpointBuilder endpointBuilder(String componentName, String path) {

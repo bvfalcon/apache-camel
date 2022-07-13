@@ -365,51 +365,6 @@ public interface FtpsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FtpsEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FtpsEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * If true, the file will be deleted after it is processed successfully.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -2563,6 +2518,51 @@ public interface FtpsEndpointBuilderFactory {
             return this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFtpsEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFtpsEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * Whether the FTP consumer should download the file. If this option is
          * set to false, then the message body will be null, but the consumer
          * will still trigger a Camel Exchange that has details about the file
@@ -3951,55 +3951,6 @@ public interface FtpsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FtpsEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FtpsEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Expression (such as File Language) used to compute file name to use
          * when fileExist=Move is configured. To move files into a backup
          * subdirectory just enter backup. This option only supports the
@@ -4604,6 +4555,55 @@ public interface FtpsEndpointBuilderFactory {
         default AdvancedFtpsEndpointProducerBuilder keepLastModified(
                 String keepLastModified) {
             doSetProperty("keepLastModified", keepLastModified);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFtpsEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFtpsEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -6369,6 +6369,20 @@ public interface FtpsEndpointBuilderFactory {
          * Since: 2.2
          * Maven coordinates: org.apache.camel:camel-ftp
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FtpsHeaderNameBuilder ftps() {
+            return FtpsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * FTPS (camel-ftp)
+         * Upload and download files to/from FTP servers supporting the FTPS
+         * protocol.
+         * 
+         * Category: file
+         * Since: 2.2
+         * Maven coordinates: org.apache.camel:camel-ftp
+         * 
          * Syntax: <code>ftps:host:port/directoryName</code>
          * 
          * Path parameter: host (required)
@@ -6413,6 +6427,150 @@ public interface FtpsEndpointBuilderFactory {
          */
         default FtpsEndpointBuilder ftps(String componentName, String path) {
             return FtpsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the FTPS component.
+     */
+    public static class FtpsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FtpsHeaderNameBuilder INSTANCE = new FtpsHeaderNameBuilder();
+
+        /**
+         * A long value containing the file size.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileLength}.
+         */
+        public String fileLength() {
+            return "FileLength";
+        }
+
+        /**
+         * A Long value containing the last modified timestamp of the file.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileLastModified}.
+         */
+        public String fileLastModified() {
+            return "FileLastModified";
+        }
+
+        /**
+         * Specifies the output file name (relative to the endpoint directory)
+         * to be used for the output message when sending to the endpoint. If
+         * this is not present and no expression either, then a generated
+         * message ID is used as the filename instead.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileName}.
+         */
+        public String fileName() {
+            return "FileName";
+        }
+
+        /**
+         * Only the file name (the name with no leading paths).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileNameOnly}.
+         */
+        public String fileNameOnly() {
+            return "FileNameOnly";
+        }
+
+        /**
+         * The parent path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileParent}.
+         */
+        public String fileParent() {
+            return "FileParent";
+        }
+
+        /**
+         * The remote file input stream.
+         * 
+         * The option is a: {@code java.io.InputStream} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code RemoteFileInputStream}.
+         */
+        public String remoteFileInputStream() {
+            return "RemoteFileInputStream";
+        }
+
+        /**
+         * Path to the local work file, if local work directory is used.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileLocalWorkPath}.
+         */
+        public String fileLocalWorkPath() {
+            return "FileLocalWorkPath";
+        }
+
+        /**
+         * The FTP client reply code.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FtpReplyCode}.
+         */
+        public String ftpReplyCode() {
+            return "FtpReplyCode";
+        }
+
+        /**
+         * The FTP client reply string.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FtpReplyString}.
+         */
+        public String ftpReplyString() {
+            return "FtpReplyString";
+        }
+
+        /**
+         * The remote hostname.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileHost}.
+         */
+        public String fileHost() {
+            return "FileHost";
         }
     }
     static FtpsEndpointBuilder endpointBuilder(String componentName, String path) {

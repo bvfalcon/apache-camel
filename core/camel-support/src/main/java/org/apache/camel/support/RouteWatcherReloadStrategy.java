@@ -125,7 +125,9 @@ public class RouteWatcherReloadStrategy extends FileWatcherResourceReloadStrateg
                         path = FileUtil.stripPath(path);
                     }
 
-                    boolean result = matcher.match(part, path, false);
+                    String name = FileUtil.compactPath(f.getPath());
+                    boolean exact = name.equals(part);
+                    boolean result = exact || matcher.match(part, path, false);
                     LOG.trace("Accepting file pattern:{} path:{} -> {}", part, path, result);
 
                     if (result) {
@@ -239,7 +241,10 @@ public class RouteWatcherReloadStrategy extends FileWatcherResourceReloadStrateg
                     // use basic endpoint uri to not log verbose details or potential sensitive data
                     String uri = route.getEndpoint().getEndpointBaseUri();
                     uri = URISupport.sanitizeUri(uri);
-                    String loc = route.getSourceResource() != null ? route.getSourceResource().getLocation() : "";
+                    String loc = route.getSourceLocationShort();
+                    if (loc == null) {
+                        loc = "";
+                    }
                     lines.add(String.format("    %s %s (%s) (source: %s)", status, id, uri, loc));
                 }
                 LOG.info(String.format("Routes reloaded summary (total:%s started:%s)", total, started));

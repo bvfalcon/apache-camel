@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>dsl</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-kamelet-main</artifactId>
@@ -35,11 +35,12 @@
 
     <properties>
         <firstVersion>3.11.0</firstVersion>
-        <supportLevel>Experimental</supportLevel>
         <label>jbang</label>
+        <supportLevel>Preview</supportLevel>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-main</artifactId>
@@ -78,11 +79,14 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-grape</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-platform-http-vertx</artifactId>
+            <exclusions>
+                <!-- avoid WARN logs from netty -->
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-resolver-dns</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -98,10 +102,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-resourceresolver-github</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-yaml-dsl</artifactId>
         </dependency>
         <dependency>
@@ -110,9 +110,18 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-catalog-lucene</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-catalog-console</artifactId>
         </dependency>
-
+        <!-- maven downloader -->
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>3.1.4</version>
+        </dependency>
         <!-- optional spring annotation support -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -131,6 +140,7 @@
             <version>${microprofile-config-version}</version>
         </dependency>
 
+        <!-- test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -146,24 +156,6 @@
             <artifactId>log4j-slf4j-impl</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-package-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate-others-list</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

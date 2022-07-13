@@ -27,6 +27,50 @@ configuration:
 camel.main.dev-console-enabled = true
 ----
 
+=== Dev Console and Camel Spring Boot
+
+The Camel developer console is available in Spring Boot as an _actuator_. To enable the console
+you need to add dependency:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-console-starter</artifactId>
+</dependency>
+----
+
+To include more details such as route metrics you need to include JMX management:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-management-starter</artifactId>
+</dependency>
+----
+
+And finally you **must** enable `camel` in the exposed list of HTTP actuator endpoints in `application.properties` as shown:
+
+[source,properties]
+----
+management.endpoints.web.exposure.include=info,health,camel
+----
+
+The console is then available on HTTP (using default port):
+
+[source,text]
+----
+http://localhost:8080/actuator/camel
+----
+
+This will list the available consoles, and you can then call a console by its id, such as `routes`:
+
+[source,text]
+----
+http://localhost:8080/actuator/camel/routes
+----
+
 === Dev Console and Camel JBang
 
 The Developer Console is easily available when using xref:camel-jbang.adoc[Camel JBang],
@@ -55,12 +99,23 @@ public class FooConsole extends AbstractDevConsole {
     }
 
     @Override
-    protected Object doCall(MediaType mediaType, Map<String, Object> options) {
-        if (mediaType.TEXT.equals(mediaType)) {
-            return "Some foolish text here";
-        } else {
-            // json structure
-        }
+    protected String doCallText(Map<String, Object> options) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello from my custom console");
+
+        // more stuff here
+
+        return sb.toString();
+    }
+
+    @Override
+    protected JsonObject doCallJson(Map<String, Object> options) {
+        JsonObject root = new JsonObject();
+        root.put("message", "Hello from my custom console");
+
+        // more stuff here
+
+        return root;
     }
 
 }
@@ -69,7 +124,10 @@ public class FooConsole extends AbstractDevConsole {
 The class must be annotated with `DevConsole` and the unique id of the console (must be unique across all consoles).
 In the constructor the console specifies which group, id, display title, and description to use.
 
-The `doCall` method is responsible for gathering the information the console should output.
+The `doCallText` and `doCallJson` methods is responsible for gathering the information the console should output.
+
+If the console does not support either text or json output, then the methods can return `null`,
+and override the `supportMediaType` method and return `true` for the media-type that are supported.
 
 === Supported Media Types
 

@@ -40,6 +40,9 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
     public interface HazelcastRingbufferEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedHazelcastRingbufferEndpointBuilder advanced() {
+            return (AdvancedHazelcastRingbufferEndpointBuilder) this;
+        }
         /**
          * To specify a default operation to use, if no operation header has
          * been provided.
@@ -125,6 +128,17 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
             doSetProperty("hazelcastInstanceName", hazelcastInstanceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint for the Hazelcast Ringbuffer component.
+     */
+    public interface AdvancedHazelcastRingbufferEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default HazelcastRingbufferEndpointBuilder basic() {
+            return (HazelcastRingbufferEndpointBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -139,12 +153,12 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastRingbufferEndpointBuilder lazyStartProducer(
+        default AdvancedHazelcastRingbufferEndpointBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -164,12 +178,12 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastRingbufferEndpointBuilder lazyStartProducer(
+        default AdvancedHazelcastRingbufferEndpointBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -177,6 +191,19 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
     }
 
     public interface HazelcastRingbufferBuilders {
+        /**
+         * Hazelcast Ringbuffer (camel-hazelcast)
+         * Perform operations on Hazelcast distributed ringbuffer.
+         * 
+         * Category: cache,datagrid
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-hazelcast
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default HazelcastRingbufferHeaderNameBuilder hazelcastRingbuffer() {
+            return HazelcastRingbufferHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Hazelcast Ringbuffer (camel-hazelcast)
          * Perform operations on Hazelcast distributed ringbuffer.
@@ -221,10 +248,34 @@ public interface HazelcastRingbufferEndpointBuilderFactory {
             return HazelcastRingbufferEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Hazelcast Ringbuffer component.
+     */
+    public static class HazelcastRingbufferHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final HazelcastRingbufferHeaderNameBuilder INSTANCE = new HazelcastRingbufferHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code HazelcastOperationType}.
+         */
+        public String hazelcastOperationType() {
+            return "HazelcastOperationType";
+        }
+    }
     static HazelcastRingbufferEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class HazelcastRingbufferEndpointBuilderImpl extends AbstractEndpointBuilder implements HazelcastRingbufferEndpointBuilder {
+        class HazelcastRingbufferEndpointBuilderImpl extends AbstractEndpointBuilder implements HazelcastRingbufferEndpointBuilder, AdvancedHazelcastRingbufferEndpointBuilder {
             public HazelcastRingbufferEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -339,51 +339,6 @@ public interface CxfRsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CxfRsEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CxfRsEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * This option can override the endpointUrl that published from the WADL
          * which can be accessed with resource address url plus _wadl.
          * 
@@ -409,6 +364,51 @@ public interface CxfRsEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default CxfRsEndpointConsumerBuilder basic() {
             return (CxfRsEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCxfRsEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCxfRsEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -1090,55 +1090,6 @@ public interface CxfRsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CxfRsEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CxfRsEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The Camel SSL setting reference. Use the # notation to reference the
          * SSL Context.
          * 
@@ -1288,6 +1239,55 @@ public interface CxfRsEndpointBuilderFactory {
         default AdvancedCxfRsEndpointProducerBuilder ignoreDeleteMethodMessageBody(
                 String ignoreDeleteMethodMessageBody) {
             doSetProperty("ignoreDeleteMethodMessageBody", ignoreDeleteMethodMessageBody);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCxfRsEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCxfRsEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -2178,13 +2178,27 @@ public interface CxfRsEndpointBuilderFactory {
 
     public interface CxfRsBuilders {
         /**
-         * CXF-RS (camel-cxf)
+         * CXF-RS (camel-cxf-rest)
          * Expose JAX-RS REST services using Apache CXF or connect to external
          * REST services using CXF REST client.
          * 
          * Category: rest
          * Since: 2.0
-         * Maven coordinates: org.apache.camel:camel-cxf
+         * Maven coordinates: org.apache.camel:camel-cxf-rest
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default CxfRsHeaderNameBuilder cxfrs() {
+            return CxfRsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * CXF-RS (camel-cxf-rest)
+         * Expose JAX-RS REST services using Apache CXF or connect to external
+         * REST services using CXF REST client.
+         * 
+         * Category: rest
+         * Since: 2.0
+         * Maven coordinates: org.apache.camel:camel-cxf-rest
          * 
          * Syntax: <code>cxfrs:beanId:address</code>
          * 
@@ -2202,13 +2216,13 @@ public interface CxfRsEndpointBuilderFactory {
             return CxfRsEndpointBuilderFactory.endpointBuilder("cxfrs", path);
         }
         /**
-         * CXF-RS (camel-cxf)
+         * CXF-RS (camel-cxf-rest)
          * Expose JAX-RS REST services using Apache CXF or connect to external
          * REST services using CXF REST client.
          * 
          * Category: rest
          * Since: 2.0
-         * Maven coordinates: org.apache.camel:camel-cxf
+         * Maven coordinates: org.apache.camel:camel-cxf-rest
          * 
          * Syntax: <code>cxfrs:beanId:address</code>
          * 
@@ -2226,6 +2240,231 @@ public interface CxfRsEndpointBuilderFactory {
          */
         default CxfRsEndpointBuilder cxfrs(String componentName, String path) {
             return CxfRsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the CXF-RS component.
+     */
+    public static class CxfRsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final CxfRsHeaderNameBuilder INSTANCE = new CxfRsHeaderNameBuilder();
+
+        /**
+         * The name of the operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code operationName}.
+         */
+        public String operationName() {
+            return "operationName";
+        }
+
+        /**
+         * The authentication.
+         * 
+         * The option is a: {@code javax.security.auth.Subject} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code Authentication}.
+         */
+        public String authentication() {
+            return "Authentication";
+        }
+
+        /**
+         * The http method to use.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpMethod}.
+         */
+        public String httpMethod() {
+            return "HttpMethod";
+        }
+
+        /**
+         * The http path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpPath}.
+         */
+        public String httpPath() {
+            return "HttpPath";
+        }
+
+        /**
+         * The content type.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code Content-Type}.
+         */
+        public String contentType() {
+            return "Content-Type";
+        }
+
+        /**
+         * The http query.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpQuery}.
+         */
+        public String httpQuery() {
+            return "HttpQuery";
+        }
+
+        /**
+         * The http response code.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpResponseCode}.
+         */
+        public String httpResponseCode() {
+            return "HttpResponseCode";
+        }
+
+        /**
+         * The content encoding.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code Content-Encoding}.
+         */
+        public String contentEncoding() {
+            return "Content-Encoding";
+        }
+
+        /**
+         * The protocol headers.
+         * 
+         * The option is a: {@code Map} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * org.apache.cxf.message.Message.PROTOCOL_HEADERS}.
+         */
+        public String orgApacheCxfMessageMessageProtocolHeaders() {
+            return "org.apache.cxf.message.Message.PROTOCOL_HEADERS";
+        }
+
+        /**
+         * The CXF message.
+         * 
+         * The option is a: {@code org.apache.cxf.message.Message} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfMessage}.
+         */
+        public String cxfMessage() {
+            return "CxfMessage";
+        }
+
+        /**
+         * If it is true, the CxfRsProducer will use the HttpClientAPI to invoke
+         * the service. If it is false, the CxfRsProducer will use the
+         * ProxyClientAPI to invoke the service.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfRsUsingHttpAPI}.
+         */
+        public String cxfRsUsingHttpAPI() {
+            return "CxfRsUsingHttpAPI";
+        }
+
+        /**
+         * The path values.
+         * 
+         * The option is a: {@code Object[]} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfRsVarValues}.
+         */
+        public String cxfRsVarValues() {
+            return "CxfRsVarValues";
+        }
+
+        /**
+         * The response class.
+         * 
+         * The option is a: {@code Class} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfRsResponseClass}.
+         */
+        public String cxfRsResponseClass() {
+            return "CxfRsResponseClass";
+        }
+
+        /**
+         * The response generic type.
+         * 
+         * The option is a: {@code Type} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfRsResponseGenericType}.
+         */
+        public String cxfRsResponseGenericType() {
+            return "CxfRsResponseGenericType";
+        }
+
+        /**
+         * The query map.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CxfRsQueryMap}.
+         */
+        public String cxfRsQueryMap() {
+            return "CxfRsQueryMap";
+        }
+
+        /**
+         * The stack of MethodInvocationInfo representing resources path when
+         * JAX-RS invocation looks for target.
+         * 
+         * The option is a: {@code
+         * org.apache.cxf.jaxrs.model.OperationResourceInfoStack} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * CxfRsOperationResourceInfoStack}.
+         */
+        public String cxfRsOperationResourceInfoStack() {
+            return "CxfRsOperationResourceInfoStack";
         }
     }
     static CxfRsEndpointBuilder endpointBuilder(

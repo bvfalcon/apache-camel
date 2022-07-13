@@ -18,7 +18,6 @@ package org.apache.camel.component.mina;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -57,11 +56,7 @@ public class MinaProducerAnotherConcurrentTest extends BaseMinaTest {
         Map<Integer, Future<String>> responses = new HashMap<>();
         for (int i = 0; i < files; i++) {
             final int index = i;
-            Future<String> out = executor.submit(new Callable<String>() {
-                public String call() {
-                    return template.requestBody("direct:start", index, String.class);
-                }
-            });
+            Future<String> out = executor.submit(() -> template.requestBody("direct:start", index, String.class));
             responses.put(index, out);
         }
 
@@ -80,9 +75,9 @@ public class MinaProducerAnotherConcurrentTest extends BaseMinaTest {
         return new RouteBuilder() {
 
             public void configure() {
-                from("direct:start").to(String.format("mina:tcp://localhost:%1$s?sync=true", getPort()));
+                from("direct:start").toF("mina:tcp://localhost:%1$s?sync=true", getPort());
 
-                from(String.format("mina:tcp://localhost:%1$s?sync=true", getPort())).process(exchange -> {
+                fromF("mina:tcp://localhost:%1$s?sync=true", getPort()).process(exchange -> {
                     String body = exchange.getIn().getBody(String.class);
                     exchange.getMessage().setBody("Bye " + body);
                 }).to("mock:result");

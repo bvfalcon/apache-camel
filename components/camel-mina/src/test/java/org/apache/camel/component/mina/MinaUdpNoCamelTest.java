@@ -24,6 +24,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.test.AvailablePortFinder;
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -40,16 +41,17 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MinaUdpNoCamelTest {
 
-    private static Logger logger = LoggerFactory.getLogger(MinaUdpNoCamelTest.class);
-    Charset charset = Charset.defaultCharset();
-    LineDelimiter delimiter = LineDelimiter.DEFAULT;
-    MinaTextLineCodecFactory codecFactory = new MinaTextLineCodecFactory(charset, delimiter);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MinaUdpNoCamelTest.class);
+    final Charset charset = Charset.defaultCharset();
+    final LineDelimiter delimiter = LineDelimiter.DEFAULT;
+    final MinaTextLineCodecFactory codecFactory = new MinaTextLineCodecFactory(charset, delimiter);
     UDPServer server;
-    private int port = AvailablePortFinder.getNextAvailable();
+    private final int port = AvailablePortFinder.getNextAvailable();
 
     // Create the UDPServer before the test is run
     @BeforeEach
@@ -64,14 +66,15 @@ public class MinaUdpNoCamelTest {
     }
 
     @Test
-    public void testMinaUDPWithNoCamel() throws InterruptedException {
+    public void testMinaUDPWithNoCamel() {
         UDPClient client = new UDPClient();
         client.connect("127.0.0.1", port);
         for (int i = 0; i < 222; i++) {
             client.sendNoMina("Hello Mina " + i + System.lineSeparator());
         }
-        Thread.sleep(2000);
-        assertEquals(222, server.numMessagesReceived);
+
+        await().atMost(5, TimeUnit.SECONDS)
+                .untilAsserted(() -> assertEquals(222, server.numMessagesReceived));
     }
 
     /*
@@ -107,13 +110,13 @@ public class MinaUdpNoCamelTest {
 
         @Override
         public void messageReceived(IoSession session, Object message) {
-            logger.debug("UDPServer Received body: {}", message);
+            LOGGER.debug("UDPServer Received body: {}", message);
             numMessagesReceived++;
         }
 
         @Override
         public void exceptionCaught(IoSession session, Throwable cause) {
-            logger.error("Ooops! Something went wrong :|", cause);
+            LOGGER.error("Ooops! Something went wrong :|", cause);
         }
     }
 
@@ -145,9 +148,9 @@ public class MinaUdpNoCamelTest {
                 address = InetAddress.getByName(localHost);
 
             } catch (UnknownHostException ex) {
-                logger.warn(null, ex);
+                LOGGER.warn(null, ex);
             } catch (SocketException ex) {
-                logger.warn(null, ex);
+                LOGGER.warn(null, ex);
             }
         }
 
@@ -156,18 +159,18 @@ public class MinaUdpNoCamelTest {
                 DatagramPacket packet = new DatagramPacket(msg.getBytes(), msg.getBytes().length, address, localPort);
                 socket.send(packet);
             } catch (IOException ex) {
-                logger.warn(null, ex);
+                LOGGER.warn(null, ex);
             }
         }
 
         @Override
         public void messageReceived(IoSession session, Object message) {
-            logger.debug("Client Received body: {}", message);
+            LOGGER.debug("Client Received body: {}", message);
         }
 
         @Override
         public void exceptionCaught(IoSession session, Throwable cause) {
-            logger.error("Ooops! Something went wrong :|", cause);
+            LOGGER.error("Ooops! Something went wrong :|", cause);
         }
     }
 }

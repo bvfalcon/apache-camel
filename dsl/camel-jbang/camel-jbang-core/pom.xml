@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jbang-parent</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -39,10 +39,12 @@
     <properties>
         <firstVersion>3.12.0</firstVersion>
         <label>jbang</label>
-        <supportLevel>Experimental</supportLevel>
+        <supportLevel>Preview</supportLevel>
+        <camel-prepare-component>false</camel-prepare-component>
     </properties>
 
     <dependencies>
+        <!-- camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-main</artifactId>
@@ -55,23 +57,20 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-resourceresolver-github</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-file-watch</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>${velocity-version}</version>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
         </dependency>
+
+        <!-- logging -->
         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>${freemarker-version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -90,32 +89,11 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>info.picocli</groupId>
-            <artifactId>picocli</artifactId>
-        </dependency>
+        <!-- color logging -->
         <dependency>
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
             <version>${jansi-version}</version>
-        </dependency>
-        <!-- Kubernetes client -->
-        <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>kubernetes-client</artifactId>
-            <version>${kubernetes-client-version}</version>
-        </dependency>
-        <!-- OpenShift client -->
-        <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>openshift-client</artifactId>
-            <version>${kubernetes-client-version}</version>
-        </dependency>
-        <!-- Docker generator -->
-        <dependency>
-            <groupId>com.google.cloud.tools</groupId>
-            <artifactId>jib-core</artifactId>
-            <version>${jib-version}</version>
         </dependency>
         <!-- Code generator -->
         <dependency>

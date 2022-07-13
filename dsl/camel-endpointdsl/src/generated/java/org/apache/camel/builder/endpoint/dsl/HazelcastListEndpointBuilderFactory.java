@@ -128,6 +128,17 @@ public interface HazelcastListEndpointBuilderFactory {
             doSetProperty("hazelcastInstanceName", hazelcastInstanceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Hazelcast List component.
+     */
+    public interface AdvancedHazelcastListEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default HazelcastListEndpointConsumerBuilder basic() {
+            return (HazelcastListEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -140,12 +151,12 @@ public interface HazelcastListEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default HazelcastListEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedHazelcastListEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -163,26 +174,15 @@ public interface HazelcastListEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default HazelcastListEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedHazelcastListEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Hazelcast List component.
-     */
-    public interface AdvancedHazelcastListEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default HazelcastListEndpointConsumerBuilder basic() {
-            return (HazelcastListEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -350,6 +350,17 @@ public interface HazelcastListEndpointBuilderFactory {
             doSetProperty("hazelcastInstanceName", hazelcastInstanceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Hazelcast List component.
+     */
+    public interface AdvancedHazelcastListEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default HazelcastListEndpointProducerBuilder basic() {
+            return (HazelcastListEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -364,12 +375,12 @@ public interface HazelcastListEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastListEndpointProducerBuilder lazyStartProducer(
+        default AdvancedHazelcastListEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -389,26 +400,15 @@ public interface HazelcastListEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastListEndpointProducerBuilder lazyStartProducer(
+        default AdvancedHazelcastListEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Hazelcast List component.
-     */
-    public interface AdvancedHazelcastListEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default HazelcastListEndpointProducerBuilder basic() {
-            return (HazelcastListEndpointProducerBuilder) this;
         }
     }
 
@@ -530,6 +530,19 @@ public interface HazelcastListEndpointBuilderFactory {
          * Since: 2.7
          * Maven coordinates: org.apache.camel:camel-hazelcast
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default HazelcastListHeaderNameBuilder hazelcastList() {
+            return HazelcastListHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Hazelcast List (camel-hazelcast)
+         * Perform operations on Hazelcast distributed list.
+         * 
+         * Category: cache,datagrid
+         * Since: 2.7
+         * Maven coordinates: org.apache.camel:camel-hazelcast
+         * 
          * Syntax: <code>hazelcast-list:cacheName</code>
          * 
          * Path parameter: cacheName (required)
@@ -563,6 +576,108 @@ public interface HazelcastListEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return HazelcastListEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Hazelcast List component.
+     */
+    public static class HazelcastListHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final HazelcastListHeaderNameBuilder INSTANCE = new HazelcastListHeaderNameBuilder();
+
+        /**
+         * the object id to store / find your object inside the cache.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HazelcastObjectId}.
+         */
+        public String hazelcastObjectId() {
+            return "HazelcastObjectId";
+        }
+
+        /**
+         * The index of the object.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code HazelcastObjectIndex}.
+         */
+        public String hazelcastObjectIndex() {
+            return "HazelcastObjectIndex";
+        }
+
+        /**
+         * The type of event - here added and removed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerAction}.
+         */
+        public String hazelcastListenerAction() {
+            return "HazelcastListenerAction";
+        }
+
+        /**
+         * The map consumer.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerType}.
+         */
+        public String hazelcastListenerType() {
+            return "HazelcastListenerType";
+        }
+
+        /**
+         * The time of the event in millis.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerTime}.
+         */
+        public String hazelcastListenerTime() {
+            return "HazelcastListenerTime";
+        }
+
+        /**
+         * The name of the cache - e.g. foo.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastCacheName}.
+         */
+        public String hazelcastCacheName() {
+            return "HazelcastCacheName";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code HazelcastOperationType}.
+         */
+        public String hazelcastOperationType() {
+            return "HazelcastOperationType";
         }
     }
     static HazelcastListEndpointBuilder endpointBuilder(

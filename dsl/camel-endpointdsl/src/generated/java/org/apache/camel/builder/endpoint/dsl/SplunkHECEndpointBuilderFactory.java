@@ -39,6 +39,9 @@ public interface SplunkHECEndpointBuilderFactory {
      * Builder for endpoint for the Splunk HEC component.
      */
     public interface SplunkHECEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedSplunkHECEndpointBuilder advanced() {
+            return (AdvancedSplunkHECEndpointBuilder) this;
+        }
         /**
          * Send only the message body.
          * 
@@ -102,7 +105,8 @@ public interface SplunkHECEndpointBuilderFactory {
             return this;
         }
         /**
-         * Splunk host.
+         * Splunk host field of the event message. This is not the Splunk host
+         * to connect to.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -128,55 +132,6 @@ public interface SplunkHECEndpointBuilderFactory {
          */
         default SplunkHECEndpointBuilder index(String index) {
             doSetProperty("index", index);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SplunkHECEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SplunkHECEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -304,7 +259,81 @@ public interface SplunkHECEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Splunk HEC component.
+     */
+    public interface AdvancedSplunkHECEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default SplunkHECEndpointBuilder basic() {
+            return (SplunkHECEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSplunkHECEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSplunkHECEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface SplunkHECBuilders {
+        /**
+         * Splunk HEC (camel-splunk-hec)
+         * The splunk component allows to publish events in Splunk using the
+         * HTTP Event Collector.
+         * 
+         * Category: log,monitoring
+         * Since: 3.3
+         * Maven coordinates: org.apache.camel:camel-splunk-hec
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default SplunkHECHeaderNameBuilder splunkHec() {
+            return SplunkHECHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Splunk HEC (camel-splunk-hec)
          * The splunk component allows to publish events in Splunk using the
@@ -317,10 +346,11 @@ public interface SplunkHECEndpointBuilderFactory {
          * Syntax: <code>splunk-hec:splunkURL/token</code>
          * 
          * Path parameter: splunkURL (required)
-         * Splunk Host URL
+         * Splunk Host and Port (example: my_splunk_server:8089)
          * 
          * Path parameter: token (required)
-         * Splunk authorization token
+         * Splunk HEC token (this is the token created for HEC and not the
+         * user's token)
          * 
          * @param path splunkURL/token
          * @return the dsl builder
@@ -340,10 +370,11 @@ public interface SplunkHECEndpointBuilderFactory {
          * Syntax: <code>splunk-hec:splunkURL/token</code>
          * 
          * Path parameter: splunkURL (required)
-         * Splunk Host URL
+         * Splunk Host and Port (example: my_splunk_server:8089)
          * 
          * Path parameter: token (required)
-         * Splunk authorization token
+         * Splunk HEC token (this is the token created for HEC and not the
+         * user's token)
          * 
          * @param componentName to use a custom component name for the endpoint
          * instead of the default name
@@ -356,10 +387,36 @@ public interface SplunkHECEndpointBuilderFactory {
             return SplunkHECEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Splunk HEC component.
+     */
+    public static class SplunkHECHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final SplunkHECHeaderNameBuilder INSTANCE = new SplunkHECHeaderNameBuilder();
+
+        /**
+         * Epoch-formatted time. Specify with the time query string parameter.
+         * Sets a default for all events in the request. The default time can be
+         * overridden.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SplunkHECIndexTime}.
+         */
+        public String splunkHECIndexTime() {
+            return "SplunkHECIndexTime";
+        }
+    }
     static SplunkHECEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class SplunkHECEndpointBuilderImpl extends AbstractEndpointBuilder implements SplunkHECEndpointBuilder {
+        class SplunkHECEndpointBuilderImpl extends AbstractEndpointBuilder implements SplunkHECEndpointBuilder, AdvancedSplunkHECEndpointBuilder {
             public SplunkHECEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

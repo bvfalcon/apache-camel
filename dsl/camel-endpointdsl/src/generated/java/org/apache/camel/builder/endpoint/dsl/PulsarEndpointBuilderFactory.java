@@ -201,51 +201,6 @@ public interface PulsarEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default PulsarEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default PulsarEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Name of the consumer when subscription is EXCLUSIVE.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -698,6 +653,51 @@ public interface PulsarEndpointBuilderFactory {
             return (PulsarEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPulsarEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPulsarEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -1067,55 +1067,6 @@ public interface PulsarEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PulsarEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PulsarEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Size of the pending massages queue. When the queue is full, by
          * default, any further sends will fail unless blockIfQueueFull=true.
          * 
@@ -1310,6 +1261,55 @@ public interface PulsarEndpointBuilderFactory {
         default PulsarEndpointProducerBuilder basic() {
             return (PulsarEndpointProducerBuilder) this;
         }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPulsarEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPulsarEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
     }
 
     /**
@@ -1391,6 +1391,19 @@ public interface PulsarEndpointBuilderFactory {
          * Since: 2.24
          * Maven coordinates: org.apache.camel:camel-pulsar
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default PulsarHeaderNameBuilder pulsar() {
+            return PulsarHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Pulsar (camel-pulsar)
+         * Send and receive messages from/to Apache Pulsar messaging system.
+         * 
+         * Category: messaging
+         * Since: 2.24
+         * Maven coordinates: org.apache.camel:camel-pulsar
+         * 
          * Syntax: <code>pulsar:persistence://tenant/namespace/topic</code>
          * 
          * Path parameter: persistence (required)
@@ -1444,6 +1457,203 @@ public interface PulsarEndpointBuilderFactory {
          */
         default PulsarEndpointBuilder pulsar(String componentName, String path) {
             return PulsarEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Pulsar component.
+     */
+    public static class PulsarHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final PulsarHeaderNameBuilder INSTANCE = new PulsarHeaderNameBuilder();
+
+        /**
+         * The properties attached to the message.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code properties}.
+         */
+        public String properties() {
+            return "properties";
+        }
+
+        /**
+         * The producer name who produced the message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code producer_name}.
+         */
+        public String producerName() {
+            return "producer_name";
+        }
+
+        /**
+         * The sequence id associated with the message.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code sequence_id}.
+         */
+        public String sequenceId() {
+            return "sequence_id";
+        }
+
+        /**
+         * The publish time of the message.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code publish_time}.
+         */
+        public String publishTime() {
+            return "publish_time";
+        }
+
+        /**
+         * The unique message ID associated with the message.
+         * 
+         * The option is a: {@code org.apache.pulsar.client.api.MessageId} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code message_id}.
+         */
+        public String messageId() {
+            return "message_id";
+        }
+
+        /**
+         * The event time associated with the message.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code event_time}.
+         */
+        public String eventTime() {
+            return "event_time";
+        }
+
+        /**
+         * The key of the message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code key}.
+         */
+        public String key() {
+            return "key";
+        }
+
+        /**
+         * The bytes in key.
+         * 
+         * The option is a: {@code byte[]} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code key_bytes}.
+         */
+        public String keyBytes() {
+            return "key_bytes";
+        }
+
+        /**
+         * The topic the message was published to.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code topic_name}.
+         */
+        public String topicName() {
+            return "topic_name";
+        }
+
+        /**
+         * The message receipt.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.pulsar.PulsarMessageReceipt} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code message_receipt}.
+         */
+        public String messageReceipt() {
+            return "message_receipt";
+        }
+
+        /**
+         * The key of the message for routing policy.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code PulsarProducerMessageKey}.
+         */
+        public String pulsarProducerMessageKey() {
+            return "PulsarProducerMessageKey";
+        }
+
+        /**
+         * The properties of the message to add.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * PulsarProducerMessageProperties}.
+         */
+        public String pulsarProducerMessageProperties() {
+            return "PulsarProducerMessageProperties";
+        }
+
+        /**
+         * The event time of the message message.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * PulsarProducerMessageEventTime}.
+         */
+        public String pulsarProducerMessageEventTime() {
+            return "PulsarProducerMessageEventTime";
+        }
+
+        /**
+         * The message redelivery count, redelivery count maintain in pulsar
+         * broker.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code PulsarRedeliveryCount}.
+         */
+        public String pulsarRedeliveryCount() {
+            return "PulsarRedeliveryCount";
         }
     }
     static PulsarEndpointBuilder endpointBuilder(

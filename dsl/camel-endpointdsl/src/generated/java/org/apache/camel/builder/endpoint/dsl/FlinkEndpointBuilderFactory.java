@@ -38,6 +38,9 @@ public interface FlinkEndpointBuilderFactory {
      * Builder for endpoint for the Flink component.
      */
     public interface FlinkEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedFlinkEndpointBuilder advanced() {
+            return (AdvancedFlinkEndpointBuilder) this;
+        }
         /**
          * Indicates if results should be collected or counted.
          * 
@@ -194,6 +197,17 @@ public interface FlinkEndpointBuilderFactory {
             doSetProperty("dataStreamCallback", dataStreamCallback);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint for the Flink component.
+     */
+    public interface AdvancedFlinkEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default FlinkEndpointBuilder basic() {
+            return (FlinkEndpointBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -208,12 +222,13 @@ public interface FlinkEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default FlinkEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
+        default AdvancedFlinkEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
@@ -232,18 +247,32 @@ public interface FlinkEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default FlinkEndpointBuilder lazyStartProducer(String lazyStartProducer) {
+        default AdvancedFlinkEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
     }
 
     public interface FlinkBuilders {
+        /**
+         * Flink (camel-flink)
+         * Send DataSet jobs to an Apache Flink cluster.
+         * 
+         * Category: transformation,bigdata,streams
+         * Since: 2.18
+         * Maven coordinates: org.apache.camel:camel-flink
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FlinkHeaderNameBuilder flink() {
+            return FlinkHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Flink (camel-flink)
          * Send DataSet jobs to an Apache Flink cluster.
@@ -287,10 +316,75 @@ public interface FlinkEndpointBuilderFactory {
             return FlinkEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Flink component.
+     */
+    public static class FlinkHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FlinkHeaderNameBuilder INSTANCE = new FlinkHeaderNameBuilder();
+
+        /**
+         * The dataset.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FlinkDataSet}.
+         */
+        public String flinkDataSet() {
+            return "FlinkDataSet";
+        }
+
+        /**
+         * The dataset callback.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.flink.DataSetCallback} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FlinkDataSetCallback}.
+         */
+        public String flinkDataSetCallback() {
+            return "FlinkDataSetCallback";
+        }
+
+        /**
+         * The data stream.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FlinkDataStream}.
+         */
+        public String flinkDataStream() {
+            return "FlinkDataStream";
+        }
+
+        /**
+         * The data stream callback.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.flink.DataStreamCallback} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FlinkDataStreamCallback}.
+         */
+        public String flinkDataStreamCallback() {
+            return "FlinkDataStreamCallback";
+        }
+    }
     static FlinkEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class FlinkEndpointBuilderImpl extends AbstractEndpointBuilder implements FlinkEndpointBuilder {
+        class FlinkEndpointBuilderImpl extends AbstractEndpointBuilder implements FlinkEndpointBuilder, AdvancedFlinkEndpointBuilder {
             public FlinkEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

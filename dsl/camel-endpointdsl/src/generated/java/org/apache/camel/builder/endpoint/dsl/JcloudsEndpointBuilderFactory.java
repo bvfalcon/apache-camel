@@ -44,51 +44,6 @@ public interface JcloudsEndpointBuilderFactory {
             return (AdvancedJcloudsEndpointConsumerBuilder) this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JcloudsEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JcloudsEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The name of the blob container.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -126,6 +81,51 @@ public interface JcloudsEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default JcloudsEndpointConsumerBuilder basic() {
             return (JcloudsEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJcloudsEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJcloudsEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -207,55 +207,6 @@ public interface JcloudsEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default AdvancedJcloudsEndpointProducerBuilder advanced() {
             return (AdvancedJcloudsEndpointProducerBuilder) this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JcloudsEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JcloudsEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
         }
         /**
          * The name of the blob.
@@ -413,6 +364,55 @@ public interface JcloudsEndpointBuilderFactory {
         default JcloudsEndpointProducerBuilder basic() {
             return (JcloudsEndpointProducerBuilder) this;
         }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJcloudsEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJcloudsEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
     }
 
     /**
@@ -462,6 +462,19 @@ public interface JcloudsEndpointBuilderFactory {
          * Since: 2.9
          * Maven coordinates: org.apache.camel:camel-jclouds
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JcloudsHeaderNameBuilder jclouds() {
+            return JcloudsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * JClouds (camel-jclouds)
+         * Interact with jclouds compute and blobstore service.
+         * 
+         * Category: api,cloud,compute
+         * Since: 2.9
+         * Maven coordinates: org.apache.camel:camel-jclouds
+         * 
          * Syntax: <code>jclouds:command:providerId</code>
          * 
          * Path parameter: command (required)
@@ -503,6 +516,165 @@ public interface JcloudsEndpointBuilderFactory {
          */
         default JcloudsEndpointBuilder jclouds(String componentName, String path) {
             return JcloudsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the JClouds component.
+     */
+    public static class JcloudsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JcloudsHeaderNameBuilder INSTANCE = new JcloudsHeaderNameBuilder();
+
+        /**
+         * The name of the blob.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer blobstore
+         * 
+         * @return the name of the header {@code JcloudsBlobName}.
+         */
+        public String jcloudsBlobName() {
+            return "JcloudsBlobName";
+        }
+
+        /**
+         * The name of the blob container.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer blobstore
+         * 
+         * @return the name of the header {@code JcloudsContainerName}.
+         */
+        public String jcloudsContainerName() {
+            return "JcloudsContainerName";
+        }
+
+        /**
+         * The blob name list.
+         * 
+         * The option is a: {@code List} type.
+         * 
+         * Group: producer blobstore
+         * 
+         * @return the name of the header {@code JcloudsBlobNameList}.
+         */
+        public String jcloudsBlobNameList() {
+            return "JcloudsBlobNameList";
+        }
+
+        /**
+         * The node state.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsNodeState}.
+         */
+        public String jcloudsNodeState() {
+            return "JcloudsNodeState";
+        }
+
+        /**
+         * The operation to be performed on the blob. The valid options are: PUT
+         * GET.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JcloudsOperation}.
+         */
+        public String jcloudsOperation() {
+            return "JcloudsOperation";
+        }
+
+        /**
+         * The imageId that will be used for creating a node. Values depend on
+         * the actual cloud provider.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsImageId}.
+         */
+        public String jcloudsImageId() {
+            return "JcloudsImageId";
+        }
+
+        /**
+         * The location that will be used for creating a node. Values depend on
+         * the actual cloud provider.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JcloudsLocationId}.
+         */
+        public String jcloudsLocationId() {
+            return "JcloudsLocationId";
+        }
+
+        /**
+         * The hardware that will be used for creating a node. Values depend on
+         * the actual cloud provider.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsHardwareId}.
+         */
+        public String jcloudsHardwareId() {
+            return "JcloudsHardwareId";
+        }
+
+        /**
+         * The group that will be assigned to the newly created node. Values
+         * depend on the actual cloud provider.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsGroup}.
+         */
+        public String jcloudsGroup() {
+            return "JcloudsGroup";
+        }
+
+        /**
+         * The id of the node that will run the script or destroyed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsNodeId}.
+         */
+        public String jcloudsNodeId() {
+            return "JcloudsNodeId";
+        }
+
+        /**
+         * The user on the target node that will run the script.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer compute
+         * 
+         * @return the name of the header {@code JcloudsUser}.
+         */
+        public String jcloudsUser() {
+            return "JcloudsUser";
         }
     }
     static JcloudsEndpointBuilder endpointBuilder(

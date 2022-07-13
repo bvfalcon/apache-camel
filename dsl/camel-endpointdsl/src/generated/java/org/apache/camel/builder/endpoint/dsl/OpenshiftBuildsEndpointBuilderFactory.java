@@ -104,55 +104,6 @@ public interface OpenshiftBuildsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default OpenshiftBuildsEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default OpenshiftBuildsEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Producer operation to do on Kubernetes.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -396,6 +347,55 @@ public interface OpenshiftBuildsEndpointBuilderFactory {
             return (OpenshiftBuildsEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedOpenshiftBuildsEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedOpenshiftBuildsEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * Connection timeout in milliseconds to use when making requests to the
          * Kubernetes API server.
          * 
@@ -439,6 +439,19 @@ public interface OpenshiftBuildsEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-kubernetes
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default OpenshiftBuildsHeaderNameBuilder openshiftBuilds() {
+            return OpenshiftBuildsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Openshift Builds (camel-kubernetes)
+         * Perform operations on OpenShift Builds.
+         * 
+         * Category: container,cloud,paas
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-kubernetes
+         * 
          * Syntax: <code>openshift-builds:masterUrl</code>
          * 
          * Path parameter: masterUrl (required)
@@ -472,6 +485,69 @@ public interface OpenshiftBuildsEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return OpenshiftBuildsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Openshift Builds component.
+     */
+    public static class OpenshiftBuildsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final OpenshiftBuildsHeaderNameBuilder INSTANCE = new OpenshiftBuildsHeaderNameBuilder();
+
+        /**
+         * The Producer operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesOperation}.
+         */
+        public String kubernetesOperation() {
+            return "KubernetesOperation";
+        }
+
+        /**
+         * The namespace name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceName}.
+         */
+        public String kubernetesNamespaceName() {
+            return "KubernetesNamespaceName";
+        }
+
+        /**
+         * The Openshift build labels.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesBuildsLabels}.
+         */
+        public String kubernetesBuildsLabels() {
+            return "KubernetesBuildsLabels";
+        }
+
+        /**
+         * The Openshift build name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesBuildName}.
+         */
+        public String kubernetesBuildName() {
+            return "KubernetesBuildName";
         }
     }
     static OpenshiftBuildsEndpointBuilder endpointBuilder(

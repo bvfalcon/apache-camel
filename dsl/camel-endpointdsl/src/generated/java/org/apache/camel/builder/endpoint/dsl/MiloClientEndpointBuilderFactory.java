@@ -282,6 +282,39 @@ public interface MiloClientEndpointBuilderFactory {
             return this;
         }
         /**
+         * Omit notifications in case of null values.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointConsumerBuilder omitNullValues(
+                boolean omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
+            return this;
+        }
+        /**
+         * Omit notifications in case of null values.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointConsumerBuilder omitNullValues(
+                String omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
+            return this;
+        }
+        /**
          * The sampling interval in milliseconds.
          * 
          * The option is a: &lt;code&gt;java.lang.Double&lt;/code&gt; type.
@@ -312,51 +345,6 @@ public interface MiloClientEndpointBuilderFactory {
         default MiloClientEndpointConsumerBuilder samplingInterval(
                 String samplingInterval) {
             doSetProperty("samplingInterval", samplingInterval);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default MiloClientEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default MiloClientEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
         }
         /**
@@ -743,6 +731,51 @@ public interface MiloClientEndpointBuilderFactory {
             return (MiloClientEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloClientEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloClientEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -1061,6 +1094,39 @@ public interface MiloClientEndpointBuilderFactory {
             return this;
         }
         /**
+         * Omit notifications in case of null values.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointProducerBuilder omitNullValues(
+                boolean omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
+            return this;
+        }
+        /**
+         * Omit notifications in case of null values.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointProducerBuilder omitNullValues(
+                String omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
+            return this;
+        }
+        /**
          * The sampling interval in milliseconds.
          * 
          * The option is a: &lt;code&gt;java.lang.Double&lt;/code&gt; type.
@@ -1091,55 +1157,6 @@ public interface MiloClientEndpointBuilderFactory {
         default MiloClientEndpointProducerBuilder samplingInterval(
                 String samplingInterval) {
             doSetProperty("samplingInterval", samplingInterval);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MiloClientEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MiloClientEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1525,6 +1542,55 @@ public interface MiloClientEndpointBuilderFactory {
         default MiloClientEndpointProducerBuilder basic() {
             return (MiloClientEndpointProducerBuilder) this;
         }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloClientEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloClientEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
     }
 
     /**
@@ -1772,6 +1838,37 @@ public interface MiloClientEndpointBuilderFactory {
          */
         default MiloClientEndpointBuilder node(String node) {
             doSetProperty("node", node);
+            return this;
+        }
+        /**
+         * Omit notifications in case of null values.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointBuilder omitNullValues(boolean omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
+            return this;
+        }
+        /**
+         * Omit notifications in case of null values.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: true
+         * Group: common
+         * 
+         * @param omitNullValues the value to set
+         * @return the dsl builder
+         */
+        default MiloClientEndpointBuilder omitNullValues(String omitNullValues) {
+            doSetProperty("omitNullValues", omitNullValues);
             return this;
         }
         /**
@@ -2192,6 +2289,20 @@ public interface MiloClientEndpointBuilderFactory {
          * Since: 2.19
          * Maven coordinates: org.apache.camel:camel-milo
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MiloClientHeaderNameBuilder miloClient() {
+            return MiloClientHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * OPC UA Client (camel-milo)
+         * Connect to OPC UA servers using the binary protocol for acquiring
+         * telemetry data.
+         * 
+         * Category: iot
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-milo
+         * 
          * Syntax: <code>milo-client:endpointUri</code>
          * 
          * Path parameter: endpointUri (required)
@@ -2226,6 +2337,43 @@ public interface MiloClientEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return MiloClientEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the OPC UA Client component.
+     */
+    public static class MiloClientHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MiloClientHeaderNameBuilder INSTANCE = new MiloClientHeaderNameBuilder();
+
+        /**
+         * The node ids.
+         * 
+         * The option is a: {@code List} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MiloNodeIds}.
+         */
+        public String miloNodeIds() {
+            return "MiloNodeIds";
+        }
+
+        /**
+         * The await setting for writes.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code await}.
+         */
+        public String await() {
+            return "await";
         }
     }
     static MiloClientEndpointBuilder endpointBuilder(

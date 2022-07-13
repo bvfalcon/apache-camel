@@ -39,6 +39,9 @@ public interface IAM2EndpointBuilderFactory {
      * component.
      */
     public interface IAM2EndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedIAM2EndpointBuilder advanced() {
+            return (AdvancedIAM2EndpointBuilder) this;
+        }
         /**
          * To use a existing configured AWS IAM as client.
          * 
@@ -68,53 +71,6 @@ public interface IAM2EndpointBuilderFactory {
          */
         default IAM2EndpointBuilder iamClient(String iamClient) {
             doSetProperty("iamClient", iamClient);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IAM2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IAM2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -428,7 +384,81 @@ public interface IAM2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Identity and Access Management
+     * (IAM) component.
+     */
+    public interface AdvancedIAM2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default IAM2EndpointBuilder basic() {
+            return (IAM2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIAM2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIAM2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface IAM2Builders {
+        /**
+         * AWS Identity and Access Management (IAM) (camel-aws2-iam)
+         * Manage AWS IAM instances using AWS SDK version 2.x.
+         * 
+         * Category: cloud,management
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-iam
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default IAM2HeaderNameBuilder aws2Iam() {
+            return IAM2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Identity and Access Management (IAM) (camel-aws2-iam)
          * Manage AWS IAM instances using AWS SDK version 2.x.
@@ -470,8 +500,99 @@ public interface IAM2EndpointBuilderFactory {
             return IAM2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Identity and Access Management
+     * (IAM) component.
+     */
+    public static class IAM2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final IAM2HeaderNameBuilder INSTANCE = new IAM2HeaderNameBuilder();
+
+        /**
+         * The operation we want to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMOperation}.
+         */
+        public String awsIAMOperation() {
+            return "AwsIAMOperation";
+        }
+
+        /**
+         * The username for the user you want to manage.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMUsername}.
+         */
+        public String awsIAMUsername() {
+            return "AwsIAMUsername";
+        }
+
+        /**
+         * The accessKey you want to manage.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMAccessKeyID}.
+         */
+        public String awsIAMAccessKeyID() {
+            return "AwsIAMAccessKeyID";
+        }
+
+        /**
+         * The Status of the AccessKey you want to set, possible value are
+         * active and inactive.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMAccessKeyStatus}.
+         */
+        public String awsIAMAccessKeyStatus() {
+            return "AwsIAMAccessKeyStatus";
+        }
+
+        /**
+         * The name of an AWS IAM Group.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMGroupName}.
+         */
+        public String awsIAMGroupName() {
+            return "AwsIAMGroupName";
+        }
+
+        /**
+         * The path of an AWS IAM Group.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsIAMGroupPath}.
+         */
+        public String awsIAMGroupPath() {
+            return "AwsIAMGroupPath";
+        }
+    }
     static IAM2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class IAM2EndpointBuilderImpl extends AbstractEndpointBuilder implements IAM2EndpointBuilder {
+        class IAM2EndpointBuilderImpl extends AbstractEndpointBuilder implements IAM2EndpointBuilder, AdvancedIAM2EndpointBuilder {
             public IAM2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

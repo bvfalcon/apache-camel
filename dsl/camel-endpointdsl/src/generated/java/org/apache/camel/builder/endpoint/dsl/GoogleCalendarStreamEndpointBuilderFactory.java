@@ -61,51 +61,6 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoogleCalendarStreamEndpointBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoogleCalendarStreamEndpointBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The calendarId to be used.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -891,21 +846,6 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
             return this;
         }
         /**
-         * Sets .json file with credentials for Service account.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: security
-         * 
-         * @param keyResource the value to set
-         * @return the dsl builder
-         */
-        default GoogleCalendarStreamEndpointBuilder keyResource(
-                String keyResource) {
-            doSetProperty("keyResource", keyResource);
-            return this;
-        }
-        /**
          * The name of the p12 file which has the private key to use with the
          * Google Service Account.
          * 
@@ -939,6 +879,22 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
             return this;
         }
         /**
+         * Service account key in json format to authenticate an application as
+         * a service account. Accept base64 adding the prefix base64:.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: security
+         * 
+         * @param serviceAccountKey the value to set
+         * @return the dsl builder
+         */
+        default GoogleCalendarStreamEndpointBuilder serviceAccountKey(
+                String serviceAccountKey) {
+            doSetProperty("serviceAccountKey", serviceAccountKey);
+            return this;
+        }
+        /**
          * The email address of the user the application is trying to
          * impersonate in the service account flow.
          * 
@@ -963,6 +919,51 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default GoogleCalendarStreamEndpointBuilder basic() {
             return (GoogleCalendarStreamEndpointBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCalendarStreamEndpointBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCalendarStreamEndpointBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -1083,6 +1084,19 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
          * Since: 2.23
          * Maven coordinates: org.apache.camel:camel-google-calendar
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoogleCalendarStreamHeaderNameBuilder googleCalendarStream() {
+            return GoogleCalendarStreamHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Google Calendar Stream (camel-google-calendar)
+         * Poll for changes in a Google Calendar.
+         * 
+         * Category: cloud
+         * Since: 2.23
+         * Maven coordinates: org.apache.camel:camel-google-calendar
+         * 
          * Syntax: <code>google-calendar-stream:index</code>
          * 
          * Path parameter: index (required)
@@ -1117,6 +1131,30 @@ public interface GoogleCalendarStreamEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return GoogleCalendarStreamEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Google Calendar Stream component.
+     */
+    public static class GoogleCalendarStreamHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoogleCalendarStreamHeaderNameBuilder INSTANCE = new GoogleCalendarStreamHeaderNameBuilder();
+
+        /**
+         * The calendar event id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCalendarEventId}.
+         */
+        public String googleCalendarEventId() {
+            return "GoogleCalendarEventId";
         }
     }
     static GoogleCalendarStreamEndpointBuilder endpointBuilder(

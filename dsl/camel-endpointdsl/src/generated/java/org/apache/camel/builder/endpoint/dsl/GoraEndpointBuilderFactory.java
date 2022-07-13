@@ -86,51 +86,6 @@ public interface GoraEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoraEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoraEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Number of concurrent consumers.
          * 
          * The option is a: &lt;code&gt;int&lt;/code&gt; type.
@@ -489,6 +444,51 @@ public interface GoraEndpointBuilderFactory {
             return (GoraEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoraEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoraEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -676,6 +676,17 @@ public interface GoraEndpointBuilderFactory {
             doSetProperty("flushOnEveryOperation", flushOnEveryOperation);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Gora component.
+     */
+    public interface AdvancedGoraEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default GoraEndpointProducerBuilder basic() {
+            return (GoraEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -690,12 +701,12 @@ public interface GoraEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default GoraEndpointProducerBuilder lazyStartProducer(
+        default AdvancedGoraEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -715,26 +726,15 @@ public interface GoraEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default GoraEndpointProducerBuilder lazyStartProducer(
+        default AdvancedGoraEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Gora component.
-     */
-    public interface AdvancedGoraEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default GoraEndpointProducerBuilder basic() {
-            return (GoraEndpointProducerBuilder) this;
         }
         /**
          * Hadoop Configuration.
@@ -877,6 +877,19 @@ public interface GoraEndpointBuilderFactory {
          * Since: 2.14
          * Maven coordinates: org.apache.camel:camel-gora
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoraHeaderNameBuilder gora() {
+            return GoraHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Gora (camel-gora)
+         * Access NoSQL databases using the Apache Gora framework.
+         * 
+         * Category: database,nosql,bigdata
+         * Since: 2.14
+         * Maven coordinates: org.apache.camel:camel-gora
+         * 
          * Syntax: <code>gora:name</code>
          * 
          * Path parameter: name (required)
@@ -908,6 +921,43 @@ public interface GoraEndpointBuilderFactory {
          */
         default GoraEndpointBuilder gora(String componentName, String path) {
             return GoraEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Gora component.
+     */
+    public static class GoraHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoraHeaderNameBuilder INSTANCE = new GoraHeaderNameBuilder();
+
+        /**
+         * Used in order to define the datum key for the operations need it.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code goraKey}.
+         */
+        public String goraKey() {
+            return "goraKey";
+        }
+
+        /**
+         * Used in order to define the operation to execute.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code goraOperation}.
+         */
+        public String goraOperation() {
+            return "goraOperation";
         }
     }
     static GoraEndpointBuilder endpointBuilder(String componentName, String path) {

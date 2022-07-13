@@ -44,51 +44,6 @@ public interface CordaEndpointBuilderFactory {
             return (AdvancedCordaEndpointConsumerBuilder) this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CordaEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CordaEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * PageSpecification allows specification of a page number (starting
          * from 1) and page size (defaulting to 200 with a maximum page size of
          * (Integer.MAX_INT) Note: we default the page number to 200 to enable
@@ -242,6 +197,51 @@ public interface CordaEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default CordaEndpointConsumerBuilder basic() {
             return (CordaEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCordaEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCordaEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * A contract state (or just state) contains opaque data used by a
@@ -480,55 +480,6 @@ public interface CordaEndpointBuilderFactory {
             return (AdvancedCordaEndpointProducerBuilder) this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CordaEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CordaEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Operation to use.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -580,6 +531,55 @@ public interface CordaEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default CordaEndpointProducerBuilder basic() {
             return (CordaEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCordaEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCordaEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -645,6 +645,20 @@ public interface CordaEndpointBuilderFactory {
          * Since: 2.23
          * Maven coordinates: org.apache.camel:camel-corda
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default CordaHeaderNameBuilder corda() {
+            return CordaHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Corda (camel-corda)
+         * Perform operations against Corda blockchain platform using corda-rpc
+         * library.
+         * 
+         * Category: blockchain,rpc
+         * Since: 2.23
+         * Maven coordinates: org.apache.camel:camel-corda
+         * 
          * Syntax: <code>corda:node</code>
          * 
          * Path parameter: node (required)
@@ -677,6 +691,139 @@ public interface CordaEndpointBuilderFactory {
          */
         default CordaEndpointBuilder corda(String componentName, String path) {
             return CordaEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Corda component.
+     */
+    public static class CordaHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final CordaHeaderNameBuilder INSTANCE = new CordaHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OPERATION}.
+         */
+        public String oPERATION() {
+            return "OPERATION";
+        }
+
+        /**
+         * The attachment query criteria.
+         * 
+         * The option is a: {@code
+         * net.corda.core.node.services.vault.AttachmentQueryCriteria} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ATTACHMENT_QUERY_CRITERIA}.
+         */
+        public String attachmentQueryCriteria() {
+            return "ATTACHMENT_QUERY_CRITERIA";
+        }
+
+        /**
+         * The sort.
+         * 
+         * The option is a: {@code } type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SORT}.
+         */
+        public String sORT() {
+            return "SORT";
+        }
+
+        /**
+         * If true, a case sensitive match is done against each component of
+         * each X.500 name.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code EXACT_MATCH}.
+         */
+        public String exactMatch() {
+            return "EXACT_MATCH";
+        }
+
+        /**
+         * The arguments.
+         * 
+         * The option is a: {@code Object[]} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ARGUMENTS}.
+         */
+        public String aRGUMENTS() {
+            return "ARGUMENTS";
+        }
+
+        /**
+         * The value of the node's flows draining mode.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DRAINING_MODE}.
+         */
+        public String drainingMode() {
+            return "DRAINING_MODE";
+        }
+
+        /**
+         * Container for a cryptographically secure hash value.
+         * 
+         * The option is a: {@code net.corda.core.crypto.SecureHash} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SECURE_HASH}.
+         */
+        public String secureHash() {
+            return "SECURE_HASH";
+        }
+
+        /**
+         * The query criteria.
+         * 
+         * The option is a: {@code
+         * net.corda.core.node.services.vault.QueryCriteria} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code QUERY_CRITERIA}.
+         */
+        public String queryCriteria() {
+            return "QUERY_CRITERIA";
+        }
+
+        /**
+         * The PageSpecification allows specification of a page number and page
+         * size.
+         * 
+         * The option is a: {@code
+         * net.corda.core.node.services.vault.PageSpecification} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code PAGE_SPECIFICATION}.
+         */
+        public String pageSpecification() {
+            return "PAGE_SPECIFICATION";
         }
     }
     static CordaEndpointBuilder endpointBuilder(

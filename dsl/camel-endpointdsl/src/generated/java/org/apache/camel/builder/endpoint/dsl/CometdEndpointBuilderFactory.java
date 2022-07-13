@@ -322,51 +322,6 @@ public interface CometdEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CometdEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default CometdEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Whether to include the server session headers in the Camel message
          * when creating a Camel Message for incoming requests.
          * 
@@ -411,6 +366,51 @@ public interface CometdEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default CometdEndpointConsumerBuilder basic() {
             return (CometdEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCometdEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCometdEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -807,6 +807,17 @@ public interface CometdEndpointBuilderFactory {
             doSetProperty("disconnectLocalSession", disconnectLocalSession);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the CometD component.
+     */
+    public interface AdvancedCometdEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default CometdEndpointProducerBuilder basic() {
+            return (CometdEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -821,12 +832,12 @@ public interface CometdEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default CometdEndpointProducerBuilder lazyStartProducer(
+        default AdvancedCometdEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -846,26 +857,15 @@ public interface CometdEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default CometdEndpointProducerBuilder lazyStartProducer(
+        default AdvancedCometdEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the CometD component.
-     */
-    public interface AdvancedCometdEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default CometdEndpointProducerBuilder basic() {
-            return (CometdEndpointProducerBuilder) this;
         }
     }
 
@@ -1177,6 +1177,20 @@ public interface CometdEndpointBuilderFactory {
          * Since: 2.0
          * Maven coordinates: org.apache.camel:camel-cometd
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default CometdHeaderNameBuilder cometd() {
+            return CometdHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * CometD (camel-cometd)
+         * Offers publish/subscribe, peer-to-peer (via a server), and RPC style
+         * messaging using the CometD/Bayeux protocol.
+         * 
+         * Category: websocket
+         * Since: 2.0
+         * Maven coordinates: org.apache.camel:camel-cometd
+         * 
          * Syntax: <code>cometd:host:port/channelName</code>
          * 
          * Path parameter: host (required)
@@ -1250,6 +1264,43 @@ public interface CometdEndpointBuilderFactory {
          */
         default CometdEndpointBuilder cometds(String path) {
             return CometdEndpointBuilderFactory.endpointBuilder("cometds", path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the CometD component.
+     */
+    public static class CometdHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final CometdHeaderNameBuilder INSTANCE = new CometdHeaderNameBuilder();
+
+        /**
+         * The clientId of the session.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code CometdClientId}.
+         */
+        public String cometdClientId() {
+            return "CometdClientId";
+        }
+
+        /**
+         * The subscription.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code subscription}.
+         */
+        public String subscription() {
+            return "subscription";
         }
     }
     static CometdEndpointBuilder endpointBuilder(

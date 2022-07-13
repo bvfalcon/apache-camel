@@ -88,6 +88,17 @@ public interface AsteriskEndpointBuilderFactory {
             doSetProperty("username", username);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Asterisk component.
+     */
+    public interface AdvancedAsteriskEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default AsteriskEndpointConsumerBuilder basic() {
+            return (AsteriskEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -100,12 +111,12 @@ public interface AsteriskEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default AsteriskEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedAsteriskEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -123,26 +134,15 @@ public interface AsteriskEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default AsteriskEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedAsteriskEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Asterisk component.
-     */
-    public interface AdvancedAsteriskEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default AsteriskEndpointConsumerBuilder basic() {
-            return (AsteriskEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -303,6 +303,17 @@ public interface AsteriskEndpointBuilderFactory {
             doSetProperty("action", action);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Asterisk component.
+     */
+    public interface AdvancedAsteriskEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default AsteriskEndpointProducerBuilder basic() {
+            return (AsteriskEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -317,12 +328,12 @@ public interface AsteriskEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default AsteriskEndpointProducerBuilder lazyStartProducer(
+        default AdvancedAsteriskEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -342,26 +353,15 @@ public interface AsteriskEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default AsteriskEndpointProducerBuilder lazyStartProducer(
+        default AdvancedAsteriskEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Asterisk component.
-     */
-    public interface AdvancedAsteriskEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default AsteriskEndpointProducerBuilder basic() {
-            return (AsteriskEndpointProducerBuilder) this;
         }
     }
 
@@ -443,6 +443,19 @@ public interface AsteriskEndpointBuilderFactory {
          * Since: 2.18
          * Maven coordinates: org.apache.camel:camel-asterisk
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default AsteriskHeaderNameBuilder asterisk() {
+            return AsteriskHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Asterisk (camel-asterisk)
+         * Interact with Asterisk PBX Server.
+         * 
+         * Category: voip
+         * Since: 2.18
+         * Maven coordinates: org.apache.camel:camel-asterisk
+         * 
          * Syntax: <code>asterisk:name</code>
          * 
          * Path parameter: name (required)
@@ -476,6 +489,72 @@ public interface AsteriskEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return AsteriskEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Asterisk component.
+     */
+    public static class AsteriskHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final AsteriskHeaderNameBuilder INSTANCE = new AsteriskHeaderNameBuilder();
+
+        /**
+         * The name of the Asterisk event.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Default: Simple name of the event
+         * Group: consumer
+         * 
+         * @return the name of the header {@code AsteriskEventName}.
+         */
+        public String asteriskEventName() {
+            return "AsteriskEventName";
+        }
+
+        /**
+         * The extension to query in case of an ExtensionStateAction.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AsteriskExtension}.
+         */
+        public String asteriskExtension() {
+            return "AsteriskExtension";
+        }
+
+        /**
+         * The name of the context that contains the extension to query in case
+         * of an ExtensionStateAction.
+         * 
+         * The option is a: {@code java.lang.String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AsteriskContext}.
+         */
+        public String asteriskContext() {
+            return "AsteriskContext";
+        }
+
+        /**
+         * The Asterisk action to do.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.asterisk.AsteriskAction} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AsteriskAction}.
+         */
+        public String asteriskAction() {
+            return "AsteriskAction";
         }
     }
     static AsteriskEndpointBuilder endpointBuilder(

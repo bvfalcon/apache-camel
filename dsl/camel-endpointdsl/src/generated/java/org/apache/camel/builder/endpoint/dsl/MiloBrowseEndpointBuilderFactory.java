@@ -41,6 +41,9 @@ public interface MiloBrowseEndpointBuilderFactory {
     public interface MiloBrowseEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedMiloBrowseEndpointBuilder advanced() {
+            return (AdvancedMiloBrowseEndpointBuilder) this;
+        }
         /**
          * A virtual client id to force the creation of a new connection
          * instance.
@@ -205,55 +208,6 @@ public interface MiloBrowseEndpointBuilderFactory {
          */
         default MiloBrowseEndpointBuilder includeSubTypes(String includeSubTypes) {
             doSetProperty("includeSubTypes", includeSubTypes);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MiloBrowseEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MiloBrowseEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -723,7 +677,81 @@ public interface MiloBrowseEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the OPC UA Browser component.
+     */
+    public interface AdvancedMiloBrowseEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MiloBrowseEndpointBuilder basic() {
+            return (MiloBrowseEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloBrowseEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMiloBrowseEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface MiloBrowseBuilders {
+        /**
+         * OPC UA Browser (camel-milo)
+         * Connect to OPC UA servers using the binary protocol for browsing the
+         * node tree.
+         * 
+         * Category: iot
+         * Since: 3.15
+         * Maven coordinates: org.apache.camel:camel-milo
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MiloBrowseHeaderNameBuilder miloBrowse() {
+            return MiloBrowseHeaderNameBuilder.INSTANCE;
+        }
         /**
          * OPC UA Browser (camel-milo)
          * Connect to OPC UA servers using the binary protocol for browsing the
@@ -769,10 +797,34 @@ public interface MiloBrowseEndpointBuilderFactory {
             return MiloBrowseEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the OPC UA Browser component.
+     */
+    public static class MiloBrowseHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MiloBrowseHeaderNameBuilder INSTANCE = new MiloBrowseHeaderNameBuilder();
+
+        /**
+         * The node ids.
+         * 
+         * The option is a: {@code List} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MiloNodeIds}.
+         */
+        public String miloNodeIds() {
+            return "MiloNodeIds";
+        }
+    }
     static MiloBrowseEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class MiloBrowseEndpointBuilderImpl extends AbstractEndpointBuilder implements MiloBrowseEndpointBuilder {
+        class MiloBrowseEndpointBuilderImpl extends AbstractEndpointBuilder implements MiloBrowseEndpointBuilder, AdvancedMiloBrowseEndpointBuilder {
             public MiloBrowseEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

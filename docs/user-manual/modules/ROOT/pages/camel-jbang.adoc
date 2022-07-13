@@ -31,14 +31,14 @@ You can specify which Camel version to run as shown:
 
 [source,bash]
 ----
-jbang run -Dcamel.jbang.version=3.16.0 camel@apache/camel [command]
+jbang run -Dcamel.jbang.version=3.17.0 camel@apache/camel [command]
 ----
 
 And you can also try bleeding edge development by using SNAPSHOT such as:
 
 [source,bash]
 ----
-jbang run -Dcamel.jbang.version=3.17.0-SNAPSHOT camel@apache/camel [command]
+jbang run -Dcamel.jbang.version=3.18.0-SNAPSHOT camel@apache/camel [command]
 ----
 
 == Creating and running Camel routes
@@ -116,6 +116,139 @@ Then while the Camel application is running, you can update the YAML route and u
 
 NOTE: The live reload is meant for development purposes, and if you encounter problems with reloading
 such as JVM class loading issues, then you may need to restart the application.
+
+=== Using profiles
+
+Camel JBang have the concept of profiles. A _profile_ is essentially a name (id) that refers
+to which configuration to automatic load with Camel JBang. The default profile is named `application`
+which is a (smart default) to let Camel JBang automatic load `application.properties` (if present).
+
+This means that creating profiles matching to a properties file with the same name.
+
+For example having a profile named `local`, means that Camel JBang will load `local.properties` instead
+of `application.properties`.
+
+To use a profile, you specify as command line option `--profile` such as:
+
+[source,bash]
+----
+camel run hello.java --profile=local
+----
+
+You can only specify one profile name, i.e. `--profile=local,two` is not valid.
+
+In the `properties` files you can configure all
+the configurations from xref:components:others:main.adoc[Camel Main].
+
+For example to turn off xref:stream-caching.adoc[Stream Caching] and enable log masking you can specify:
+
+[source,properties]
+----
+camel.main.streamCaching=false
+camel.main.logMask=true
+----
+
+And you can also configure Camel components such as camel-kafka to declare the URL to the brokers:
+
+[source,properties]
+----
+camel.component.kafka.brokers=broker1:9092,broker2:9092,broker3:9092
+----
+
+NOTE: Keys starting with `camel.jbang` are reserved keys that are used by Camel JBang internally,
+and as well allow for pre-configuring arguments for Camel JBang commands.
+
+=== Downloading JARs over the internet
+
+By default, Camel JBang will automatically resolve dependencies needed to run Camel, which is done
+by JBang and Camel respectively. Camel itself detects at runtime if a component has a need for JARs that
+are not currently available on the classpath, and can then automatic download the JARs (incl transitive).
+
+Camel will download these JARs in the following order:
+
+1. from local disk in `~/.m2/repository`
+2. from internet in Maven Central
+3. from internet in custom 3rd-party Maven repositories
+
+If you do not want Camel JBang to download over the internet, you can turn this off with `--download`, as shown below:
+
+[source,bash]
+----
+camel run foo.java --download=false
+----
+
+=== Adding custom JARs
+
+Camel JBang will automatically detect dependencies for Camel components, languages, data formats, etc. that
+from its own release. This means you often do not have to specify which JARs to use.
+
+However, if you need to add 3rd-party custom JARs then you can specify these with `--deps` as CLI argument in Maven
+GAV syntax (`groupId:artifactId:version`), such as:
+
+[source,bash]
+----
+camel run foo.java --deps=com.foo:acme:1.0
+----
+
+In case you need to explicit add a Camel dependency you can use a shorthand syntax (starting with `camel:` or `camel-`)
+such as:
+
+[source,bash]
+----
+camel run foo.java --deps=camel-saxon
+----
+
+You can specify multiple dependencies separated by comma:
+
+[source,bash]
+----
+camel run foo.java --deps=camel-saxon,com.foo:acme:1.0
+----
+
+=== Using 3rd-party Maven repositories
+
+Camel JBang will download from local repository first, and then online from Maven Central.
+To be able to download from 3rd-party Maven repositories then you need to specify this as CLI argument,
+]or in `application.properties`
+
+[source,bash]
+----
+camel run foo.java --repos=https://packages.atlassian.com/maven-external
+----
+
+TIP: Multiple repositories can be separated by comma
+
+The configuration for the 3rd-party Maven repositories can also be configured in `application.properties`
+with the key `camel.jbang.repos` as shown:
+
+[source,properties]
+----
+camel.jbang.repos=https://packages.atlassian.com/maven-external
+----
+
+And when running Camel then `application.properties` is automatically loaded:
+
+[source,bash]
+----
+camel run foo.java
+----
+
+However, you can also explicit specify the properties file to use:
+
+[source,bash]
+----
+camel run foo.java application.properties
+----
+
+And even better if you specify this as a profile:
+
+[source,bash]
+----
+camel run foo.java --profile=application
+----
+
+Where the profile id is the name of the properties file.
+
 
 === Running routes hosted on GitHub
 
@@ -349,9 +482,9 @@ works in two modes:
 - line mode (default) - reads input as single lines (separated by line breaks).
   Message body is a `String`.
 - raw mode - reads the entire stream until _end of stream_.
-  Mmessage body is a `byte[]`.
+  Message body is a `byte[]`.
 
-The default mode is due to historically how the stream component as created.
+IMPORTANT: The default mode is due to historically how the stream component was created.
 Therefore, you may want to set `stream:in?readLine=false` to use raw mode.
 
 === Running local Kamelets
@@ -370,7 +503,6 @@ running on port 8080. For example the following route in a file named `server.ya
 
 [source,yaml]
 ----
-#!/usr/bin/env jbang camel@apache/camel run
 - from:
     uri: "platform-http:/hello"
     steps:
@@ -389,7 +521,7 @@ And you can call the HTTP service with:
 
 [source,bash]
 ----
-curl http://localhost:8080/hello
+$ curl http://localhost:8080/hello
 Hello World%
 ----
 
@@ -470,90 +602,87 @@ a Camel route with the naming convention `direct:<operationId>`.
 
 This make it quick to implement a Camel route for a given operation.
 
-See the https://github.com/apache/camel-kamelets-examples/tree/main/jbang/open-api)[open-api example] for more details.
-
-== Packaging as uber-jar
-
-The Camel JBang application can be packaged as a standalone _uber-jar_ without the need for JBang to run the application.
-
-You simply do this by
-
-[source,bash]
-----
-camel package uber-jar
-----
-
-Which will generate `camel-runner.jar` as the output file.
-You can then run this JAR with Java that comes with everything included inside the .jar file.
-
-You can run the JAR with Java as follows:
-
-[source,bash]
-----
-java -jar camel-runner.jar
-----
-
-NOTE: Packaging as uber-jar does not support using Camel K modeline style configurations.
-It is better practice specifying configurations in external files such as `application.properties`.
+See the https://github.com/apache/camel-kamelets-examples/tree/main/jbang/open-api[open-api example] for more details.
 
 == Creating Projects
 
 You can _export_ your Camel JBang application to a traditional Java based project such as Spring Boot or Quarkus.
 
-=== Create Quarkus Project
+You may want to do this after you have built a prototype using Camel JBang, and are in need
+of a traditional Java based project with more need for Java coding, or wanting to use the powerful
+runtimes of Spring Boot, Quarkus or vanilla Camel Main.
 
-NOTE: New implementation on the way
+=== Exporting to Camel Spring Boot
 
-The `create project` command can be used to generate a Maven project. After running the integration with the `run` command `create project` will generate a Maven Quarkus project with some required dependencies that can be used as a starting point for complex integrations. 
+The command `export --runtime=spring-boot` will export your current Camel JBang file(s) to a Maven based
+Spring Boot project with files organized in `src/main/` folder structure.
 
-To execute this feature run:
-
-[source,bash]
-----
-jbang camel@apache/camel create project integration.java integration.yaml integration.xml
-----
-
-This command generates a folder named CamelJBang that contains the Quarkus project, in order to execute it the following command can be run:
+For example to export to Spring Boot using the Maven groupId _com.foo_ and the artifactId _acme_
+and with version _1.0-SNAPSHOT_ you simply execute:
 
 [source,bash]
 ----
-cd CamelJBang
-mvn compile quarkus:dev
+camel export --runtime=spring-boot --gav=com.foo:acme:1.0-SNAPSHOT
 ----
 
-The table below lists all the command line options configurable on the `create project` command:
+NOTE: This will export to the _current_ directory, meaning that files are moved into the needed folder structure.
 
-|===
-|Option |Description
-
-|name
-|The name of the Camel application (artifactId and folder)
-
-|group-id
-|The group ID of the maven project
-
-|directory
-|Directory where the project will be created
-
-|quarkus-dependency
-|Comma separated list of camel-quarkus dependencies
-
-|quarkus-bom-version
-|Override quarkus bom version in pom.xml
-
-|===
-
-==== Examples
+To export to another directly (copies the files) you execute:
 
 [source,bash]
 ----
-jbang camel@apache/camel create project TimerRoute.java --quarkusDependencies=camel-quarkus-timer,camel-quarkus-log,camel-quarkus-yaml-dsl,camel-quarkus-http --name=TimerRouteProject
+camel export --runtime=spring-boot --gav=com.foo:acme:1.0-SNAPSHOT --dir=../myproject
 ----
+
+TIP: See the possible options by running: `camel export --help` for more details.
+
+=== Exporting to Camel Quarkus
+
+The command `export --runtime=quarkus` will export your current Camel JBang file(s) to a Maven based
+Quarkus project with files organized in `src/main/` folder structure.
+
+For example to export to Quarkus using the Maven groupId _com.foo_ and the artifactId _acme_
+and with version _1.0-SNAPSHOT_ you simply execute:
 
 [source,bash]
 ----
-jbang camel@apache/camel create project KafkaRoute.java --quarkusDependencies=camel-quarkus-kafka,camel-quarkus-log --name=KafkaRouteProject
+camel export --runtime=quarkus --gav=com.foo:acme:1.0-SNAPSHOT
 ----
+
+NOTE: This will export to the _current_ directory, meaning that files are moved into the needed folder structure.
+
+To export to another directly (copies the files) you execute:
+
+[source,bash]
+----
+camel export --runtime=quarkus --gav=com.foo:acme:1.0-SNAPSHOT --dir=../myproject
+----
+
+TIP: See the possible options by running: `camel export --help` for more details.
+
+=== Exporting to Camel Main
+
+The command `export --runtime=camel-main` will export your current Camel JBang file(s) to a Maven based
+vanilla Camel Main project with files organized in `src/main/` folder structure.
+
+For example to export to Camel Main using the Maven groupId _com.foo_ and the artifactId _acme_
+and with version _1.0-SNAPSHOT_ you simply execute:
+
+[source,bash]
+----
+camel export --runtime=camel-main --gav=com.foo:acme:1.0-SNAPSHOT
+----
+
+NOTE: This will export to the _current_ directory, meaning that files are moved into the needed folder structure.
+
+To export to another directly (copies the files) you execute:
+
+[source,bash]
+----
+camel export --runtime=camel-main --gav=com.foo:acme:1.0-SNAPSHOT --dir=../myproject
+----
+
+TIP: See the possible options by running: `camel export --help` for more details.
 
 == Troubleshooting
 
@@ -561,7 +690,7 @@ When using https://www.jbang.dev/[JBang] then JBang stores state in `~/.jbang` d
 This is also the location where JBang stores downloaded JARs.
 
 Camel JBang also downloads needed dependencies while running. However, these dependencies
-are downloaded to `~/.groovy` (downloaded via Groovy Grape).
+are downloaded to your local Maven repository `~/.m2`.
 
 So if you find problems with running Camel JBang using what is seems like an outdated JAR, then you can
 try to delete these directories, or parts of it.

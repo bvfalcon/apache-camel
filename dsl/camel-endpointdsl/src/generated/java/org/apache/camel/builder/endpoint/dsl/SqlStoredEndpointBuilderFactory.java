@@ -135,55 +135,6 @@ public interface SqlStoredEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SqlStoredEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SqlStoredEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * If set, will ignore the results of the template and use the existing
          * IN message as the OUT message for the continuation of processing.
          * 
@@ -284,6 +235,55 @@ public interface SqlStoredEndpointBuilderFactory {
             return (SqlStoredEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSqlStoredEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSqlStoredEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * Configures the Spring JdbcTemplate with the key/values from the Map.
          * 
          * The option is a: &lt;code&gt;java.util.Map&amp;lt;java.lang.String,
@@ -333,6 +333,19 @@ public interface SqlStoredEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-sql
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default SqlStoredHeaderNameBuilder sqlStored() {
+            return SqlStoredHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * SQL Stored Procedure (camel-sql)
+         * Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
+         * 
+         * Category: database,sql
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-sql
+         * 
          * Syntax: <code>sql-stored:template</code>
          * 
          * Path parameter: template (required)
@@ -366,6 +379,56 @@ public interface SqlStoredEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return SqlStoredEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the SQL Stored Procedure component.
+     */
+    public static class SqlStoredHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final SqlStoredHeaderNameBuilder INSTANCE = new SqlStoredHeaderNameBuilder();
+
+        /**
+         * The template.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SqlStoredTemplate}.
+         */
+        public String sqlStoredTemplate() {
+            return "SqlStoredTemplate";
+        }
+
+        /**
+         * The parameters.
+         * 
+         * The option is a: {@code Iterator} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SqlStoredParameters}.
+         */
+        public String sqlStoredParameters() {
+            return "SqlStoredParameters";
+        }
+
+        /**
+         * The update count.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SqlStoredUpdateCount}.
+         */
+        public String sqlStoredUpdateCount() {
+            return "SqlStoredUpdateCount";
         }
     }
     static SqlStoredEndpointBuilder endpointBuilder(

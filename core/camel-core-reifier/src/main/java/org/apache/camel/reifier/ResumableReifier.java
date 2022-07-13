@@ -36,11 +36,13 @@ public class ResumableReifier extends ProcessorReifier<ResumableDefinition> {
         Processor childProcessor = createChildProcessor(false);
 
         ResumeStrategy resumeStrategy = resolveResumeStrategy();
-        ObjectHelper.notNull(resumeStrategy, "resumeStrategy", definition);
+        ObjectHelper.notNull(resumeStrategy, ResumeStrategy.DEFAULT_NAME, definition);
 
         route.setResumeStrategy(resumeStrategy);
         LoggingLevel loggingLevel = resolveLoggingLevel();
-        return new ResumableProcessor(resumeStrategy, childProcessor, loggingLevel);
+
+        boolean intermittent = parseBoolean(definition.getIntermittent(), false);
+        return new ResumableProcessor(resumeStrategy, childProcessor, loggingLevel, intermittent);
     }
 
     protected ResumeStrategy resolveResumeStrategy() {

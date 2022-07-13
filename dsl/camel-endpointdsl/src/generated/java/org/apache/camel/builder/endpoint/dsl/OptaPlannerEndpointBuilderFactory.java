@@ -124,6 +124,17 @@ public interface OptaPlannerEndpointBuilderFactory {
             doSetProperty("useSolverManager", useSolverManager);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the OptaPlanner component.
+     */
+    public interface AdvancedOptaPlannerEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default OptaPlannerEndpointConsumerBuilder basic() {
+            return (OptaPlannerEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -136,12 +147,12 @@ public interface OptaPlannerEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default OptaPlannerEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedOptaPlannerEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -159,26 +170,15 @@ public interface OptaPlannerEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default OptaPlannerEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedOptaPlannerEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the OptaPlanner component.
-     */
-    public interface AdvancedOptaPlannerEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default OptaPlannerEndpointConsumerBuilder basic() {
-            return (OptaPlannerEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -374,55 +374,6 @@ public interface OptaPlannerEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default OptaPlannerEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default OptaPlannerEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Specifies the thread pool size to use when async is true.
          * 
          * The option is a: &lt;code&gt;int&lt;/code&gt; type.
@@ -464,6 +415,55 @@ public interface OptaPlannerEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default OptaPlannerEndpointProducerBuilder basic() {
             return (OptaPlannerEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedOptaPlannerEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedOptaPlannerEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -581,6 +581,19 @@ public interface OptaPlannerEndpointBuilderFactory {
          * Since: 2.13
          * Maven coordinates: org.apache.camel:camel-optaplanner
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default OptaPlannerHeaderNameBuilder optaplanner() {
+            return OptaPlannerHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * OptaPlanner (camel-optaplanner)
+         * Solve planning problems with OptaPlanner.
+         * 
+         * Category: engine,planning
+         * Since: 2.13
+         * Maven coordinates: org.apache.camel:camel-optaplanner
+         * 
          * Syntax: <code>optaplanner:configFile</code>
          * 
          * Path parameter: configFile (required)
@@ -624,6 +637,97 @@ public interface OptaPlannerEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return OptaPlannerEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the OptaPlanner component.
+     */
+    public static class OptaPlannerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final OptaPlannerHeaderNameBuilder INSTANCE = new OptaPlannerHeaderNameBuilder();
+
+        /**
+         * Specifies the solverId to use.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OptaPlannerSolverId}.
+         */
+        public String optaPlannerSolverId() {
+            return "OptaPlannerSolverId";
+        }
+
+        /**
+         * Specify whether to use another thread for submitting Solution
+         * instances rather than blocking the current thread.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OptaPlannerIsAsync}.
+         */
+        public String optaPlannerIsAsync() {
+            return "OptaPlannerIsAsync";
+        }
+
+        /**
+         * The best planning solution.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code OptaPlannerBestSolution}.
+         */
+        public String optaPlannerBestSolution() {
+            return "OptaPlannerBestSolution";
+        }
+
+        /**
+         * Is solving.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OptaPlannerIsSolving}.
+         */
+        public String optaPlannerIsSolving() {
+            return "OptaPlannerIsSolving";
+        }
+
+        /**
+         * true if terminateEarly has been called since the Solver started.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OptaPlannerIsTerminateEarly}.
+         */
+        public String optaPlannerIsTerminateEarly() {
+            return "OptaPlannerIsTerminateEarly";
+        }
+
+        /**
+         * The Solver Manager.
+         * 
+         * The option is a: {@code
+         * org.optaplanner.core.api.solver.SolverManager} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OptaPlannerSolverManager}.
+         */
+        public String optaPlannerSolverManager() {
+            return "OptaPlannerSolverManager";
         }
     }
     static OptaPlannerEndpointBuilder endpointBuilder(

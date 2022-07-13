@@ -151,55 +151,6 @@ public interface DigitalSignatureEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default DigitalSignatureEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default DigitalSignatureEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Set the PrivateKey that should be used to sign the exchange.
          * 
          * The option is a: &lt;code&gt;java.security.PrivateKey&lt;/code&gt;
@@ -333,6 +284,55 @@ public interface DigitalSignatureEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default DigitalSignatureEndpointBuilder basic() {
             return (DigitalSignatureEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDigitalSignatureEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDigitalSignatureEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Set the size of the buffer used to read in the Exchange payload data.
@@ -562,6 +562,20 @@ public interface DigitalSignatureEndpointBuilderFactory {
          * Since: 2.3
          * Maven coordinates: org.apache.camel:camel-crypto
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default DigitalSignatureHeaderNameBuilder crypto() {
+            return DigitalSignatureHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Crypto (JCE) (camel-crypto)
+         * Sign and verify exchanges using the Signature Service of the Java
+         * Cryptographic Extension (JCE).
+         * 
+         * Category: security,transformation
+         * Since: 2.3
+         * Maven coordinates: org.apache.camel:camel-crypto
+         * 
          * Syntax: <code>crypto:cryptoOperation:name</code>
          * 
          * Path parameter: cryptoOperation (required)
@@ -606,6 +620,71 @@ public interface DigitalSignatureEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return DigitalSignatureEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Crypto (JCE) component.
+     */
+    public static class DigitalSignatureHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final DigitalSignatureHeaderNameBuilder INSTANCE = new DigitalSignatureHeaderNameBuilder();
+
+        /**
+         * The PrivateKey that should be used to sign the message.
+         * 
+         * The option is a: {@code java.security.PrivateKey} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SignaturePrivateKey}.
+         */
+        public String signaturePrivateKey() {
+            return "SignaturePrivateKey";
+        }
+
+        /**
+         * The Certificate or PublicKey that should be used to verify the
+         * signature.
+         * 
+         * The option is a: {@code Certificate or PublicKey} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SignaturePublicKeyOrCert}.
+         */
+        public String signaturePublicKeyOrCert() {
+            return "SignaturePublicKeyOrCert";
+        }
+
+        /**
+         * The alias used to query the KeyStore for keys and Certificates to be
+         * used in signing and verifying exchanges.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SignatureKeyStoreAlias}.
+         */
+        public String signatureKeyStoreAlias() {
+            return "SignatureKeyStoreAlias";
+        }
+
+        /**
+         * The password used to access an aliased PrivateKey in the KeyStore.
+         * 
+         * The option is a: {@code char[]} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code SignatureKeyStorePassword}.
+         */
+        public String signatureKeyStorePassword() {
+            return "SignatureKeyStorePassword";
         }
     }
     static DigitalSignatureEndpointBuilder endpointBuilder(

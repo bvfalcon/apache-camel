@@ -242,51 +242,6 @@ public interface MongoDbEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default MongoDbEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default MongoDbEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Consumer type.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -492,6 +447,51 @@ public interface MongoDbEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default MongoDbEndpointConsumerBuilder basic() {
             return (MongoDbEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMongoDbEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMongoDbEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -934,55 +934,6 @@ public interface MongoDbEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MongoDbEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MongoDbEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The database name associated with the user's credentials.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -1034,6 +985,55 @@ public interface MongoDbEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default MongoDbEndpointProducerBuilder basic() {
             return (MongoDbEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMongoDbEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMongoDbEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * MongoDB tailable cursors will block until new data arrives. If no new
@@ -1625,6 +1625,19 @@ public interface MongoDbEndpointBuilderFactory {
          * Since: 2.19
          * Maven coordinates: org.apache.camel:camel-mongodb
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MongoDbHeaderNameBuilder mongodb() {
+            return MongoDbHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * MongoDB (camel-mongodb)
+         * Perform operations on MongoDB documents and collections.
+         * 
+         * Category: database,nosql
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-mongodb
+         * 
          * Syntax: <code>mongodb:connectionBean</code>
          * 
          * Path parameter: connectionBean (required)
@@ -1658,6 +1671,344 @@ public interface MongoDbEndpointBuilderFactory {
          */
         default MongoDbEndpointBuilder mongodb(String componentName, String path) {
             return MongoDbEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the MongoDB component.
+     */
+    public static class MongoDbHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MongoDbHeaderNameBuilder INSTANCE = new MongoDbHeaderNameBuilder();
+
+        /**
+         * The operation this endpoint will execute against MongoDB.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.mongodb.MongoDbOperation or String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbOperation}.
+         */
+        public String mongoDbOperation() {
+            return "MongoDbOperation";
+        }
+
+        /**
+         * Number of objects matching the query. This does not take limit/skip
+         * into consideration.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer findAll
+         * 
+         * @return the name of the header {@code MongoDbResultTotalSize}.
+         */
+        public String mongoDbResultTotalSize() {
+            return "MongoDbResultTotalSize";
+        }
+
+        /**
+         * Number of objects matching the query. This does not take limit/skip
+         * into consideration.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer findAll
+         * 
+         * @return the name of the header {@code MongoDbResultPageSize}.
+         */
+        public String mongoDbResultPageSize() {
+            return "MongoDbResultPageSize";
+        }
+
+        /**
+         * The query to execute against MongoDB.
+         * 
+         * The option is a: {@code org.bson.conversions.Bson} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbCriteria}.
+         */
+        public String mongoDbCriteria() {
+            return "MongoDbCriteria";
+        }
+
+        /**
+         * The project document.
+         * 
+         * The option is a: {@code org.bson.conversions.Bson} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbFieldsProjection}.
+         */
+        public String mongoDbFieldsProjection() {
+            return "MongoDbFieldsProjection";
+        }
+
+        /**
+         * The number of documents per batch.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer findAll aggregate
+         * 
+         * @return the name of the header {@code MongoDbBatchSize}.
+         */
+        public String mongoDbBatchSize() {
+            return "MongoDbBatchSize";
+        }
+
+        /**
+         * Discards a given number of elements at the beginning of the cursor.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer findAll
+         * 
+         * @return the name of the header {@code MongoDbNumToSkip}.
+         */
+        public String mongoDbNumToSkip() {
+            return "MongoDbNumToSkip";
+        }
+
+        /**
+         * If the update should be applied to all objects matching. See
+         * http://www.mongodb.org/display/DOCS/AtomicOperationsAtomic
+         * Operations.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer update
+         * 
+         * @return the name of the header {@code MongoDbMultiUpdate}.
+         */
+        public String mongoDbMultiUpdate() {
+            return "MongoDbMultiUpdate";
+        }
+
+        /**
+         * If the database should create the element if it does not exist.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer update
+         * 
+         * @return the name of the header {@code MongoDbUpsert}.
+         */
+        public String mongoDbUpsert() {
+            return "MongoDbUpsert";
+        }
+
+        /**
+         * The number of modified or deleted records.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbRecordsAffected}.
+         */
+        public String mongoDbRecordsAffected() {
+            return "MongoDbRecordsAffected";
+        }
+
+        /**
+         * The number of documents matched by the query.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbRecordsMatched}.
+         */
+        public String mongoDbRecordsMatched() {
+            return "MongoDbRecordsMatched";
+        }
+
+        /**
+         * The sort criteria.
+         * 
+         * The option is a: {@code Bson or Document} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbSortBy}.
+         */
+        public String mongoDbSortBy() {
+            return "MongoDbSortBy";
+        }
+
+        /**
+         * The name of the MongoDB database to target.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MongoDbDatabase}.
+         */
+        public String mongoDbDatabase() {
+            return "MongoDbDatabase";
+        }
+
+        /**
+         * The name of the MongoDB collection to bind to this endpoint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MongoDbCollection}.
+         */
+        public String mongoDbCollection() {
+            return "MongoDbCollection";
+        }
+
+        /**
+         * The list of dynamic indexes to create on the fly.
+         * 
+         * The option is a: {@code List<Bson>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbCollectionIndex}.
+         */
+        public String mongoDbCollectionIndex() {
+            return "MongoDbCollectionIndex";
+        }
+
+        /**
+         * Limits the number of elements returned.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer findAll
+         * 
+         * @return the name of the header {@code MongoDbLimit}.
+         */
+        public String mongoDbLimit() {
+            return "MongoDbLimit";
+        }
+
+        /**
+         * Is from tailable.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MongoDbTailable}.
+         */
+        public String mongoDbTailable() {
+            return "MongoDbTailable";
+        }
+
+        /**
+         * The result of the write operation.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoWriteResult}.
+         */
+        public String mongoWriteResult() {
+            return "MongoWriteResult";
+        }
+
+        /**
+         * The OID(s) of the inserted record(s).
+         * 
+         * The option is a: {@code Object or List<Object>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoOid}.
+         */
+        public String mongoOid() {
+            return "MongoOid";
+        }
+
+        /**
+         * The specified field name fow which we want to get the distinct
+         * values.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MongoDbDistinctQueryField}.
+         */
+        public String mongoDbDistinctQueryField() {
+            return "MongoDbDistinctQueryField";
+        }
+
+        /**
+         * Sets allowDiskUse MongoDB flag. This is supported since MongoDB
+         * Server 4.3.1. Using this header with older MongoDB Server version can
+         * cause query to fail.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer findAll aggregate
+         * 
+         * @return the name of the header {@code MongoDbAllowDiskUse}.
+         */
+        public String mongoDbAllowDiskUse() {
+            return "MongoDbAllowDiskUse";
+        }
+
+        /**
+         * Perform an ordered or unordered operation execution.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Default: TRUE
+         * Group: producer bulkWrite
+         * 
+         * @return the name of the header {@code MongoDbBulkOrdered}.
+         */
+        public String mongoDbBulkOrdered() {
+            return "MongoDbBulkOrdered";
+        }
+
+        /**
+         * A document that contains the _id of the document created or modified
+         * by the insert, replace, delete, update operations (i.e. CRUD
+         * operations). For sharded collections, also displays the full shard
+         * key for the document. The _id field is not repeated if it is already
+         * a part of the shard key.
+         * 
+         * The option is a: {@code org.bson.types.ObjectId} type.
+         * 
+         * Group: consumer changeStreams
+         * 
+         * @return the name of the header {@code _id}.
+         */
+        public String id() {
+            return "_id";
+        }
+
+        /**
+         * The type of operation that occurred. Can be any of the following
+         * values: insert, delete, replace, update, drop, rename, dropDatabase,
+         * invalidate.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer changeStreams
+         * 
+         * @return the name of the header {@code MongoDbStreamOperationType}.
+         */
+        public String mongoDbStreamOperationType() {
+            return "MongoDbStreamOperationType";
         }
     }
     static MongoDbEndpointBuilder endpointBuilder(

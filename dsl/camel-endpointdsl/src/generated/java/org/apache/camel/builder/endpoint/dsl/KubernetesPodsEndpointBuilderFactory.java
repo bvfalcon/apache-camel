@@ -135,51 +135,6 @@ public interface KubernetesPodsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPodsEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPodsEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The Consumer CRD Resource Group we would like to watch.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -545,6 +500,51 @@ public interface KubernetesPodsEndpointBuilderFactory {
             return (KubernetesPodsEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPodsEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPodsEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -747,55 +747,6 @@ public interface KubernetesPodsEndpointBuilderFactory {
         default KubernetesPodsEndpointProducerBuilder portProtocol(
                 String portProtocol) {
             doSetProperty("portProtocol", portProtocol);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPodsEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPodsEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1017,6 +968,55 @@ public interface KubernetesPodsEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default KubernetesPodsEndpointProducerBuilder basic() {
             return (KubernetesPodsEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPodsEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPodsEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Connection timeout in milliseconds to use when making requests to the
@@ -1395,6 +1395,20 @@ public interface KubernetesPodsEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-kubernetes
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KubernetesPodsHeaderNameBuilder kubernetesPods() {
+            return KubernetesPodsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Kubernetes Pods (camel-kubernetes)
+         * Perform operations on Kubernetes Pods and get notified on Pod
+         * changes.
+         * 
+         * Category: container,cloud,paas
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-kubernetes
+         * 
          * Syntax: <code>kubernetes-pods:masterUrl</code>
          * 
          * Path parameter: masterUrl (required)
@@ -1429,6 +1443,110 @@ public interface KubernetesPodsEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return KubernetesPodsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Kubernetes Pods component.
+     */
+    public static class KubernetesPodsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KubernetesPodsHeaderNameBuilder INSTANCE = new KubernetesPodsHeaderNameBuilder();
+
+        /**
+         * The Producer operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesOperation}.
+         */
+        public String kubernetesOperation() {
+            return "KubernetesOperation";
+        }
+
+        /**
+         * The namespace name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceName}.
+         */
+        public String kubernetesNamespaceName() {
+            return "KubernetesNamespaceName";
+        }
+
+        /**
+         * The pod labels.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesPodsLabels}.
+         */
+        public String kubernetesPodsLabels() {
+            return "KubernetesPodsLabels";
+        }
+
+        /**
+         * The pod name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesPodName}.
+         */
+        public String kubernetesPodName() {
+            return "KubernetesPodName";
+        }
+
+        /**
+         * The spec for a pod.
+         * 
+         * The option is a: {@code io.fabric8.kubernetes.api.model.PodSpec}
+         * type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesPodSpec}.
+         */
+        public String kubernetesPodSpec() {
+            return "KubernetesPodSpec";
+        }
+
+        /**
+         * Action watched by the consumer.
+         * 
+         * The option is a: {@code io.fabric8.kubernetes.client.Watcher.Action}
+         * type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesEventAction}.
+         */
+        public String kubernetesEventAction() {
+            return "KubernetesEventAction";
+        }
+
+        /**
+         * Timestamp of the action watched by the consumer.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesEventTimestamp}.
+         */
+        public String kubernetesEventTimestamp() {
+            return "KubernetesEventTimestamp";
         }
     }
     static KubernetesPodsEndpointBuilder endpointBuilder(

@@ -298,51 +298,6 @@ public interface NettyHttpEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default NettyHttpEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default NettyHttpEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Whether or not Camel should try to find a target consumer by matching
          * the URI prefix if no exact match is found.
          * 
@@ -1036,6 +991,51 @@ public interface NettyHttpEndpointBuilderFactory {
         default AdvancedNettyHttpEndpointConsumerBuilder bossGroup(
                 String bossGroup) {
             doSetProperty("bossGroup", bossGroup);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyHttpEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyHttpEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
         }
         /**
@@ -2625,55 +2625,6 @@ public interface NettyHttpEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NettyHttpEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NettyHttpEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Allows to use a timeout for the Netty producer when calling a remote
          * server. By default no timeout is in use. The value is in milli
          * seconds, so eg 30000 is 30 seconds. The requestTimeout is using
@@ -3183,6 +3134,55 @@ public interface NettyHttpEndpointBuilderFactory {
         default AdvancedNettyHttpEndpointProducerBuilder lazyChannelCreation(
                 String lazyChannelCreation) {
             doSetProperty("lazyChannelCreation", lazyChannelCreation);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyHttpEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyHttpEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -5306,6 +5306,19 @@ public interface NettyHttpEndpointBuilderFactory {
          * Since: 2.14
          * Maven coordinates: org.apache.camel:camel-netty-http
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default NettyHttpHeaderNameBuilder nettyHttp() {
+            return NettyHttpHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Netty HTTP (camel-netty-http)
+         * Netty HTTP server and client using the Netty 4.x.
+         * 
+         * Category: networking,http
+         * Since: 2.14
+         * Maven coordinates: org.apache.camel:camel-netty-http
+         * 
          * Syntax: <code>netty-http:protocol://host:port/path</code>
          * 
          * Path parameter: protocol (required)
@@ -5363,6 +5376,196 @@ public interface NettyHttpEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return NettyHttpEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Netty HTTP component.
+     */
+    public static class NettyHttpHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final NettyHttpHeaderNameBuilder INSTANCE = new NettyHttpHeaderNameBuilder();
+
+        /**
+         * If the user was authenticated using HTTP Basic then this header is
+         * added with the value Basic.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpAuthentication}.
+         */
+        public String httpAuthentication() {
+            return "HttpAuthentication";
+        }
+
+        /**
+         * To set the content-type of the HTTP body. For example: text/plain;
+         * charset=UTF-8.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code Content-Type}.
+         */
+        public String contentType() {
+            return "Content-Type";
+        }
+
+        /**
+         * The value of the HTTP header connection to use.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code connection}.
+         */
+        public String connection() {
+            return "connection";
+        }
+
+        /**
+         * Indicates whether the channel should be closed after complete.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyCloseChannelWhenComplete}.
+         */
+        public String nettyCloseChannelWhenComplete() {
+            return "NettyCloseChannelWhenComplete";
+        }
+
+        /**
+         * Allows to set the HTTP Status code to use. By default 200 is used for
+         * success, and 500 for failure.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpResponseCode}.
+         */
+        public String httpResponseCode() {
+            return "HttpResponseCode";
+        }
+
+        /**
+         * The version of the HTTP protocol.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Default: HTTP/1.1
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpProtocolVersion}.
+         */
+        public String httpProtocolVersion() {
+            return "HttpProtocolVersion";
+        }
+
+        /**
+         * The HTTP method used, such as GET, POST, TRACE etc.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Default: GET
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpMethod}.
+         */
+        public String httpMethod() {
+            return "HttpMethod";
+        }
+
+        /**
+         * Any query parameters, such as foo=bar&amp;beer=yes.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpQuery}.
+         */
+        public String httpQuery() {
+            return "HttpQuery";
+        }
+
+        /**
+         * Allows to provide URI context-path and query parameters as a String
+         * value that overrides the endpoint configuration. This allows to reuse
+         * the same producer for calling same remote http server, but using a
+         * dynamic context-path and query parameters.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpPath}.
+         */
+        public String httpPath() {
+            return "HttpPath";
+        }
+
+        /**
+         * Any query parameters, such as foo=bar&amp;beer=yes. Stored in the raw
+         * form, as they arrived to the consumer (i.e. before URL decoding).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpRawQuery}.
+         */
+        public String httpRawQuery() {
+            return "HttpRawQuery";
+        }
+
+        /**
+         * The URL including protocol, host and port, etc:
+         * http://0.0.0.0:8080/myapp.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpUrl}.
+         */
+        public String httpUrl() {
+            return "HttpUrl";
+        }
+
+        /**
+         * The charset from the content-type header.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpCharacterEncoding}.
+         */
+        public String httpCharacterEncoding() {
+            return "HttpCharacterEncoding";
+        }
+
+        /**
+         * The URI without protocol, host and port, etc: /myapp.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpUri}.
+         */
+        public String httpUri() {
+            return "HttpUri";
         }
     }
     static NettyHttpEndpointBuilder endpointBuilder(

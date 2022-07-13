@@ -2572,7 +2572,7 @@ public abstract class AbstractCamelContext extends BaseService
         watch.taken();
         if (LOG.isInfoEnabled()) {
             LOG.info("Apache Camel {} ({}) is suspended in {}", getVersion(), getName(),
-                    TimeUtils.printDuration(watch.taken()));
+                    TimeUtils.printDuration(watch.taken(), true));
         }
 
         EventHelper.notifyCamelContextSuspended(this);
@@ -2605,7 +2605,8 @@ public abstract class AbstractCamelContext extends BaseService
 
             if (LOG.isInfoEnabled()) {
                 LOG.info("Resumed {} routes", suspendedRouteServices.size());
-                LOG.info("Apache Camel {} ({}) resumed in {}", getVersion(), getName(), TimeUtils.printDuration(watch.taken()));
+                LOG.info("Apache Camel {} ({}) resumed in {}", getVersion(), getName(),
+                        TimeUtils.printDuration(watch.taken(), true));
             }
 
             // and clear the list as they have been resumed
@@ -2637,7 +2638,7 @@ public abstract class AbstractCamelContext extends BaseService
 
         // was the initialization vetoed?
         if (vetoed != null) {
-            LOG.info("CamelContext ({}) vetoed to not initialize due to {}", getName(), vetoed.getMessage());
+            LOG.info("CamelContext ({}) vetoed to not initialize due to: {}", getName(), vetoed.getMessage());
             failOnStartup(vetoed);
             return;
         }
@@ -2654,7 +2655,7 @@ public abstract class AbstractCamelContext extends BaseService
 
         // did the start veto?
         if (vetoed != null) {
-            LOG.info("CamelContext ({}) vetoed to not start due to {}", getName(), vetoed.getMessage());
+            LOG.info("CamelContext ({}) vetoed to not start due to: {}", getName(), vetoed.getMessage());
             failOnStartup(vetoed);
             stop();
             return;
@@ -2773,7 +2774,7 @@ public abstract class AbstractCamelContext extends BaseService
         startupStepRecorder.endStep(step);
 
         buildTaken = watch.taken();
-        LOG.debug("Apache Camel {} ({}) built in {}", getVersion(), getName(), TimeUtils.printDuration(buildTaken));
+        LOG.debug("Apache Camel {} ({}) built in {}", getVersion(), getName(), TimeUtils.printDuration(buildTaken, true));
     }
 
     protected void resetBuildTime() {
@@ -2972,7 +2973,7 @@ public abstract class AbstractCamelContext extends BaseService
         startupStepRecorder.endStep(step);
 
         initTaken = watch.taken();
-        LOG.debug("Apache Camel {} ({}) initialized in {}", getVersion(), getName(), TimeUtils.printDuration(initTaken));
+        LOG.debug("Apache Camel {} ({}) initialized in {}", getVersion(), getName(), TimeUtils.printDuration(initTaken, true));
     }
 
     @Override
@@ -3060,8 +3061,8 @@ public abstract class AbstractCamelContext extends BaseService
 
         if (adapt(ExtendedCamelContext.class).getExchangeFactory().isPooled()) {
             LOG.info(
-                    "Pooled mode enabled. Camel pools and reuses objects to reduce JVM object allocations. The pool capacity is: "
-                     + adapt(ExtendedCamelContext.class).getExchangeFactory().getCapacity() + " elements.");
+                    "Pooled mode enabled. Camel pools and reuses objects to reduce JVM object allocations. The pool capacity is: {} elements.",
+                    adapt(ExtendedCamelContext.class).getExchangeFactory().getCapacity());
         }
         if (isLightweight()) {
             LOG.info("Lightweight mode enabled. Performing optimizations and memory reduction.");
@@ -3122,8 +3123,7 @@ public abstract class AbstractCamelContext extends BaseService
                 // use basic endpoint uri to not log verbose details or potential sensitive data
                 String uri = order.getRoute().getEndpoint().getEndpointBaseUri();
                 uri = URISupport.sanitizeUri(uri);
-                String loc = order.getRoute().getSourceResource() != null
-                        ? order.getRoute().getSourceResource().getLocation() : null;
+                String loc = order.getRoute().getSourceLocationShort();
                 if (startupSummaryLevel == StartupSummaryLevel.Verbose && loc != null) {
                     lines.add(String.format("    %s %s (%s) (source: %s)", status, id, uri, loc));
                 } else {
@@ -3146,7 +3146,7 @@ public abstract class AbstractCamelContext extends BaseService
                     // use basic endpoint uri to not log verbose details or potential sensitive data
                     String uri = route.getEndpoint().getEndpointBaseUri();
                     uri = URISupport.sanitizeUri(uri);
-                    String loc = route.getSourceResource() != null ? route.getSourceResource().getLocation() : null;
+                    String loc = route.getSourceLocationShort();
                     if (startupSummaryLevel == StartupSummaryLevel.Verbose && loc != null) {
                         lines.add(String.format("    %s %s (%s) (source: %s)", status, id, uri, loc));
                     } else {
@@ -3161,8 +3161,10 @@ public abstract class AbstractCamelContext extends BaseService
             }
             if (disabled > 0) {
                 LOG.info("Routes startup (total:{} started:{} disabled:{})", total, started, disabled);
-            } else {
+            } else if (total != started) {
                 LOG.info("Routes startup (total:{} started:{})", total, started);
+            } else {
+                LOG.info("Routes startup (started:{})", started);
             }
             // if we are default/verbose then log each route line
             if (startupSummaryLevel == StartupSummaryLevel.Default || startupSummaryLevel == StartupSummaryLevel.Verbose) {
@@ -3181,10 +3183,10 @@ public abstract class AbstractCamelContext extends BaseService
         if (startupSummaryLevel != StartupSummaryLevel.Off && LOG.isInfoEnabled()) {
             long taken = stopWatch.taken();
             long max = buildTaken + initTaken + taken;
-            String total = TimeUtils.printDuration(max);
-            String start = TimeUtils.printDuration(taken);
-            String init = TimeUtils.printDuration(initTaken);
-            String built = TimeUtils.printDuration(buildTaken);
+            String total = TimeUtils.printDuration(max, true);
+            String start = TimeUtils.printDuration(taken, true);
+            String init = TimeUtils.printDuration(initTaken, true);
+            String built = TimeUtils.printDuration(buildTaken, true);
             String jvm = logJvmUptime ? getJvmUptime() : null;
             if (jvm != null) {
                 LOG.info("Apache Camel {} ({}) started in {} (build:{} init:{} start:{} JVM-uptime:{})", getVersion(),
@@ -3382,10 +3384,11 @@ public abstract class AbstractCamelContext extends BaseService
         if (startupSummaryLevel != StartupSummaryLevel.Oneline && startupSummaryLevel != StartupSummaryLevel.Off) {
             if (shutdownStrategy != null && shutdownStrategy.getTimeUnit() != null) {
                 long timeout = shutdownStrategy.getTimeUnit().toMillis(shutdownStrategy.getTimeout());
-                String to = TimeUtils.printDuration(timeout);
-                LOG.info("Apache Camel {} ({}) shutting down (timeout:{})", getVersion(), getName(), to);
+                // only use precise print duration if timeout is shorter than 10 seconds
+                String to = TimeUtils.printDuration(timeout, timeout < 10000);
+                LOG.info("Apache Camel {} ({}) is shutting down (timeout:{})", getVersion(), getName(), to);
             } else {
-                LOG.info("Apache Camel {} ({}) shutting down", getVersion(), getName());
+                LOG.info("Apache Camel {} ({}) is shutting down", getVersion(), getName());
             }
         }
 
@@ -3516,7 +3519,7 @@ public abstract class AbstractCamelContext extends BaseService
 
         if (startupSummaryLevel != StartupSummaryLevel.Off) {
             if (LOG.isInfoEnabled()) {
-                String taken = TimeUtils.printDuration(stopWatch.taken());
+                String taken = TimeUtils.printDuration(stopWatch.taken(), true);
                 String jvm = logJvmUptime ? getJvmUptime() : null;
                 if (jvm != null) {
                     LOG.info("Apache Camel {} ({}) shutdown in {} (uptime:{} JVM-uptime:{})", getVersion(), getName(), taken,
@@ -3582,8 +3585,10 @@ public abstract class AbstractCamelContext extends BaseService
             }
             if (forced > 0) {
                 logger.log(String.format("Routes stopped (total:%s stopped:%s forced:%s)", total, stopped, forced));
-            } else {
+            } else if (total != stopped) {
                 logger.log(String.format("Routes stopped (total:%s stopped:%s)", total, stopped));
+            } else {
+                logger.log(String.format("Routes stopped (stopped:%s)", stopped));
             }
             // if we are default/verbose then log each route line
             if (startupSummaryLevel == StartupSummaryLevel.Default || startupSummaryLevel == StartupSummaryLevel.Verbose) {

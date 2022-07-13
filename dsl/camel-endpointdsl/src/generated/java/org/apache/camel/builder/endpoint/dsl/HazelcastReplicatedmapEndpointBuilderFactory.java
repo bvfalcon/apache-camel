@@ -129,6 +129,18 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
             doSetProperty("hazelcastInstanceName", hazelcastInstanceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Hazelcast Replicated Map
+     * component.
+     */
+    public interface AdvancedHazelcastReplicatedmapEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default HazelcastReplicatedmapEndpointConsumerBuilder basic() {
+            return (HazelcastReplicatedmapEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -141,12 +153,12 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default HazelcastReplicatedmapEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedHazelcastReplicatedmapEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -164,27 +176,15 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default HazelcastReplicatedmapEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedHazelcastReplicatedmapEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Hazelcast Replicated Map
-     * component.
-     */
-    public interface AdvancedHazelcastReplicatedmapEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default HazelcastReplicatedmapEndpointConsumerBuilder basic() {
-            return (HazelcastReplicatedmapEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -353,6 +353,18 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
             doSetProperty("hazelcastInstanceName", hazelcastInstanceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Hazelcast Replicated Map
+     * component.
+     */
+    public interface AdvancedHazelcastReplicatedmapEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default HazelcastReplicatedmapEndpointProducerBuilder basic() {
+            return (HazelcastReplicatedmapEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -367,12 +379,12 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastReplicatedmapEndpointProducerBuilder lazyStartProducer(
+        default AdvancedHazelcastReplicatedmapEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -392,27 +404,15 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default HazelcastReplicatedmapEndpointProducerBuilder lazyStartProducer(
+        default AdvancedHazelcastReplicatedmapEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Hazelcast Replicated Map
-     * component.
-     */
-    public interface AdvancedHazelcastReplicatedmapEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default HazelcastReplicatedmapEndpointProducerBuilder basic() {
-            return (HazelcastReplicatedmapEndpointProducerBuilder) this;
         }
     }
 
@@ -534,6 +534,19 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
          * Since: 2.16
          * Maven coordinates: org.apache.camel:camel-hazelcast
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default HazelcastReplicatedmapHeaderNameBuilder hazelcastReplicatedmap() {
+            return HazelcastReplicatedmapHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Hazelcast Replicated Map (camel-hazelcast)
+         * Perform operations on Hazelcast replicated map.
+         * 
+         * Category: cache,datagrid
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-hazelcast
+         * 
          * Syntax: <code>hazelcast-replicatedmap:cacheName</code>
          * 
          * Path parameter: cacheName (required)
@@ -568,6 +581,95 @@ public interface HazelcastReplicatedmapEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return HazelcastReplicatedmapEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Hazelcast Replicated Map component.
+     */
+    public static class HazelcastReplicatedmapHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final HazelcastReplicatedmapHeaderNameBuilder INSTANCE = new HazelcastReplicatedmapHeaderNameBuilder();
+
+        /**
+         * the object id to store / find your object inside the cache.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HazelcastObjectId}.
+         */
+        public String hazelcastObjectId() {
+            return "HazelcastObjectId";
+        }
+
+        /**
+         * The type of event - here added and removed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerAction}.
+         */
+        public String hazelcastListenerAction() {
+            return "HazelcastListenerAction";
+        }
+
+        /**
+         * The map consumer.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerType}.
+         */
+        public String hazelcastListenerType() {
+            return "HazelcastListenerType";
+        }
+
+        /**
+         * The time of the event in millis.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastListenerTime}.
+         */
+        public String hazelcastListenerTime() {
+            return "HazelcastListenerTime";
+        }
+
+        /**
+         * The name of the cache - e.g. foo.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HazelcastCacheName}.
+         */
+        public String hazelcastCacheName() {
+            return "HazelcastCacheName";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code HazelcastOperationType}.
+         */
+        public String hazelcastOperationType() {
+            return "HazelcastOperationType";
         }
     }
     static HazelcastReplicatedmapEndpointBuilder endpointBuilder(

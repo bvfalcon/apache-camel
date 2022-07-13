@@ -3098,13 +3098,13 @@ public class StaticEndpointBuilders {
         return org.apache.camel.builder.endpoint.dsl.DigitalSignatureEndpointBuilderFactory.endpointBuilder(componentName, path);
     }
     /**
-     * CXF (camel-cxf)
+     * CXF (camel-cxf-soap)
      * Expose SOAP WebServices using Apache CXF or connect to external
      * WebServices using CXF WS client.
      * 
      * Category: soap,webservice
      * Since: 1.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-soap
      * 
      * Syntax: <code>cxf:beanId:address</code>
      * 
@@ -3122,13 +3122,13 @@ public class StaticEndpointBuilders {
         return org.apache.camel.builder.endpoint.dsl.CxfEndpointBuilderFactory.endpointBuilder("cxf", path);
     }
     /**
-     * CXF (camel-cxf)
+     * CXF (camel-cxf-soap)
      * Expose SOAP WebServices using Apache CXF or connect to external
      * WebServices using CXF WS client.
      * 
      * Category: soap,webservice
      * Since: 1.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-soap
      * 
      * Syntax: <code>cxf:beanId:address</code>
      * 
@@ -3149,13 +3149,13 @@ public class StaticEndpointBuilders {
         return org.apache.camel.builder.endpoint.dsl.CxfEndpointBuilderFactory.endpointBuilder(componentName, path);
     }
     /**
-     * CXF-RS (camel-cxf)
+     * CXF-RS (camel-cxf-rest)
      * Expose JAX-RS REST services using Apache CXF or connect to external REST
      * services using CXF REST client.
      * 
      * Category: rest
      * Since: 2.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-rest
      * 
      * Syntax: <code>cxfrs:beanId:address</code>
      * 
@@ -3174,13 +3174,13 @@ public class StaticEndpointBuilders {
         return org.apache.camel.builder.endpoint.dsl.CxfRsEndpointBuilderFactory.endpointBuilder("cxfrs", path);
     }
     /**
-     * CXF-RS (camel-cxf)
+     * CXF-RS (camel-cxf-rest)
      * Expose JAX-RS REST services using Apache CXF or connect to external REST
      * services using CXF REST client.
      * 
      * Category: rest
      * Since: 2.0
-     * Maven coordinates: org.apache.camel:camel-cxf
+     * Maven coordinates: org.apache.camel:camel-cxf-rest
      * 
      * Syntax: <code>cxfrs:beanId:address</code>
      * 
@@ -3344,7 +3344,7 @@ public class StaticEndpointBuilders {
     }
     /**
      * Debezium DB2 Connector (camel-debezium-db2)
-     * Capture changes from a Oracle database.
+     * Capture changes from a DB2 database.
      * 
      * Category: database,sql
      * Since: 3.17
@@ -3365,7 +3365,7 @@ public class StaticEndpointBuilders {
     }
     /**
      * Debezium DB2 Connector (camel-debezium-db2)
-     * Capture changes from a Oracle database.
+     * Capture changes from a DB2 database.
      * 
      * Category: database,sql
      * Since: 3.17
@@ -5855,6 +5855,49 @@ public class StaticEndpointBuilders {
             String componentName,
             String path) {
         return org.apache.camel.builder.endpoint.dsl.GuavaEventBusEndpointBuilderFactory.endpointBuilder(componentName, path);
+    }
+    /**
+     * Hashicorp Vault (camel-hashicorp-vault)
+     * Manage secrets in Hashicorp Vault Service
+     * 
+     * Category: cloud,cloud
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-hashicorp-vault
+     * 
+     * Syntax: <code>hashicorp-vault:secretsEngine</code>
+     * 
+     * Path parameter: secretsEngine
+     * Vault Name to be used
+     * 
+     * @param path secretsEngine
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.HashicorpVaultEndpointBuilderFactory.HashicorpVaultEndpointBuilder hashicorpVault(
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.HashicorpVaultEndpointBuilderFactory.endpointBuilder("hashicorp-vault", path);
+    }
+    /**
+     * Hashicorp Vault (camel-hashicorp-vault)
+     * Manage secrets in Hashicorp Vault Service
+     * 
+     * Category: cloud,cloud
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-hashicorp-vault
+     * 
+     * Syntax: <code>hashicorp-vault:secretsEngine</code>
+     * 
+     * Path parameter: secretsEngine
+     * Vault Name to be used
+     * 
+     * @param componentName to use a custom component name for the endpoint
+     * instead of the default name
+     * @param path secretsEngine
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.HashicorpVaultEndpointBuilderFactory.HashicorpVaultEndpointBuilder hashicorpVault(
+            String componentName,
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.HashicorpVaultEndpointBuilderFactory.endpointBuilder(componentName, path);
     }
     /**
      * Hazelcast Atomic Number (camel-hazelcast)
@@ -11020,6 +11063,51 @@ public class StaticEndpointBuilders {
         return org.apache.camel.builder.endpoint.dsl.OpenshiftBuildsEndpointBuilderFactory.endpointBuilder(componentName, path);
     }
     /**
+     * Openshift Deployment Configs (camel-kubernetes)
+     * Perform operations on Openshift Deployment Configs and get notified on
+     * Deployment Config changes.
+     * 
+     * Category: container,cloud,paas
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-kubernetes
+     * 
+     * Syntax: <code>openshift-deploymentconfigs:masterUrl</code>
+     * 
+     * Path parameter: masterUrl (required)
+     * Kubernetes Master url
+     * 
+     * @param path masterUrl
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.OpenshiftDeploymentConfigsEndpointBuilderFactory.OpenshiftDeploymentConfigsEndpointBuilder openshiftDeploymentconfigs(
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.OpenshiftDeploymentConfigsEndpointBuilderFactory.endpointBuilder("openshift-deploymentconfigs", path);
+    }
+    /**
+     * Openshift Deployment Configs (camel-kubernetes)
+     * Perform operations on Openshift Deployment Configs and get notified on
+     * Deployment Config changes.
+     * 
+     * Category: container,cloud,paas
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-kubernetes
+     * 
+     * Syntax: <code>openshift-deploymentconfigs:masterUrl</code>
+     * 
+     * Path parameter: masterUrl (required)
+     * Kubernetes Master url
+     * 
+     * @param componentName to use a custom component name for the endpoint
+     * instead of the default name
+     * @param path masterUrl
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.OpenshiftDeploymentConfigsEndpointBuilderFactory.OpenshiftDeploymentConfigsEndpointBuilder openshiftDeploymentconfigs(
+            String componentName,
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.OpenshiftDeploymentConfigsEndpointBuilderFactory.endpointBuilder(componentName, path);
+    }
+    /**
      * OpenStack Cinder (camel-openstack)
      * Access data in OpenStack Cinder block storage.
      * 
@@ -13082,7 +13170,7 @@ public class StaticEndpointBuilders {
      * Syntax: <code>slack:channel</code>
      * 
      * Path parameter: channel (required)
-     * The channel name (syntax #name) or slackuser (syntax userName) to send a
+     * The channel name (syntax #name) or slack user (syntax userName) to send a
      * message directly to an user.
      * 
      * @param path channel
@@ -13103,7 +13191,7 @@ public class StaticEndpointBuilders {
      * Syntax: <code>slack:channel</code>
      * 
      * Path parameter: channel (required)
-     * The channel name (syntax #name) or slackuser (syntax userName) to send a
+     * The channel name (syntax #name) or slack user (syntax userName) to send a
      * message directly to an user.
      * 
      * @param componentName to use a custom component name for the endpoint
@@ -13369,10 +13457,11 @@ public class StaticEndpointBuilders {
      * Syntax: <code>splunk-hec:splunkURL/token</code>
      * 
      * Path parameter: splunkURL (required)
-     * Splunk Host URL
+     * Splunk Host and Port (example: my_splunk_server:8089)
      * 
      * Path parameter: token (required)
-     * Splunk authorization token
+     * Splunk HEC token (this is the token created for HEC and not the user's
+     * token)
      * 
      * @param path splunkURL/token
      * @return the dsl builder
@@ -13393,10 +13482,11 @@ public class StaticEndpointBuilders {
      * Syntax: <code>splunk-hec:splunkURL/token</code>
      * 
      * Path parameter: splunkURL (required)
-     * Splunk Host URL
+     * Splunk Host and Port (example: my_splunk_server:8089)
      * 
      * Path parameter: token (required)
-     * Splunk authorization token
+     * Splunk HEC token (this is the token created for HEC and not the user's
+     * token)
      * 
      * @param componentName to use a custom component name for the endpoint
      * instead of the default name
@@ -15342,6 +15432,49 @@ public class StaticEndpointBuilders {
             String componentName,
             String path) {
         return org.apache.camel.builder.endpoint.dsl.WekaEndpointBuilderFactory.endpointBuilder(componentName, path);
+    }
+    /**
+     * WhatsApp (camel-whatsapp)
+     * Send messages.
+     * 
+     * Category: cloud,api,chat
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-whatsapp
+     * 
+     * Syntax: <code>whatsapp:phoneNumberId</code>
+     * 
+     * Path parameter: phoneNumberId (required)
+     * The phone number ID taken from whatsapp-business dashboard.
+     * 
+     * @param path phoneNumberId
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.WhatsAppEndpointBuilderFactory.WhatsAppEndpointBuilder whatsapp(
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.WhatsAppEndpointBuilderFactory.endpointBuilder("whatsapp", path);
+    }
+    /**
+     * WhatsApp (camel-whatsapp)
+     * Send messages.
+     * 
+     * Category: cloud,api,chat
+     * Since: 3.18
+     * Maven coordinates: org.apache.camel:camel-whatsapp
+     * 
+     * Syntax: <code>whatsapp:phoneNumberId</code>
+     * 
+     * Path parameter: phoneNumberId (required)
+     * The phone number ID taken from whatsapp-business dashboard.
+     * 
+     * @param componentName to use a custom component name for the endpoint
+     * instead of the default name
+     * @param path phoneNumberId
+     * @return the dsl builder
+     */
+    public static org.apache.camel.builder.endpoint.dsl.WhatsAppEndpointBuilderFactory.WhatsAppEndpointBuilder whatsapp(
+            String componentName,
+            String path) {
+        return org.apache.camel.builder.endpoint.dsl.WhatsAppEndpointBuilderFactory.endpointBuilder(componentName, path);
     }
     /**
      * Wordpress (camel-wordpress)

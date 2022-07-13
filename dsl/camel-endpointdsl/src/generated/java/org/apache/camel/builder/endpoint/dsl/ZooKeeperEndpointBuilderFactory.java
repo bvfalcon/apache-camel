@@ -137,51 +137,6 @@ public interface ZooKeeperEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default ZooKeeperEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default ZooKeeperEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Should changes to the znode be 'watched' and repeatedly processed.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -257,6 +212,51 @@ public interface ZooKeeperEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default ZooKeeperEndpointConsumerBuilder basic() {
             return (ZooKeeperEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedZooKeeperEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedZooKeeperEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -448,6 +448,17 @@ public interface ZooKeeperEndpointBuilderFactory {
             doSetProperty("createMode", createMode);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the ZooKeeper component.
+     */
+    public interface AdvancedZooKeeperEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default ZooKeeperEndpointProducerBuilder basic() {
+            return (ZooKeeperEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -462,12 +473,12 @@ public interface ZooKeeperEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default ZooKeeperEndpointProducerBuilder lazyStartProducer(
+        default AdvancedZooKeeperEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -487,26 +498,15 @@ public interface ZooKeeperEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default ZooKeeperEndpointProducerBuilder lazyStartProducer(
+        default AdvancedZooKeeperEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the ZooKeeper component.
-     */
-    public interface AdvancedZooKeeperEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default ZooKeeperEndpointProducerBuilder basic() {
-            return (ZooKeeperEndpointProducerBuilder) this;
         }
     }
 
@@ -604,6 +604,19 @@ public interface ZooKeeperEndpointBuilderFactory {
          * Since: 2.9
          * Maven coordinates: org.apache.camel:camel-zookeeper
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default ZooKeeperHeaderNameBuilder zookeeper() {
+            return ZooKeeperHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * ZooKeeper (camel-zookeeper)
+         * Manage ZooKeeper clusters.
+         * 
+         * Category: clustering,management,bigdata
+         * Since: 2.9
+         * Maven coordinates: org.apache.camel:camel-zookeeper
+         * 
          * Syntax: <code>zookeeper:serverUrls/path</code>
          * 
          * Path parameter: serverUrls (required)
@@ -645,6 +658,112 @@ public interface ZooKeeperEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return ZooKeeperEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the ZooKeeper component.
+     */
+    public static class ZooKeeperHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final ZooKeeperHeaderNameBuilder INSTANCE = new ZooKeeperHeaderNameBuilder();
+
+        /**
+         * The node.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ZooKeeperNode}.
+         */
+        public String zooKeeperNode() {
+            return "ZooKeeperNode";
+        }
+
+        /**
+         * The node version.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Default: -1
+         * Group: common
+         * 
+         * @return the name of the header {@code ZooKeeperVersion}.
+         */
+        public String zooKeeperVersion() {
+            return "ZooKeeperVersion";
+        }
+
+        /**
+         * The ACL.
+         * 
+         * The option is a: {@code List<ACL>} type.
+         * 
+         * Default: Ids.OPEN_ACL_UNSAFE
+         * Group: common
+         * 
+         * @return the name of the header {@code ZookeeperAcl}.
+         */
+        public String zookeeperAcl() {
+            return "ZookeeperAcl";
+        }
+
+        /**
+         * The create mode.
+         * 
+         * The option is a: {@code org.apache.zookeeper.CreateMode or String}
+         * type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ZookeeperCreateMode}.
+         */
+        public String zookeeperCreateMode() {
+            return "ZookeeperCreateMode";
+        }
+
+        /**
+         * The statistics.
+         * 
+         * The option is a: {@code org.apache.zookeeper.data.Stat} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ZookeeperStatistics}.
+         */
+        public String zookeeperStatistics() {
+            return "ZookeeperStatistics";
+        }
+
+        /**
+         * The event type.
+         * 
+         * The option is a: {@code org.apache.zookeeper.Watcher.Event.EventType}
+         * type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ZookeeperEventType}.
+         */
+        public String zookeeperEventType() {
+            return "ZookeeperEventType";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ZookeeperOperation}.
+         */
+        public String zookeeperOperation() {
+            return "ZookeeperOperation";
         }
     }
     static ZooKeeperEndpointBuilder endpointBuilder(

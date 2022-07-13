@@ -468,6 +468,215 @@ And we can use default values if the service has not been defined, for example t
 </camelContext>
 ----
 
+=== Using Kubernetes property placeholder functions
+
+The `camel-kubernetes` component include the following functions:
+
+* `configmap` - A function to lookup the property from Kubernetes ConfigMaps.
+* `secert` - A function to lookup the property from Kubernetes Secrets.
+
+The syntax for both functions are:
+
+[source]
+----
+configmap:name/key[:defaultValue]
+----
+
+Where the default value is optional, for example the following will lookup `myKey`,
+and fail if there is no such configmap.
+
+[source]
+----
+configmap:mymap/mykey
+----
+
+In this example then it would not fail as a default value is provided:
+
+[source]
+----
+configmap:mymap/mykey:123
+----
+
+Before the Kubernetes property placeholder functions can be used they need to be configured with either (or both)
+
+- path - A _mount path_ that must be mounted to the running pod, to load the configmaps or secrets from local disk.
+- kubernetes client - *Autowired* An `io.fabric8.kubernetes.client.KubernetesClient` instance to use for connecting to the Kubernetes API server.
+
+Camel will first use _mount paths_ (if configured) to lookup, and then fallback to use the `KubernetesClient`.
+
+==== Configuring mount paths for ConfigMaps and Secrets
+
+The configuration of the _month path_ are used by the given order:
+
+1. Reading configuration property with keys `camel.kubernetes-config.mount-path-configmaps`
+and `camel.kubernetes-config.mount-path-secrets`.
+2. Use JVM system property with key `camel.k.mount-path.configmaps` and `camel.k.mount-path.secrets` (Camel K compatible).
+3. Use OS ENV variable with key `camel.k.mount-path.configmaps` and `camel.k.mount-path.secrets` (Camel K compatible).
+
+For example to use `/etc/camel/resources/` as mount path, you can configure this in the `application.properties`:
+
+[source,properties]
+----
+camel.kubernetes-config.mount-path-configmaps = /etc/camel/myconfig/
+camel.kubernetes-config.mount-path-secrets = /etc/camel/mysecrets/
+----
+
+==== Configuring Kubernetes Client
+
+Camel will autowire the `KubernetesClient` if a single instance of the client exists in the running application (lookup via the xref:registry.adoc[Registry]).
+Otherwise, a new `KubernetesClient` is created. The client can be configured from either
+
+- Using `camel.kubernetes-config.client.` properties (see below for example)
+- Attempt to auto-configure itself by a combination of OS Environment variables, reading from `~./kube/config` configuration,
+and service account token file. For more details see the https://github.com/fabric8io/kubernetes-client documentation.
+
+You most likely only need to explicit configure the `KubernetesClient` when you want to connect
+from a local computer to a remote Kubernetes cluster, where you can specify various options,
+such as the masterUrl and oauthToken as shown:
+
+[source,properties]
+----
+camel.kubernetes-config.client.masterUrl = https://127.0.0.1:50179/
+camel.kubernetes-config.client.oauthToken = eyJhbGciOiJSUzI1NiIsImtpZCI...
+----
+
+The `KubernetesClient` has many options, see the https://github.com/fabric8io/kubernetes-client documentation.
+
+If you only use _mount paths_ then its good practice to disable `KubernetesClient` which can be done by setting enabled to false as show:
+
+[source,properties]
+----
+camel.kubernetes-config.client-enabled = false
+----
+
+When running your Camel applications inside an existing Kubernetes cluster, then you often
+would not need to explicit configure the `KubernetesClient` and can rely on default settings.
+
+TIP: If you use Camel Quarkus, then it is recommended to use their https://quarkus.io/guides/kubernetes-config
+which automatic pre-configure the `KubernetesClient` which Camel then will reuse.
+
+==== Using configmap with Kubernetes
+
+Given a configmap named `myconfig` in Kubernetes that has two entries:
+
+[source,properties]
+----
+drink = beer
+first = Carlsberg
+----
+
+Then these values can be used in your Camel routes such as:
+
+[source,xml]
+----
+<camelContext>
+  <route>
+    <from uri="direct:start"/>
+    <log message="What {{configmap:myconfig/drink}} do you want?"/>
+    <log message="I want {{configmap:myconfig/first}}"/>
+  </route>
+</camelContext>
+----
+
+You can also provide a default value in case a key does not exists:
+
+[source,xml]
+----
+    <log message="I want {{configmap:myconfig/second:Heineken}}"/>
+----
+
+==== Using secrets with Kubernetes
+
+Camel reads ConfigMaps from the Kubernetes API Server. And when RBAC is enabled on the cluster,
+the ServiceAccount that is used to run the application needs to have the proper permissions for such access.
+
+A secret named `mydb` could contain username and passwords to connect to a database such as:
+
+[source,properties]
+----
+myhost = killroy
+myport = 5555
+myuser = scott
+mypass = tiger
+----
+
+This can be used in Camel with for example the Postrgres Sink Kamelet:
+
+[source,xml]
+----
+<camelContext>
+  <route>
+    <from uri="direct:rome"/>
+    <setBody>
+      <constant>{ "username":"oscerd", "city":"Rome"}</constant>
+    </setBody>
+    <to uri="kamelet:postgresql-sink?serverName={{secret:mydb/myhost}}
+             &amp;serverPort={{secret:mydb/myport}}
+             &amp;username={{secret:mydb/myuser}}
+             &amp;password={{secret:mydb/mypass}}
+             &amp;databaseName=cities
+             &amp;query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)"/>
+  </route>
+</camelContext>
+----
+
+The postgres-sink Kamelet can also be configured in `application.properties` which reduces the configuration
+in the route above:
+
+[source,properties]
+----
+camel.component.kamelet.postgresql-sink.databaseName={{secret:mydb/myhost}}
+camel.component.kamelet.postgresql-sink.serverPort={{secret:mydb/myport}}
+camel.component.kamelet.postgresql-sink.username={{secret:mydb/myuser}}
+camel.component.kamelet.postgresql-sink.password={{secret:mydb/mypass}}
+----
+
+Which reduces the route to:
+
+[source,xml]
+----
+<camelContext>
+  <route>
+    <from uri="direct:rome"/>
+    <setBody>
+      <constant>{ "username":"oscerd", "city":"Rome"}</constant>
+    </setBody>
+    <to uri="kamelet:postgresql-sink?databaseName=cities
+             &amp;query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)"/>
+  </route>
+</camelContext>
+----
+
+==== Using configmap or secrets in local-mode
+
+During development you may want to run in _local mode_ where you do not need acces to a Kubernetes cluster, to lookup the configmap.
+In the local mode, then Camel will lookup the configmap _keys_ from local properties, eg:
+
+For example the example above with the postgresql kamelet, that was configured using a secret:
+
+[source,properties]
+----
+camel.component.kamelet.postgresql-sink.databaseName={{secret:mydb/myhost}}
+camel.component.kamelet.postgresql-sink.serverPort={{secret:mydb/myport}}
+camel.component.kamelet.postgresql-sink.username={{secret:mydb/myuser}}
+camel.component.kamelet.postgresql-sink.password={{secret:mydb/mypass}}
+----
+
+Now suppose we have a local Postrgres database we want to use, then we can turn on _local mode_
+and specify the credentials in the same properties file:
+
+[source,properties]
+----
+camel.kubernetes-config.local-mode = true
+mydb/myhost=localhost
+mydb/myport=1234
+mydb/myuser=scott
+mydb/mypass=tiger
+----
+
+NOTE: Notice how the key is prefixed with the name of the secret and a slash, eg `name/key`. This makes it easy to copy/paste
+from the actual use of the configmap/secret and into the `application.properties` file.
+
 === Using custom property placeholder functions
 
 The xref:components::properties-component.adoc[Properties] component allow to plugin 3rd party functions which can be used during parsing of the property placeholders.

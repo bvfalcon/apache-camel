@@ -23,6 +23,8 @@ import org.apache.camel.component.cassandra.integration.BaseCassandra;
 import org.apache.camel.support.DefaultExchange;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -54,9 +56,7 @@ public class NamedCassandraAggregationRepositoryIT extends BaseCassandra {
     }
 
     private boolean exists(String key) {
-        return getSession().execute(String.format("select KEY from NAMED_CAMEL_AGGREGATION where NAME='ID' and KEY='%s'", key))
-                .one()
-               != null;
+        return getSession().execute("select KEY from NAMED_CAMEL_AGGREGATION where NAME='ID' and KEY=?", key).one() != null;
     }
 
     @Test
@@ -134,6 +134,7 @@ public class NamedCassandraAggregationRepositoryIT extends BaseCassandra {
         }
     }
 
+    @DisabledOnOs(OS.MAC)
     @Test
     public void testConfirmExist() {
         // Given

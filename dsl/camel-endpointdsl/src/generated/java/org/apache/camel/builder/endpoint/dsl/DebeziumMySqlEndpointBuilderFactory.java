@@ -94,51 +94,6 @@ public interface DebeziumMySqlEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default DebeziumMySqlEndpointBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default DebeziumMySqlEndpointBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The Converter class that should be used to serialize and deserialize
          * key data for offsets. The default is JSON converter.
          * 
@@ -2618,6 +2573,51 @@ public interface DebeziumMySqlEndpointBuilderFactory {
             return (DebeziumMySqlEndpointBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDebeziumMySqlEndpointBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDebeziumMySqlEndpointBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -2698,6 +2698,19 @@ public interface DebeziumMySqlEndpointBuilderFactory {
          * Since: 3.0
          * Maven coordinates: org.apache.camel:camel-debezium-mysql
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default DebeziumMySqlHeaderNameBuilder debeziumMysql() {
+            return DebeziumMySqlHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Debezium MySQL Connector (camel-debezium-mysql)
+         * Capture changes from a MySQL database.
+         * 
+         * Category: database,sql
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-debezium-mysql
+         * 
          * Syntax: <code>debezium-mysql:name</code>
          * 
          * Path parameter: name (required)
@@ -2733,6 +2746,114 @@ public interface DebeziumMySqlEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return DebeziumMySqlEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Debezium MySQL Connector component.
+     */
+    public static class DebeziumMySqlHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final DebeziumMySqlHeaderNameBuilder INSTANCE = new DebeziumMySqlHeaderNameBuilder();
+
+        /**
+         * The metadata about the source event, for example table name, database
+         * name, log position, etc, please refer to the Debezium documentation
+         * for more info.
+         * 
+         * The option is a: {@code Map<String, Object>} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumSourceMetadata}.
+         */
+        public String debeziumSourceMetadata() {
+            return "DebeziumSourceMetadata";
+        }
+
+        /**
+         * The identifier of the connector, normally is this format
+         * {server-name}.{database-name}.{table-name}.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumIdentifier}.
+         */
+        public String debeziumIdentifier() {
+            return "DebeziumIdentifier";
+        }
+
+        /**
+         * The key of the event, normally is the table Primary Key.
+         * 
+         * The option is a: {@code Struct} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumKey}.
+         */
+        public String debeziumKey() {
+            return "DebeziumKey";
+        }
+
+        /**
+         * If presents, the type of event operation. Values for the connector
+         * are c for create (or insert), u for update, d for delete or r for
+         * read (in the case of a initial sync) or in case of a snapshot event.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumOperation}.
+         */
+        public String debeziumOperation() {
+            return "DebeziumOperation";
+        }
+
+        /**
+         * If presents, the time (using the system clock in the JVM) at which
+         * the connector processed the event.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumTimestamp}.
+         */
+        public String debeziumTimestamp() {
+            return "DebeziumTimestamp";
+        }
+
+        /**
+         * If presents, contains the state of the row before the event occurred.
+         * 
+         * The option is a: {@code Struct} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumBefore}.
+         */
+        public String debeziumBefore() {
+            return "DebeziumBefore";
+        }
+
+        /**
+         * If presents, the ddl sql text of the event.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code DebeziumDdlSQL}.
+         */
+        public String debeziumDdlSQL() {
+            return "DebeziumDdlSQL";
         }
     }
     static DebeziumMySqlEndpointBuilder endpointBuilder(

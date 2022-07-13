@@ -29,9 +29,11 @@ import org.apache.camel.Processor;
 import org.apache.camel.resume.ResumeAware;
 import org.apache.camel.resume.ResumeStrategy;
 import org.apache.camel.support.DefaultScheduledPollConsumer;
+import org.apache.camel.support.resume.ResumeStrategyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.camel.component.couchbase.CouchbaseConstants.COUCHBASE_RESUME_ACTION;
 import static org.apache.camel.component.couchbase.CouchbaseConstants.HEADER_DESIGN_DOCUMENT_NAME;
 import static org.apache.camel.component.couchbase.CouchbaseConstants.HEADER_ID;
 import static org.apache.camel.component.couchbase.CouchbaseConstants.HEADER_KEY;
@@ -95,15 +97,7 @@ public class CouchbaseConsumer extends DefaultScheduledPollConsumer implements R
     protected void doStart() throws Exception {
         super.doStart();
 
-        if (resumeStrategy != null) {
-            LOG.info("Couchbase consumer running with resume strategy enabled");
-
-            CouchbaseResumeAdapter resumeAdapter = resumeStrategy.getAdapter(CouchbaseResumeAdapter.class);
-            if (resumeAdapter != null) {
-                resumeAdapter.setBucket(bucket);
-                resumeAdapter.resume();
-            }
-        }
+        ResumeStrategyHelper.resume(getEndpoint().getCamelContext(), this, resumeStrategy, COUCHBASE_RESUME_ACTION);
     }
 
     @Override

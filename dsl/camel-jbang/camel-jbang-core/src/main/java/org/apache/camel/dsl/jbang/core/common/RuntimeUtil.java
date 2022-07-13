@@ -16,6 +16,10 @@
  */
 package org.apache.camel.dsl.jbang.core.common;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.logging.log4j.Level;
@@ -28,9 +32,11 @@ public final class RuntimeUtil {
     private RuntimeUtil() {
     }
 
-    public static void configureLog(String level, boolean color, boolean json, boolean pipe) {
+    public static void configureLog(String level, boolean color, boolean json, boolean pipe, boolean export) {
         if (INIT_DONE.compareAndSet(false, true)) {
-            if (pipe) {
+            if (export) {
+                Configurator.initialize("CamelJBang", "log4j2-export.properties");
+            } else if (pipe) {
                 Configurator.initialize("CamelJBang", "log4j2-pipe.properties");
             } else if (json) {
                 Configurator.initialize("CamelJBang", "log4j2-json.properties");
@@ -68,6 +74,12 @@ public final class RuntimeUtil {
             default: {
                 Configurator.setRootLevel(Level.INFO);
             }
+        }
+    }
+
+    public static void loadProperties(Properties properties, File file) throws IOException {
+        try (final FileInputStream fileInputStream = new FileInputStream(file)) {
+            properties.load(fileInputStream);
         }
     }
 

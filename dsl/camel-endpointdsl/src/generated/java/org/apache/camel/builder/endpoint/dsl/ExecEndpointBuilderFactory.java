@@ -38,6 +38,9 @@ public interface ExecEndpointBuilderFactory {
      * Builder for endpoint for the Exec component.
      */
     public interface ExecEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedExecEndpointBuilder advanced() {
+            return (AdvancedExecEndpointBuilder) this;
+        }
         /**
          * The arguments may be one or many whitespace-separated tokens.
          * 
@@ -177,53 +180,6 @@ public interface ExecEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ExecEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ExecEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The name of a file, created by the executable, that should be
          * considered as its output. If no outFile is set, the standard output
          * (stdout) of the executable will be used instead.
@@ -325,7 +281,80 @@ public interface ExecEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Exec component.
+     */
+    public interface AdvancedExecEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default ExecEndpointBuilder basic() {
+            return (ExecEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedExecEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedExecEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface ExecBuilders {
+        /**
+         * Exec (camel-exec)
+         * Execute commands on the underlying operating system.
+         * 
+         * Category: system
+         * Since: 2.3
+         * Maven coordinates: org.apache.camel:camel-exec
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default ExecHeaderNameBuilder exec() {
+            return ExecHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Exec (camel-exec)
          * Execute commands on the underlying operating system.
@@ -369,8 +398,163 @@ public interface ExecEndpointBuilderFactory {
             return ExecEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Exec component.
+     */
+    public static class ExecHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final ExecHeaderNameBuilder INSTANCE = new ExecHeaderNameBuilder();
+
+        /**
+         * The name of the system command that will be executed. Overrides
+         * executable in the URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandExecutable}.
+         */
+        public String execCommandExecutable() {
+            return "ExecCommandExecutable";
+        }
+
+        /**
+         * Command-line argument(s) to pass to the executed process. The
+         * argument(s) is/are used literally - no quoting is applied. Overrides
+         * any existing args in the URI.
+         * 
+         * The option is a: {@code java.util.List<String> or String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandArgs}.
+         */
+        public String execCommandArgs() {
+            return "ExecCommandArgs";
+        }
+
+        /**
+         * The name of a file, created by the executable, that should be
+         * considered as its output. Overrides any existing outFile in the URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandOutFile}.
+         */
+        public String execCommandOutFile() {
+            return "ExecCommandOutFile";
+        }
+
+        /**
+         * The directory in which the command should be executed. Overrides any
+         * existing workingDir in the URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandWorkingDir}.
+         */
+        public String execCommandWorkingDir() {
+            return "ExecCommandWorkingDir";
+        }
+
+        /**
+         * The timeout, in milliseconds, after which the executable should be
+         * terminated. Overrides any existing timeout in the URI.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandTimeout}.
+         */
+        public String execCommandTimeout() {
+            return "ExecCommandTimeout";
+        }
+
+        /**
+         * The exit values for successful execution of the process. Overrides
+         * any existing exitValues in the URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecExitValues}.
+         */
+        public String execExitValues() {
+            return "ExecExitValues";
+        }
+
+        /**
+         * The value of this header points to the standard error stream (stderr)
+         * of the executable. If no stderr is written, the value is null.
+         * 
+         * The option is a: {@code java.io.InputStream} type.
+         * 
+         * Group: out
+         * 
+         * @return the name of the header {@code ExecStderr}.
+         */
+        public String execStderr() {
+            return "ExecStderr";
+        }
+
+        /**
+         * The value of this header is the _exit value_ of the executable.
+         * Non-zero exit values typically indicate abnormal termination. Note
+         * that the exit value is OS-dependent.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: out
+         * 
+         * @return the name of the header {@code ExecExitValue}.
+         */
+        public String execExitValue() {
+            return "ExecExitValue";
+        }
+
+        /**
+         * Indicates that when stdout is empty, this component will populate the
+         * Camel Message Body with stderr. This behavior is disabled (false) by
+         * default.
+         * 
+         * The option is a: {@code boolean} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecUseStderrOnEmptyStdout}.
+         */
+        public String execUseStderrOnEmptyStdout() {
+            return "ExecUseStderrOnEmptyStdout";
+        }
+
+        /**
+         * Logging level to be used for commands during execution. The default
+         * value is DEBUG. Possible values are TRACE, DEBUG, INFO, WARN, ERROR
+         * or OFF (Values of LoggingLevel enum).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: in
+         * 
+         * @return the name of the header {@code ExecCommandLogLevel}.
+         */
+        public String execCommandLogLevel() {
+            return "ExecCommandLogLevel";
+        }
+    }
     static ExecEndpointBuilder endpointBuilder(String componentName, String path) {
-        class ExecEndpointBuilderImpl extends AbstractEndpointBuilder implements ExecEndpointBuilder {
+        class ExecEndpointBuilderImpl extends AbstractEndpointBuilder implements ExecEndpointBuilder, AdvancedExecEndpointBuilder {
             public ExecEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

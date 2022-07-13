@@ -138,51 +138,6 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesNamespacesEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesNamespacesEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The Consumer CRD Resource Group we would like to watch.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -558,6 +513,51 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
             return (KubernetesNamespacesEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesNamespacesEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesNamespacesEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -762,55 +762,6 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
         default KubernetesNamespacesEndpointProducerBuilder portProtocol(
                 String portProtocol) {
             doSetProperty("portProtocol", portProtocol);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesNamespacesEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesNamespacesEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1035,6 +986,55 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default KubernetesNamespacesEndpointProducerBuilder basic() {
             return (KubernetesNamespacesEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesNamespacesEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesNamespacesEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Connection timeout in milliseconds to use when making requests to the
@@ -1418,6 +1418,20 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-kubernetes
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KubernetesNamespacesHeaderNameBuilder kubernetesNamespaces() {
+            return KubernetesNamespacesHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Kubernetes Namespaces (camel-kubernetes)
+         * Perform operations on Kubernetes Namespaces and get notified on
+         * Namespace changes.
+         * 
+         * Category: container,cloud,paas
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-kubernetes
+         * 
          * Syntax: <code>kubernetes-namespaces:masterUrl</code>
          * 
          * Path parameter: masterUrl (required)
@@ -1453,6 +1467,83 @@ public interface KubernetesNamespacesEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return KubernetesNamespacesEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Kubernetes Namespaces component.
+     */
+    public static class KubernetesNamespacesHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KubernetesNamespacesHeaderNameBuilder INSTANCE = new KubernetesNamespacesHeaderNameBuilder();
+
+        /**
+         * The Producer operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesOperation}.
+         */
+        public String kubernetesOperation() {
+            return "KubernetesOperation";
+        }
+
+        /**
+         * The namespace name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceName}.
+         */
+        public String kubernetesNamespaceName() {
+            return "KubernetesNamespaceName";
+        }
+
+        /**
+         * The namespace labels.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceLabels}.
+         */
+        public String kubernetesNamespaceLabels() {
+            return "KubernetesNamespaceLabels";
+        }
+
+        /**
+         * Action watched by the consumer.
+         * 
+         * The option is a: {@code io.fabric8.kubernetes.client.Watcher.Action}
+         * type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesEventAction}.
+         */
+        public String kubernetesEventAction() {
+            return "KubernetesEventAction";
+        }
+
+        /**
+         * Timestamp of the action watched by the consumer.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesEventTimestamp}.
+         */
+        public String kubernetesEventTimestamp() {
+            return "KubernetesEventTimestamp";
         }
     }
     static KubernetesNamespacesEndpointBuilder endpointBuilder(

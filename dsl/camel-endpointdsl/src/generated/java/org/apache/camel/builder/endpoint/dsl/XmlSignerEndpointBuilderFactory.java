@@ -365,55 +365,6 @@ public interface XmlSignerEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default XmlSignerEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default XmlSignerEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Indicator whether the XML declaration in the outgoing message body
          * should be omitted. Default value is false. Can be overwritten by the
          * header XmlSignatureConstants#HEADER_OMIT_XML_DECLARATION.
@@ -820,6 +771,55 @@ public interface XmlSignerEndpointBuilderFactory {
             return (XmlSignerEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedXmlSignerEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedXmlSignerEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * If you want to restrict the remote access via reference URIs, you can
          * set an own dereferencer. Optional parameter. If not set the provider
          * default dereferencer is used which can resolve URI fragments, HTTP,
@@ -870,6 +870,19 @@ public interface XmlSignerEndpointBuilderFactory {
          * Since: 2.12
          * Maven coordinates: org.apache.camel:camel-xmlsecurity
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default XmlSignerHeaderNameBuilder xmlsecuritySign() {
+            return XmlSignerHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * XML Security Sign (camel-xmlsecurity)
+         * Sign XML payloads using the XML signature specification.
+         * 
+         * Category: security,transformation
+         * Since: 2.12
+         * Maven coordinates: org.apache.camel:camel-xmlsecurity
+         * 
          * Syntax: <code>xmlsecurity-sign:name</code>
          * 
          * Path parameter: name (required)
@@ -905,6 +918,240 @@ public interface XmlSignerEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return XmlSignerEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the XML Security Sign component.
+     */
+    public static class XmlSignerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final XmlSignerHeaderNameBuilder INSTANCE = new XmlSignerHeaderNameBuilder();
+
+        /**
+         * Header for indicating that the message body contains non-xml plain
+         * text. This header is used in the XML signature generator. If the
+         * value is set to Boolean#TRUE then the message body is treated as
+         * plain text Overwrites the configuration parameter
+         * XmlSignerConfiguration#setPlainText(Boolean).
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureMessageIsPlainText}.
+         */
+        public String xmlSignatureMessageIsPlainText() {
+            return "XmlSignatureMessageIsPlainText";
+        }
+
+        /**
+         * Header indicating the encoding of the plain text message body. Used
+         * in the XML signature generator if the header
+         * HEADER_MESSAGE_IS_PLAIN_TEXT is set to Boolean#TRUE. Overwrites the
+         * configuration parameter
+         * XmlSignerConfiguration#setPlainTextEncoding(String).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code XmlSignaturePlainTextEncoding}.
+         */
+        public String xmlSignaturePlainTextEncoding() {
+            return "XmlSignaturePlainTextEncoding";
+        }
+
+        /**
+         * Header which indicates that either the resulting signature document
+         * in the signature generation case or the resulting output of the
+         * verifier should not contain an XML declaration. If the header is not
+         * specified then a XML declaration is created. There is one exception:
+         * If the verifier result is a plain text this header has no effect.
+         * Possible values of the header are Boolean#TRUE or Boolean#FALSE.
+         * Overwrites the configuration parameter
+         * XmlSignatureConfiguration#setOmitXmlDeclaration(Boolean).
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureOmitXmlDeclaration}.
+         */
+        public String xmlSignatureOmitXmlDeclaration() {
+            return "XmlSignatureOmitXmlDeclaration";
+        }
+
+        /**
+         * The content reference URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureContentReferenceUri}.
+         */
+        public String xmlSignatureContentReferenceUri() {
+            return "XmlSignatureContentReferenceUri";
+        }
+
+        /**
+         * The content reference type.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureContentReferenceType}.
+         */
+        public String xmlSignatureContentReferenceType() {
+            return "XmlSignatureContentReferenceType";
+        }
+
+        /**
+         * The schema resource URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code XmlSignatureSchemaResourceUri}.
+         */
+        public String xmlSignatureSchemaResourceUri() {
+            return "XmlSignatureSchemaResourceUri";
+        }
+
+        /**
+         * XPaths to id attributes.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureXpathsToIdAttributes}.
+         */
+        public String xmlSignatureXpathsToIdAttributes() {
+            return "XmlSignatureXpathsToIdAttributes";
+        }
+
+        /**
+         * Header for dynamic specifying the transform methods of the reference
+         * to the signed data. The value of the header must be a comma separated
+         * list with the transform algorithms, for example:
+         * http://www.w3.org/2000/09/xmldsig#enveloped-signature,http://www.w3.org/TR/2001/REC-xml-c14n-20010315 Used for the XML signer. This header will overwrite the configuration property transformMethods. You cannot use transform algorithms, which need parameters like http://www.w3.org/TR/1999/REC-xslt-19991116, http://www.w3.org/2002/06/xmldsig-filter2, or http://www.w3.org/TR/1999/REC-xpath-19991116.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code XmlSignatureTransformMethods}.
+         */
+        public String xmlSignatureTransformMethods() {
+            return "XmlSignatureTransformMethods";
+        }
+
+        /**
+         * for the 'Id' attribute value of QualifyingProperties element.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureXAdESQualifyingPropertiesId}.
+         */
+        public String xmlSignatureXAdESQualifyingPropertiesId() {
+            return "XmlSignatureXAdESQualifyingPropertiesId";
+        }
+
+        /**
+         * for the 'Id' attribute value of SignedDataObjectProperties element.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureXAdESSignedDataObjectPropertiesId}.
+         */
+        public String xmlSignatureXAdESSignedDataObjectPropertiesId() {
+            return "XmlSignatureXAdESSignedDataObjectPropertiesId";
+        }
+
+        /**
+         * for the 'Id' attribute value of SignedSignatureProperties element.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureXAdESSignedSignaturePropertiesId}.
+         */
+        public String xmlSignatureXAdESSignedSignaturePropertiesId() {
+            return "XmlSignatureXAdESSignedSignaturePropertiesId";
+        }
+
+        /**
+         * for the value of the Encoding element of the DataObjectFormat
+         * element.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * XmlSignatureXAdESDataObjectFormatEncoding}.
+         */
+        public String xmlSignatureXAdESDataObjectFormatEncoding() {
+            return "XmlSignatureXAdESDataObjectFormatEncoding";
+        }
+
+        /**
+         * overwrites the XAdES namespace parameter value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code XmlSignatureXAdESNamespace}.
+         */
+        public String xmlSignatureXAdESNamespace() {
+            return "XmlSignatureXAdESNamespace";
+        }
+
+        /**
+         * overwrites the XAdES prefix parameter value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code XmlSignatureXAdESPrefix}.
+         */
+        public String xmlSignatureXAdESPrefix() {
+            return "XmlSignatureXAdESPrefix";
+        }
+
+        /**
+         * The name of the charset.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CharsetName}.
+         */
+        public String charsetName() {
+            return "CharsetName";
         }
     }
     static XmlSignerEndpointBuilder endpointBuilder(

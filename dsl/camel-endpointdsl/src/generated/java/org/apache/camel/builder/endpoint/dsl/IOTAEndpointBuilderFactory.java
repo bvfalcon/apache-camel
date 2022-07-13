@@ -38,6 +38,9 @@ public interface IOTAEndpointBuilderFactory {
      * Builder for endpoint for the IOTA component.
      */
     public interface IOTAEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedIOTAEndpointBuilder advanced() {
+            return (AdvancedIOTAEndpointBuilder) this;
+        }
         /**
          * The depth determines how deep the tangle is analysed for getting
          * Tips.
@@ -69,53 +72,6 @@ public interface IOTAEndpointBuilderFactory {
          */
         default IOTAEndpointBuilder depth(String depth) {
             doSetProperty("depth", depth);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IOTAEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IOTAEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -234,7 +190,80 @@ public interface IOTAEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the IOTA component.
+     */
+    public interface AdvancedIOTAEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default IOTAEndpointBuilder basic() {
+            return (IOTAEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIOTAEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIOTAEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface IOTABuilders {
+        /**
+         * IOTA (camel-iota)
+         * Manage financial transactions using IOTA distributed ledger.
+         * 
+         * Category: ledger,api
+         * Since: 2.23
+         * Maven coordinates: org.apache.camel:camel-iota
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default IOTAHeaderNameBuilder iota() {
+            return IOTAHeaderNameBuilder.INSTANCE;
+        }
         /**
          * IOTA (camel-iota)
          * Manage financial transactions using IOTA distributed ledger.
@@ -276,8 +305,97 @@ public interface IOTAEndpointBuilderFactory {
             return IOTAEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the IOTA component.
+     */
+    public static class IOTAHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final IOTAHeaderNameBuilder INSTANCE = new IOTAHeaderNameBuilder();
+
+        /**
+         * The tryte-encoded seed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTASeed}.
+         */
+        public String iOTASeed() {
+            return "IOTASeed";
+        }
+
+        /**
+         * The value to transfer.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTAValue}.
+         */
+        public String iOTAValue() {
+            return "IOTAValue";
+        }
+
+        /**
+         * The address of the recipient.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTAToAddress}.
+         */
+        public String iOTAToAddress() {
+            return "IOTAToAddress";
+        }
+
+        /**
+         * The key index to start search from.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTAAddressIndex}.
+         */
+        public String iOTAAddressIndex() {
+            return "IOTAAddressIndex";
+        }
+
+        /**
+         * The starting key index, must be at least 0.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTAAddressStartIndex}.
+         */
+        public String iOTAAddressStartIndex() {
+            return "IOTAAddressStartIndex";
+        }
+
+        /**
+         * The ending key index, must be bigger then start.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IOTAAddressEndIndex}.
+         */
+        public String iOTAAddressEndIndex() {
+            return "IOTAAddressEndIndex";
+        }
+    }
     static IOTAEndpointBuilder endpointBuilder(String componentName, String path) {
-        class IOTAEndpointBuilderImpl extends AbstractEndpointBuilder implements IOTAEndpointBuilder {
+        class IOTAEndpointBuilderImpl extends AbstractEndpointBuilder implements IOTAEndpointBuilder, AdvancedIOTAEndpointBuilder {
             public IOTAEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

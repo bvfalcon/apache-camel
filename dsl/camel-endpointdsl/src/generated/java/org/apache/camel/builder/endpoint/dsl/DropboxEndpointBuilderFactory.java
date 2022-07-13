@@ -45,52 +45,6 @@ public interface DropboxEndpointBuilderFactory {
             return (AdvancedDropboxEndpointConsumerBuilder) this;
         }
         /**
-         * The access token to make API requests for a specific Dropbox user.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Required: true
-         * Group: common
-         * 
-         * @param accessToken the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointConsumerBuilder accessToken(String accessToken) {
-            doSetProperty("accessToken", accessToken);
-            return this;
-        }
-        /**
-         * To use an existing DbxClient instance as DropBox client.
-         * 
-         * The option is a:
-         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param client the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointConsumerBuilder client(
-                com.dropbox.core.v2.DbxClientV2 client) {
-            doSetProperty("client", client);
-            return this;
-        }
-        /**
-         * To use an existing DbxClient instance as DropBox client.
-         * 
-         * The option will be converted to a
-         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param client the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointConsumerBuilder client(String client) {
-            doSetProperty("client", client);
-            return this;
-        }
-        /**
          * Name of the app registered to make API requests.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -103,37 +57,6 @@ public interface DropboxEndpointBuilderFactory {
         default DropboxEndpointConsumerBuilder clientIdentifier(
                 String clientIdentifier) {
             doSetProperty("clientIdentifier", clientIdentifier);
-            return this;
-        }
-        /**
-         * Optional folder or file to upload on Dropbox from the local
-         * filesystem. If this option has not been configured then the message
-         * body is used as the content to upload.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param localPath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointConsumerBuilder localPath(String localPath) {
-            doSetProperty("localPath", localPath);
-            return this;
-        }
-        /**
-         * Destination file or folder.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param newRemotePath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointConsumerBuilder newRemotePath(
-                String newRemotePath) {
-            doSetProperty("newRemotePath", newRemotePath);
             return this;
         }
         /**
@@ -167,41 +90,107 @@ public interface DropboxEndpointBuilderFactory {
             return this;
         }
         /**
-         * Which mode to upload. in case of add the new file will be renamed if
-         * a file with the same name already exists on dropbox. in case of force
-         * if a file with the same name already exists on dropbox, this will be
-         * overwritten.
+         * The access token to make API requests for a specific Dropbox user.
          * 
-         * The option is a:
-         * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
-         * Group: common
+         * Required: true
+         * Group: security
          * 
-         * @param uploadMode the value to set
+         * @param accessToken the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointConsumerBuilder uploadMode(
-                org.apache.camel.component.dropbox.util.DropboxUploadMode uploadMode) {
-            doSetProperty("uploadMode", uploadMode);
+        default DropboxEndpointConsumerBuilder accessToken(String accessToken) {
+            doSetProperty("accessToken", accessToken);
             return this;
         }
         /**
-         * Which mode to upload. in case of add the new file will be renamed if
-         * a file with the same name already exists on dropbox. in case of force
-         * if a file with the same name already exists on dropbox, this will be
-         * overwritten.
+         * The apiKey to make API requests for a specific Dropbox user.
          * 
-         * The option will be converted to a
-         * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
-         * Group: common
+         * Required: true
+         * Group: security
          * 
-         * @param uploadMode the value to set
+         * @param apiKey the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointConsumerBuilder uploadMode(String uploadMode) {
-            doSetProperty("uploadMode", uploadMode);
+        default DropboxEndpointConsumerBuilder apiKey(String apiKey) {
+            doSetProperty("apiKey", apiKey);
             return this;
+        }
+        /**
+         * The apiSecret to make API requests for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param apiSecret the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointConsumerBuilder apiSecret(String apiSecret) {
+            doSetProperty("apiSecret", apiSecret);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointConsumerBuilder expireIn(Long expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option will be converted to a
+         * &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointConsumerBuilder expireIn(String expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The refresh token to refresh the access token for a specific Dropbox
+         * user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param refreshToken the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointConsumerBuilder refreshToken(String refreshToken) {
+            doSetProperty("refreshToken", refreshToken);
+            return this;
+        }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Dropbox component.
+     */
+    public interface AdvancedDropboxEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default DropboxEndpointConsumerBuilder basic() {
+            return (DropboxEndpointConsumerBuilder) this;
         }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
@@ -215,12 +204,12 @@ public interface DropboxEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedDropboxEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -238,26 +227,15 @@ public interface DropboxEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedDropboxEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Dropbox component.
-     */
-    public interface AdvancedDropboxEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default DropboxEndpointConsumerBuilder basic() {
-            return (DropboxEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -329,44 +307,18 @@ public interface DropboxEndpointBuilderFactory {
             doSetProperty("exchangePattern", exchangePattern);
             return this;
         }
-    }
-
-    /**
-     * Builder for endpoint producers for the Dropbox component.
-     */
-    public interface DropboxEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default AdvancedDropboxEndpointProducerBuilder advanced() {
-            return (AdvancedDropboxEndpointProducerBuilder) this;
-        }
-        /**
-         * The access token to make API requests for a specific Dropbox user.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Required: true
-         * Group: common
-         * 
-         * @param accessToken the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointProducerBuilder accessToken(String accessToken) {
-            doSetProperty("accessToken", accessToken);
-            return this;
-        }
         /**
          * To use an existing DbxClient instance as DropBox client.
          * 
          * The option is a:
          * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
          * 
-         * Group: common
+         * Group: advanced
          * 
          * @param client the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointProducerBuilder client(
+        default AdvancedDropboxEndpointConsumerBuilder client(
                 com.dropbox.core.v2.DbxClientV2 client) {
             doSetProperty("client", client);
             return this;
@@ -377,14 +329,25 @@ public interface DropboxEndpointBuilderFactory {
          * The option will be converted to a
          * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
          * 
-         * Group: common
+         * Group: advanced
          * 
          * @param client the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointProducerBuilder client(String client) {
+        default AdvancedDropboxEndpointConsumerBuilder client(String client) {
             doSetProperty("client", client);
             return this;
+        }
+    }
+
+    /**
+     * Builder for endpoint producers for the Dropbox component.
+     */
+    public interface DropboxEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default AdvancedDropboxEndpointProducerBuilder advanced() {
+            return (AdvancedDropboxEndpointProducerBuilder) this;
         }
         /**
          * Name of the app registered to make API requests.
@@ -399,37 +362,6 @@ public interface DropboxEndpointBuilderFactory {
         default DropboxEndpointProducerBuilder clientIdentifier(
                 String clientIdentifier) {
             doSetProperty("clientIdentifier", clientIdentifier);
-            return this;
-        }
-        /**
-         * Optional folder or file to upload on Dropbox from the local
-         * filesystem. If this option has not been configured then the message
-         * body is used as the content to upload.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param localPath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointProducerBuilder localPath(String localPath) {
-            doSetProperty("localPath", localPath);
-            return this;
-        }
-        /**
-         * Destination file or folder.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param newRemotePath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointProducerBuilder newRemotePath(
-                String newRemotePath) {
-            doSetProperty("newRemotePath", newRemotePath);
             return this;
         }
         /**
@@ -463,6 +395,37 @@ public interface DropboxEndpointBuilderFactory {
             return this;
         }
         /**
+         * Optional folder or file to upload on Dropbox from the local
+         * filesystem. If this option has not been configured then the message
+         * body is used as the content to upload.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: producer
+         * 
+         * @param localPath the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder localPath(String localPath) {
+            doSetProperty("localPath", localPath);
+            return this;
+        }
+        /**
+         * Destination file or folder.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: producer
+         * 
+         * @param newRemotePath the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder newRemotePath(
+                String newRemotePath) {
+            doSetProperty("newRemotePath", newRemotePath);
+            return this;
+        }
+        /**
          * Which mode to upload. in case of add the new file will be renamed if
          * a file with the same name already exists on dropbox. in case of force
          * if a file with the same name already exists on dropbox, this will be
@@ -471,7 +434,7 @@ public interface DropboxEndpointBuilderFactory {
          * The option is a:
          * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
          * 
-         * Group: common
+         * Group: producer
          * 
          * @param uploadMode the value to set
          * @return the dsl builder
@@ -490,7 +453,7 @@ public interface DropboxEndpointBuilderFactory {
          * The option will be converted to a
          * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
          * 
-         * Group: common
+         * Group: producer
          * 
          * @param uploadMode the value to set
          * @return the dsl builder
@@ -498,6 +461,109 @@ public interface DropboxEndpointBuilderFactory {
         default DropboxEndpointProducerBuilder uploadMode(String uploadMode) {
             doSetProperty("uploadMode", uploadMode);
             return this;
+        }
+        /**
+         * The access token to make API requests for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param accessToken the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder accessToken(String accessToken) {
+            doSetProperty("accessToken", accessToken);
+            return this;
+        }
+        /**
+         * The apiKey to make API requests for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param apiKey the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder apiKey(String apiKey) {
+            doSetProperty("apiKey", apiKey);
+            return this;
+        }
+        /**
+         * The apiSecret to make API requests for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param apiSecret the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder apiSecret(String apiSecret) {
+            doSetProperty("apiSecret", apiSecret);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder expireIn(Long expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option will be converted to a
+         * &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder expireIn(String expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The refresh token to refresh the access token for a specific Dropbox
+         * user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param refreshToken the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointProducerBuilder refreshToken(String refreshToken) {
+            doSetProperty("refreshToken", refreshToken);
+            return this;
+        }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Dropbox component.
+     */
+    public interface AdvancedDropboxEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default DropboxEndpointProducerBuilder basic() {
+            return (DropboxEndpointProducerBuilder) this;
         }
         /**
          * Whether the producer should be started lazy (on the first message).
@@ -513,12 +579,12 @@ public interface DropboxEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointProducerBuilder lazyStartProducer(
+        default AdvancedDropboxEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -538,26 +604,46 @@ public interface DropboxEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointProducerBuilder lazyStartProducer(
+        default AdvancedDropboxEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Dropbox component.
-     */
-    public interface AdvancedDropboxEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default DropboxEndpointProducerBuilder basic() {
-            return (DropboxEndpointProducerBuilder) this;
+        /**
+         * To use an existing DbxClient instance as DropBox client.
+         * 
+         * The option is a:
+         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param client the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDropboxEndpointProducerBuilder client(
+                com.dropbox.core.v2.DbxClientV2 client) {
+            doSetProperty("client", client);
+            return this;
+        }
+        /**
+         * To use an existing DbxClient instance as DropBox client.
+         * 
+         * The option will be converted to a
+         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param client the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDropboxEndpointProducerBuilder client(String client) {
+            doSetProperty("client", client);
+            return this;
         }
     }
 
@@ -572,52 +658,6 @@ public interface DropboxEndpointBuilderFactory {
             return (AdvancedDropboxEndpointBuilder) this;
         }
         /**
-         * The access token to make API requests for a specific Dropbox user.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Required: true
-         * Group: common
-         * 
-         * @param accessToken the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointBuilder accessToken(String accessToken) {
-            doSetProperty("accessToken", accessToken);
-            return this;
-        }
-        /**
-         * To use an existing DbxClient instance as DropBox client.
-         * 
-         * The option is a:
-         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param client the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointBuilder client(
-                com.dropbox.core.v2.DbxClientV2 client) {
-            doSetProperty("client", client);
-            return this;
-        }
-        /**
-         * To use an existing DbxClient instance as DropBox client.
-         * 
-         * The option will be converted to a
-         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param client the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointBuilder client(String client) {
-            doSetProperty("client", client);
-            return this;
-        }
-        /**
          * Name of the app registered to make API requests.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -629,36 +669,6 @@ public interface DropboxEndpointBuilderFactory {
          */
         default DropboxEndpointBuilder clientIdentifier(String clientIdentifier) {
             doSetProperty("clientIdentifier", clientIdentifier);
-            return this;
-        }
-        /**
-         * Optional folder or file to upload on Dropbox from the local
-         * filesystem. If this option has not been configured then the message
-         * body is used as the content to upload.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param localPath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointBuilder localPath(String localPath) {
-            doSetProperty("localPath", localPath);
-            return this;
-        }
-        /**
-         * Destination file or folder.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param newRemotePath the value to set
-         * @return the dsl builder
-         */
-        default DropboxEndpointBuilder newRemotePath(String newRemotePath) {
-            doSetProperty("newRemotePath", newRemotePath);
             return this;
         }
         /**
@@ -692,40 +702,95 @@ public interface DropboxEndpointBuilderFactory {
             return this;
         }
         /**
-         * Which mode to upload. in case of add the new file will be renamed if
-         * a file with the same name already exists on dropbox. in case of force
-         * if a file with the same name already exists on dropbox, this will be
-         * overwritten.
+         * The access token to make API requests for a specific Dropbox user.
          * 
-         * The option is a:
-         * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
-         * Group: common
+         * Required: true
+         * Group: security
          * 
-         * @param uploadMode the value to set
+         * @param accessToken the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointBuilder uploadMode(
-                org.apache.camel.component.dropbox.util.DropboxUploadMode uploadMode) {
-            doSetProperty("uploadMode", uploadMode);
+        default DropboxEndpointBuilder accessToken(String accessToken) {
+            doSetProperty("accessToken", accessToken);
             return this;
         }
         /**
-         * Which mode to upload. in case of add the new file will be renamed if
-         * a file with the same name already exists on dropbox. in case of force
-         * if a file with the same name already exists on dropbox, this will be
-         * overwritten.
+         * The apiKey to make API requests for a specific Dropbox user.
          * 
-         * The option will be converted to a
-         * &lt;code&gt;org.apache.camel.component.dropbox.util.DropboxUploadMode&lt;/code&gt; type.
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
-         * Group: common
+         * Required: true
+         * Group: security
          * 
-         * @param uploadMode the value to set
+         * @param apiKey the value to set
          * @return the dsl builder
          */
-        default DropboxEndpointBuilder uploadMode(String uploadMode) {
-            doSetProperty("uploadMode", uploadMode);
+        default DropboxEndpointBuilder apiKey(String apiKey) {
+            doSetProperty("apiKey", apiKey);
+            return this;
+        }
+        /**
+         * The apiSecret to make API requests for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param apiSecret the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointBuilder apiSecret(String apiSecret) {
+            doSetProperty("apiSecret", apiSecret);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointBuilder expireIn(Long expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The expire time to access token for a specific Dropbox user.
+         * 
+         * The option will be converted to a
+         * &lt;code&gt;java.lang.Long&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param expireIn the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointBuilder expireIn(String expireIn) {
+            doSetProperty("expireIn", expireIn);
+            return this;
+        }
+        /**
+         * The refresh token to refresh the access token for a specific Dropbox
+         * user.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Required: true
+         * Group: security
+         * 
+         * @param refreshToken the value to set
+         * @return the dsl builder
+         */
+        default DropboxEndpointBuilder refreshToken(String refreshToken) {
+            doSetProperty("refreshToken", refreshToken);
             return this;
         }
     }
@@ -740,9 +805,54 @@ public interface DropboxEndpointBuilderFactory {
         default DropboxEndpointBuilder basic() {
             return (DropboxEndpointBuilder) this;
         }
+        /**
+         * To use an existing DbxClient instance as DropBox client.
+         * 
+         * The option is a:
+         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param client the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDropboxEndpointBuilder client(
+                com.dropbox.core.v2.DbxClientV2 client) {
+            doSetProperty("client", client);
+            return this;
+        }
+        /**
+         * To use an existing DbxClient instance as DropBox client.
+         * 
+         * The option will be converted to a
+         * &lt;code&gt;com.dropbox.core.v2.DbxClientV2&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param client the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDropboxEndpointBuilder client(String client) {
+            doSetProperty("client", client);
+            return this;
+        }
     }
 
     public interface DropboxBuilders {
+        /**
+         * Dropbox (camel-dropbox)
+         * Upload, download and manage files, folders, groups, collaborations,
+         * etc on Dropbox.
+         * 
+         * Category: cloud,file,api
+         * Since: 2.14
+         * Maven coordinates: org.apache.camel:camel-dropbox
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default DropboxHeaderNameBuilder dropbox() {
+            return DropboxHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Dropbox (camel-dropbox)
          * Upload, download and manage files, folders, groups, collaborations,
@@ -790,6 +900,188 @@ public interface DropboxEndpointBuilderFactory {
          */
         default DropboxEndpointBuilder dropbox(String componentName, String path) {
             return DropboxEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Dropbox component.
+     */
+    public static class DropboxHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final DropboxHeaderNameBuilder INSTANCE = new DropboxHeaderNameBuilder();
+
+        /**
+         * The remote path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: all
+         * 
+         * @return the name of the header {@code DropboxRemotePath}.
+         */
+        public String dropboxRemotePath() {
+            return "DropboxRemotePath";
+        }
+
+        /**
+         * The new remote path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: move
+         * 
+         * @return the name of the header {@code DropboxNewRemotePath}.
+         */
+        public String dropboxNewRemotePath() {
+            return "DropboxNewRemotePath";
+        }
+
+        /**
+         * The local path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: put
+         * 
+         * @return the name of the header {@code DropboxLocalPath}.
+         */
+        public String dropboxLocalPath() {
+            return "DropboxLocalPath";
+        }
+
+        /**
+         * The upload mode.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: put
+         * 
+         * @return the name of the header {@code DropboxUploadMode}.
+         */
+        public String dropboxUploadMode() {
+            return "DropboxUploadMode";
+        }
+
+        /**
+         * The query.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: search
+         * 
+         * @return the name of the header {@code DropboxQuery}.
+         */
+        public String dropboxQuery() {
+            return "DropboxQuery";
+        }
+
+        /**
+         * The name of the file to upload.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: put
+         * 
+         * @return the name of the header {@code DropboxPutFileName}.
+         */
+        public String dropboxPutFileName() {
+            return "DropboxPutFileName";
+        }
+
+        /**
+         * In case of single file download, path of the remote file downloaded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: get
+         * 
+         * @return the name of the header {@code DOWNLOADED_FILE}.
+         */
+        public String downloadedFile() {
+            return "DOWNLOADED_FILE";
+        }
+
+        /**
+         * In case of multiple files download, path of the remote files
+         * downloaded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: get
+         * 
+         * @return the name of the header {@code DOWNLOADED_FILES}.
+         */
+        public String downloadedFiles() {
+            return "DOWNLOADED_FILES";
+        }
+
+        /**
+         * In case of single file upload, path of the remote path uploaded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: put
+         * 
+         * @return the name of the header {@code UPLOADED_FILE}.
+         */
+        public String uploadedFile() {
+            return "UPLOADED_FILE";
+        }
+
+        /**
+         * In case of multiple files upload, string with the remote paths
+         * uploaded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: put
+         * 
+         * @return the name of the header {@code UPLOADED_FILES}.
+         */
+        public String uploadedFiles() {
+            return "UPLOADED_FILES";
+        }
+
+        /**
+         * List of file path founded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: search
+         * 
+         * @return the name of the header {@code FOUND_FILES}.
+         */
+        public String foundFiles() {
+            return "FOUND_FILES";
+        }
+
+        /**
+         * Name of the path deleted on dropbox.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: del
+         * 
+         * @return the name of the header {@code DELETED_PATH}.
+         */
+        public String deletedPath() {
+            return "DELETED_PATH";
+        }
+
+        /**
+         * Name of the path moved on dropbox.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: move
+         * 
+         * @return the name of the header {@code MOVED_PATH}.
+         */
+        public String movedPath() {
+            return "MOVED_PATH";
         }
     }
     static DropboxEndpointBuilder endpointBuilder(

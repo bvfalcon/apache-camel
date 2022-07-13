@@ -17,16 +17,19 @@
 
 package org.apache.camel.processor.resume.kafka;
 
+import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.camel.resume.ResumeAdapter;
-import org.apache.camel.resume.cache.ResumeCache;
+import org.apache.camel.resume.Deserializable;
+import org.apache.camel.resume.Resumable;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,105 +39,81 @@ import org.slf4j.LoggerFactory;
  * integrations. This is suitable, for instance, when using clusters with the master component.
  *
  * @param <K> the type of key
- * @param <V> the type of the value
  */
-public class MultiNodeKafkaResumeStrategy<K, V> extends SingleNodeKafkaResumeStrategy<K, V> {
+public class MultiNodeKafkaResumeStrategy<K extends Resumable> extends SingleNodeKafkaResumeStrategy<K> {
     private static final Logger LOG = LoggerFactory.getLogger(MultiNodeKafkaResumeStrategy.class);
     private final ExecutorService executorService;
 
     /**
      * Create a new instance of this class
      * 
-     * @param bootstrapServers the address of the Kafka broker
-     * @param topic            the topic where to publish the offsets
-     * @param resumeCache      a cache instance where to store the offsets locally for faster access
-     * @param resumeAdapter    the component-specific resume adapter
+     * @param resumeStrategyConfiguration the configuration to use for this strategy instance
      */
-    public MultiNodeKafkaResumeStrategy(String bootstrapServers, String topic, ResumeCache<K, V> resumeCache,
-                                        ResumeAdapter resumeAdapter) {
+    public MultiNodeKafkaResumeStrategy(KafkaResumeStrategyConfiguration resumeStrategyConfiguration) {
         // just in case users don't want to provide their own worker thread pool
-        this(bootstrapServers, topic, resumeCache, resumeAdapter, Executors.newSingleThreadExecutor());
+        this(resumeStrategyConfiguration, Executors.newSingleThreadExecutor());
     }
 
     /**
      * Builds an instance of this class
      *
-     * @param bootstrapServers
-     * @param topic            the topic where to publish the offsets
-     * @param resumeCache      a cache instance where to store the offsets locally for faster access
-     * @param resumeAdapter    the component-specific resume adapter
-     * @param executorService  an executor service that will run a separate thread for periodically refreshing the
-     *                         offsets
+     * @param resumeStrategyConfiguration the configuration to use for this strategy instance
+     * @param executorService             an executor service that will run a separate thread for periodically
+     *                                    refreshing the offsets
      */
 
-    public MultiNodeKafkaResumeStrategy(String bootstrapServers, String topic, ResumeCache<K, V> resumeCache,
-                                        ResumeAdapter resumeAdapter, ExecutorService executorService) {
-        super(bootstrapServers, topic, resumeCache, resumeAdapter);
-
-        // We need to keep refreshing the cache
-        this.executorService = executorService;
-        executorService.submit(() -> refresh());
-    }
-
-    /**
-     * Builds an instance of this class
-     *
-     * @param topic          the topic where to publish the offsets
-     * @param resumeCache    a cache instance where to store the offsets locally for faster access
-     * @param resumeAdapter  the component-specific resume adapter
-     * @param producerConfig the set of properties to be used by the Kafka producer within this class
-     * @param consumerConfig the set of properties to be used by the Kafka consumer within this class
-     */
-    public MultiNodeKafkaResumeStrategy(String topic, ResumeCache<K, V> resumeCache, ResumeAdapter resumeAdapter,
-                                        Properties producerConfig, Properties consumerConfig) {
-        this(topic, resumeCache, resumeAdapter, producerConfig, consumerConfig, Executors.newSingleThreadExecutor());
-    }
-
-    /**
-     * Builds an instance of this class
-     *
-     * @param topic           the topic where to publish the offsets
-     * @param resumeCache     a cache instance where to store the offsets locally for faster access
-     * @param resumeAdapter   the component-specific resume adapter
-     * @param producerConfig  the set of properties to be used by the Kafka producer within this class
-     * @param consumerConfig  the set of properties to be used by the Kafka consumer within this class
-     * @param executorService an executor service that will run a separate thread for periodically refreshing the
-     *                        offsets
-     */
-
-    public MultiNodeKafkaResumeStrategy(String topic, ResumeCache<K, V> resumeCache, ResumeAdapter resumeAdapter,
-                                        Properties producerConfig, Properties consumerConfig, ExecutorService executorService) {
-        super(topic, resumeCache, resumeAdapter, producerConfig, consumerConfig);
+    public MultiNodeKafkaResumeStrategy(KafkaResumeStrategyConfiguration resumeStrategyConfiguration,
+                                        ExecutorService executorService) {
+        super(resumeStrategyConfiguration);
 
         this.executorService = executorService;
+    }
+
+    protected void poll() {
+        poll(getConsumer());
+    }
+
+    protected void poll(Consumer<byte[], byte[]> consumer) {
+        Deserializable deserializable = (Deserializable) getAdapter();
+
+        ConsumerRecords<byte[], byte[]> records;
+        do {
+            records = consume(10, consumer);
+
+            if (records.isEmpty()) {
+                break;
+            }
+
+            for (ConsumerRecord<byte[], byte[]> record : records) {
+                byte[] value = record.value();
+
+                LOG.trace("Read from Kafka: {}", value);
+
+                deserializable.deserialize(ByteBuffer.wrap(record.key()), ByteBuffer.wrap(record.value()));
+            }
+        } while (true);
+    }
+
+    @Override
+    public void loadCache() throws Exception {
+        super.loadCache();
+
         executorService.submit(() -> refresh());
     }
 
     /**
      * Launch a thread to refresh the offsets periodically
      */
-    protected void refresh() {
+    private void refresh() {
         LOG.trace("Creating a offset cache refresher");
         try {
-            Properties prop = (Properties) getConsumerConfig().clone();
+            Properties prop = (Properties) getResumeStrategyConfiguration().getConsumerProperties().clone();
             prop.setProperty(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
 
-            Consumer<K, V> consumer = new KafkaConsumer<>(prop);
+            try (Consumer<byte[], byte[]> consumer = new KafkaConsumer<>(prop)) {
+                consumer.subscribe(Collections.singletonList(getResumeStrategyConfiguration().getTopic()));
 
-            consumer.subscribe(Collections.singletonList(getTopic()));
-
-            while (true) {
-                var records = consumer.poll(getPollDuration());
-                if (records.isEmpty()) {
-                    continue;
-                }
-
-                for (var record : records) {
-                    V value = record.value();
-
-                    LOG.trace("Read from Kafka: {}", value);
-                    getResumeCache().add(record.key(), record.value());
-                }
+                poll(consumer);
             }
         } catch (Exception e) {
             LOG.error("Error while refreshing the local cache: {}", e.getMessage(), e);

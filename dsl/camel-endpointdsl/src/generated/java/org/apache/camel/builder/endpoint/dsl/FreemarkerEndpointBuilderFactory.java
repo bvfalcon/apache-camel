@@ -40,6 +40,9 @@ public interface FreemarkerEndpointBuilderFactory {
     public interface FreemarkerEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedFreemarkerEndpointBuilder advanced() {
+            return (AdvancedFreemarkerEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -199,55 +202,6 @@ public interface FreemarkerEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FreemarkerEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FreemarkerEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Number of seconds the loaded template resource will remain in the
          * cache.
          * 
@@ -281,7 +235,80 @@ public interface FreemarkerEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Freemarker component.
+     */
+    public interface AdvancedFreemarkerEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default FreemarkerEndpointBuilder basic() {
+            return (FreemarkerEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFreemarkerEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFreemarkerEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface FreemarkerBuilders {
+        /**
+         * Freemarker (camel-freemarker)
+         * Transform messages using FreeMarker templates.
+         * 
+         * Category: transformation
+         * Since: 2.10
+         * Maven coordinates: org.apache.camel:camel-freemarker
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FreemarkerHeaderNameBuilder freemarker() {
+            return FreemarkerHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Freemarker (camel-freemarker)
          * Transform messages using FreeMarker templates.
@@ -335,10 +362,61 @@ public interface FreemarkerEndpointBuilderFactory {
             return FreemarkerEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Freemarker component.
+     */
+    public static class FreemarkerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FreemarkerHeaderNameBuilder INSTANCE = new FreemarkerHeaderNameBuilder();
+
+        /**
+         * A URI for the template resource to use instead of the endpoint
+         * configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FreemarkerResourceUri}.
+         */
+        public String freemarkerResourceUri() {
+            return "FreemarkerResourceUri";
+        }
+
+        /**
+         * The template to use instead of the endpoint configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FreemarkerTemplate}.
+         */
+        public String freemarkerTemplate() {
+            return "FreemarkerTemplate";
+        }
+
+        /**
+         * The data model.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FreemarkerDataModel}.
+         */
+        public String freemarkerDataModel() {
+            return "FreemarkerDataModel";
+        }
+    }
     static FreemarkerEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class FreemarkerEndpointBuilderImpl extends AbstractEndpointBuilder implements FreemarkerEndpointBuilder {
+        class FreemarkerEndpointBuilderImpl extends AbstractEndpointBuilder implements FreemarkerEndpointBuilder, AdvancedFreemarkerEndpointBuilder {
             public FreemarkerEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

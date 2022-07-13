@@ -39,6 +39,9 @@ public interface Sns2EndpointBuilderFactory {
      * component.
      */
     public interface Sns2EndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedSns2EndpointBuilder advanced() {
+            return (AdvancedSns2EndpointBuilder) this;
+        }
         /**
          * To use the AmazonSNS as the client.
          * 
@@ -148,53 +151,6 @@ public interface Sns2EndpointBuilderFactory {
          */
         default Sns2EndpointBuilder kmsMasterKeyId(String kmsMasterKeyId) {
             doSetProperty("kmsMasterKeyId", kmsMasterKeyId);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default Sns2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default Sns2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -601,7 +557,82 @@ public interface Sns2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Simple Notification System
+     * (SNS) component.
+     */
+    public interface AdvancedSns2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default Sns2EndpointBuilder basic() {
+            return (Sns2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSns2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSns2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface Sns2Builders {
+        /**
+         * AWS Simple Notification System (SNS) (camel-aws2-sns)
+         * Send messages to an AWS Simple Notification Topic using AWS SDK
+         * version 2.x.
+         * 
+         * Category: cloud,messaging,mobile
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-sns
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default Sns2HeaderNameBuilder aws2Sns() {
+            return Sns2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Simple Notification System (SNS) (camel-aws2-sns)
          * Send messages to an AWS Simple Notification Topic using AWS SDK
@@ -645,8 +676,60 @@ public interface Sns2EndpointBuilderFactory {
             return Sns2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Simple Notification System (SNS)
+     * component.
+     */
+    public static class Sns2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final Sns2HeaderNameBuilder INSTANCE = new Sns2HeaderNameBuilder();
+
+        /**
+         * The Amazon SNS message ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSnsMessageId}.
+         */
+        public String awsSnsMessageId() {
+            return "AwsSnsMessageId";
+        }
+
+        /**
+         * The Amazon SNS message subject. If not set, the subject from the
+         * SnsConfiguration is used.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSnsSubject}.
+         */
+        public String awsSnsSubject() {
+            return "AwsSnsSubject";
+        }
+
+        /**
+         * The message structure to use such as json.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSnsMessageStructure}.
+         */
+        public String awsSnsMessageStructure() {
+            return "AwsSnsMessageStructure";
+        }
+    }
     static Sns2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class Sns2EndpointBuilderImpl extends AbstractEndpointBuilder implements Sns2EndpointBuilder {
+        class Sns2EndpointBuilderImpl extends AbstractEndpointBuilder implements Sns2EndpointBuilder, AdvancedSns2EndpointBuilder {
             public Sns2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

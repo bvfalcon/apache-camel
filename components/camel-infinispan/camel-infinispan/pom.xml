@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-infinispan-parent</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-infinispan</artifactId>
@@ -48,14 +48,10 @@
             <version>${infinispan-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-marshaller-protostuff</artifactId>
-            <version>${infinispan-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-jboss-marshalling</artifactId>
-            <version>${infinispan-version}</version>
+            <groupId>org.infinispan.protostream</groupId>
+            <artifactId>protostream-processor</artifactId>
+            <version>${protostream-version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- testing - camel -->

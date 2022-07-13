@@ -418,51 +418,6 @@ public interface KafkaEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KafkaEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KafkaEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Automatically check the CRC32 of the records consumed. This ensures
          * no on-the-wire or on-disk corruption to the messages occurred. This
          * check adds some overhead, so it may be disabled in cases seeking
@@ -1606,7 +1561,8 @@ public interface KafkaEndpointBuilderFactory {
         }
         /**
          * The endpoint identification algorithm to validate server hostname
-         * using server certificate.
+         * using server certificate. Use none or false to disable server
+         * hostname verification.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -1811,6 +1767,51 @@ public interface KafkaEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default KafkaEndpointConsumerBuilder basic() {
             return (KafkaEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKafkaEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKafkaEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -2478,55 +2479,6 @@ public interface KafkaEndpointBuilderFactory {
          */
         default KafkaEndpointProducerBuilder keySerializer(String keySerializer) {
             doSetProperty("keySerializer", keySerializer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KafkaEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KafkaEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -3731,7 +3683,8 @@ public interface KafkaEndpointBuilderFactory {
         }
         /**
          * The endpoint identification algorithm to validate server hostname
-         * using server certificate.
+         * using server certificate. Use none or false to disable server
+         * hostname verification.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -3936,6 +3889,55 @@ public interface KafkaEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default KafkaEndpointProducerBuilder basic() {
             return (KafkaEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKafkaEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKafkaEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Factory to use for creating
@@ -4534,7 +4536,8 @@ public interface KafkaEndpointBuilderFactory {
         }
         /**
          * The endpoint identification algorithm to validate server hostname
-         * using server certificate.
+         * using server certificate. Use none or false to disable server
+         * hostname verification.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -4820,6 +4823,19 @@ public interface KafkaEndpointBuilderFactory {
          * Since: 2.13
          * Maven coordinates: org.apache.camel:camel-kafka
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KafkaHeaderNameBuilder kafka() {
+            return KafkaHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Kafka (camel-kafka)
+         * Sent and receive messages to/from an Apache Kafka broker.
+         * 
+         * Category: messaging
+         * Since: 2.13
+         * Maven coordinates: org.apache.camel:camel-kafka
+         * 
          * Syntax: <code>kafka:topic</code>
          * 
          * Path parameter: topic (required)
@@ -4855,6 +4871,200 @@ public interface KafkaEndpointBuilderFactory {
          */
         default KafkaEndpointBuilder kafka(String componentName, String path) {
             return KafkaEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Kafka component.
+     */
+    public static class KafkaHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KafkaHeaderNameBuilder INSTANCE = new KafkaHeaderNameBuilder();
+
+        /**
+         * Explicitly specify the partition.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code kafka.PARTITION_KEY}.
+         */
+        public String kafkaPartitionKey() {
+            return "kafka.PARTITION_KEY";
+        }
+
+        /**
+         * The partition where the message was stored.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.PARTITION}.
+         */
+        public String kafkaPartition() {
+            return "kafka.PARTITION";
+        }
+
+        /**
+         * Producer: The key of the message in order to ensure that all related
+         * message goes in the same partition. Consumer: The key of the message
+         * if configured.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Required: true
+         * Group: common
+         * 
+         * @return the name of the header {@code kafka.KEY}.
+         */
+        public String kafkaKey() {
+            return "kafka.KEY";
+        }
+
+        /**
+         * The topic from where the message originated.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.TOPIC}.
+         */
+        public String kafkaTopic() {
+            return "kafka.TOPIC";
+        }
+
+        /**
+         * The topic to which send the message (override and takes precedence),
+         * and the header is not preserved.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code kafka.OVERRIDE_TOPIC}.
+         */
+        public String kafkaOverrideTopic() {
+            return "kafka.OVERRIDE_TOPIC";
+        }
+
+        /**
+         * The offset of the message.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.OFFSET}.
+         */
+        public String kafkaOffset() {
+            return "kafka.OFFSET";
+        }
+
+        /**
+         * The record headers.
+         * 
+         * The option is a: {@code org.apache.kafka.common.header.Headers} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.HEADERS}.
+         */
+        public String kafkaHeaders() {
+            return "kafka.HEADERS";
+        }
+
+        /**
+         * Whether or not it's the last record before commit (only available if
+         * autoCommitEnable endpoint parameter is false).
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code
+         * kafka.LAST_RECORD_BEFORE_COMMIT}.
+         */
+        public String kafkaLastRecordBeforeCommit() {
+            return "kafka.LAST_RECORD_BEFORE_COMMIT";
+        }
+
+        /**
+         * Indicates the last record within the current poll request (only
+         * available if autoCommitEnable endpoint parameter is false or
+         * allowManualCommit is true).
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.LAST_POLL_RECORD}.
+         */
+        public String kafkaLastPollRecord() {
+            return "kafka.LAST_POLL_RECORD";
+        }
+
+        /**
+         * The timestamp of the message.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code kafka.TIMESTAMP}.
+         */
+        public String kafkaTimestamp() {
+            return "kafka.TIMESTAMP";
+        }
+
+        /**
+         * The ProducerRecord also has an associated timestamp. If the user did
+         * provide a timestamp, the producer will stamp the record with the
+         * provided timestamp and the header is not preserved.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code kafka.OVERRIDE_TIMESTAMP}.
+         */
+        public String kafkaOverrideTimestamp() {
+            return "kafka.OVERRIDE_TIMESTAMP";
+        }
+
+        /**
+         * The metadata (only configured if recordMetadata endpoint parameter is
+         * true).
+         * 
+         * The option is a: {@code List<RecordMetadata>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * org.apache.kafka.clients.producer.RecordMetadata}.
+         */
+        public String orgApacheKafkaClientsProducerRecordmetadata() {
+            return "org.apache.kafka.clients.producer.RecordMetadata";
+        }
+
+        /**
+         * Can be used for forcing manual offset commit when using Kafka
+         * consumer.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.kafka.consumer.KafkaManualCommit} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KafkaManualCommit}.
+         */
+        public String kafkaManualCommit() {
+            return "KafkaManualCommit";
         }
     }
     static KafkaEndpointBuilder endpointBuilder(

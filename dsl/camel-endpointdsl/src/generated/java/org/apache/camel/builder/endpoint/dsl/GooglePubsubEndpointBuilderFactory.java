@@ -146,51 +146,6 @@ public interface GooglePubsubEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GooglePubsubEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GooglePubsubEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The number of parallel streams consuming from the subscription.
          * 
          * The option is a: &lt;code&gt;java.lang.Integer&lt;/code&gt; type.
@@ -301,6 +256,51 @@ public interface GooglePubsubEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default GooglePubsubEndpointConsumerBuilder basic() {
             return (GooglePubsubEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGooglePubsubEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGooglePubsubEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -450,6 +450,17 @@ public interface GooglePubsubEndpointBuilderFactory {
             doSetProperty("serviceAccountKey", serviceAccountKey);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Google Pubsub component.
+     */
+    public interface AdvancedGooglePubsubEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default GooglePubsubEndpointProducerBuilder basic() {
+            return (GooglePubsubEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -464,12 +475,12 @@ public interface GooglePubsubEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default GooglePubsubEndpointProducerBuilder lazyStartProducer(
+        default AdvancedGooglePubsubEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -489,26 +500,15 @@ public interface GooglePubsubEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default GooglePubsubEndpointProducerBuilder lazyStartProducer(
+        default AdvancedGooglePubsubEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Google Pubsub component.
-     */
-    public interface AdvancedGooglePubsubEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default GooglePubsubEndpointProducerBuilder basic() {
-            return (GooglePubsubEndpointProducerBuilder) this;
         }
         /**
          * Should message ordering be enabled.
@@ -695,6 +695,20 @@ public interface GooglePubsubEndpointBuilderFactory {
          * Since: 2.19
          * Maven coordinates: org.apache.camel:camel-google-pubsub
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GooglePubsubHeaderNameBuilder googlePubsub() {
+            return GooglePubsubHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Google Pubsub (camel-google-pubsub)
+         * Send and receive messages to/from Google Cloud Platform PubSub
+         * Service.
+         * 
+         * Category: cloud,messaging
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-google-pubsub
+         * 
          * Syntax: <code>google-pubsub:projectId:destinationName</code>
          * 
          * Path parameter: projectId (required)
@@ -737,6 +751,84 @@ public interface GooglePubsubEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return GooglePubsubEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Google Pubsub component.
+     */
+    public static class GooglePubsubHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GooglePubsubHeaderNameBuilder INSTANCE = new GooglePubsubHeaderNameBuilder();
+
+        /**
+         * The ID of the message, assigned by the server when the message is
+         * published.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code GooglePubsub.MessageId}.
+         */
+        public String googlepubsubMessageid() {
+            return "GooglePubsub.MessageId";
+        }
+
+        /**
+         * The ID used to acknowledge the received message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GooglePubsub.MsgAckId}.
+         */
+        public String googlepubsubMsgackid() {
+            return "GooglePubsub.MsgAckId";
+        }
+
+        /**
+         * The time at which the message was published.
+         * 
+         * The option is a: {@code com.google.protobuf.Timestamp} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GooglePubsub.PublishTime}.
+         */
+        public String googlepubsubPublishtime() {
+            return "GooglePubsub.PublishTime";
+        }
+
+        /**
+         * The attributes of the message.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code GooglePubsub.Attributes}.
+         */
+        public String googlepubsubAttributes() {
+            return "GooglePubsub.Attributes";
+        }
+
+        /**
+         * If non-empty, identifies related messages for which publish order
+         * should be respected.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GooglePubsub.OrderingKey}.
+         */
+        public String googlepubsubOrderingkey() {
+            return "GooglePubsub.OrderingKey";
         }
     }
     static GooglePubsubEndpointBuilder endpointBuilder(

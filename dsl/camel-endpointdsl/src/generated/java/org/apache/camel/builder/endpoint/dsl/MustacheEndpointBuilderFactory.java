@@ -38,6 +38,9 @@ public interface MustacheEndpointBuilderFactory {
      * Builder for endpoint for the Mustache component.
      */
     public interface MustacheEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedMustacheEndpointBuilder advanced() {
+            return (AdvancedMustacheEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -181,6 +184,32 @@ public interface MustacheEndpointBuilderFactory {
             return this;
         }
         /**
+         * Characters used to mark template code beginning.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Default: {{
+         * Group: producer
+         * 
+         * @param startDelimiter the value to set
+         * @return the dsl builder
+         */
+        default MustacheEndpointBuilder startDelimiter(String startDelimiter) {
+            doSetProperty("startDelimiter", startDelimiter);
+            return this;
+        }
+    }
+
+    /**
+     * Advanced builder for endpoint for the Mustache component.
+     */
+    public interface AdvancedMustacheEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MustacheEndpointBuilder basic() {
+            return (MustacheEndpointBuilder) this;
+        }
+        /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
          * startup in situations where a producer may otherwise fail during
@@ -194,12 +223,12 @@ public interface MustacheEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MustacheEndpointBuilder lazyStartProducer(
+        default AdvancedMustacheEndpointBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -219,34 +248,32 @@ public interface MustacheEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MustacheEndpointBuilder lazyStartProducer(
+        default AdvancedMustacheEndpointBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Characters used to mark template code beginning.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Default: {{
-         * Group: producer
-         * 
-         * @param startDelimiter the value to set
-         * @return the dsl builder
-         */
-        default MustacheEndpointBuilder startDelimiter(String startDelimiter) {
-            doSetProperty("startDelimiter", startDelimiter);
             return this;
         }
     }
 
     public interface MustacheBuilders {
+        /**
+         * Mustache (camel-mustache)
+         * Transform messages using a Mustache template.
+         * 
+         * Category: transformation
+         * Since: 2.12
+         * Maven coordinates: org.apache.camel:camel-mustache
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MustacheHeaderNameBuilder mustache() {
+            return MustacheHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Mustache (camel-mustache)
          * Transform messages using a Mustache template.
@@ -300,10 +327,47 @@ public interface MustacheEndpointBuilderFactory {
             return MustacheEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Mustache component.
+     */
+    public static class MustacheHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MustacheHeaderNameBuilder INSTANCE = new MustacheHeaderNameBuilder();
+
+        /**
+         * A URI for the template resource to use instead of the endpoint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MustacheResourceUri}.
+         */
+        public String mustacheResourceUri() {
+            return "MustacheResourceUri";
+        }
+
+        /**
+         * The template to use instead of the endpoint configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MustacheTemplate}.
+         */
+        public String mustacheTemplate() {
+            return "MustacheTemplate";
+        }
+    }
     static MustacheEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class MustacheEndpointBuilderImpl extends AbstractEndpointBuilder implements MustacheEndpointBuilder {
+        class MustacheEndpointBuilderImpl extends AbstractEndpointBuilder implements MustacheEndpointBuilder, AdvancedMustacheEndpointBuilder {
             public MustacheEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

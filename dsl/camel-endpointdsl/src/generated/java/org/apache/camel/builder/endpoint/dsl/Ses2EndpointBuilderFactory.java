@@ -38,6 +38,9 @@ public interface Ses2EndpointBuilderFactory {
      * Builder for endpoint for the AWS Simple Email Service (SES) component.
      */
     public interface Ses2EndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedSes2EndpointBuilder advanced() {
+            return (AdvancedSes2EndpointBuilder) this;
+        }
         /**
          * To use the AmazonSimpleEmailService as the client.
          * 
@@ -112,53 +115,6 @@ public interface Ses2EndpointBuilderFactory {
          */
         default Ses2EndpointBuilder configurationSet(String configurationSet) {
             doSetProperty("configurationSet", configurationSet);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default Ses2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default Ses2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -465,7 +421,81 @@ public interface Ses2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Simple Email Service (SES)
+     * component.
+     */
+    public interface AdvancedSes2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default Ses2EndpointBuilder basic() {
+            return (Ses2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSes2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSes2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface Ses2Builders {
+        /**
+         * AWS Simple Email Service (SES) (camel-aws2-ses)
+         * Send e-mails through AWS SES service using AWS SDK version 2.x.
+         * 
+         * Category: cloud,mail
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-ses
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default Ses2HeaderNameBuilder aws2Ses() {
+            return Ses2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Simple Email Service (SES) (camel-aws2-ses)
          * Send e-mails through AWS SES service using AWS SDK version 2.x.
@@ -507,8 +537,151 @@ public interface Ses2EndpointBuilderFactory {
             return Ses2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Simple Email Service (SES)
+     * component.
+     */
+    public static class Ses2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final Ses2HeaderNameBuilder INSTANCE = new Ses2HeaderNameBuilder();
+
+        /**
+         * The sender's email address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesFrom}.
+         */
+        public String awsSesFrom() {
+            return "AwsSesFrom";
+        }
+
+        /**
+         * The Amazon SES message ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesMessageId}.
+         */
+        public String awsSesMessageId() {
+            return "AwsSesMessageId";
+        }
+
+        /**
+         * The reply-to email address(es) for the message.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesReplyToAddresses}.
+         */
+        public String awsSesReplyToAddresses() {
+            return "AwsSesReplyToAddresses";
+        }
+
+        /**
+         * The email address to which bounce notifications are to be forwarded.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesReturnPath}.
+         */
+        public String awsSesReturnPath() {
+            return "AwsSesReturnPath";
+        }
+
+        /**
+         * The subject of the message.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesSubject}.
+         */
+        public String awsSesSubject() {
+            return "AwsSesSubject";
+        }
+
+        /**
+         * List of comma separated destination email address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesTo}.
+         */
+        public String awsSesTo() {
+            return "AwsSesTo";
+        }
+
+        /**
+         * List of comma separated destination carbon copy (cc) email address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesCc}.
+         */
+        public String awsSesCc() {
+            return "AwsSesCc";
+        }
+
+        /**
+         * List of comma separated destination blind carbon copy (bcc) email
+         * address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesBcc}.
+         */
+        public String awsSesBcc() {
+            return "AwsSesBcc";
+        }
+
+        /**
+         * The flag to show if email content is HTML.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesHtmlEmail}.
+         */
+        public String awsSesHtmlEmail() {
+            return "AwsSesHtmlEmail";
+        }
+
+        /**
+         * TThe configuration set to send.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSesConfigurationSet}.
+         */
+        public String awsSesConfigurationSet() {
+            return "AwsSesConfigurationSet";
+        }
+    }
     static Ses2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class Ses2EndpointBuilderImpl extends AbstractEndpointBuilder implements Ses2EndpointBuilder {
+        class Ses2EndpointBuilderImpl extends AbstractEndpointBuilder implements Ses2EndpointBuilder, AdvancedSes2EndpointBuilder {
             public Ses2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -38,6 +38,9 @@ public interface JsltEndpointBuilderFactory {
      * Builder for endpoint for the JSLT component.
      */
     public interface JsltEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedJsltEndpointBuilder advanced() {
+            return (AdvancedJsltEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -151,53 +154,6 @@ public interface JsltEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JsltEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JsltEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * If true, the mapper will use the USE_BIG_DECIMAL_FOR_FLOATS in
          * serialization features.
          * 
@@ -298,7 +254,80 @@ public interface JsltEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the JSLT component.
+     */
+    public interface AdvancedJsltEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default JsltEndpointBuilder basic() {
+            return (JsltEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJsltEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJsltEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface JsltBuilders {
+        /**
+         * JSLT (camel-jslt)
+         * Query or transform JSON payloads using an JSLT.
+         * 
+         * Category: transformation
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-jslt
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JsltHeaderNameBuilder jslt() {
+            return JsltHeaderNameBuilder.INSTANCE;
+        }
         /**
          * JSLT (camel-jslt)
          * Query or transform JSON payloads using an JSLT.
@@ -350,8 +379,45 @@ public interface JsltEndpointBuilderFactory {
             return JsltEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the JSLT component.
+     */
+    public static class JsltHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JsltHeaderNameBuilder INSTANCE = new JsltHeaderNameBuilder();
+
+        /**
+         * The JSLT Template as String.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JsltString}.
+         */
+        public String jsltString() {
+            return "JsltString";
+        }
+
+        /**
+         * The resource URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JsltResourceUri}.
+         */
+        public String jsltResourceUri() {
+            return "JsltResourceUri";
+        }
+    }
     static JsltEndpointBuilder endpointBuilder(String componentName, String path) {
-        class JsltEndpointBuilderImpl extends AbstractEndpointBuilder implements JsltEndpointBuilder {
+        class JsltEndpointBuilderImpl extends AbstractEndpointBuilder implements JsltEndpointBuilder, AdvancedJsltEndpointBuilder {
             public JsltEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -81,51 +81,6 @@ public interface WebsocketEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default WebsocketEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default WebsocketEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Whether to enable session support which enables HttpSession for each
          * http request.
          * 
@@ -341,6 +296,51 @@ public interface WebsocketEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default WebsocketEndpointConsumerBuilder basic() {
             return (WebsocketEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedWebsocketEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedWebsocketEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -599,55 +599,6 @@ public interface WebsocketEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default WebsocketEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default WebsocketEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Timeout in millis when sending to a websocket channel. The default
          * timeout is 30000 (30 seconds).
          * 
@@ -851,6 +802,55 @@ public interface WebsocketEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default WebsocketEndpointProducerBuilder basic() {
             return (WebsocketEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedWebsocketEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedWebsocketEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Set the buffer size of the websocketServlet, which is also the max
@@ -1320,6 +1320,19 @@ public interface WebsocketEndpointBuilderFactory {
          * Since: 2.10
          * Maven coordinates: org.apache.camel:camel-websocket
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default WebsocketHeaderNameBuilder websocket() {
+            return WebsocketHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Jetty Websocket (camel-websocket)
+         * Expose websocket endpoints using Jetty.
+         * 
+         * Category: websocket
+         * Since: 2.10
+         * Maven coordinates: org.apache.camel:camel-websocket
+         * 
          * Syntax: <code>websocket:host:port/resourceUri</code>
          * 
          * Path parameter: host
@@ -1373,6 +1386,101 @@ public interface WebsocketEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return WebsocketEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Jetty Websocket component.
+     */
+    public static class WebsocketHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final WebsocketHeaderNameBuilder INSTANCE = new WebsocketHeaderNameBuilder();
+
+        /**
+         * Producer: Sends the message to all clients which are currently
+         * connected. You can use the sendToAll option on the endpoint instead
+         * of using this header. Consumer: Connection key identifying an
+         * individual client connection. You can save this and specify it again
+         * when routing to a producer endpoing in order to direct messages to a
+         * specific connected client.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code websocket.connectionKey}.
+         */
+        public String websocketConnectionkey() {
+            return "websocket.connectionKey";
+        }
+
+        /**
+         * Sends the message to all clients which are currently connected. You
+         * can use the sendToAll option on the endpoint instead of using this
+         * header.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code websocket.sendToAll}.
+         */
+        public String websocketSendtoall() {
+            return "websocket.sendToAll";
+        }
+
+        /**
+         * Remote address of the websocket session.
+         * 
+         * The option is a: {@code java.net.InetSocketAddress} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.remoteAddress}.
+         */
+        public String websocketRemoteaddress() {
+            return "websocket.remoteAddress";
+        }
+
+        /**
+         * If a specific subprotocol was negotiated, it will be specfied in this
+         * header. Note that if you specify the any subprotocol to be supported,
+         * and a client requests a specific subprotocol, the connection will be
+         * accepted without a specific subprotocol being used. You need to
+         * specifically support a given protocol by name if you want it returned
+         * to the client and to show up in the message header.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.subprotocol}.
+         */
+        public String websocketSubprotocol() {
+            return "websocket.subprotocol";
+        }
+
+        /**
+         * If you specify a wildcard URI path for an endpoint, and a websocket
+         * client connects to that websocket endpoing, the relative path that
+         * the client specified will be provided in this header. For example, if
+         * you specified websocket://0.0.0.0:80/api/ as your endpoint URI, and a
+         * client connects to the server at
+         * ws://host.com/api/specialized/apipath then specialized/apipath is
+         * provided in the relative path header of all messages from that
+         * client.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.relativePath}.
+         */
+        public String websocketRelativepath() {
+            return "websocket.relativePath";
         }
     }
     static WebsocketEndpointBuilder endpointBuilder(

@@ -16,33 +16,61 @@
  */
 package org.apache.camel.component.netty.http;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.engine.PooledExchangeFactory;
+import org.apache.camel.impl.engine.PooledProcessorExchangeFactory;
+import org.apache.camel.spi.PooledObjectFactory;
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class NettyHttpSimplePooledExchangeTest extends BaseNettyTest {
 
     @Override
     protected CamelContext createCamelContext() throws Exception {
-        CamelContext camelContext = super.createCamelContext();
-        camelContext.adapt(ExtendedCamelContext.class).setExchangeFactory(new PooledExchangeFactory());
-        return camelContext;
+        ExtendedCamelContext ecc = (ExtendedCamelContext) super.createCamelContext();
+
+        ecc.setExchangeFactory(new PooledExchangeFactory());
+        ecc.setProcessorExchangeFactory(new PooledProcessorExchangeFactory());
+        ecc.getExchangeFactory().setStatisticsEnabled(true);
+        ecc.getProcessorExchangeFactory().setStatisticsEnabled(true);
+
+        return ecc;
     }
 
+    @Order(1)
     @Test
     public void testOne() throws Exception {
+        Assumptions.assumeTrue(context.isStarted());
+
         getMockEndpoint("mock:input").expectedBodiesReceived("World");
 
         String out = template.requestBody("netty-http:http://localhost:{{port}}/pooled", "World", String.class);
         assertEquals("Bye World", out);
 
         assertMockEndpointsSatisfied();
+
+        Awaitility.waitAtMost(2, TimeUnit.SECONDS).untilAsserted(() -> {
+            PooledObjectFactory.Statistics stat
+                    = context.adapt(ExtendedCamelContext.class).getExchangeFactoryManager().getStatistics();
+            assertEquals(1, stat.getCreatedCounter());
+            assertEquals(0, stat.getAcquiredCounter());
+            assertEquals(1, stat.getReleasedCounter());
+            assertEquals(0, stat.getDiscardedCounter());
+        });
     }
 
+    @Order(2)
     @Test
     public void testThree() throws Exception {
         getMockEndpoint("mock:input").expectedBodiesReceived("World", "Camel", "Earth");
@@ -53,10 +81,22 @@ public class NettyHttpSimplePooledExchangeTest extends BaseNettyTest {
         out = template.requestBody("netty-http:http://localhost:{{port}}/pooled", "Camel", String.class);
         assertEquals("Bye Camel", out);
 
-        out = template.requestBody("netty-http:http://localhost:{{port}}/pooled", "Earth", String.class);
-        assertEquals("Bye Earth", out);
+        Awaitility.await().atMost(2, TimeUnit.SECONDS).untilAsserted(
+                () -> {
+                    String reqOut = template.requestBody("netty-http:http://localhost:{{port}}/pooled", "Earth", String.class);
+                    assertEquals("Bye Earth", reqOut);
+                });
 
         assertMockEndpointsSatisfied();
+
+        Awaitility.waitAtMost(2, TimeUnit.SECONDS).untilAsserted(() -> {
+            PooledObjectFactory.Statistics stat
+                    = context.adapt(ExtendedCamelContext.class).getExchangeFactoryManager().getStatistics();
+            assertEquals(1, stat.getCreatedCounter());
+            assertEquals(2, stat.getAcquiredCounter());
+            assertEquals(3, stat.getReleasedCounter());
+            assertEquals(0, stat.getDiscardedCounter());
+        });
     }
 
     @Override

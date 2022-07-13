@@ -40,6 +40,9 @@ public interface IgniteQueueEndpointBuilderFactory {
     public interface IgniteQueueEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedIgniteQueueEndpointBuilder advanced() {
+            return (AdvancedIgniteQueueEndpointBuilder) this;
+        }
         /**
          * The queue capacity. Default: non-bounded.
          * 
@@ -101,55 +104,6 @@ public interface IgniteQueueEndpointBuilderFactory {
          */
         default IgniteQueueEndpointBuilder configuration(String configuration) {
             doSetProperty("configuration", configuration);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IgniteQueueEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IgniteQueueEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -290,7 +244,80 @@ public interface IgniteQueueEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Ignite Queues component.
+     */
+    public interface AdvancedIgniteQueueEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default IgniteQueueEndpointBuilder basic() {
+            return (IgniteQueueEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteQueueEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteQueueEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface IgniteQueueBuilders {
+        /**
+         * Ignite Queues (camel-ignite)
+         * Interact with Ignite Queue data structures.
+         * 
+         * Category: messaging,queue
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-ignite
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default IgniteQueueHeaderNameBuilder igniteQueue() {
+            return IgniteQueueHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Ignite Queues (camel-ignite)
          * Interact with Ignite Queue data structures.
@@ -334,10 +361,75 @@ public interface IgniteQueueEndpointBuilderFactory {
             return IgniteQueueEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Ignite Queues component.
+     */
+    public static class IgniteQueueHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final IgniteQueueHeaderNameBuilder INSTANCE = new IgniteQueueHeaderNameBuilder();
+
+        /**
+         * Allows you to dynamically change the queue operation.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.ignite.queue.IgniteQueueOperation} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteQueueOperation}.
+         */
+        public String igniteQueueOperation() {
+            return "IgniteQueueOperation";
+        }
+
+        /**
+         * When invoking the DRAIN operation, the amount of items to drain.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteQueueMaxElements}.
+         */
+        public String igniteQueueMaxElements() {
+            return "IgniteQueueMaxElements";
+        }
+
+        /**
+         * The amount of items transferred as the result of the DRAIN operation.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteQueueTransferredCount}.
+         */
+        public String igniteQueueTransferredCount() {
+            return "IgniteQueueTransferredCount";
+        }
+
+        /**
+         * Dynamically sets the timeout in milliseconds to use when invoking the
+         * OFFER or POLL operations.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteQueueTimeoutMillis}.
+         */
+        public String igniteQueueTimeoutMillis() {
+            return "IgniteQueueTimeoutMillis";
+        }
+    }
     static IgniteQueueEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class IgniteQueueEndpointBuilderImpl extends AbstractEndpointBuilder implements IgniteQueueEndpointBuilder {
+        class IgniteQueueEndpointBuilderImpl extends AbstractEndpointBuilder implements IgniteQueueEndpointBuilder, AdvancedIgniteQueueEndpointBuilder {
             public IgniteQueueEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

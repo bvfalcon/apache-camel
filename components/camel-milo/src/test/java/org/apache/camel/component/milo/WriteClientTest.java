@@ -24,7 +24,11 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.milo.server.MiloServerComponent;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.apache.camel.component.milo.NodeIds.nodeValue;
 
@@ -61,6 +65,8 @@ public class WriteClientTest extends AbstractMiloServerTest {
     private static final String MOCK_TEST_1 = "mock:test1";
     private static final String MOCK_TEST_2 = "mock:test2";
 
+    private static final Logger LOG = LoggerFactory.getLogger(WriteClientTest.class);
+
     @EndpointInject(MOCK_TEST_1)
     protected MockEndpoint test1Endpoint;
 
@@ -95,6 +101,14 @@ public class WriteClientTest extends AbstractMiloServerTest {
                 from(DIRECT_START_4).to(resolve(MILO_CLIENT_ITEM_C2_2));
             }
         };
+    }
+
+    @BeforeEach
+    public void setup(TestInfo testInfo) {
+        final var displayName = testInfo.getDisplayName();
+        LOG.info("********************************************************************************");
+        LOG.info(displayName);
+        LOG.info("********************************************************************************");
     }
 
     @Test

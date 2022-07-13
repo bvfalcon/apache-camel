@@ -38,6 +38,9 @@ public interface JoltEndpointBuilderFactory {
      * Builder for endpoint for the JOLT component.
      */
     public interface JoltEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedJoltEndpointBuilder advanced() {
+            return (AdvancedJoltEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -184,53 +187,6 @@ public interface JoltEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JoltEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JoltEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Specifies if the output should be hydrated JSON or a JSON String.
          * 
          * The option is a:
@@ -300,7 +256,80 @@ public interface JoltEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the JOLT component.
+     */
+    public interface AdvancedJoltEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default JoltEndpointBuilder basic() {
+            return (JoltEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJoltEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJoltEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface JoltBuilders {
+        /**
+         * JOLT (camel-jolt)
+         * JSON to JSON transformation using JOLT.
+         * 
+         * Category: transformation
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-jolt
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JoltHeaderNameBuilder jolt() {
+            return JoltHeaderNameBuilder.INSTANCE;
+        }
         /**
          * JOLT (camel-jolt)
          * JSON to JSON transformation using JOLT.
@@ -352,8 +381,45 @@ public interface JoltEndpointBuilderFactory {
             return JoltEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the JOLT component.
+     */
+    public static class JoltHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JoltHeaderNameBuilder INSTANCE = new JoltHeaderNameBuilder();
+
+        /**
+         * The resource URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JoltResourceUri}.
+         */
+        public String joltResourceUri() {
+            return "JoltResourceUri";
+        }
+
+        /**
+         * The context.
+         * 
+         * The option is a: {@code Map<String, Object>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JoltContext}.
+         */
+        public String joltContext() {
+            return "JoltContext";
+        }
+    }
     static JoltEndpointBuilder endpointBuilder(String componentName, String path) {
-        class JoltEndpointBuilderImpl extends AbstractEndpointBuilder implements JoltEndpointBuilder {
+        class JoltEndpointBuilderImpl extends AbstractEndpointBuilder implements JoltEndpointBuilder, AdvancedJoltEndpointBuilder {
             public JoltEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

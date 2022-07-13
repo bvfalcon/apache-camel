@@ -19,10 +19,9 @@ package org.apache.camel.dsl.jbang.core.commands;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.StringJoiner;
-import java.util.concurrent.Callable;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.dsl.jbang.core.common.exceptions.ResourceDoesNotExist;
+import org.apache.camel.dsl.jbang.core.common.ResourceDoesNotExist;
 import org.apache.camel.github.GistResourceResolver;
 import org.apache.camel.github.GitHubResourceResolver;
 import org.apache.camel.impl.lw.LightweightCamelContext;
@@ -34,12 +33,12 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-import static org.apache.camel.dsl.jbang.core.commands.GistHelper.fetchGistUrls;
-import static org.apache.camel.dsl.jbang.core.commands.GitHubHelper.asGithubSingleUrl;
-import static org.apache.camel.dsl.jbang.core.commands.GitHubHelper.fetchGithubUrls;
+import static org.apache.camel.dsl.jbang.core.common.GistHelper.fetchGistUrls;
+import static org.apache.camel.dsl.jbang.core.common.GitHubHelper.asGithubSingleUrl;
+import static org.apache.camel.dsl.jbang.core.common.GitHubHelper.fetchGithubUrls;
 
 @Command(name = "init", description = "Initialize empty Camel integration")
-class Init implements Callable<Integer> {
+class Init extends CamelCommand {
 
     @CommandLine.Parameters(description = "Name of integration file", arity = "1")
     private String file;
@@ -48,10 +47,9 @@ class Init implements Callable<Integer> {
             description = "When creating a yaml file should it be created as a Camel K Integration CRD")
     private boolean integration;
 
-    //CHECKSTYLE:OFF
-    @Option(names = { "-h", "--help" }, usageHelp = true, description = "Display the help and sub-commands")
-    private boolean helpRequested = false;
-    //CHECKSTYLE:ON
+    public Init(CamelJBangMain main) {
+        super(main);
+    }
 
     @Override
     public Integer call() throws Exception {

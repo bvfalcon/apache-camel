@@ -33,10 +33,12 @@ public class ResumableCompletion implements Synchronization {
 
     private final ResumeStrategy resumeStrategy;
     private final LoggingLevel loggingLevel;
+    private final boolean intermittent;
 
-    public ResumableCompletion(ResumeStrategy resumeStrategy, LoggingLevel loggingLevel) {
+    public ResumableCompletion(ResumeStrategy resumeStrategy, LoggingLevel loggingLevel, boolean intermittent) {
         this.resumeStrategy = resumeStrategy;
         this.loggingLevel = loggingLevel;
+        this.intermittent = intermittent;
     }
 
     @Override
@@ -48,11 +50,11 @@ public class ResumableCompletion implements Synchronization {
         Object offset = ExchangeHelper.getResultMessage(exchange).getHeader(Exchange.OFFSET);
 
         if (offset instanceof Resumable) {
-            Resumable<?, ?> resumable = (Resumable<?, ?>) offset;
+            Resumable resumable = (Resumable) offset;
 
             if (LOG.isTraceEnabled()) {
-                LOG.trace("Processing the resumable: {}", resumable.getAddressable());
-                LOG.trace("Processing the resumable of type: {}", resumable.getLastOffset().offset());
+                LOG.trace("Processing the resumable: {}", resumable.getOffsetKey());
+                LOG.trace("Processing the resumable of type: {}", resumable.getLastOffset().getValue());
             }
 
             if (resumeStrategy instanceof UpdatableConsumerResumeStrategy) {
@@ -67,22 +69,24 @@ public class ResumableCompletion implements Synchronization {
                 LOG.debug("Cannot perform an offset update because the strategy is not updatable");
             }
         } else {
-            exchange.setException(new NoOffsetException(exchange));
-            LOG.warn("Cannot update the last offset because it's not available");
+            if (!intermittent) {
+                exchange.setException(new NoOffsetException(exchange));
+                LOG.warn("Cannot update the last offset because it's not available");
+            }
         }
     }
 
     @Override
     public void onFailure(Exchange exchange) {
         Exception e = exchange.getException();
-        Object offset = exchange.getMessage().getHeader(Exchange.OFFSET);
+        Object resObj = exchange.getMessage().getHeader(Exchange.OFFSET);
 
-        if (offset instanceof Resumable) {
-            Resumable<?, ?> resumable = (Resumable<?, ?>) offset;
+        if (resObj instanceof Resumable) {
+            Resumable resumable = (Resumable) resObj;
 
             String logMessage = String.format(
                     "Skipping offset update with address '%s' and offset value '%s' due to failure in processing: %s",
-                    resumable.getAddressable(), resumable.getLastOffset().offset(), e.getMessage());
+                    resumable.getOffsetKey(), resumable.getLastOffset().getValue(), e.getMessage());
 
             if (LOG.isDebugEnabled() || CamelLogger.shouldLog(LOG, loggingLevel)) {
                 CamelLogger.log(LOG, LoggingLevel.DEBUG, logMessage, e);
@@ -93,7 +97,7 @@ public class ResumableCompletion implements Synchronization {
             }
         } else {
             String logMessage = String.format("Skipping offset update of '%s' due to failure in processing: %s",
-                    offset == null ? "type null" : "unspecified type", e.getMessage());
+                    resObj == null ? "type null" : "unspecified type", e.getMessage());
 
             if (LOG.isDebugEnabled() || CamelLogger.shouldLog(LOG, loggingLevel)) {
                 CamelLogger.log(LOG, LoggingLevel.DEBUG, logMessage, e);

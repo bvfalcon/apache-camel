@@ -44,55 +44,6 @@ public interface DigitalOceanEndpointBuilderFactory {
             return (AdvancedDigitalOceanEndpointBuilder) this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default DigitalOceanEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default DigitalOceanEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Use for pagination. Force the page number.
          * 
          * The option is a: &lt;code&gt;java.lang.Integer&lt;/code&gt; type.
@@ -287,6 +238,55 @@ public interface DigitalOceanEndpointBuilderFactory {
             return (DigitalOceanEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDigitalOceanEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedDigitalOceanEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * To use a existing configured DigitalOceanClient as client.
          * 
          * The option is a:
@@ -321,6 +321,19 @@ public interface DigitalOceanEndpointBuilderFactory {
     }
 
     public interface DigitalOceanBuilders {
+        /**
+         * DigitalOcean (camel-digitalocean)
+         * Manage Droplets and resources within the DigitalOcean cloud.
+         * 
+         * Category: cloud,management
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-digitalocean
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default DigitalOceanHeaderNameBuilder digitalocean() {
+            return DigitalOceanHeaderNameBuilder.INSTANCE;
+        }
         /**
          * DigitalOcean (camel-digitalocean)
          * Manage Droplets and resources within the DigitalOcean cloud.
@@ -376,6 +389,334 @@ public interface DigitalOceanEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return DigitalOceanEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the DigitalOcean component.
+     */
+    public static class DigitalOceanHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final DigitalOceanHeaderNameBuilder INSTANCE = new DigitalOceanHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.digitalocean.constants.DigitalOceanOperations} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanOperation}.
+         */
+        public String digitalOceanOperation() {
+            return "DigitalOceanOperation";
+        }
+
+        /**
+         * The id.
+         * 
+         * The option is a: {@code Integer or String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanId}.
+         */
+        public String digitalOceanId() {
+            return "DigitalOceanId";
+        }
+
+        /**
+         * The type.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.digitalocean.constants.DigitalOceanImageTypes} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanType}.
+         */
+        public String digitalOceanType() {
+            return "DigitalOceanType";
+        }
+
+        /**
+         * The name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanName}.
+         */
+        public String digitalOceanName() {
+            return "DigitalOceanName";
+        }
+
+        /**
+         * The names of the droplet.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanNames}.
+         */
+        public String digitalOceanNames() {
+            return "DigitalOceanNames";
+        }
+
+        /**
+         * The code name of the region aka DigitalOcean data centers.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanRegion}.
+         */
+        public String digitalOceanRegion() {
+            return "DigitalOceanRegion";
+        }
+
+        /**
+         * The description.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDescription}.
+         */
+        public String digitalOceanDescription() {
+            return "DigitalOceanDescription";
+        }
+
+        /**
+         * The size of the droplet.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletSize}.
+         */
+        public String digitalOceanDropletSize() {
+            return "DigitalOceanDropletSize";
+        }
+
+        /**
+         * The image of the droplet.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletImage}.
+         */
+        public String digitalOceanDropletImage() {
+            return "DigitalOceanDropletImage";
+        }
+
+        /**
+         * The keys of the droplet.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletSSHKeys}.
+         */
+        public String digitalOceanDropletSSHKeys() {
+            return "DigitalOceanDropletSSHKeys";
+        }
+
+        /**
+         * The flag to enable backups.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * DigitalOceanDropletEnableBackups}.
+         */
+        public String digitalOceanDropletEnableBackups() {
+            return "DigitalOceanDropletEnableBackups";
+        }
+
+        /**
+         * The flag to enable ipv6.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletEnableIpv6}.
+         */
+        public String digitalOceanDropletEnableIpv6() {
+            return "DigitalOceanDropletEnableIpv6";
+        }
+
+        /**
+         * The flag to enable private networking.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * DigitalOceanDropletEnablePrivateNetworking}.
+         */
+        public String digitalOceanDropletEnablePrivateNetworking() {
+            return "DigitalOceanDropletEnablePrivateNetworking";
+        }
+
+        /**
+         * The user data of the droplet.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletUserData}.
+         */
+        public String digitalOceanDropletUserData() {
+            return "DigitalOceanDropletUserData";
+        }
+
+        /**
+         * The volumes' identifier of the droplet.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletVolumes}.
+         */
+        public String digitalOceanDropletVolumes() {
+            return "DigitalOceanDropletVolumes";
+        }
+
+        /**
+         * The tags of the droplet.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletTags}.
+         */
+        public String digitalOceanDropletTags() {
+            return "DigitalOceanDropletTags";
+        }
+
+        /**
+         * The droplet identifier.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanDropletId}.
+         */
+        public String digitalOceanDropletId() {
+            return "DigitalOceanDropletId";
+        }
+
+        /**
+         * The id of the DigitalOcean public image or your private image.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanImageId}.
+         */
+        public String digitalOceanImageId() {
+            return "DigitalOceanImageId";
+        }
+
+        /**
+         * The kernel id to be changed for droplet.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanKernelId}.
+         */
+        public String digitalOceanKernelId() {
+            return "DigitalOceanKernelId";
+        }
+
+        /**
+         * The name of the volume.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanVolumeName}.
+         */
+        public String digitalOceanVolumeName() {
+            return "DigitalOceanVolumeName";
+        }
+
+        /**
+         * The size value in GB.
+         * 
+         * The option is a: {@code Integer or Double} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * DigitalOceanVolumeSizeGigabytes}.
+         */
+        public String digitalOceanVolumeSizeGigabytes() {
+            return "DigitalOceanVolumeSizeGigabytes";
+        }
+
+        /**
+         * The floating IP address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanFloatingIPAddress}.
+         */
+        public String digitalOceanFloatingIPAddress() {
+            return "DigitalOceanFloatingIPAddress";
+        }
+
+        /**
+         * The SSH key fingerprint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanKeyFingerprint}.
+         */
+        public String digitalOceanKeyFingerprint() {
+            return "DigitalOceanKeyFingerprint";
+        }
+
+        /**
+         * The public key.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code DigitalOceanKeyPublicKey}.
+         */
+        public String digitalOceanKeyPublicKey() {
+            return "DigitalOceanKeyPublicKey";
         }
     }
     static DigitalOceanEndpointBuilder endpointBuilder(

@@ -45,13 +45,13 @@ public class QuickfixjProducer extends DefaultProducer {
 
     @Override
     protected void doStart() throws Exception {
-        getEndpoint().addProducer(this);
+        getEndpoint().addProducer();
         super.doStart();
     }
 
     @Override
     protected void doStop() throws Exception {
-        getEndpoint().removeProducer(this);
+        getEndpoint().removeProducer();
         super.doStop();
     }
 
@@ -83,7 +83,7 @@ public class QuickfixjProducer extends DefaultProducer {
 
         if (exchange.getPattern().isOutCapable()) {
             MessageCorrelator messageCorrelator = getEndpoint().getEngine().getMessageCorrelator();
-            callable = messageCorrelator.getReply(getEndpoint().getSID(), exchange);
+            callable = messageCorrelator.getReply(exchange);
         }
 
         if (!session.send(message)) {

@@ -40,6 +40,9 @@ public interface StringTemplateEndpointBuilderFactory {
     public interface StringTemplateEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedStringTemplateEndpointBuilder advanced() {
+            return (AdvancedStringTemplateEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -214,6 +217,17 @@ public interface StringTemplateEndpointBuilderFactory {
             doSetProperty("delimiterStop", delimiterStop);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint for the String Template component.
+     */
+    public interface AdvancedStringTemplateEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default StringTemplateEndpointBuilder basic() {
+            return (StringTemplateEndpointBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -228,12 +242,12 @@ public interface StringTemplateEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default StringTemplateEndpointBuilder lazyStartProducer(
+        default AdvancedStringTemplateEndpointBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -253,12 +267,12 @@ public interface StringTemplateEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default StringTemplateEndpointBuilder lazyStartProducer(
+        default AdvancedStringTemplateEndpointBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -266,6 +280,19 @@ public interface StringTemplateEndpointBuilderFactory {
     }
 
     public interface StringTemplateBuilders {
+        /**
+         * String Template (camel-stringtemplate)
+         * Transform messages using StringTemplate engine.
+         * 
+         * Category: transformation,script
+         * Since: 1.2
+         * Maven coordinates: org.apache.camel:camel-stringtemplate
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default StringTemplateHeaderNameBuilder stringTemplate() {
+            return StringTemplateHeaderNameBuilder.INSTANCE;
+        }
         /**
          * String Template (camel-stringtemplate)
          * Transform messages using StringTemplate engine.
@@ -319,10 +346,62 @@ public interface StringTemplateEndpointBuilderFactory {
             return StringTemplateEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the String Template component.
+     */
+    public static class StringTemplateHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final StringTemplateHeaderNameBuilder INSTANCE = new StringTemplateHeaderNameBuilder();
+
+        /**
+         * A URI for the template resource to use instead of the endpoint
+         * configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code StringTemplateResourceUri}.
+         */
+        public String stringTemplateResourceUri() {
+            return "StringTemplateResourceUri";
+        }
+
+        /**
+         * Map of the variables which are made available to a script or
+         * template.
+         * 
+         * The option is a: {@code Map<String, Object>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code StringTemplateVariableMap}.
+         */
+        public String stringTemplateVariableMap() {
+            return "StringTemplateVariableMap";
+        }
+
+        /**
+         * The template to use instead of the endpoint configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code StringTemplateTemplate}.
+         */
+        public String stringTemplateTemplate() {
+            return "StringTemplateTemplate";
+        }
+    }
     static StringTemplateEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class StringTemplateEndpointBuilderImpl extends AbstractEndpointBuilder implements StringTemplateEndpointBuilder {
+        class StringTemplateEndpointBuilderImpl extends AbstractEndpointBuilder implements StringTemplateEndpointBuilder, AdvancedStringTemplateEndpointBuilder {
             public StringTemplateEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

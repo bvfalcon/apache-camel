@@ -249,51 +249,6 @@ public interface NettyEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default NettyEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default NettyEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Setting to choose Multicast over UDP.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -1124,6 +1079,51 @@ public interface NettyEndpointBuilderFactory {
          */
         default AdvancedNettyEndpointConsumerBuilder bossGroup(String bossGroup) {
             doSetProperty("bossGroup", bossGroup);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
         }
         /**
@@ -2148,55 +2148,6 @@ public interface NettyEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NettyEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NettyEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Allows to use a timeout for the Netty producer when calling a remote
          * server. By default no timeout is in use. The value is in milli
          * seconds, so eg 30000 is 30 seconds. The requestTimeout is using
@@ -2916,6 +2867,55 @@ public interface NettyEndpointBuilderFactory {
         default AdvancedNettyEndpointProducerBuilder lazyChannelCreation(
                 String lazyChannelCreation) {
             doSetProperty("lazyChannelCreation", lazyChannelCreation);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNettyEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -4832,6 +4832,19 @@ public interface NettyEndpointBuilderFactory {
          * Since: 2.14
          * Maven coordinates: org.apache.camel:camel-netty
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default NettyHeaderNameBuilder netty() {
+            return NettyHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Netty (camel-netty)
+         * Socket level networking using TCP or UDP with Netty 4.x.
+         * 
+         * Category: networking,tcp,udp
+         * Since: 2.14
+         * Maven coordinates: org.apache.camel:camel-netty
+         * 
          * Syntax: <code>netty:protocol://host:port</code>
          * 
          * Path parameter: protocol (required)
@@ -4879,6 +4892,161 @@ public interface NettyEndpointBuilderFactory {
          */
         default NettyEndpointBuilder netty(String componentName, String path) {
             return NettyEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Netty component.
+     */
+    public static class NettyHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final NettyHeaderNameBuilder INSTANCE = new NettyHeaderNameBuilder();
+
+        /**
+         * Indicates whether the channel should be closed after complete.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyCloseChannelWhenComplete}.
+         */
+        public String nettyCloseChannelWhenComplete() {
+            return "NettyCloseChannelWhenComplete";
+        }
+
+        /**
+         * The channel handler context.
+         * 
+         * The option is a: {@code io.netty.channel.ChannelHandlerContext} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyChannelHandlerContext}.
+         */
+        public String nettyChannelHandlerContext() {
+            return "NettyChannelHandlerContext";
+        }
+
+        /**
+         * The remote address.
+         * 
+         * The option is a: {@code java.net.SocketAddress} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyRemoteAddress}.
+         */
+        public String nettyRemoteAddress() {
+            return "NettyRemoteAddress";
+        }
+
+        /**
+         * The local address.
+         * 
+         * The option is a: {@code java.net.SocketAddress} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyLocalAddress}.
+         */
+        public String nettyLocalAddress() {
+            return "NettyLocalAddress";
+        }
+
+        /**
+         * The SSL session.
+         * 
+         * The option is a: {@code javax.net.ssl.SSLSession} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettySSLSession}.
+         */
+        public String nettySSLSession() {
+            return "NettySSLSession";
+        }
+
+        /**
+         * The SSL client certificate subject name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettySSLClientCertSubjectName}.
+         */
+        public String nettySSLClientCertSubjectName() {
+            return "NettySSLClientCertSubjectName";
+        }
+
+        /**
+         * The SSL client certificate issuer name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettySSLClientCertIssuerName}.
+         */
+        public String nettySSLClientCertIssuerName() {
+            return "NettySSLClientCertIssuerName";
+        }
+
+        /**
+         * The SSL client certificate serial number.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * NettySSLClientCertSerialNumber}.
+         */
+        public String nettySSLClientCertSerialNumber() {
+            return "NettySSLClientCertSerialNumber";
+        }
+
+        /**
+         * The SSL client certificate not before.
+         * 
+         * The option is a: {@code java.util.Date} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettySSLClientCertNotBefore}.
+         */
+        public String nettySSLClientCertNotBefore() {
+            return "NettySSLClientCertNotBefore";
+        }
+
+        /**
+         * The SSL client certificate not after.
+         * 
+         * The option is a: {@code java.util.Date} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettySSLClientCertNotAfter}.
+         */
+        public String nettySSLClientCertNotAfter() {
+            return "NettySSLClientCertNotAfter";
+        }
+
+        /**
+         * The read timeout.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code NettyRequestTimeout}.
+         */
+        public String nettyRequestTimeout() {
+            return "NettyRequestTimeout";
         }
     }
     static NettyEndpointBuilder endpointBuilder(

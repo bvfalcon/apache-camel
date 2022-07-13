@@ -1006,55 +1006,6 @@ public interface MllpEndpointBuilderFactory {
             doSetProperty("validatePayload", validatePayload);
             return this;
         }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MllpEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MllpEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
     }
 
     /**
@@ -1199,6 +1150,55 @@ public interface MllpEndpointBuilderFactory {
          */
         default AdvancedMllpEndpointProducerBuilder tcpNoDelay(String tcpNoDelay) {
             doSetProperty("tcpNoDelay", tcpNoDelay);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMllpEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMllpEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1769,6 +1769,19 @@ public interface MllpEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-mllp
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MllpHeaderNameBuilder mllp() {
+            return MllpHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * MLLP (camel-mllp)
+         * Communicate with external systems using the MLLP protocol.
+         * 
+         * Category: networking,rpc,mllp
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-mllp
+         * 
          * Syntax: <code>mllp:hostname:port</code>
          * 
          * Path parameter: hostname (required)
@@ -1808,6 +1821,251 @@ public interface MllpEndpointBuilderFactory {
          */
         default MllpEndpointBuilder mllp(String componentName, String path) {
             return MllpEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the MLLP component.
+     */
+    public static class MllpHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MllpHeaderNameBuilder INSTANCE = new MllpHeaderNameBuilder();
+
+        /**
+         * The local TCP Address of the Socket.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MllpLocalAddress}.
+         */
+        public String mllpLocalAddress() {
+            return "MllpLocalAddress";
+        }
+
+        /**
+         * The remote TCP Address of the Socket.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MllpRemoteAddress}.
+         */
+        public String mllpRemoteAddress() {
+            return "MllpRemoteAddress";
+        }
+
+        /**
+         * The HL7 Acknowledgment received in bytes.
+         * 
+         * The option is a: {@code byte[]} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MllpAcknowledgement}.
+         */
+        public String mllpAcknowledgement() {
+            return "MllpAcknowledgement";
+        }
+
+        /**
+         * The HL7 Acknowledgment received, converted to a String.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MllpAcknowledgementString}.
+         */
+        public String mllpAcknowledgementString() {
+            return "MllpAcknowledgementString";
+        }
+
+        /**
+         * The HL7 acknowledgement type (AA, AE, AR, etc).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MllpAcknowledgementType}.
+         */
+        public String mllpAcknowledgementType() {
+            return "MllpAcknowledgementType";
+        }
+
+        /**
+         * MSH-3 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpSendingApplication}.
+         */
+        public String mllpSendingApplication() {
+            return "MllpSendingApplication";
+        }
+
+        /**
+         * MSH-4 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpSendingFacility}.
+         */
+        public String mllpSendingFacility() {
+            return "MllpSendingFacility";
+        }
+
+        /**
+         * MSH-5 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpReceivingApplication}.
+         */
+        public String mllpReceivingApplication() {
+            return "MllpReceivingApplication";
+        }
+
+        /**
+         * MSH-6 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpReceivingFacility}.
+         */
+        public String mllpReceivingFacility() {
+            return "MllpReceivingFacility";
+        }
+
+        /**
+         * MSH-7 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpTimestamp}.
+         */
+        public String mllpTimestamp() {
+            return "MllpTimestamp";
+        }
+
+        /**
+         * MSH-8 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpSecurity}.
+         */
+        public String mllpSecurity() {
+            return "MllpSecurity";
+        }
+
+        /**
+         * MSH-9 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpMessageType}.
+         */
+        public String mllpMessageType() {
+            return "MllpMessageType";
+        }
+
+        /**
+         * MSH-9.1 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpEventType}.
+         */
+        public String mllpEventType() {
+            return "MllpEventType";
+        }
+
+        /**
+         * MSH-9.2 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpTriggerEvent}.
+         */
+        public String mllpTriggerEvent() {
+            return "MllpTriggerEvent";
+        }
+
+        /**
+         * MSH-10 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpMessageControlId}.
+         */
+        public String mllpMessageControlId() {
+            return "MllpMessageControlId";
+        }
+
+        /**
+         * MSH-11 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpProcessingId}.
+         */
+        public String mllpProcessingId() {
+            return "MllpProcessingId";
+        }
+
+        /**
+         * MSH-12 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpVersionId}.
+         */
+        public String mllpVersionId() {
+            return "MllpVersionId";
+        }
+
+        /**
+         * MSH-18 value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code MllpCharset}.
+         */
+        public String mllpCharset() {
+            return "MllpCharset";
         }
     }
     static MllpEndpointBuilder endpointBuilder(String componentName, String path) {

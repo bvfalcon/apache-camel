@@ -60,55 +60,6 @@ public interface GoogleCloudFunctionsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudFunctionsEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudFunctionsEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The Google Cloud Location (Region) where the Function is located.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -212,6 +163,55 @@ public interface GoogleCloudFunctionsEndpointBuilderFactory {
             return (GoogleCloudFunctionsEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudFunctionsEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudFunctionsEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * The client to use during service invocation.
          * 
          * The option is a:
@@ -253,6 +253,19 @@ public interface GoogleCloudFunctionsEndpointBuilderFactory {
          * Since: 3.9
          * Maven coordinates: org.apache.camel:camel-google-functions
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoogleCloudFunctionsHeaderNameBuilder googleFunctions() {
+            return GoogleCloudFunctionsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Google Cloud Functions (camel-google-functions)
+         * Manage and invoke Google Cloud Functions
+         * 
+         * Category: cloud
+         * Since: 3.9
+         * Maven coordinates: org.apache.camel:camel-google-functions
+         * 
          * Syntax: <code>google-functions:functionName</code>
          * 
          * Path parameter: functionName (required)
@@ -286,6 +299,93 @@ public interface GoogleCloudFunctionsEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return GoogleCloudFunctionsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Google Cloud Functions component.
+     */
+    public static class GoogleCloudFunctionsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoogleCloudFunctionsHeaderNameBuilder INSTANCE = new GoogleCloudFunctionsHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.google.functions.GoogleCloudFunctionsOperations} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleCloudFunctionsOperation}.
+         */
+        public String googleCloudFunctionsOperation() {
+            return "GoogleCloudFunctionsOperation";
+        }
+
+        /**
+         * The name of the function (as defined in source code) that will be
+         * executed. Used for createFunction operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudFunctionsEntryPoint}.
+         */
+        public String googleCloudFunctionsEntryPoint() {
+            return "GoogleCloudFunctionsEntryPoint";
+        }
+
+        /**
+         * The runtime in which to run the function. Possible values are:
+         * nodejs10 nodejs12 nodejs14 python37 python38 python39 go111 go113
+         * java11 dotnet3 ruby26 nodejs6 nodejs8 Used for createFunction
+         * operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleCloudFunctionsRuntime}.
+         */
+        public String googleCloudFunctionsRuntime() {
+            return "GoogleCloudFunctionsRuntime";
+        }
+
+        /**
+         * The Google Cloud Storage URL, starting with gs://, pointing to the
+         * zip archive which contains the function. Used for createFunction
+         * operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudFunctionsSourceArchiveUrl}.
+         */
+        public String googleCloudFunctionsSourceArchiveUrl() {
+            return "GoogleCloudFunctionsSourceArchiveUrl";
+        }
+
+        /**
+         * The response object resulting from the Google Functions Client
+         * invocation.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudFunctionsResponseObject}.
+         */
+        public String googleCloudFunctionsResponseObject() {
+            return "GoogleCloudFunctionsResponseObject";
         }
     }
     static GoogleCloudFunctionsEndpointBuilder endpointBuilder(

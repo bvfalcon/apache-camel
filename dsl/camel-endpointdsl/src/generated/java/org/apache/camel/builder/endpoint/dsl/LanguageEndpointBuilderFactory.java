@@ -38,6 +38,9 @@ public interface LanguageEndpointBuilderFactory {
      * Builder for endpoint for the Language component.
      */
     public interface LanguageEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedLanguageEndpointBuilder advanced() {
+            return (AdvancedLanguageEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -179,55 +182,6 @@ public interface LanguageEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default LanguageEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default LanguageEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Sets the script to execute.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -276,7 +230,80 @@ public interface LanguageEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Language component.
+     */
+    public interface AdvancedLanguageEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default LanguageEndpointBuilder basic() {
+            return (LanguageEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedLanguageEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedLanguageEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface LanguageBuilders {
+        /**
+         * Language (camel-language)
+         * Execute scripts in any of the languages supported by Camel.
+         * 
+         * Category: core,script
+         * Since: 2.5
+         * Maven coordinates: org.apache.camel:camel-language
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default LanguageHeaderNameBuilder language() {
+            return LanguageHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Language (camel-language)
          * Execute scripts in any of the languages supported by Camel.
@@ -336,10 +363,35 @@ public interface LanguageEndpointBuilderFactory {
             return LanguageEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Language component.
+     */
+    public static class LanguageHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final LanguageHeaderNameBuilder INSTANCE = new LanguageHeaderNameBuilder();
+
+        /**
+         * The script to execute provided in the header. Takes precedence over
+         * script configured on the endpoint.
+         * 
+         * The option is a: {@code String or Expression} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code LanguageScript}.
+         */
+        public String languageScript() {
+            return "LanguageScript";
+        }
+    }
     static LanguageEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class LanguageEndpointBuilderImpl extends AbstractEndpointBuilder implements LanguageEndpointBuilder {
+        class LanguageEndpointBuilderImpl extends AbstractEndpointBuilder implements LanguageEndpointBuilder, AdvancedLanguageEndpointBuilder {
             public LanguageEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

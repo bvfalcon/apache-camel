@@ -38,6 +38,9 @@ public interface VelocityEndpointBuilderFactory {
      * Builder for endpoint for the Velocity component.
      */
     public interface VelocityEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedVelocityEndpointBuilder advanced() {
+            return (AdvancedVelocityEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -166,55 +169,6 @@ public interface VelocityEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default VelocityEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default VelocityEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Enables / disables the velocity resource loader cache which is
          * enabled by default.
          * 
@@ -264,7 +218,80 @@ public interface VelocityEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Velocity component.
+     */
+    public interface AdvancedVelocityEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default VelocityEndpointBuilder basic() {
+            return (VelocityEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVelocityEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVelocityEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface VelocityBuilders {
+        /**
+         * Velocity (camel-velocity)
+         * Transform messages using a Velocity template.
+         * 
+         * Category: transformation
+         * Since: 1.2
+         * Maven coordinates: org.apache.camel:camel-velocity
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default VelocityHeaderNameBuilder velocity() {
+            return VelocityHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Velocity (camel-velocity)
          * Transform messages using a Velocity template.
@@ -318,10 +345,77 @@ public interface VelocityEndpointBuilderFactory {
             return VelocityEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Velocity component.
+     */
+    public static class VelocityHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final VelocityHeaderNameBuilder INSTANCE = new VelocityHeaderNameBuilder();
+
+        /**
+         * The name of the velocity template.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VelocityResourceUri}.
+         */
+        public String velocityResourceUri() {
+            return "VelocityResourceUri";
+        }
+
+        /**
+         * The content of the velocity template.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VelocityTemplate}.
+         */
+        public String velocityTemplate() {
+            return "VelocityTemplate";
+        }
+
+        /**
+         * The velocity context to use.
+         * 
+         * The option is a: {@code org.apache.velocity.context.Context} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VelocityContext}.
+         */
+        public String velocityContext() {
+            return "VelocityContext";
+        }
+
+        /**
+         * To add additional information to the used VelocityContext. The value
+         * of this header should be a Map with key/values that will added
+         * (override any existing key with the same name). This can be used to
+         * pre setup some common key/values you want to reuse in your velocity
+         * endpoints.
+         * 
+         * The option is a: {@code Map<String, Object>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VelocitySupplementalContext}.
+         */
+        public String velocitySupplementalContext() {
+            return "VelocitySupplementalContext";
+        }
+    }
     static VelocityEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class VelocityEndpointBuilderImpl extends AbstractEndpointBuilder implements VelocityEndpointBuilder {
+        class VelocityEndpointBuilderImpl extends AbstractEndpointBuilder implements VelocityEndpointBuilder, AdvancedVelocityEndpointBuilder {
             public VelocityEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

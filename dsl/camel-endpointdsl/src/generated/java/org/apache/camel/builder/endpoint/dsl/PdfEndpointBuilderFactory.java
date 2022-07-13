@@ -38,6 +38,9 @@ public interface PdfEndpointBuilderFactory {
      * Builder for endpoint for the PDF component.
      */
     public interface PdfEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedPdfEndpointBuilder advanced() {
+            return (AdvancedPdfEndpointBuilder) this;
+        }
         /**
          * Font.
          * 
@@ -82,53 +85,6 @@ public interface PdfEndpointBuilderFactory {
          */
         default PdfEndpointBuilder fontSize(String fontSize) {
             doSetProperty("fontSize", fontSize);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PdfEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default PdfEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -314,7 +270,80 @@ public interface PdfEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the PDF component.
+     */
+    public interface AdvancedPdfEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default PdfEndpointBuilder basic() {
+            return (PdfEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPdfEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedPdfEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface PdfBuilders {
+        /**
+         * PDF (camel-pdf)
+         * Create, modify or extract content from PDF documents.
+         * 
+         * Category: document,transformation,printing
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-pdf
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default PdfHeaderNameBuilder pdf() {
+            return PdfHeaderNameBuilder.INSTANCE;
+        }
         /**
          * PDF (camel-pdf)
          * Create, modify or extract content from PDF documents.
@@ -360,8 +389,64 @@ public interface PdfEndpointBuilderFactory {
             return PdfEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the PDF component.
+     */
+    public static class PdfHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final PdfHeaderNameBuilder INSTANCE = new PdfHeaderNameBuilder();
+
+        /**
+         * Expected type is
+         * https://pdfbox.apache.org/docs/2.0.13/javadocs/org/apache/pdfbox/pdmodel/encryption/ProtectionPolicy.htmlProtectionPolicy. If specified then PDF document will be encrypted with it.
+         * 
+         * The option is a: {@code
+         * org.apache.pdfbox.pdmodel.encryption.ProtectionPolicy} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code protection-policy}.
+         */
+        public String protectionPolicy() {
+            return "protection-policy";
+        }
+
+        /**
+         * Mandatory header for append operation and ignored in all other
+         * operations. Expected type is
+         * https://pdfbox.apache.org/docs/2.0.13/javadocs/org/apache/pdfbox/pdmodel/PDDocument.htmlPDDocument. Stores PDF document which will be used for append operation.
+         * 
+         * The option is a: {@code org.apache.pdfbox.pdmodel.PDDocument} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code pdf-document}.
+         */
+        public String pdfDocument() {
+            return "pdf-document";
+        }
+
+        /**
+         * Expected type is
+         * https://pdfbox.apache.org/docs/2.0.13/javadocs/org/apache/pdfbox/pdmodel/encryption/DecryptionMaterial.htmlDecryptionMaterial. Mandatory header if PDF document is encrypted.
+         * 
+         * The option is a: {@code
+         * org.apache.pdfbox.pdmodel.encryption.DecryptionMaterial} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code decryption-material}.
+         */
+        public String decryptionMaterial() {
+            return "decryption-material";
+        }
+    }
     static PdfEndpointBuilder endpointBuilder(String componentName, String path) {
-        class PdfEndpointBuilderImpl extends AbstractEndpointBuilder implements PdfEndpointBuilder {
+        class PdfEndpointBuilderImpl extends AbstractEndpointBuilder implements PdfEndpointBuilder, AdvancedPdfEndpointBuilder {
             public PdfEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

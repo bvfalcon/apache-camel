@@ -108,55 +108,6 @@ public interface KubernetesPersistentVolumesClaimsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPersistentVolumesClaimsEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesPersistentVolumesClaimsEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Producer operation to do on Kubernetes.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -411,6 +362,55 @@ public interface KubernetesPersistentVolumesClaimsEndpointBuilderFactory {
             return (KubernetesPersistentVolumesClaimsEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPersistentVolumesClaimsEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesPersistentVolumesClaimsEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * Connection timeout in milliseconds to use when making requests to the
          * Kubernetes API server.
          * 
@@ -455,6 +455,20 @@ public interface KubernetesPersistentVolumesClaimsEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-kubernetes
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KubernetesPersistentVolumesClaimsHeaderNameBuilder kubernetesPersistentVolumesClaims() {
+            return KubernetesPersistentVolumesClaimsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Kubernetes Persistent Volume Claim (camel-kubernetes)
+         * Perform operations on Kubernetes Persistent Volumes Claims and get
+         * notified on Persistent Volumes Claim changes.
+         * 
+         * Category: container,cloud,paas
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-kubernetes
+         * 
          * Syntax: <code>kubernetes-persistent-volumes-claims:masterUrl</code>
          * 
          * Path parameter: masterUrl (required)
@@ -490,6 +504,87 @@ public interface KubernetesPersistentVolumesClaimsEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return KubernetesPersistentVolumesClaimsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Kubernetes Persistent Volume Claim
+     * component.
+     */
+    public static class KubernetesPersistentVolumesClaimsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KubernetesPersistentVolumesClaimsHeaderNameBuilder INSTANCE = new KubernetesPersistentVolumesClaimsHeaderNameBuilder();
+
+        /**
+         * The Producer operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesOperation}.
+         */
+        public String kubernetesOperation() {
+            return "KubernetesOperation";
+        }
+
+        /**
+         * The namespace name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceName}.
+         */
+        public String kubernetesNamespaceName() {
+            return "KubernetesNamespaceName";
+        }
+
+        /**
+         * The persistent volume claim labels.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * KubernetesPersistentVolumesClaimsLabels}.
+         */
+        public String kubernetesPersistentVolumesClaimsLabels() {
+            return "KubernetesPersistentVolumesClaimsLabels";
+        }
+
+        /**
+         * The persistent volume claim name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * KubernetesPersistentVolumeClaimName}.
+         */
+        public String kubernetesPersistentVolumeClaimName() {
+            return "KubernetesPersistentVolumeClaimName";
+        }
+
+        /**
+         * The spec for a persistent volume claim.
+         * 
+         * The option is a: {@code
+         * io.fabric8.kubernetes.api.model.PersistentVolumeClaimSpec} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * KubernetesPersistentVolumeClaimSpec}.
+         */
+        public String kubernetesPersistentVolumeClaimSpec() {
+            return "KubernetesPersistentVolumeClaimSpec";
         }
     }
     static KubernetesPersistentVolumesClaimsEndpointBuilder endpointBuilder(

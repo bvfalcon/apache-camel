@@ -31,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class URISupportTest {
 
@@ -301,7 +301,7 @@ public class URISupportTest {
     public void testSanitizeUriWithRawPassword() {
         String uri1 = "http://foo?username=me&password=RAW(me#@123)&foo=bar";
         String uri2 = "http://foo?username=me&password=RAW{me#@123}&foo=bar";
-        String expected = "http://foo?username=me&password=xxxxxx&foo=bar";
+        String expected = "http://foo?username=xxxxxx&password=xxxxxx&foo=bar";
         assertEquals(expected, URISupport.sanitizeUri(uri1));
         assertEquals(expected, URISupport.sanitizeUri(uri2));
     }
@@ -310,7 +310,7 @@ public class URISupportTest {
     public void testSanitizeUriRawUnsafePassword() {
         String uri1 = "sftp://localhost/target?password=RAW(beforeAmp&afterAmp)&username=jrandom";
         String uri2 = "sftp://localhost/target?password=RAW{beforeAmp&afterAmp}&username=jrandom";
-        String expected = "sftp://localhost/target?password=xxxxxx&username=jrandom";
+        String expected = "sftp://localhost/target?password=xxxxxx&username=xxxxxx";
         assertEquals(expected, URISupport.sanitizeUri(uri1));
         assertEquals(expected, URISupport.sanitizeUri(uri2));
     }
@@ -322,7 +322,7 @@ public class URISupportTest {
         String uriCurly
                 = "http://foo?username=me&password=RAW{me#@123}&foo=bar&port=21&tempFileName=${file:name.noext}.tmp&anotherOption=true";
         String expected
-                = "http://foo?username=me&password=xxxxxx&foo=bar&port=21&tempFileName=${file:name.noext}.tmp&anotherOption=true";
+                = "http://foo?username=xxxxxx&password=xxxxxx&foo=bar&port=21&tempFileName=${file:name.noext}.tmp&anotherOption=true";
         assertEquals(expected, URISupport.sanitizeUri(uriPlain));
         assertEquals(expected, URISupport.sanitizeUri(uriCurly));
     }
@@ -425,12 +425,9 @@ public class URISupportTest {
 
     @Test
     public void testParseQueryLenient() throws Exception {
-        try {
-            URISupport.parseQuery("password=secret&serviceName=somechat&", false, false);
-            fail("Should have thrown exception");
-        } catch (URISyntaxException e) {
-            // expected
-        }
+        assertThrows(URISyntaxException.class,
+                () -> URISupport.parseQuery("password=secret&serviceName=somechat&", false, false),
+                "Should have thrown a URISyntaxException");
 
         Map<String, Object> map = URISupport.parseQuery("password=secret&serviceName=somechat&", false, true);
         assertEquals(2, map.size());

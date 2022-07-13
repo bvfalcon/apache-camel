@@ -179,51 +179,6 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudStorageEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudStorageEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Delete objects from the bucket after they have been retrieved. The
          * delete is only performed if the Exchange is committed. If a rollback
          * occurs, the object is not deleted. If this option is false, then the
@@ -962,6 +917,51 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
             return (GoogleCloudStorageEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudStorageEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudStorageEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -1214,55 +1214,6 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudStorageEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleCloudStorageEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The Object name inside the bucket.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -1319,6 +1270,55 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default GoogleCloudStorageEndpointProducerBuilder basic() {
             return (GoogleCloudStorageEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudStorageEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleCloudStorageEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -1489,6 +1489,20 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
          * Since: 3.9
          * Maven coordinates: org.apache.camel:camel-google-storage
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoogleCloudStorageHeaderNameBuilder googleStorage() {
+            return GoogleCloudStorageHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Google Storage (camel-google-storage)
+         * Store and retrieve objects from Google Cloud Storage Service using
+         * the google-cloud-storage library.
+         * 
+         * Category: cloud
+         * Since: 3.9
+         * Maven coordinates: org.apache.camel:camel-google-storage
+         * 
          * Syntax: <code>google-storage:bucketName</code>
          * 
          * Path parameter: bucketName (required)
@@ -1523,6 +1537,379 @@ public interface GoogleCloudStorageEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return GoogleCloudStorageEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Google Storage component.
+     */
+    public static class GoogleCloudStorageHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoogleCloudStorageHeaderNameBuilder INSTANCE = new GoogleCloudStorageHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.google.storage.GoogleCloudStorageOperations} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageOperation}.
+         */
+        public String googleCloudStorageOperation() {
+            return "GoogleCloudStorageOperation";
+        }
+
+        /**
+         * The bucket Name which this object will be stored or which will be
+         * used for the current operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageBucketName}.
+         */
+        public String googleCloudStorageBucketName() {
+            return "GoogleCloudStorageBucketName";
+        }
+
+        /**
+         * The object Name which will be used for the current operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageObjectName}.
+         */
+        public String googleCloudStorageObjectName() {
+            return "GoogleCloudStorageObjectName";
+        }
+
+        /**
+         * The object Destination Name which will be used for the current
+         * operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageDestinationObjectName}.
+         */
+        public String googleCloudStorageDestinationObjectName() {
+            return "GoogleCloudStorageDestinationObjectName";
+        }
+
+        /**
+         * The bucket Destination Name which will be used for the current
+         * operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageDestinationBucketName}.
+         */
+        public String googleCloudStorageDestinationBucketName() {
+            return "GoogleCloudStorageDestinationBucketName";
+        }
+
+        /**
+         * The time in millisecond the download link will be valid.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Default: 300000
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageDownloadLinkExpirationTime}.
+         */
+        public String googleCloudStorageDownloadLinkExpirationTime() {
+            return "GoogleCloudStorageDownloadLinkExpirationTime";
+        }
+
+        /**
+         * The content length of this object.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageContentLength}.
+         */
+        public String googleCloudStorageContentLength() {
+            return "GoogleCloudStorageContentLength";
+        }
+
+        /**
+         * The content type of this object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code GoogleCloudStorageContentType}.
+         */
+        public String googleCloudStorageContentType() {
+            return "GoogleCloudStorageContentType";
+        }
+
+        /**
+         * The Cache-Control metadata can specify two different aspects of how
+         * data is served from Cloud Storage: whether the data can be cached and
+         * whether the data can be transformed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageCacheControl}.
+         */
+        public String googleCloudStorageCacheControl() {
+            return "GoogleCloudStorageCacheControl";
+        }
+
+        /**
+         * The content disposition of this object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageContentDisposition}.
+         */
+        public String googleCloudStorageContentDisposition() {
+            return "GoogleCloudStorageContentDisposition";
+        }
+
+        /**
+         * The content encoding of this object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageContentEncoding}.
+         */
+        public String googleCloudStorageContentEncoding() {
+            return "GoogleCloudStorageContentEncoding";
+        }
+
+        /**
+         * The md5 checksum of this object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code GoogleCloudStorageContentMd5}.
+         */
+        public String googleCloudStorageContentMd5() {
+            return "GoogleCloudStorageContentMd5";
+        }
+
+        /**
+         * The name of the blob.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileName}.
+         */
+        public String fileName() {
+            return "FileName";
+        }
+
+        /**
+         * The component count of this object.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageComponentCount}.
+         */
+        public String googleCloudStorageComponentCount() {
+            return "GoogleCloudStorageComponentCount";
+        }
+
+        /**
+         * The Content-Language metadata indicates the language(s) that the
+         * object is intended for.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageContentLanguage}.
+         */
+        public String googleCloudStorageContentLanguage() {
+            return "GoogleCloudStorageContentLanguage";
+        }
+
+        /**
+         * The Custom-Time metadata is a user-specified date and time
+         * represented in the RFC 3339 format YYYY-MM-DD'T'HH:MM:SS.SS'Z' or
+         * YYYY-MM-DD'T'HH:MM:SS'Z' when milliseconds are zero. This metadata is
+         * typically set in order to use the DaysSinceCustomTime condition in
+         * Object Lifecycle Management.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageCustomTime}.
+         */
+        public String googleCloudStorageCustomTime() {
+            return "GoogleCloudStorageCustomTime";
+        }
+
+        /**
+         * The CRC32c of the object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageCrc32cHex}.
+         */
+        public String googleCloudStorageCrc32cHex() {
+            return "GoogleCloudStorageCrc32cHex";
+        }
+
+        /**
+         * The ETag for the Object.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code GoogleCloudStorageETag}.
+         */
+        public String googleCloudStorageETag() {
+            return "GoogleCloudStorageETag";
+        }
+
+        /**
+         * Is the generation number of the object for which you are retrieving
+         * information.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageGeneration}.
+         */
+        public String googleCloudStorageGeneration() {
+            return "GoogleCloudStorageGeneration";
+        }
+
+        /**
+         * The blob id of the object.
+         * 
+         * The option is a: {@code com.google.cloud.storage.BlobId} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageBlobId}.
+         */
+        public String googleCloudStorageBlobId() {
+            return "GoogleCloudStorageBlobId";
+        }
+
+        /**
+         * The KMS key name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageKmsKeyName}.
+         */
+        public String googleCloudStorageKmsKeyName() {
+            return "GoogleCloudStorageKmsKeyName";
+        }
+
+        /**
+         * The media link.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageMediaLink}.
+         */
+        public String googleCloudStorageMediaLink() {
+            return "GoogleCloudStorageMediaLink";
+        }
+
+        /**
+         * The metageneration of the object.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageMetageneration}.
+         */
+        public String googleCloudStorageMetageneration() {
+            return "GoogleCloudStorageMetageneration";
+        }
+
+        /**
+         * The storage class of the object.
+         * 
+         * The option is a: {@code com.google.cloud.storage.StorageClass} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code
+         * GoogleCloudStorageStorageClass}.
+         */
+        public String googleCloudStorageStorageClass() {
+            return "GoogleCloudStorageStorageClass";
+        }
+
+        /**
+         * The creation time of the object.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageCreateTime}.
+         */
+        public String googleCloudStorageCreateTime() {
+            return "GoogleCloudStorageCreateTime";
+        }
+
+        /**
+         * The last update of the object.
+         * 
+         * The option is a: {@code Date} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code GoogleCloudStorageLastUpdate}.
+         */
+        public String googleCloudStorageLastUpdate() {
+            return "GoogleCloudStorageLastUpdate";
         }
     }
     static GoogleCloudStorageEndpointBuilder endpointBuilder(

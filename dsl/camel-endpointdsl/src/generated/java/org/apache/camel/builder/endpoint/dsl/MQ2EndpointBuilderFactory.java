@@ -38,6 +38,9 @@ public interface MQ2EndpointBuilderFactory {
      * Builder for endpoint for the AWS MQ component.
      */
     public interface MQ2EndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedMQ2EndpointBuilder advanced() {
+            return (AdvancedMQ2EndpointBuilder) this;
+        }
         /**
          * To use a existing configured AmazonMQClient as client.
          * 
@@ -69,53 +72,6 @@ public interface MQ2EndpointBuilderFactory {
          */
         default MQ2EndpointBuilder amazonMqClient(String amazonMqClient) {
             doSetProperty("amazonMqClient", amazonMqClient);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MQ2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MQ2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -428,7 +384,80 @@ public interface MQ2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS MQ component.
+     */
+    public interface AdvancedMQ2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MQ2EndpointBuilder basic() {
+            return (MQ2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMQ2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMQ2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface MQ2Builders {
+        /**
+         * AWS MQ (camel-aws2-mq)
+         * Manage AWS MQ instances using AWS SDK version 2.x.
+         * 
+         * Category: cloud,messaging
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-mq
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MQ2HeaderNameBuilder aws2Mq() {
+            return MQ2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS MQ (camel-aws2-mq)
          * Manage AWS MQ instances using AWS SDK version 2.x.
@@ -470,8 +499,166 @@ public interface MQ2EndpointBuilderFactory {
             return MQ2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS MQ component.
+     */
+    public static class MQ2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MQ2HeaderNameBuilder INSTANCE = new MQ2HeaderNameBuilder();
+
+        /**
+         * The operation we want to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQOperation}.
+         */
+        public String awsMQOperation() {
+            return "AwsMQOperation";
+        }
+
+        /**
+         * The number of results that must be retrieved from listBrokers
+         * operation.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQMaxResults}.
+         */
+        public String awsMQMaxResults() {
+            return "AwsMQMaxResults";
+        }
+
+        /**
+         * The broker name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerName}.
+         */
+        public String awsMQBrokerName() {
+            return "AwsMQBrokerName";
+        }
+
+        /**
+         * The Broker Engine for MQ.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerEngine}.
+         */
+        public String awsMQBrokerEngine() {
+            return "AwsMQBrokerEngine";
+        }
+
+        /**
+         * The Broker Engine Version for MQ. Currently you can choose between
+         * 5.15.6 and 5.15.0 of ACTIVEMQ.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerEngineVersion}.
+         */
+        public String awsMQBrokerEngineVersion() {
+            return "AwsMQBrokerEngineVersion";
+        }
+
+        /**
+         * The broker id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerID}.
+         */
+        public String awsMQBrokerID() {
+            return "AwsMQBrokerID";
+        }
+
+        /**
+         * A list of information about the configuration.
+         * 
+         * The option is a: {@code
+         * software.amazon.awssdk.services.mq.model.ConfigurationId} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQConfigurationID}.
+         */
+        public String awsMQConfigurationID() {
+            return "AwsMQConfigurationID";
+        }
+
+        /**
+         * The deployment mode for the broker in the createBroker operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerDeploymentMode}.
+         */
+        public String awsMQBrokerDeploymentMode() {
+            return "AwsMQBrokerDeploymentMode";
+        }
+
+        /**
+         * The instance type for the MQ machine in the createBroker operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerInstanceType}.
+         */
+        public String awsMQBrokerInstanceType() {
+            return "AwsMQBrokerInstanceType";
+        }
+
+        /**
+         * The list of users for MQ.
+         * 
+         * The option is a: {@code List<User>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerUsers}.
+         */
+        public String awsMQBrokerUsers() {
+            return "AwsMQBrokerUsers";
+        }
+
+        /**
+         * If the MQ instance must be publicly available or not.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Default: false
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMQBrokerPubliclyAccessible}.
+         */
+        public String awsMQBrokerPubliclyAccessible() {
+            return "AwsMQBrokerPubliclyAccessible";
+        }
+    }
     static MQ2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class MQ2EndpointBuilderImpl extends AbstractEndpointBuilder implements MQ2EndpointBuilder {
+        class MQ2EndpointBuilderImpl extends AbstractEndpointBuilder implements MQ2EndpointBuilder, AdvancedMQ2EndpointBuilder {
             public MQ2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -38,6 +38,9 @@ public interface NeutronEndpointBuilderFactory {
      * Builder for endpoint for the OpenStack Neutron component.
      */
     public interface NeutronEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedNeutronEndpointBuilder advanced() {
+            return (AdvancedNeutronEndpointBuilder) this;
+        }
         /**
          * OpenStack API version.
          * 
@@ -97,55 +100,6 @@ public interface NeutronEndpointBuilderFactory {
          */
         default NeutronEndpointBuilder domain(String domain) {
             doSetProperty("domain", domain);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NeutronEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NeutronEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -224,7 +178,80 @@ public interface NeutronEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the OpenStack Neutron component.
+     */
+    public interface AdvancedNeutronEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default NeutronEndpointBuilder basic() {
+            return (NeutronEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNeutronEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNeutronEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface NeutronBuilders {
+        /**
+         * OpenStack Neutron (camel-openstack)
+         * Access OpenStack Neutron for network services.
+         * 
+         * Category: cloud,paas
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-openstack
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default NeutronHeaderNameBuilder openstackNeutron() {
+            return NeutronHeaderNameBuilder.INSTANCE;
+        }
         /**
          * OpenStack Neutron (camel-openstack)
          * Access OpenStack Neutron for network services.
@@ -268,10 +295,312 @@ public interface NeutronEndpointBuilderFactory {
             return NeutronEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the OpenStack Neutron component.
+     */
+    public static class NeutronHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final NeutronHeaderNameBuilder INSTANCE = new NeutronHeaderNameBuilder();
+
+        /**
+         * Tenant ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: network port router
+         * 
+         * @return the name of the header {@code tenantId}.
+         */
+        public String tenantId() {
+            return "tenantId";
+        }
+
+        /**
+         * Network ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: subnet port
+         * 
+         * @return the name of the header {@code networkId}.
+         */
+        public String networkId() {
+            return "networkId";
+        }
+
+        /**
+         * AdminStateUp header.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code adminStateUp}.
+         */
+        public String adminStateUp() {
+            return "adminStateUp";
+        }
+
+        /**
+         * Network type.
+         * 
+         * The option is a: {@code org.openstack4j.model.network.NetworkType}
+         * type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code networkType}.
+         */
+        public String networkType() {
+            return "networkType";
+        }
+
+        /**
+         * Physical network.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code physicalNetwork}.
+         */
+        public String physicalNetwork() {
+            return "physicalNetwork";
+        }
+
+        /**
+         * Segment ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code segmentId}.
+         */
+        public String segmentId() {
+            return "segmentId";
+        }
+
+        /**
+         * Is shared.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code isShared}.
+         */
+        public String isShared() {
+            return "isShared";
+        }
+
+        /**
+         * Is router external.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: network
+         * 
+         * @return the name of the header {@code isRouterExternal}.
+         */
+        public String isRouterExternal() {
+            return "isRouterExternal";
+        }
+
+        /**
+         * Enable DHCP.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: subnet
+         * 
+         * @return the name of the header {@code enableDHCP}.
+         */
+        public String enableDHCP() {
+            return "enableDHCP";
+        }
+
+        /**
+         * Gateway.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: subnet
+         * 
+         * @return the name of the header {@code gateway}.
+         */
+        public String gateway() {
+            return "gateway";
+        }
+
+        /**
+         * IP version.
+         * 
+         * The option is a: {@code org.openstack4j.model.network.IPVersionType}
+         * type.
+         * 
+         * Group: subnet
+         * 
+         * @return the name of the header {@code ipVersion}.
+         */
+        public String ipVersion() {
+            return "ipVersion";
+        }
+
+        /**
+         * The cidr representing the IP range for this subnet, based on IP
+         * version.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: subnet
+         * 
+         * @return the name of the header {@code cidr}.
+         */
+        public String cidr() {
+            return "cidr";
+        }
+
+        /**
+         * The allocation pool.
+         * 
+         * The option is a: {@code
+         * org.openstack4j.openstack.networking.domain.NeutronPool} type.
+         * 
+         * Group: subnet
+         * 
+         * @return the name of the header {@code subnetPools}.
+         */
+        public String subnetPools() {
+            return "subnetPools";
+        }
+
+        /**
+         * Device ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: port
+         * 
+         * @return the name of the header {@code deviceId}.
+         */
+        public String deviceId() {
+            return "deviceId";
+        }
+
+        /**
+         * MAC address.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: port
+         * 
+         * @return the name of the header {@code macAddress}.
+         */
+        public String macAddress() {
+            return "macAddress";
+        }
+
+        /**
+         * Router ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: router
+         * 
+         * @return the name of the header {@code routerId}.
+         */
+        public String routerId() {
+            return "routerId";
+        }
+
+        /**
+         * Subnet ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: router subnet
+         * 
+         * @return the name of the header {@code subnetId}.
+         */
+        public String subnetId() {
+            return "subnetId";
+        }
+
+        /**
+         * Port ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: port router
+         * 
+         * @return the name of the header {@code portId}.
+         */
+        public String portId() {
+            return "portId";
+        }
+
+        /**
+         * Interface type.
+         * 
+         * The option is a: {@code
+         * org.openstack4j.model.network.AttachInterfaceType} type.
+         * 
+         * Group: router
+         * 
+         * @return the name of the header {@code interfaceType}.
+         */
+        public String interfaceType() {
+            return "interfaceType";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code operation}.
+         */
+        public String operation() {
+            return "operation";
+        }
+
+        /**
+         * The ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ID}.
+         */
+        public String iD() {
+            return "ID";
+        }
+
+        /**
+         * The name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code name}.
+         */
+        public String name() {
+            return "name";
+        }
+    }
     static NeutronEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class NeutronEndpointBuilderImpl extends AbstractEndpointBuilder implements NeutronEndpointBuilder {
+        class NeutronEndpointBuilderImpl extends AbstractEndpointBuilder implements NeutronEndpointBuilder, AdvancedNeutronEndpointBuilder {
             public NeutronEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

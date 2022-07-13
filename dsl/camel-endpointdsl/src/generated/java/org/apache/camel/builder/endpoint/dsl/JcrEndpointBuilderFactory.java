@@ -286,6 +286,17 @@ public interface JcrEndpointBuilderFactory {
             doSetProperty("workspaceName", workspaceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the JCR component.
+     */
+    public interface AdvancedJcrEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default JcrEndpointConsumerBuilder basic() {
+            return (JcrEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -298,12 +309,12 @@ public interface JcrEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default JcrEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedJcrEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -321,26 +332,15 @@ public interface JcrEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default JcrEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedJcrEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the JCR component.
-     */
-    public interface AdvancedJcrEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default JcrEndpointConsumerBuilder basic() {
-            return (JcrEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -666,6 +666,17 @@ public interface JcrEndpointBuilderFactory {
             doSetProperty("workspaceName", workspaceName);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the JCR component.
+     */
+    public interface AdvancedJcrEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default JcrEndpointProducerBuilder basic() {
+            return (JcrEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -680,12 +691,12 @@ public interface JcrEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JcrEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJcrEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -705,26 +716,15 @@ public interface JcrEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JcrEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJcrEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the JCR component.
-     */
-    public interface AdvancedJcrEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default JcrEndpointProducerBuilder basic() {
-            return (JcrEndpointProducerBuilder) this;
         }
     }
 
@@ -1004,6 +1004,19 @@ public interface JcrEndpointBuilderFactory {
          * Since: 1.3
          * Maven coordinates: org.apache.camel:camel-jcr
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JcrHeaderNameBuilder jcr() {
+            return JcrHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * JCR (camel-jcr)
+         * Read and write nodes to/from a JCR compliant content repository.
+         * 
+         * Category: database,cms
+         * Since: 1.3
+         * Maven coordinates: org.apache.camel:camel-jcr
+         * 
          * Syntax: <code>jcr:host/base</code>
          * 
          * Path parameter: host (required)
@@ -1043,6 +1056,59 @@ public interface JcrEndpointBuilderFactory {
          */
         default JcrEndpointBuilder jcr(String componentName, String path) {
             return JcrEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the JCR component.
+     */
+    public static class JcrHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JcrHeaderNameBuilder INSTANCE = new JcrHeaderNameBuilder();
+
+        /**
+         * The name of the target node.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Default: The exchange id
+         * Group: producer
+         * 
+         * @return the name of the header {@code JcrNodeName}.
+         */
+        public String jcrNodeName() {
+            return "JcrNodeName";
+        }
+
+        /**
+         * The operation to perform. Possible values: CamelJcrInsert or
+         * CamelJcrGetById.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Default: CamelJcrInsert
+         * Group: producer
+         * 
+         * @return the name of the header {@code JcrOperation}.
+         */
+        public String jcrOperation() {
+            return "JcrOperation";
+        }
+
+        /**
+         * The node type of the target node.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JcrNodeType}.
+         */
+        public String jcrNodeType() {
+            return "JcrNodeType";
         }
     }
     static JcrEndpointBuilder endpointBuilder(String componentName, String path) {

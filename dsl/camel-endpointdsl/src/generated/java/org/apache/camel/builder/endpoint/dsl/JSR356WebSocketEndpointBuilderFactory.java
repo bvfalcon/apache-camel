@@ -77,6 +77,18 @@ public interface JSR356WebSocketEndpointBuilderFactory {
             doSetProperty("sessionCount", sessionCount);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Javax Websocket
+     * component.
+     */
+    public interface AdvancedJSR356WebSocketEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default JSR356WebSocketEndpointConsumerBuilder basic() {
+            return (JSR356WebSocketEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -89,12 +101,12 @@ public interface JSR356WebSocketEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default JSR356WebSocketEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedJSR356WebSocketEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -112,27 +124,15 @@ public interface JSR356WebSocketEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default JSR356WebSocketEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedJSR356WebSocketEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Javax Websocket
-     * component.
-     */
-    public interface AdvancedJSR356WebSocketEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default JSR356WebSocketEndpointConsumerBuilder basic() {
-            return (JSR356WebSocketEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -249,6 +249,18 @@ public interface JSR356WebSocketEndpointBuilderFactory {
             doSetProperty("sessionCount", sessionCount);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Javax Websocket
+     * component.
+     */
+    public interface AdvancedJSR356WebSocketEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default JSR356WebSocketEndpointProducerBuilder basic() {
+            return (JSR356WebSocketEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -263,12 +275,12 @@ public interface JSR356WebSocketEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JSR356WebSocketEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJSR356WebSocketEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -288,27 +300,15 @@ public interface JSR356WebSocketEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JSR356WebSocketEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJSR356WebSocketEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Javax Websocket
-     * component.
-     */
-    public interface AdvancedJSR356WebSocketEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default JSR356WebSocketEndpointProducerBuilder basic() {
-            return (JSR356WebSocketEndpointProducerBuilder) this;
         }
     }
 
@@ -377,6 +377,19 @@ public interface JSR356WebSocketEndpointBuilderFactory {
          * Since: 2.23
          * Maven coordinates: org.apache.camel:camel-websocket-jsr356
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JSR356WebSocketHeaderNameBuilder websocketJsr356() {
+            return JSR356WebSocketHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Javax Websocket (camel-websocket-jsr356)
+         * Expose websocket endpoints using JSR356.
+         * 
+         * Category: http
+         * Since: 2.23
+         * Maven coordinates: org.apache.camel:camel-websocket-jsr356
+         * 
          * Syntax: <code>websocket-jsr356:uri</code>
          * 
          * Path parameter: uri
@@ -414,6 +427,44 @@ public interface JSR356WebSocketEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return JSR356WebSocketEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Javax Websocket component.
+     */
+    public static class JSR356WebSocketHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JSR356WebSocketHeaderNameBuilder INSTANCE = new JSR356WebSocketHeaderNameBuilder();
+
+        /**
+         * The session.
+         * 
+         * The option is a: {@code javax.websocket.Session} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code jsr356.session}.
+         */
+        public String jsr356Session() {
+            return "jsr356.session";
+        }
+
+        /**
+         * Use incoming session.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * jsr356.producer.session.incoming.use}.
+         */
+        public String jsr356ProducerSessionIncomingUse() {
+            return "jsr356.producer.session.incoming.use";
         }
     }
     static JSR356WebSocketEndpointBuilder endpointBuilder(

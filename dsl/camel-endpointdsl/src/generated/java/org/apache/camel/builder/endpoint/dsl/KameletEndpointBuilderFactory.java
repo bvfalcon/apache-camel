@@ -43,22 +43,16 @@ public interface KameletEndpointBuilderFactory {
         default AdvancedKameletEndpointConsumerBuilder advanced() {
             return (AdvancedKameletEndpointConsumerBuilder) this;
         }
-        /**
-         * Location of the Kamelet to use which can be specified as a resource
-         * from file system, classpath etc. The location cannot use wildcards,
-         * and must refer to a file including extension, for example
-         * file:/etc/foo-kamelet.xml.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param location the value to set
-         * @return the dsl builder
-         */
-        default KameletEndpointConsumerBuilder location(String location) {
-            doSetProperty("location", location);
-            return this;
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the Kamelet component.
+     */
+    public interface AdvancedKameletEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default KameletEndpointConsumerBuilder basic() {
+            return (KameletEndpointConsumerBuilder) this;
         }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
@@ -72,12 +66,12 @@ public interface KameletEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default KameletEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedKameletEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -95,26 +89,15 @@ public interface KameletEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default KameletEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedKameletEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the Kamelet component.
-     */
-    public interface AdvancedKameletEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default KameletEndpointConsumerBuilder basic() {
-            return (KameletEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -186,6 +169,23 @@ public interface KameletEndpointBuilderFactory {
             doSetProperty("exchangePattern", exchangePattern);
             return this;
         }
+        /**
+         * Location of the Kamelet to use which can be specified as a resource
+         * from file system, classpath etc. The location cannot use wildcards,
+         * and must refer to a file including extension, for example
+         * file:/etc/foo-kamelet.xml.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param location the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKameletEndpointConsumerBuilder location(String location) {
+            doSetProperty("location", location);
+            return this;
+        }
     }
 
     /**
@@ -197,22 +197,16 @@ public interface KameletEndpointBuilderFactory {
         default AdvancedKameletEndpointProducerBuilder advanced() {
             return (AdvancedKameletEndpointProducerBuilder) this;
         }
-        /**
-         * Location of the Kamelet to use which can be specified as a resource
-         * from file system, classpath etc. The location cannot use wildcards,
-         * and must refer to a file including extension, for example
-         * file:/etc/foo-kamelet.xml.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param location the value to set
-         * @return the dsl builder
-         */
-        default KameletEndpointProducerBuilder location(String location) {
-            doSetProperty("location", location);
-            return this;
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Kamelet component.
+     */
+    public interface AdvancedKameletEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default KameletEndpointProducerBuilder basic() {
+            return (KameletEndpointProducerBuilder) this;
         }
         /**
          * If sending a message to a direct endpoint which has no active
@@ -222,12 +216,12 @@ public interface KameletEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: true
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param block the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder block(boolean block) {
+        default AdvancedKameletEndpointProducerBuilder block(boolean block) {
             doSetProperty("block", block);
             return this;
         }
@@ -240,12 +234,12 @@ public interface KameletEndpointBuilderFactory {
          * type.
          * 
          * Default: true
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param block the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder block(String block) {
+        default AdvancedKameletEndpointProducerBuilder block(String block) {
             doSetProperty("block", block);
             return this;
         }
@@ -256,12 +250,12 @@ public interface KameletEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: true
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param failIfNoConsumers the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder failIfNoConsumers(
+        default AdvancedKameletEndpointProducerBuilder failIfNoConsumers(
                 boolean failIfNoConsumers) {
             doSetProperty("failIfNoConsumers", failIfNoConsumers);
             return this;
@@ -274,12 +268,12 @@ public interface KameletEndpointBuilderFactory {
          * type.
          * 
          * Default: true
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param failIfNoConsumers the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder failIfNoConsumers(
+        default AdvancedKameletEndpointProducerBuilder failIfNoConsumers(
                 String failIfNoConsumers) {
             doSetProperty("failIfNoConsumers", failIfNoConsumers);
             return this;
@@ -298,12 +292,12 @@ public interface KameletEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder lazyStartProducer(
+        default AdvancedKameletEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -323,12 +317,12 @@ public interface KameletEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder lazyStartProducer(
+        default AdvancedKameletEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -339,12 +333,12 @@ public interface KameletEndpointBuilderFactory {
          * The option is a: &lt;code&gt;long&lt;/code&gt; type.
          * 
          * Default: 30000
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param timeout the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder timeout(long timeout) {
+        default AdvancedKameletEndpointProducerBuilder timeout(long timeout) {
             doSetProperty("timeout", timeout);
             return this;
         }
@@ -354,25 +348,31 @@ public interface KameletEndpointBuilderFactory {
          * The option will be converted to a &lt;code&gt;long&lt;/code&gt; type.
          * 
          * Default: 30000
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param timeout the value to set
          * @return the dsl builder
          */
-        default KameletEndpointProducerBuilder timeout(String timeout) {
+        default AdvancedKameletEndpointProducerBuilder timeout(String timeout) {
             doSetProperty("timeout", timeout);
             return this;
         }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Kamelet component.
-     */
-    public interface AdvancedKameletEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default KameletEndpointProducerBuilder basic() {
-            return (KameletEndpointProducerBuilder) this;
+        /**
+         * Location of the Kamelet to use which can be specified as a resource
+         * from file system, classpath etc. The location cannot use wildcards,
+         * and must refer to a file including extension, for example
+         * file:/etc/foo-kamelet.xml.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param location the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKameletEndpointProducerBuilder location(String location) {
+            doSetProperty("location", location);
+            return this;
         }
     }
 
@@ -386,23 +386,6 @@ public interface KameletEndpointBuilderFactory {
         default AdvancedKameletEndpointBuilder advanced() {
             return (AdvancedKameletEndpointBuilder) this;
         }
-        /**
-         * Location of the Kamelet to use which can be specified as a resource
-         * from file system, classpath etc. The location cannot use wildcards,
-         * and must refer to a file including extension, for example
-         * file:/etc/foo-kamelet.xml.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: common
-         * 
-         * @param location the value to set
-         * @return the dsl builder
-         */
-        default KameletEndpointBuilder location(String location) {
-            doSetProperty("location", location);
-            return this;
-        }
     }
 
     /**
@@ -414,6 +397,23 @@ public interface KameletEndpointBuilderFactory {
                 AdvancedKameletEndpointProducerBuilder {
         default KameletEndpointBuilder basic() {
             return (KameletEndpointBuilder) this;
+        }
+        /**
+         * Location of the Kamelet to use which can be specified as a resource
+         * from file system, classpath etc. The location cannot use wildcards,
+         * and must refer to a file including extension, for example
+         * file:/etc/foo-kamelet.xml.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: advanced
+         * 
+         * @param location the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKameletEndpointBuilder location(String location) {
+            doSetProperty("location", location);
+            return this;
         }
     }
 

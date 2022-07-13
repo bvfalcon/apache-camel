@@ -157,51 +157,6 @@ public interface EhcacheEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default EhcacheEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default EhcacheEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Set the delivery mode (synchronous, asynchronous).
          * 
          * The option is a:
@@ -294,6 +249,51 @@ public interface EhcacheEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default EhcacheEndpointConsumerBuilder basic() {
             return (EhcacheEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedEhcacheEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedEhcacheEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -629,6 +629,17 @@ public interface EhcacheEndpointBuilderFactory {
             doSetProperty("key", key);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Ehcache component.
+     */
+    public interface AdvancedEhcacheEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default EhcacheEndpointProducerBuilder basic() {
+            return (EhcacheEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -643,12 +654,12 @@ public interface EhcacheEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default EhcacheEndpointProducerBuilder lazyStartProducer(
+        default AdvancedEhcacheEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -668,26 +679,15 @@ public interface EhcacheEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default EhcacheEndpointProducerBuilder lazyStartProducer(
+        default AdvancedEhcacheEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Ehcache component.
-     */
-    public interface AdvancedEhcacheEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default EhcacheEndpointProducerBuilder basic() {
-            return (EhcacheEndpointProducerBuilder) this;
         }
         /**
          * The default cache configuration to be used to create caches.
@@ -1023,6 +1023,19 @@ public interface EhcacheEndpointBuilderFactory {
          * Since: 2.18
          * Maven coordinates: org.apache.camel:camel-ehcache
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default EhcacheHeaderNameBuilder ehcache() {
+            return EhcacheHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Ehcache (camel-ehcache)
+         * Perform caching operations using Ehcache.
+         * 
+         * Category: cache,datagrid,clustering
+         * Since: 2.18
+         * Maven coordinates: org.apache.camel:camel-ehcache
+         * 
          * Syntax: <code>ehcache:cacheName</code>
          * 
          * Path parameter: cacheName (required)
@@ -1054,6 +1067,123 @@ public interface EhcacheEndpointBuilderFactory {
          */
         default EhcacheEndpointBuilder ehcache(String componentName, String path) {
             return EhcacheEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Ehcache component.
+     */
+    public static class EhcacheHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final EhcacheHeaderNameBuilder INSTANCE = new EhcacheHeaderNameBuilder();
+
+        /**
+         * The operation to be performed on the cache, valid options are: CLEAR
+         * PUT PUT_ALL PUT_IF_ABSENT GET GET_ALL REMOVE REMOVE_ALL REPLACE.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheAction}.
+         */
+        public String ehcacheAction() {
+            return "EhcacheAction";
+        }
+
+        /**
+         * Set to true if the action has a result.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheActionHasResult}.
+         */
+        public String ehcacheActionHasResult() {
+            return "EhcacheActionHasResult";
+        }
+
+        /**
+         * Set to true if the action was successful.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheActionSucceeded}.
+         */
+        public String ehcacheActionSucceeded() {
+            return "EhcacheActionSucceeded";
+        }
+
+        /**
+         * The cache key used for an action.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheKey}.
+         */
+        public String ehcacheKey() {
+            return "EhcacheKey";
+        }
+
+        /**
+         * A list of keys, used in PUT_ALL GET_ALL REMOVE_ALL.
+         * 
+         * The option is a: {@code Set<Object>} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheKeys}.
+         */
+        public String ehcacheKeys() {
+            return "EhcacheKeys";
+        }
+
+        /**
+         * The value to put in the cache or the result of an operation.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheValue}.
+         */
+        public String ehcacheValue() {
+            return "EhcacheValue";
+        }
+
+        /**
+         * The old value associated to a key for actions like PUT_IF_ABSENT or
+         * the Object used for comparison for actions like REPLACE.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheOldValue}.
+         */
+        public String ehcacheOldValue() {
+            return "EhcacheOldValue";
+        }
+
+        /**
+         * The type of event received.
+         * 
+         * The option is a: {@code EventType} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EhcacheEventType}.
+         */
+        public String ehcacheEventType() {
+            return "EhcacheEventType";
         }
     }
     static EhcacheEndpointBuilder endpointBuilder(

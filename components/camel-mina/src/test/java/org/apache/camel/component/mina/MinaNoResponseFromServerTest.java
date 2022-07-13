@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class MinaNoResponseFromServerTest extends BaseMinaTest {
 
     @BindToRegistry("myCodec")
-    private MyCodec codec1 = new MyCodec();
+    private final MyCodec codec1 = new MyCodec();
 
     @Test
     public void testNoResponse() throws Exception {
@@ -60,7 +60,7 @@ public class MinaNoResponseFromServerTest extends BaseMinaTest {
         return new RouteBuilder() {
 
             public void configure() {
-                from(String.format("mina:tcp://localhost:%1$s?sync=true&codec=#myCodec", getPort()))
+                fromF("mina:tcp://localhost:%1$s?sync=true&codec=#myCodec", getPort())
                         .transform(constant("Bye World")).to("mock:result");
             }
         };

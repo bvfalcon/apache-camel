@@ -24,6 +24,9 @@ import org.apache.camel.Processor;
 import org.apache.camel.resume.ResumeAware;
 import org.apache.camel.resume.ResumeStrategy;
 import org.apache.camel.support.DefaultConsumer;
+import org.apache.camel.support.resume.ResumeStrategyHelper;
+
+import static org.apache.camel.component.couchdb.CouchDbConstants.COUCHDB_RESUME_ACTION;
 
 public class CouchDbConsumer extends DefaultConsumer implements ResumeAware<ResumeStrategy> {
 
@@ -62,12 +65,15 @@ public class CouchDbConsumer extends DefaultConsumer implements ResumeAware<Resu
 
     @Override
     protected void doStart() throws Exception {
+        ResumeStrategyHelper.resume(getEndpoint().getCamelContext(), this, resumeStrategy, COUCHDB_RESUME_ACTION);
+
         super.doStart();
 
         executor = endpoint.getCamelContext().getExecutorServiceManager().newFixedThreadPool(this, endpoint.getEndpointUri(),
                 1);
         task = new CouchDbChangesetTracker(endpoint, this, couchClient);
         executor.submit(task);
+
     }
 
     @Override

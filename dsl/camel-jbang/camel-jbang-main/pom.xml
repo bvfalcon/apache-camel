@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jbang-parent</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -38,9 +38,10 @@
     <properties>
         <firstVersion>3.12.0</firstVersion>
         <label>jbang</label>
-        <supportLevel>Experimental</supportLevel>
+        <supportLevel>Preview</supportLevel>
         <checkstyle.skip>true</checkstyle.skip>
         <dist.dir>dist</dist.dir>
+        <camel-prepare-component>false</camel-prepare-component>
     </properties>
 
     <dependencies>

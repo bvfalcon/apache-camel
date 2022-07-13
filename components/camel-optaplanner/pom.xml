@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-optaplanner</artifactId>
@@ -58,6 +58,10 @@
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

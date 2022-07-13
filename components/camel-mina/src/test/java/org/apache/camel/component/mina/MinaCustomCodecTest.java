@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.mina;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ResolveEndpointFailedException;
@@ -35,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit test with custom codec.
@@ -43,10 +44,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class MinaCustomCodecTest extends BaseMinaTest {
 
     @BindToRegistry("myCodec")
-    private MyCodec codec1 = new MyCodec();
+    private final MyCodec codec1 = new MyCodec();
 
     @BindToRegistry("failingCodec")
-    private MyCodec codec2 = new MyCodec(true);
+    private final MyCodec codec2 = new MyCodec(true);
 
     @Test
     public void testMyCodec() throws Exception {
@@ -66,21 +67,19 @@ public class MinaCustomCodecTest extends BaseMinaTest {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(1);
 
-        try {
-            template.requestBody(String.format("mina:tcp://localhost:%1$s?sync=true&codec=#failingCodec", getPort()),
-                    "Hello World");
-            fail("Expecting that decode of result fails");
-        } catch (Exception e) {
-            assertTrue(e instanceof CamelExecutionException);
-            assertNotNull(e.getCause());
-            Throwable rootCause = e;
-            while (rootCause.getCause() != null) {
-                rootCause = rootCause.getCause();
-            }
-            assertTrue(rootCause instanceof IllegalArgumentException);
-            assertTrue(rootCause.getMessage().contains("Something went wrong in decode"));
-        }
+        Exception e = assertThrows(CamelExecutionException.class,
+                () -> template.requestBody(String.format("mina:tcp://localhost:%1$s?sync=true&codec=#failingCodec", getPort()),
+                        "Hello World"),
+                "Expecting that decode of result fails");
 
+        assertTrue(e instanceof CamelExecutionException);
+        assertNotNull(e.getCause());
+        Throwable rootCause = e;
+        while (rootCause.getCause() != null) {
+            rootCause = rootCause.getCause();
+        }
+        assertTrue(rootCause instanceof IllegalArgumentException);
+        assertTrue(rootCause.getMessage().contains("Something went wrong in decode"));
     }
 
     @Test
@@ -120,7 +119,7 @@ public class MinaCustomCodecTest extends BaseMinaTest {
 
             @Override
             public void configure() {
-                from(String.format("mina:tcp://localhost:%1$s?sync=true&codec=#myCodec", getPort()))
+                fromF("mina:tcp://localhost:%1$s?sync=true&codec=#myCodec", getPort())
                         .transform(constant("Bye World")).to("mock:result");
             }
         };
@@ -146,7 +145,7 @@ public class MinaCustomCodecTest extends BaseMinaTest {
                 public void encode(IoSession ioSession, Object message, ProtocolEncoderOutput out) throws Exception {
                     IoBuffer bb = IoBuffer.allocate(32).setAutoExpand(true);
                     String s = (String) message;
-                    bb.put(s.getBytes("US-ASCII"));
+                    bb.put(s.getBytes(StandardCharsets.US_ASCII));
                     bb.flip();
                     out.write(bb);
                 }
@@ -172,7 +171,7 @@ public class MinaCustomCodecTest extends BaseMinaTest {
                     if (in.remaining() > 0) {
                         byte[] buf = new byte[in.remaining()];
                         in.get(buf);
-                        out.write(new String(buf, "US-ASCII"));
+                        out.write(new String(buf, StandardCharsets.US_ASCII));
                         return true;
                     } else {
                         return false;

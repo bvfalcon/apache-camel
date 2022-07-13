@@ -42,6 +42,7 @@ import org.apache.camel.Suspendable;
 import org.apache.camel.SuspendableService;
 import org.apache.camel.resume.ConsumerListener;
 import org.apache.camel.resume.ConsumerListenerAware;
+import org.apache.camel.resume.ResumeAdapter;
 import org.apache.camel.resume.ResumeAware;
 import org.apache.camel.resume.ResumeStrategy;
 import org.apache.camel.spi.IdAware;
@@ -54,6 +55,7 @@ import org.apache.camel.spi.RouteIdAware;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.support.LoggerHelper;
 import org.apache.camel.support.PatternHelper;
+import org.apache.camel.support.resume.AdapterHelper;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.support.service.ServiceSupport;
 import org.apache.camel.util.ObjectHelper;
@@ -74,6 +76,7 @@ public class DefaultRoute extends ServiceSupport implements Route {
     private final String routeDescription;
     private final Resource sourceResource;
     private final String sourceLocation;
+    private final String sourceLocationShort;
     private final List<Processor> eventDrivenProcessors = new ArrayList<>();
     private final List<InterceptStrategy> interceptStrategies = new ArrayList<>(0);
     private ManagementInterceptStrategy managementInterceptStrategy;
@@ -118,7 +121,8 @@ public class DefaultRoute extends ServiceSupport implements Route {
         this.routeDescription = routeDescription;
         this.endpoint = endpoint;
         this.sourceResource = resource;
-        this.sourceLocation = LoggerHelper.getLineNumberLoggerName(route);
+        this.sourceLocation = LoggerHelper.getSourceLocation(route);
+        this.sourceLocationShort = LoggerHelper.getLineNumberLoggerName(route);
     }
 
     @Override
@@ -188,6 +192,11 @@ public class DefaultRoute extends ServiceSupport implements Route {
     @Override
     public String getSourceLocation() {
         return sourceLocation;
+    }
+
+    @Override
+    public String getSourceLocationShort() {
+        return sourceLocationShort;
     }
 
     @Override
@@ -634,7 +643,9 @@ public class DefaultRoute extends ServiceSupport implements Route {
                 ((RouteIdAware) consumer).setRouteId(this.getId());
             }
 
-            if (consumer instanceof ResumeAware) {
+            if (consumer instanceof ResumeAware && resumeStrategy != null) {
+                ResumeAdapter resumeAdapter = AdapterHelper.eval(getCamelContext(), consumer);
+                resumeStrategy.setAdapter(resumeAdapter);
                 ((ResumeAware) consumer).setResumeStrategy(resumeStrategy);
             }
 

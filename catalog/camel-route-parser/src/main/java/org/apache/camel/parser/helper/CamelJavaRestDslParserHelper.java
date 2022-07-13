@@ -60,7 +60,7 @@ import org.jboss.forge.roaster.model.source.MethodSource;
 public final class CamelJavaRestDslParserHelper {
 
     public List<RestConfigurationDetails> parseRestConfiguration(
-            JavaClassSource clazz, String baseDir, String fullyQualifiedFileName,
+            JavaClassSource clazz, String fullyQualifiedFileName,
             MethodSource<JavaClassSource> configureMethod) {
 
         List<RestConfigurationDetails> answer = new ArrayList<>();
@@ -94,7 +94,7 @@ public final class CamelJavaRestDslParserHelper {
                             node.setClassName(clazz.getQualifiedName());
                             node.setMethodName(configureMethod.getName());
 
-                            parseExpression(node, fullyQualifiedFileName, clazz, configureMethod, block, exp);
+                            parseExpression(node, fullyQualifiedFileName, clazz, block, exp);
                         }
                     }
                 }
@@ -105,7 +105,7 @@ public final class CamelJavaRestDslParserHelper {
     }
 
     public List<RestServiceDetails> parseRestService(
-            JavaClassSource clazz, String baseDir, String fullyQualifiedFileName,
+            JavaClassSource clazz, String fullyQualifiedFileName,
             MethodSource<JavaClassSource> configureMethod) {
 
         List<RestServiceDetails> answer = new ArrayList<>();
@@ -139,7 +139,7 @@ public final class CamelJavaRestDslParserHelper {
                             node.setClassName(clazz.getQualifiedName());
                             node.setMethodName(configureMethod.getName());
 
-                            parseExpression(node, null, fullyQualifiedFileName, clazz, configureMethod, block, exp);
+                            parseExpression(node, null, fullyQualifiedFileName, clazz, block, exp);
 
                             // flip order of verbs as we parse bottom-up
                             if (node.getVerbs() != null) {
@@ -155,30 +155,13 @@ public final class CamelJavaRestDslParserHelper {
     }
 
     private boolean isRestConfiguration(Expression exp) {
-        String rootMethodName = null;
-
-        // find out if this is from a Camel route (eg from, route etc.)
-        Expression sub = exp;
-        while (sub instanceof MethodInvocation) {
-            sub = ((MethodInvocation) sub).getExpression();
-            if (sub instanceof MethodInvocation) {
-                Expression parent = ((MethodInvocation) sub).getExpression();
-                if (parent == null) {
-                    break;
-                }
-            }
-        }
-        if (sub instanceof MethodInvocation) {
-            rootMethodName = ((MethodInvocation) sub).getName().getIdentifier();
-        } else if (sub instanceof SimpleName) {
-            rootMethodName = ((SimpleName) sub).getIdentifier();
-        }
+        final String rootMethodName = findRootMethodName(exp);
 
         // must be from rest configuration
         return "restConfiguration".equals(rootMethodName);
     }
 
-    private boolean isRest(Expression exp) {
+    private String findRootMethodName(Expression exp) {
         String rootMethodName = null;
 
         // find out if this is from a Camel route (eg from, route etc.)
@@ -197,6 +180,11 @@ public final class CamelJavaRestDslParserHelper {
         } else if (sub instanceof SimpleName) {
             rootMethodName = ((SimpleName) sub).getIdentifier();
         }
+        return rootMethodName;
+    }
+
+    private boolean isRest(Expression exp) {
+        final String rootMethodName = findRootMethodName(exp);
 
         // must be from rest
         return "rest".equals(rootMethodName);
@@ -204,23 +192,23 @@ public final class CamelJavaRestDslParserHelper {
 
     private void parseExpression(
             RestConfigurationDetails node, String fullyQualifiedFileName,
-            JavaClassSource clazz, MethodSource<JavaClassSource> configureMethod, Block block,
+            JavaClassSource clazz, Block block,
             Expression exp) {
         if (exp == null) {
             return;
         }
         if (exp instanceof MethodInvocation) {
             MethodInvocation mi = (MethodInvocation) exp;
-            doParseRestConfiguration(node, fullyQualifiedFileName, clazz, configureMethod, block, mi);
+            doParseRestConfiguration(node, fullyQualifiedFileName, clazz, block, mi);
             // if the method was called on another method, then recursive
             exp = mi.getExpression();
-            parseExpression(node, fullyQualifiedFileName, clazz, configureMethod, block, exp);
+            parseExpression(node, fullyQualifiedFileName, clazz, block, exp);
         }
     }
 
     private void parseExpression(
             RestServiceDetails node, RestVerbDetails verb, String fullyQualifiedFileName,
-            JavaClassSource clazz, MethodSource<JavaClassSource> configureMethod, Block block,
+            JavaClassSource clazz, Block block,
             Expression exp) {
         if (exp == null) {
             // this rest service is not complete, if there is any details on verb then they are actually general
@@ -237,16 +225,16 @@ public final class CamelJavaRestDslParserHelper {
         }
         if (exp instanceof MethodInvocation) {
             MethodInvocation mi = (MethodInvocation) exp;
-            verb = doParseRestService(node, verb, fullyQualifiedFileName, clazz, configureMethod, block, mi);
+            verb = doParseRestService(node, verb, fullyQualifiedFileName, clazz, block, mi);
             // if the method was called on another method, then recursive
             exp = mi.getExpression();
-            parseExpression(node, verb, fullyQualifiedFileName, clazz, configureMethod, block, exp);
+            parseExpression(node, verb, fullyQualifiedFileName, clazz, block, exp);
         }
     }
 
     private void doParseRestConfiguration(
             RestConfigurationDetails node, String fullyQualifiedFileName,
-            JavaClassSource clazz, MethodSource<JavaClassSource> configureMethod, Block block,
+            JavaClassSource clazz, Block block,
             MethodInvocation mi) {
 
         // end line number is the first node in the method chain we parse
@@ -324,7 +312,7 @@ public final class CamelJavaRestDslParserHelper {
 
     private RestVerbDetails doParseRestService(
             RestServiceDetails node, RestVerbDetails verb, String fullyQualifiedFileName,
-            JavaClassSource clazz, MethodSource<JavaClassSource> configureMethod, Block block,
+            JavaClassSource clazz, Block block,
             MethodInvocation mi) {
 
         // end line number is the first node in the method chain we parse
@@ -340,14 +328,14 @@ public final class CamelJavaRestDslParserHelper {
         if ("rest".equals(name)) {
             node.setPath(extractValueFromFirstArgument(clazz, block, mi));
         } else if (isParentMethod(mi, "rest")) {
-            verb = doParseRestVerb(node, verb, clazz, configureMethod, block, mi);
+            verb = doParseRestVerb(node, verb, clazz, block, mi);
         }
         return verb;
     }
 
     private RestVerbDetails doParseRestVerb(
             RestServiceDetails node, RestVerbDetails verb,
-            JavaClassSource clazz, MethodSource<JavaClassSource> configureMethod, Block block,
+            JavaClassSource clazz, Block block,
             MethodInvocation mi) {
         if (verb == null) {
             verb = new RestVerbDetails();

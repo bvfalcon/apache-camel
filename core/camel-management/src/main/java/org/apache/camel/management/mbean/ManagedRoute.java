@@ -18,6 +18,7 @@ package org.apache.camel.management.mbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -73,6 +74,7 @@ public class ManagedRoute extends ManagedPerformanceCounter implements TimerList
     protected final String description;
     protected final String configurationId;
     protected final String sourceLocation;
+    protected final String sourceLocationShort;
     protected final CamelContext context;
     private final LoadTriplet load = new LoadTriplet();
     private final String jmxDomain;
@@ -82,7 +84,8 @@ public class ManagedRoute extends ManagedPerformanceCounter implements TimerList
         this.context = context;
         this.description = route.getDescription();
         this.configurationId = route.getConfigurationId();
-        this.sourceLocation = route.getSourceResource() != null ? route.getSourceResource().getLocation() : null;
+        this.sourceLocation = route.getSourceLocation();
+        this.sourceLocationShort = route.getSourceLocationShort();
         this.jmxDomain = context.getManagementStrategy().getManagementAgent().getMBeanObjectDomainName();
     }
 
@@ -149,6 +152,11 @@ public class ManagedRoute extends ManagedPerformanceCounter implements TimerList
     @Override
     public String getSourceLocation() {
         return sourceLocation;
+    }
+
+    @Override
+    public String getSourceLocationShort() {
+        return null;
     }
 
     @Override
@@ -689,6 +697,30 @@ public class ManagedRoute extends ManagedPerformanceCounter implements TimerList
                 }
             };
         }
+    }
+
+    @Override
+    public Collection<String> processorIds() throws Exception {
+        List<String> ids = new ArrayList<>();
+
+        MBeanServer server = getContext().getManagementStrategy().getManagementAgent().getMBeanServer();
+        if (server != null) {
+            String prefix = getContext().getManagementStrategy().getManagementAgent().getIncludeHostName() ? "*/" : "";
+            // gather all the processors for this CamelContext, which requires JMX
+            ObjectName query = ObjectName
+                    .getInstance(jmxDomain + ":context=" + prefix + getContext().getManagementName() + ",type=processors,*");
+            Set<ObjectName> names = server.queryNames(query, null);
+            for (ObjectName on : names) {
+                ManagedProcessorMBean processor
+                        = context.getManagementStrategy().getManagementAgent().newProxyClient(on, ManagedProcessorMBean.class);
+                // the processor must belong to this route
+                if (getRouteId().equals(processor.getRouteId())) {
+                    ids.add(processor.getProcessorId());
+                }
+            }
+        }
+
+        return ids;
     }
 
     private Integer getInflightExchanges() {

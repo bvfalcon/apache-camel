@@ -206,51 +206,6 @@ public interface JettyHttpEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JettyHttpEndpointBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JettyHttpEndpointBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Allows to set a timeout in millis when using Jetty as consumer
          * (server). By default Jetty uses 30000. You can use a value of = 0 to
          * never expire. If a timeout occurs then the request will be expired
@@ -778,6 +733,51 @@ public interface JettyHttpEndpointBuilderFactory {
             return this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJettyHttpEndpointBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJettyHttpEndpointBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * Whether to eager check whether the HTTP requests has content if the
          * content-length header is 0 or not present. This can be turned on in
          * case HTTP clients do not send streamed data.
@@ -1224,6 +1224,19 @@ public interface JettyHttpEndpointBuilderFactory {
          * Since: 1.2
          * Maven coordinates: org.apache.camel:camel-jetty
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JettyHttpHeaderNameBuilder jetty() {
+            return JettyHttpHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Jetty (camel-jetty)
+         * Expose HTTP endpoints using Jetty 9.
+         * 
+         * Category: http
+         * Since: 1.2
+         * Maven coordinates: org.apache.camel:camel-jetty
+         * 
          * Syntax: <code>jetty:httpUri</code>
          * 
          * Path parameter: httpUri (required)
@@ -1255,6 +1268,44 @@ public interface JettyHttpEndpointBuilderFactory {
          */
         default JettyHttpEndpointBuilder jetty(String componentName, String path) {
             return JettyHttpEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Jetty component.
+     */
+    public static class JettyHttpHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JettyHttpHeaderNameBuilder INSTANCE = new JettyHttpHeaderNameBuilder();
+
+        /**
+         * The servlet context path used.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ServletContextPath}.
+         */
+        public String servletContextPath() {
+            return "ServletContextPath";
+        }
+
+        /**
+         * Request URI's path, the header will be used to build the request URI
+         * with the HTTP_URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HttpPath}.
+         */
+        public String httpPath() {
+            return "HttpPath";
         }
     }
     static JettyHttpEndpointBuilder endpointBuilder(

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-jmx</artifactId>
@@ -134,6 +134,7 @@
                                     <xsd>${basedir}/src/main/resources/notifications.xsd</xsd>
                                     <packagename>org.apache.camel.component.jmx.jaxb</packagename>
                                     <extensionArgs>
+                                        <extensionArg>-no-header</extensionArg>
                                         <extensionArg>-Xfluent-api</extensionArg>
                                     </extensionArgs>
                                 </xsdOption>

@@ -40,6 +40,9 @@ public interface SecretsManagerEndpointBuilderFactory {
     public interface SecretsManagerEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedSecretsManagerEndpointBuilder advanced() {
+            return (AdvancedSecretsManagerEndpointBuilder) this;
+        }
         /**
          * Set if the secret is binary or not.
          * 
@@ -70,55 +73,6 @@ public interface SecretsManagerEndpointBuilderFactory {
          */
         default SecretsManagerEndpointBuilder binaryPayload(String binaryPayload) {
             doSetProperty("binaryPayload", binaryPayload);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SecretsManagerEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default SecretsManagerEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -465,7 +419,80 @@ public interface SecretsManagerEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Secrets Manager component.
+     */
+    public interface AdvancedSecretsManagerEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default SecretsManagerEndpointBuilder basic() {
+            return (SecretsManagerEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSecretsManagerEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedSecretsManagerEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface SecretsManagerBuilders {
+        /**
+         * AWS Secrets Manager (camel-aws-secrets-manager)
+         * Manage AWS Secrets Manager services using AWS SDK version 2.x.
+         * 
+         * Category: cloud,management
+         * Since: 3.9
+         * Maven coordinates: org.apache.camel:camel-aws-secrets-manager
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default SecretsManagerHeaderNameBuilder awsSecretsManager() {
+            return SecretsManagerHeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Secrets Manager (camel-aws-secrets-manager)
          * Manage AWS Secrets Manager services using AWS SDK version 2.x.
@@ -509,10 +536,129 @@ public interface SecretsManagerEndpointBuilderFactory {
             return SecretsManagerEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Secrets Manager component.
+     */
+    public static class SecretsManagerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final SecretsManagerHeaderNameBuilder INSTANCE = new SecretsManagerHeaderNameBuilder();
+
+        /**
+         * The operation we want to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSecretsManagerOperation}.
+         */
+        public String awsSecretsManagerOperation() {
+            return "AwsSecretsManagerOperation";
+        }
+
+        /**
+         * The number of results to include in the response.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSecretsManagerMaxResults}.
+         */
+        public String awsSecretsManagerMaxResults() {
+            return "AwsSecretsManagerMaxResults";
+        }
+
+        /**
+         * The name of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSecretsManagerSecretName}.
+         */
+        public String awsSecretsManagerSecretName() {
+            return "AwsSecretsManagerSecretName";
+        }
+
+        /**
+         * The description of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * AwsSecretsManagerSecretDescription}.
+         */
+        public String awsSecretsManagerSecretDescription() {
+            return "AwsSecretsManagerSecretDescription";
+        }
+
+        /**
+         * The ARN or name of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsSecretsManagerSecretId}.
+         */
+        public String awsSecretsManagerSecretId() {
+            return "AwsSecretsManagerSecretId";
+        }
+
+        /**
+         * The ARN of the Lambda rotation function that can rotate the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * AwsSecretsManagerLambdaRotationFunctionArn}.
+         */
+        public String awsSecretsManagerLambdaRotationFunctionArn() {
+            return "AwsSecretsManagerLambdaRotationFunctionArn";
+        }
+
+        /**
+         * The unique identifier of the version of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * AwsSecretsManagerSecretVersionId}.
+         */
+        public String awsSecretsManagerSecretVersionId() {
+            return "AwsSecretsManagerSecretVersionId";
+        }
+
+        /**
+         * A comma separated list of Regions in which to replicate the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * AwsSecretsManagerSecretReplicationRegions}.
+         */
+        public String awsSecretsManagerSecretReplicationRegions() {
+            return "AwsSecretsManagerSecretReplicationRegions";
+        }
+    }
     static SecretsManagerEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class SecretsManagerEndpointBuilderImpl extends AbstractEndpointBuilder implements SecretsManagerEndpointBuilder {
+        class SecretsManagerEndpointBuilderImpl extends AbstractEndpointBuilder implements SecretsManagerEndpointBuilder, AdvancedSecretsManagerEndpointBuilder {
             public SecretsManagerEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -58,12 +58,12 @@ pipeline {
            }
         }
 
-        stage('Build & Deploy') {
+        stage('Build & Install') {
             when {
                 branch 'main'
             }
             steps {
-                sh "./mvnw -U $MAVEN_PARAMS -Dmaven.test.skip.exec=true clean deploy"
+                sh "./mvnw -U $MAVEN_PARAMS -Dmaven.test.skip.exec=true clean install"
             }
         }
 
@@ -76,7 +76,7 @@ pipeline {
         stage('Code Quality Review') {
             steps {
                 withCredentials([string(credentialsId: 'apache-camel-core', variable: 'SONAR_TOKEN')]) {
-                    sh "./mvnw $MAVEN_PARAMS -Dsonar.host.url=https://sonarcloud.io -Dsonar.java.experimental.batchModeSizeInKB=2048 -Dsonar.organization=apache -Dsonar.projectKey=apache_camel org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
+                    sh "./mvnw $MAVEN_PARAMS -Dsonar.host.url=https://sonarcloud.io -Dsonar.java.experimental.batchModeSizeInKB=2048 -Dsonar.organization=apache -Dsonar.projectKey=apache_camel -Dsonar.branch.name=$BRANCH_NAME org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
                 }
             }
         }

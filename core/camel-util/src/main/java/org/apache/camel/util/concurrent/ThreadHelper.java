@@ -25,7 +25,9 @@ import org.apache.camel.util.StringHelper;
  * Various helper method for thread naming.
  */
 public final class ThreadHelper {
+
     public static final String DEFAULT_PATTERN = "Camel Thread ##counter# - #name#";
+
     private static final Pattern INVALID_PATTERN = Pattern.compile(".*#\\w+#.*");
 
     private static AtomicLong threadCounter = new AtomicLong();
@@ -56,13 +58,17 @@ public final class ThreadHelper {
         String shortName = name.contains("?") ? StringHelper.before(name, "?") : name;
 
         // replace tokens
-        String answer = pattern.replace("#counter#", Long.toString(nextThreadCounter()));
-        answer = answer.replace("#longName#", longName);
-        answer = answer.replace("#name#", shortName);
+        String answer = StringHelper.replaceFirst(pattern, "#longName#", longName);
+        if (shortName != null) {
+            answer = StringHelper.replaceFirst(answer, "#name#", shortName);
+        }
+        String next = Long.toString(nextThreadCounter());
+        answer = StringHelper.replaceFirst(answer, "#counter#", next);
 
         // are there any #word# combos left, if so they should be considered invalid tokens
         if (INVALID_PATTERN.matcher(answer).matches()) {
-            throw new IllegalArgumentException("Pattern is invalid: " + pattern);
+            throw new IllegalArgumentException(
+                    "Pattern is invalid: [" + pattern + "] in resolved thread name: [" + answer + "]");
         }
 
         return answer;

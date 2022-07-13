@@ -139,51 +139,6 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesCustomResourcesEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default KubernetesCustomResourcesEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The Consumer CRD Resource Group we would like to watch.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -559,6 +514,51 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
             return (KubernetesCustomResourcesEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesCustomResourcesEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesCustomResourcesEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -764,55 +764,6 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
         default KubernetesCustomResourcesEndpointProducerBuilder portProtocol(
                 String portProtocol) {
             doSetProperty("portProtocol", portProtocol);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesCustomResourcesEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KubernetesCustomResourcesEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1037,6 +988,55 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default KubernetesCustomResourcesEndpointProducerBuilder basic() {
             return (KubernetesCustomResourcesEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesCustomResourcesEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKubernetesCustomResourcesEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Connection timeout in milliseconds to use when making requests to the
@@ -1430,6 +1430,20 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
          * Since: 3.7
          * Maven coordinates: org.apache.camel:camel-kubernetes
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KubernetesCustomResourcesHeaderNameBuilder kubernetesCustomResources() {
+            return KubernetesCustomResourcesHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Kubernetes Custom Resources (camel-kubernetes)
+         * Perform operations on Kubernetes Custom Resources and get notified on
+         * Deployment changes.
+         * 
+         * Category: container,cloud,paas
+         * Since: 3.7
+         * Maven coordinates: org.apache.camel:camel-kubernetes
+         * 
          * Syntax: <code>kubernetes-custom-resources:masterUrl</code>
          * 
          * Path parameter: masterUrl (required)
@@ -1465,6 +1479,188 @@ public interface KubernetesCustomResourcesEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return KubernetesCustomResourcesEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Kubernetes Custom Resources
+     * component.
+     */
+    public static class KubernetesCustomResourcesHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KubernetesCustomResourcesHeaderNameBuilder INSTANCE = new KubernetesCustomResourcesHeaderNameBuilder();
+
+        /**
+         * The Producer operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesOperation}.
+         */
+        public String kubernetesOperation() {
+            return "KubernetesOperation";
+        }
+
+        /**
+         * The namespace name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesNamespaceName}.
+         */
+        public String kubernetesNamespaceName() {
+            return "KubernetesNamespaceName";
+        }
+
+        /**
+         * The deployment name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDInstanceName}.
+         */
+        public String kubernetesCRDInstanceName() {
+            return "KubernetesCRDInstanceName";
+        }
+
+        /**
+         * Timestamp of the action watched by the consumer.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesCRDEventTimestamp}.
+         */
+        public String kubernetesCRDEventTimestamp() {
+            return "KubernetesCRDEventTimestamp";
+        }
+
+        /**
+         * Action watched by the consumer.
+         * 
+         * The option is a: {@code io.fabric8.kubernetes.client.Watcher.Action}
+         * type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code KubernetesCRDEventAction}.
+         */
+        public String kubernetesCRDEventAction() {
+            return "KubernetesCRDEventAction";
+        }
+
+        /**
+         * The Consumer CRD Resource name we would like to watch.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDName}.
+         */
+        public String kubernetesCRDName() {
+            return "KubernetesCRDName";
+        }
+
+        /**
+         * The Consumer CRD Resource Group we would like to watch.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDGroup}.
+         */
+        public String kubernetesCRDGroup() {
+            return "KubernetesCRDGroup";
+        }
+
+        /**
+         * The Consumer CRD Resource Scope we would like to watch.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDScope}.
+         */
+        public String kubernetesCRDScope() {
+            return "KubernetesCRDScope";
+        }
+
+        /**
+         * The Consumer CRD Resource Version we would like to watch.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDVersion}.
+         */
+        public String kubernetesCRDVersion() {
+            return "KubernetesCRDVersion";
+        }
+
+        /**
+         * The Consumer CRD Resource Plural we would like to watch.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDPlural}.
+         */
+        public String kubernetesCRDPlural() {
+            return "KubernetesCRDPlural";
+        }
+
+        /**
+         * The CRD resource labels.
+         * 
+         * The option is a: {@code Map<String, String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDLabels}.
+         */
+        public String kubernetesCRDLabels() {
+            return "KubernetesCRDLabels";
+        }
+
+        /**
+         * The manifest of the CRD resource to create as JSON string.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesCRDInstance}.
+         */
+        public String kubernetesCRDInstance() {
+            return "KubernetesCRDInstance";
+        }
+
+        /**
+         * The result of the delete operation.
+         * 
+         * The option is a: {@code boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KubernetesDeleteResult}.
+         */
+        public String kubernetesDeleteResult() {
+            return "KubernetesDeleteResult";
         }
     }
     static KubernetesCustomResourcesEndpointBuilder endpointBuilder(

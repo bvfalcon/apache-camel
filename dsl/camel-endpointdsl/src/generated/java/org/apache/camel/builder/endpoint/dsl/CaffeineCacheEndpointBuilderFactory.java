@@ -288,55 +288,6 @@ public interface CaffeineCacheEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CaffeineCacheEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default CaffeineCacheEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Set the maximum size for the cache.
          * 
          * The option is a: &lt;code&gt;int&lt;/code&gt; type.
@@ -472,6 +423,55 @@ public interface CaffeineCacheEndpointBuilderFactory {
             return (CaffeineCacheEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCaffeineCacheEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedCaffeineCacheEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * The cache key type, default java.lang.Object.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -502,6 +502,19 @@ public interface CaffeineCacheEndpointBuilderFactory {
     }
 
     public interface CaffeineCacheBuilders {
+        /**
+         * Caffeine Cache (camel-caffeine)
+         * Perform caching operations using Caffeine Cache.
+         * 
+         * Category: cache,datagrid,clustering
+         * Since: 2.20
+         * Maven coordinates: org.apache.camel:camel-caffeine
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default CaffeineCacheHeaderNameBuilder caffeineCache() {
+            return CaffeineCacheHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Caffeine Cache (camel-caffeine)
          * Perform caching operations using Caffeine Cache.
@@ -543,6 +556,110 @@ public interface CaffeineCacheEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return CaffeineCacheEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Caffeine Cache component.
+     */
+    public static class CaffeineCacheHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final CaffeineCacheHeaderNameBuilder INSTANCE = new CaffeineCacheHeaderNameBuilder();
+
+        /**
+         * The action to execute. Possible values: CLEANUP PUT PUT_ALL GET
+         * GET_ALL INVALIDATE INVALIDATE_ALL AS_MAP.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineAction}.
+         */
+        public String caffeineAction() {
+            return "CaffeineAction";
+        }
+
+        /**
+         * The flag indicating whether the action has a result or not.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineActionHasResult}.
+         */
+        public String caffeineActionHasResult() {
+            return "CaffeineActionHasResult";
+        }
+
+        /**
+         * The flag indicating whether the action was successful or not.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineActionSucceeded}.
+         */
+        public String caffeineActionSucceeded() {
+            return "CaffeineActionSucceeded";
+        }
+
+        /**
+         * The key for all actions on a single entry.
+         * 
+         * The option is a: {@code } type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineKey}.
+         */
+        public String caffeineKey() {
+            return "CaffeineKey";
+        }
+
+        /**
+         * The keys to get (GET_ALL), to invalidate (INVALIDATE_ALL) or existing
+         * (AS_MAP) according to the action.
+         * 
+         * The option is a: {@code Set} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineKeys}.
+         */
+        public String caffeineKeys() {
+            return "CaffeineKeys";
+        }
+
+        /**
+         * The value of key for all put actions (PUT or PUT_ALL).
+         * 
+         * The option is a: {@code } type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineValue}.
+         */
+        public String caffeineValue() {
+            return "CaffeineValue";
+        }
+
+        /**
+         * The old value returned according to the action.
+         * 
+         * The option is a: {@code } type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CaffeineOldValue}.
+         */
+        public String caffeineOldValue() {
+            return "CaffeineOldValue";
         }
     }
     static CaffeineCacheEndpointBuilder endpointBuilder(

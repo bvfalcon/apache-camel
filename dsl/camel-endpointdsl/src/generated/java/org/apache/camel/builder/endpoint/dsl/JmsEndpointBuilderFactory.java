@@ -3044,55 +3044,6 @@ public interface JmsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JmsEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JmsEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Set to true, if you want to send message using the QoS settings
          * specified on the message, instead of the QoS settings on the JMS
          * endpoint. The following three headers are considered JMSPriority,
@@ -3796,6 +3747,55 @@ public interface JmsEndpointBuilderFactory {
         default AdvancedJmsEndpointProducerBuilder includeSentJMSMessageID(
                 String includeSentJMSMessageID) {
             doSetProperty("includeSentJMSMessageID", includeSentJMSMessageID);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJmsEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJmsEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -6750,6 +6750,19 @@ public interface JmsEndpointBuilderFactory {
          * Since: 1.0
          * Maven coordinates: org.apache.camel:camel-jms
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JmsHeaderNameBuilder jms() {
+            return JmsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * JMS (camel-jms)
+         * Sent and receive messages to/from a JMS Queue or Topic.
+         * 
+         * Category: messaging
+         * Since: 1.0
+         * Maven coordinates: org.apache.camel:camel-jms
+         * 
          * Syntax: <code>jms:destinationType:destinationName</code>
          * 
          * Path parameter: destinationType
@@ -6793,6 +6806,242 @@ public interface JmsEndpointBuilderFactory {
          */
         default JmsEndpointBuilder jms(String componentName, String path) {
             return JmsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the JMS component.
+     */
+    public static class JmsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JmsHeaderNameBuilder INSTANCE = new JmsHeaderNameBuilder();
+
+        /**
+         * The destination.
+         * 
+         * The option is a: {@code javax.jms.Destination} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JmsDestination}.
+         */
+        public String jmsDestination() {
+            return "JmsDestination";
+        }
+
+        /**
+         * The name of the queue or topic to use as destination.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code JmsDestinationName}.
+         */
+        public String jmsDestinationName() {
+            return "JmsDestinationName";
+        }
+
+        /**
+         * The JMS group ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSXGroupID}.
+         */
+        public String jMSXGroupID() {
+            return "JMSXGroupID";
+        }
+
+        /**
+         * The JMS unique message ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSMessageID}.
+         */
+        public String jMSMessageID() {
+            return "JMSMessageID";
+        }
+
+        /**
+         * The JMS correlation ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSCorrelationID}.
+         */
+        public String jMSCorrelationID() {
+            return "JMSCorrelationID";
+        }
+
+        /**
+         * The JMS correlation ID as bytes.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSCorrelationIDAsBytes}.
+         */
+        public String jMSCorrelationIDAsBytes() {
+            return "JMSCorrelationIDAsBytes";
+        }
+
+        /**
+         * The JMS delivery mode.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSDeliveryMode}.
+         */
+        public String jMSDeliveryMode() {
+            return "JMSDeliveryMode";
+        }
+
+        /**
+         * The JMS destination.
+         * 
+         * The option is a: {@code javax.jms.Destination} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSDestination}.
+         */
+        public String jMSDestination() {
+            return "JMSDestination";
+        }
+
+        /**
+         * The JMS expiration.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSExpiration}.
+         */
+        public String jMSExpiration() {
+            return "JMSExpiration";
+        }
+
+        /**
+         * The JMS priority (with 0 as the lowest priority and 9 as the
+         * highest).
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSPriority}.
+         */
+        public String jMSPriority() {
+            return "JMSPriority";
+        }
+
+        /**
+         * Is the JMS message redelivered.
+         * 
+         * The option is a: {@code boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSRedelivered}.
+         */
+        public String jMSRedelivered() {
+            return "JMSRedelivered";
+        }
+
+        /**
+         * The JMS timestamp.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSTimestamp}.
+         */
+        public String jMSTimestamp() {
+            return "JMSTimestamp";
+        }
+
+        /**
+         * The JMS reply-to destination.
+         * 
+         * The option is a: {@code javax.jms.Destination} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSReplyTo}.
+         */
+        public String jMSReplyTo() {
+            return "JMSReplyTo";
+        }
+
+        /**
+         * The JMS type.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSType}.
+         */
+        public String jMSType() {
+            return "JMSType";
+        }
+
+        /**
+         * The XUser id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JMSXUserID}.
+         */
+        public String jMSXUserID() {
+            return "JMSXUserID";
+        }
+
+        /**
+         * The message type.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.jms.JmsMessageType} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JmsMessageType}.
+         */
+        public String jmsMessageType() {
+            return "JmsMessageType";
+        }
+
+        /**
+         * The timeout for waiting for a reply when using the InOut Exchange
+         * Pattern (in milliseconds).
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Default: 20_000
+         * Group: producer
+         * 
+         * @return the name of the header {@code JmsRequestTimeout}.
+         */
+        public String jmsRequestTimeout() {
+            return "JmsRequestTimeout";
         }
     }
     static JmsEndpointBuilder endpointBuilder(String componentName, String path) {

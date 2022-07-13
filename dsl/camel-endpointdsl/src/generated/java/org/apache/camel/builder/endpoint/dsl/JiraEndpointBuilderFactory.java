@@ -90,51 +90,6 @@ public interface JiraEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JiraEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JiraEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * JQL is the query language from JIRA which allows you to retrieve the
          * data you want. For example jql=project=MyProject Where MyProject is
          * the product key in Jira. It is important to use the RAW() and set the
@@ -264,8 +219,9 @@ public interface JiraEndpointBuilderFactory {
             return this;
         }
         /**
-         * (Basic authentication only) The password to authenticate to the Jira
-         * server. Use only if username basic authentication is used.
+         * (Basic authentication only) The password or the API Token to
+         * authenticate to the Jira server. Use only if username basic
+         * authentication is used.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -336,6 +292,51 @@ public interface JiraEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default JiraEndpointConsumerBuilder basic() {
             return (JiraEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJiraEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJiraEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -465,55 +466,6 @@ public interface JiraEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JiraEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default JiraEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * (OAuth or Personal Access Token authentication) The access token
          * generated by the Jira server.
          * 
@@ -543,8 +495,9 @@ public interface JiraEndpointBuilderFactory {
             return this;
         }
         /**
-         * (Basic authentication only) The password to authenticate to the Jira
-         * server. Use only if username basic authentication is used.
+         * (Basic authentication only) The password or the API Token to
+         * authenticate to the Jira server. Use only if username basic
+         * authentication is used.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -615,6 +568,55 @@ public interface JiraEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default JiraEndpointProducerBuilder basic() {
             return (JiraEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJiraEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJiraEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -704,8 +706,9 @@ public interface JiraEndpointBuilderFactory {
             return this;
         }
         /**
-         * (Basic authentication only) The password to authenticate to the Jira
-         * server. Use only if username basic authentication is used.
+         * (Basic authentication only) The password or the API Token to
+         * authenticate to the Jira server. Use only if username basic
+         * authentication is used.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
          * 
@@ -788,6 +791,19 @@ public interface JiraEndpointBuilderFactory {
          * Since: 3.0
          * Maven coordinates: org.apache.camel:camel-jira
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JiraHeaderNameBuilder jira() {
+            return JiraHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Jira (camel-jira)
+         * Interact with JIRA issue tracker.
+         * 
+         * Category: api,reporting
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-jira
+         * 
          * Syntax: <code>jira:type</code>
          * 
          * Path parameter: type (required)
@@ -831,6 +847,252 @@ public interface JiraEndpointBuilderFactory {
          */
         default JiraEndpointBuilder jira(String componentName, String path) {
             return JiraEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Jira component.
+     */
+    public static class JiraHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JiraHeaderNameBuilder INSTANCE = new JiraHeaderNameBuilder();
+
+        /**
+         * The assignee's name of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueAssignee}.
+         */
+        public String issueAssignee() {
+            return "IssueAssignee";
+        }
+
+        /**
+         * The comma separated list of the issue's components.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueComponents}.
+         */
+        public String issueComponents() {
+            return "IssueComponents";
+        }
+
+        /**
+         * The name of the updated field (i.e Status).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code IssueChanged}.
+         */
+        public String issueChanged() {
+            return "IssueChanged";
+        }
+
+        /**
+         * The id of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code IssueKey}.
+         */
+        public String issueKey() {
+            return "IssueKey";
+        }
+
+        /**
+         * The priority's id of the issue.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssuePriorityId}.
+         */
+        public String issuePriorityId() {
+            return "IssuePriorityId";
+        }
+
+        /**
+         * The priority's name of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssuePriorityName}.
+         */
+        public String issuePriorityName() {
+            return "IssuePriorityName";
+        }
+
+        /**
+         * The project's id of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ProjectKey}.
+         */
+        public String projectKey() {
+            return "ProjectKey";
+        }
+
+        /**
+         * The summary of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueSummary}.
+         */
+        public String issueSummary() {
+            return "IssueSummary";
+        }
+
+        /**
+         * The transition id.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueTransitionId}.
+         */
+        public String issueTransitionId() {
+            return "IssueTransitionId";
+        }
+
+        /**
+         * The type's id of the issue.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueTypeId}.
+         */
+        public String issueTypeId() {
+            return "IssueTypeId";
+        }
+
+        /**
+         * The type's name of the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueTypeName}.
+         */
+        public String issueTypeName() {
+            return "IssueTypeName";
+        }
+
+        /**
+         * The list of all issue keys that are watched in the time of update.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code IssueWatchedIssues}.
+         */
+        public String issueWatchedIssues() {
+            return "IssueWatchedIssues";
+        }
+
+        /**
+         * The comma separated list of watchers to add to the issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueWatchersAdd}.
+         */
+        public String issueWatchersAdd() {
+            return "IssueWatchersAdd";
+        }
+
+        /**
+         * The watchers of the issue to remove.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IssueWatchersRemove}.
+         */
+        public String issueWatchersRemove() {
+            return "IssueWatchersRemove";
+        }
+
+        /**
+         * The id of the parent issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ParentIssueKey}.
+         */
+        public String parentIssueKey() {
+            return "ParentIssueKey";
+        }
+
+        /**
+         * The id of the child issue.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ChildIssueKey}.
+         */
+        public String childIssueKey() {
+            return "ChildIssueKey";
+        }
+
+        /**
+         * The type of link.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code linkType}.
+         */
+        public String linkType() {
+            return "linkType";
+        }
+
+        /**
+         * The minutes spent.
+         * 
+         * The option is a: {@code int} type.
+         * 
+         * Default: -1
+         * Group: producer
+         * 
+         * @return the name of the header {@code minutesSpent}.
+         */
+        public String minutesSpent() {
+            return "minutesSpent";
         }
     }
     static JiraEndpointBuilder endpointBuilder(String componentName, String path) {

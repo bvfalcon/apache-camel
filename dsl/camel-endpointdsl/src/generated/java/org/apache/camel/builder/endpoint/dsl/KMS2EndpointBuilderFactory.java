@@ -38,6 +38,9 @@ public interface KMS2EndpointBuilderFactory {
      * Builder for endpoint for the AWS Key Management Service (KMS) component.
      */
     public interface KMS2EndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedKMS2EndpointBuilder advanced() {
+            return (AdvancedKMS2EndpointBuilder) this;
+        }
         /**
          * To use a existing configured AWS KMS as client.
          * 
@@ -67,53 +70,6 @@ public interface KMS2EndpointBuilderFactory {
          */
         default KMS2EndpointBuilder kmsClient(String kmsClient) {
             doSetProperty("kmsClient", kmsClient);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KMS2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KMS2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -424,7 +380,81 @@ public interface KMS2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Key Management Service (KMS)
+     * component.
+     */
+    public interface AdvancedKMS2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default KMS2EndpointBuilder basic() {
+            return (KMS2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKMS2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKMS2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface KMS2Builders {
+        /**
+         * AWS Key Management Service (KMS) (camel-aws2-kms)
+         * Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
+         * 
+         * Category: cloud,management
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-kms
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KMS2HeaderNameBuilder aws2Kms() {
+            return KMS2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Key Management Service (KMS) (camel-aws2-kms)
          * Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
@@ -466,8 +496,86 @@ public interface KMS2EndpointBuilderFactory {
             return KMS2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Key Management Service (KMS)
+     * component.
+     */
+    public static class KMS2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KMS2HeaderNameBuilder INSTANCE = new KMS2HeaderNameBuilder();
+
+        /**
+         * The operation we want to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsKMSOperation}.
+         */
+        public String awsKMSOperation() {
+            return "AwsKMSOperation";
+        }
+
+        /**
+         * The limit number of keys to return while performing a listKeys
+         * operation.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsKMSLimit}.
+         */
+        public String awsKMSLimit() {
+            return "AwsKMSLimit";
+        }
+
+        /**
+         * A key description to use while performing a createKey operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsKMSDescription}.
+         */
+        public String awsKMSDescription() {
+            return "AwsKMSDescription";
+        }
+
+        /**
+         * The key Id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsKMSKeyId}.
+         */
+        public String awsKMSKeyId() {
+            return "AwsKMSKeyId";
+        }
+
+        /**
+         * The waiting period, specified in number of days.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsKMSPendingWindowInDays}.
+         */
+        public String awsKMSPendingWindowInDays() {
+            return "AwsKMSPendingWindowInDays";
+        }
+    }
     static KMS2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class KMS2EndpointBuilderImpl extends AbstractEndpointBuilder implements KMS2EndpointBuilder {
+        class KMS2EndpointBuilderImpl extends AbstractEndpointBuilder implements KMS2EndpointBuilder, AdvancedKMS2EndpointBuilder {
             public KMS2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

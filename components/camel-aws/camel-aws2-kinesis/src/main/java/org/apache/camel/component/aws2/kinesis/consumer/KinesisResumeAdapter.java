@@ -30,4 +30,11 @@ public interface KinesisResumeAdapter extends ResumeAdapter {
      * @param builder the builder instance
      */
     void setRequestBuilder(GetShardIteratorRequest.Builder builder);
+
+    /**
+     * Sets the stream name being worked on
+     * 
+     * @param streamName the stream name
+     */
+    void setStreamName(String streamName);
 }

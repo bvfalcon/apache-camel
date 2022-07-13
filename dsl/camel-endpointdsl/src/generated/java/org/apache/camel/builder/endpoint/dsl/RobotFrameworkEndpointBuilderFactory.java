@@ -1094,51 +1094,6 @@ public interface RobotFrameworkEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default RobotFrameworkEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default RobotFrameworkEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * If the polling consumer did not poll any files, you can enable this
          * option to send an empty message (no body) instead.
          * 
@@ -1666,6 +1621,51 @@ public interface RobotFrameworkEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default RobotFrameworkEndpointConsumerBuilder basic() {
             return (RobotFrameworkEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedRobotFrameworkEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedRobotFrameworkEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -2835,6 +2835,18 @@ public interface RobotFrameworkEndpointBuilderFactory {
             doSetProperty("xunitFile", xunitFile);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the Robot Framework
+     * component.
+     */
+    public interface AdvancedRobotFrameworkEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default RobotFrameworkEndpointProducerBuilder basic() {
+            return (RobotFrameworkEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -2849,12 +2861,12 @@ public interface RobotFrameworkEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default RobotFrameworkEndpointProducerBuilder lazyStartProducer(
+        default AdvancedRobotFrameworkEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -2874,27 +2886,15 @@ public interface RobotFrameworkEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default RobotFrameworkEndpointProducerBuilder lazyStartProducer(
+        default AdvancedRobotFrameworkEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the Robot Framework
-     * component.
-     */
-    public interface AdvancedRobotFrameworkEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default RobotFrameworkEndpointProducerBuilder basic() {
-            return (RobotFrameworkEndpointProducerBuilder) this;
         }
     }
 
@@ -3964,6 +3964,19 @@ public interface RobotFrameworkEndpointBuilderFactory {
          * Since: 3.0
          * Maven coordinates: org.apache.camel:camel-robotframework
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default RobotFrameworkHeaderNameBuilder robotframework() {
+            return RobotFrameworkHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Robot Framework (camel-robotframework)
+         * Pass camel exchanges to acceptence test written in Robot DSL.
+         * 
+         * Category: testing
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-robotframework
+         * 
          * Syntax: <code>robotframework:resourceUri</code>
          * 
          * Path parameter: resourceUri (required)
@@ -4007,6 +4020,56 @@ public interface RobotFrameworkEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return RobotFrameworkEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Robot Framework component.
+     */
+    public static class RobotFrameworkHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final RobotFrameworkHeaderNameBuilder INSTANCE = new RobotFrameworkHeaderNameBuilder();
+
+        /**
+         * The robot variables.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code RobotVariables}.
+         */
+        public String robotVariables() {
+            return "RobotVariables";
+        }
+
+        /**
+         * The return code.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code RobotReturnCode}.
+         */
+        public String robotReturnCode() {
+            return "RobotReturnCode";
+        }
+
+        /**
+         * The new resource URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code RobotResourceUri}.
+         */
+        public String robotResourceUri() {
+            return "RobotResourceUri";
         }
     }
     static RobotFrameworkEndpointBuilder endpointBuilder(

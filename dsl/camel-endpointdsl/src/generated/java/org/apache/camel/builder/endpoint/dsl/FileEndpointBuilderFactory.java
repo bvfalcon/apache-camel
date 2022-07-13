@@ -120,51 +120,6 @@ public interface FileEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FileEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FileEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * If true, the file will be deleted after it is processed successfully.
          * 
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
@@ -2056,6 +2011,51 @@ public interface FileEndpointBuilderFactory {
             return (FileEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * Similar to the startingDirectoryMustExist option but this applies
          * during polling (after starting the consumer).
          * 
@@ -2905,55 +2905,6 @@ public interface FileEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FileEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default FileEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Expression (such as File Language) used to compute file name to use
          * when fileExist=Move is configured. To move files into a backup
          * subdirectory just enter backup. This option only supports the
@@ -3240,6 +3191,55 @@ public interface FileEndpointBuilderFactory {
         default AdvancedFileEndpointProducerBuilder keepLastModified(
                 String keepLastModified) {
             doSetProperty("keepLastModified", keepLastModified);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -3751,6 +3751,19 @@ public interface FileEndpointBuilderFactory {
          * Since: 1.0
          * Maven coordinates: org.apache.camel:camel-file
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FileHeaderNameBuilder file() {
+            return FileHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * File (camel-file)
+         * Read and write files.
+         * 
+         * Category: file,core
+         * Since: 1.0
+         * Maven coordinates: org.apache.camel:camel-file
+         * 
          * Syntax: <code>file:directoryName</code>
          * 
          * Path parameter: directoryName (required)
@@ -3782,6 +3795,244 @@ public interface FileEndpointBuilderFactory {
          */
         default FileEndpointBuilder file(String componentName, String path) {
             return FileEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the File component.
+     */
+    public static class FileHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FileHeaderNameBuilder INSTANCE = new FileHeaderNameBuilder();
+
+        /**
+         * A long value containing the file size.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileLength}.
+         */
+        public String fileLength() {
+            return "FileLength";
+        }
+
+        /**
+         * A Long value containing the last modified timestamp of the file.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileLastModified}.
+         */
+        public String fileLastModified() {
+            return "FileLastModified";
+        }
+
+        /**
+         * The local work path.
+         * 
+         * The option is a: {@code File} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FileLocalWorkPath}.
+         */
+        public String fileLocalWorkPath() {
+            return "FileLocalWorkPath";
+        }
+
+        /**
+         * Only the file name (the name with no leading paths).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileNameOnly}.
+         */
+        public String fileNameOnly() {
+            return "FileNameOnly";
+        }
+
+        /**
+         * (producer) Specifies the name of the file to write (relative to the
+         * endpoint directory). This name can be a String; a String with a
+         * xref:languages:file-language.adocFile Language or
+         * xref:languages:simple-language.adocSimple expression; or an
+         * Expression object. If it's null then Camel will auto-generate a
+         * filename based on the message unique ID. (consumer) Name of the
+         * consumed file as a relative file path with offset from the starting
+         * directory configured on the endpoint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileName}.
+         */
+        public String fileName() {
+            return "FileName";
+        }
+
+        /**
+         * The name of the file that has been consumed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileNameConsumed}.
+         */
+        public String fileNameConsumed() {
+            return "FileNameConsumed";
+        }
+
+        /**
+         * A boolean option specifying whether the consumed file denotes an
+         * absolute path or not. Should normally be false for relative paths.
+         * Absolute paths should normally not be used but we added to the move
+         * option to allow moving files to absolute paths. But can be used
+         * elsewhere as well.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileAbsolute}.
+         */
+        public String fileAbsolute() {
+            return "FileAbsolute";
+        }
+
+        /**
+         * The absolute path to the file. For relative files this path holds the
+         * relative path instead.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileAbsolutePath}.
+         */
+        public String fileAbsolutePath() {
+            return "FileAbsolutePath";
+        }
+
+        /**
+         * The extended attributes of the file.
+         * 
+         * The option is a: {@code Map<String, Object>} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileExtendedAttributes}.
+         */
+        public String fileExtendedAttributes() {
+            return "FileExtendedAttributes";
+        }
+
+        /**
+         * The content type of the file.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileContentType}.
+         */
+        public String fileContentType() {
+            return "FileContentType";
+        }
+
+        /**
+         * The file path. For relative files this is the starting directory the
+         * relative filename. For absolute files this is the absolute path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FilePath}.
+         */
+        public String filePath() {
+            return "FilePath";
+        }
+
+        /**
+         * The relative path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileRelativePath}.
+         */
+        public String fileRelativePath() {
+            return "FileRelativePath";
+        }
+
+        /**
+         * The parent path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code FileParent}.
+         */
+        public String fileParent() {
+            return "FileParent";
+        }
+
+        /**
+         * The actual absolute filepath (path name) for the output file that was
+         * written. This header is set by Camel and its purpose is providing
+         * end-users with the name of the file that was written.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code FileNameProduced}.
+         */
+        public String fileNameProduced() {
+            return "FileNameProduced";
+        }
+
+        /**
+         * Is used for overruling CamelFileName header and use the value instead
+         * (but only once, as the producer will remove this header after writing
+         * the file). The value can be only be a String. Notice that if the
+         * option fileName has been configured, then this is still being
+         * evaluated.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code OverruleFileName}.
+         */
+        public String overruleFileName() {
+            return "OverruleFileName";
+        }
+
+        /**
+         * A long value containing the initial offset.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileInitialOffset}.
+         */
+        public String fileInitialOffset() {
+            return "FileInitialOffset";
         }
     }
     static FileEndpointBuilder endpointBuilder(String componentName, String path) {

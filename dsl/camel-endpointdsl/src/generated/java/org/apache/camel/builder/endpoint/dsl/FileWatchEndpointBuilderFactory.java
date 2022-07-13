@@ -91,51 +91,6 @@ public interface FileWatchEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FileWatchEndpointBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default FileWatchEndpointBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * The number of concurrent consumers. Increase this value, if your
          * route is slow to prevent buffering in queue.
          * 
@@ -389,6 +344,51 @@ public interface FileWatchEndpointBuilderFactory {
             return (FileWatchEndpointBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileWatchEndpointBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedFileWatchEndpointBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -470,6 +470,20 @@ public interface FileWatchEndpointBuilderFactory {
          * Since: 3.0
          * Maven coordinates: org.apache.camel:camel-file-watch
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default FileWatchHeaderNameBuilder fileWatch() {
+            return FileWatchHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * File Watch (camel-file-watch)
+         * Get notified about file events in a directory using
+         * java.nio.file.WatchService.
+         * 
+         * Category: file
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-file-watch
+         * 
          * Syntax: <code>file-watch:path</code>
          * 
          * Path parameter: path (required)
@@ -504,6 +518,154 @@ public interface FileWatchEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return FileWatchEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the File Watch component.
+     */
+    public static class FileWatchHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final FileWatchHeaderNameBuilder INSTANCE = new FileWatchHeaderNameBuilder();
+
+        /**
+         * Type of event. Possible values: CREATE, DELETE, MODIFY.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileEventType}.
+         */
+        public String fileEventType() {
+            return "FileEventType";
+        }
+
+        /**
+         * Only the file name (the name with no leading paths).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileNameOnly}.
+         */
+        public String fileNameOnly() {
+            return "FileNameOnly";
+        }
+
+        /**
+         * A boolean option specifying whether the consumed file denotes an
+         * absolute path or not. Should normally be false for relative paths.
+         * Absolute paths should normally not be used but we added to the move
+         * option to allow moving files to absolute paths. But can be used
+         * elsewhere as well.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileAbsolute}.
+         */
+        public String fileAbsolute() {
+            return "FileAbsolute";
+        }
+
+        /**
+         * The absolute path to the file. For relative files this path holds the
+         * relative path instead.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileAbsolutePath}.
+         */
+        public String fileAbsolutePath() {
+            return "FileAbsolutePath";
+        }
+
+        /**
+         * The file path. For relative files this is the starting directory the
+         * relative filename. For absolute files this is the absolute path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FilePath}.
+         */
+        public String filePath() {
+            return "FilePath";
+        }
+
+        /**
+         * Name of the consumed file as a relative file path with offset from
+         * the starting directory configured on the endpoint.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileName}.
+         */
+        public String fileName() {
+            return "FileName";
+        }
+
+        /**
+         * The relative path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileRelativePath}.
+         */
+        public String fileRelativePath() {
+            return "FileRelativePath";
+        }
+
+        /**
+         * The name of the file that has been consumed.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileNameConsumed}.
+         */
+        public String fileNameConsumed() {
+            return "FileNameConsumed";
+        }
+
+        /**
+         * The parent path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileParent}.
+         */
+        public String fileParent() {
+            return "FileParent";
+        }
+
+        /**
+         * A Long value containing the last modified timestamp of the file.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code FileLastModified}.
+         */
+        public String fileLastModified() {
+            return "FileLastModified";
         }
     }
     static FileWatchEndpointBuilder endpointBuilder(

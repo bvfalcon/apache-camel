@@ -38,6 +38,9 @@ public interface XChangeEndpointBuilderFactory {
      * Builder for endpoint for the XChange component.
      */
     public interface XChangeEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedXChangeEndpointBuilder advanced() {
+            return (AdvancedXChangeEndpointBuilder) this;
+        }
         /**
          * The currency.
          * 
@@ -81,55 +84,6 @@ public interface XChangeEndpointBuilderFactory {
          */
         default XChangeEndpointBuilder currencyPair(String currencyPair) {
             doSetProperty("currencyPair", currencyPair);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default XChangeEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default XChangeEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -200,7 +154,80 @@ public interface XChangeEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the XChange component.
+     */
+    public interface AdvancedXChangeEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default XChangeEndpointBuilder basic() {
+            return (XChangeEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedXChangeEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedXChangeEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface XChangeBuilders {
+        /**
+         * XChange (camel-xchange)
+         * Access market data and trade on Bitcoin and Altcoin exchanges.
+         * 
+         * Category: bitcoin,blockchain
+         * Since: 2.21
+         * Maven coordinates: org.apache.camel:camel-xchange
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default XChangeHeaderNameBuilder xchange() {
+            return XChangeHeaderNameBuilder.INSTANCE;
+        }
         /**
          * XChange (camel-xchange)
          * Access market data and trade on Bitcoin and Altcoin exchanges.
@@ -242,10 +269,48 @@ public interface XChangeEndpointBuilderFactory {
             return XChangeEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the XChange component.
+     */
+    public static class XChangeHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final XChangeHeaderNameBuilder INSTANCE = new XChangeHeaderNameBuilder();
+
+        /**
+         * The target currency.
+         * 
+         * The option is a: {@code org.knowm.xchange.currency.Currency} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code Currency}.
+         */
+        public String currency() {
+            return "Currency";
+        }
+
+        /**
+         * The target currency pair.
+         * 
+         * The option is a: {@code org.knowm.xchange.currency.CurrencyPair}
+         * type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code CurrencyPair}.
+         */
+        public String currencyPair() {
+            return "CurrencyPair";
+        }
+    }
     static XChangeEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class XChangeEndpointBuilderImpl extends AbstractEndpointBuilder implements XChangeEndpointBuilder {
+        class XChangeEndpointBuilderImpl extends AbstractEndpointBuilder implements XChangeEndpointBuilder, AdvancedXChangeEndpointBuilder {
             public XChangeEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

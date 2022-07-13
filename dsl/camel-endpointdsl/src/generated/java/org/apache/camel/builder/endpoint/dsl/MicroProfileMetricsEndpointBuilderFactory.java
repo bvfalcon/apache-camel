@@ -40,6 +40,9 @@ public interface MicroProfileMetricsEndpointBuilderFactory {
     public interface MicroProfileMetricsEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedMicroProfileMetricsEndpointBuilder advanced() {
+            return (AdvancedMicroProfileMetricsEndpointBuilder) this;
+        }
         /**
          * Action to use when using the timer type.
          * 
@@ -207,55 +210,6 @@ public interface MicroProfileMetricsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MicroProfileMetricsEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MicroProfileMetricsEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Mark value to set when using the meter type.
          * 
          * The option is a: &lt;code&gt;java.lang.Long&lt;/code&gt; type.
@@ -344,7 +298,80 @@ public interface MicroProfileMetricsEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the MicroProfile Metrics component.
+     */
+    public interface AdvancedMicroProfileMetricsEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MicroProfileMetricsEndpointBuilder basic() {
+            return (MicroProfileMetricsEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMicroProfileMetricsEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMicroProfileMetricsEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface MicroProfileMetricsBuilders {
+        /**
+         * MicroProfile Metrics (camel-microprofile-metrics)
+         * Expose metrics from Camel routes.
+         * 
+         * Category: monitoring
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-microprofile-metrics
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MicroProfileMetricsHeaderNameBuilder microprofileMetrics() {
+            return MicroProfileMetricsHeaderNameBuilder.INSTANCE;
+        }
         /**
          * MicroProfile Metrics (camel-microprofile-metrics)
          * Expose metrics from Camel routes.
@@ -399,10 +426,199 @@ public interface MicroProfileMetricsEndpointBuilderFactory {
             return MicroProfileMetricsEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the MicroProfile Metrics component.
+     */
+    public static class MicroProfileMetricsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MicroProfileMetricsHeaderNameBuilder INSTANCE = new MicroProfileMetricsHeaderNameBuilder();
+
+        /**
+         * Override increment value in URI.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsCounterIncrement}.
+         */
+        public String microProfileMetricsCounterIncrement() {
+            return "MicroProfileMetricsCounterIncrement";
+        }
+
+        /**
+         * Override gaugeIncrement value from the URI.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsGaugeIncrement}.
+         */
+        public String microProfileMetricsGaugeIncrement() {
+            return "MicroProfileMetricsGaugeIncrement";
+        }
+
+        /**
+         * Override gaugeDecrement value from the URI.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsGaugeDecrement}.
+         */
+        public String microProfileMetricsGaugeDecrement() {
+            return "MicroProfileMetricsGaugeDecrement";
+        }
+
+        /**
+         * Override gaugeValue value from the URI.
+         * 
+         * The option is a: {@code Number} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsGaugeValue}.
+         */
+        public String microProfileMetricsGaugeValue() {
+            return "MicroProfileMetricsGaugeValue";
+        }
+
+        /**
+         * Override histogram value from the URI.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsHistogramValue}.
+         */
+        public String microProfileMetricsHistogramValue() {
+            return "MicroProfileMetricsHistogramValue";
+        }
+
+        /**
+         * Override meter mark value from the URI.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsMeterMark}.
+         */
+        public String microProfileMetricsMeterMark() {
+            return "MicroProfileMetricsMeterMark";
+        }
+
+        /**
+         * The description within the metric metadata.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsDescription}.
+         */
+        public String microProfileMetricsDescription() {
+            return "MicroProfileMetricsDescription";
+        }
+
+        /**
+         * The display name within the metric metadata.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsDisplayName}.
+         */
+        public String microProfileMetricsDisplayName() {
+            return "MicroProfileMetricsDisplayName";
+        }
+
+        /**
+         * The name of the metric.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsName}.
+         */
+        public String microProfileMetricsName() {
+            return "MicroProfileMetricsName";
+        }
+
+        /**
+         * The tags of the metric.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsTags}.
+         */
+        public String microProfileMetricsTags() {
+            return "MicroProfileMetricsTags";
+        }
+
+        /**
+         * The type of the metric.
+         * 
+         * The option is a: {@code org.eclipse.microprofile.metrics.MetricType}
+         * type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsType}.
+         */
+        public String microProfileMetricsType() {
+            return "MicroProfileMetricsType";
+        }
+
+        /**
+         * The metric unit within the metric metadata.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MicroProfileMetricsUnits}.
+         */
+        public String microProfileMetricsUnits() {
+            return "MicroProfileMetricsUnits";
+        }
+
+        /**
+         * Override time action from the URI.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.microprofile.metrics.TimerAction} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * MicroProfileMetricsTimerAction}.
+         */
+        public String microProfileMetricsTimerAction() {
+            return "MicroProfileMetricsTimerAction";
+        }
+    }
     static MicroProfileMetricsEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class MicroProfileMetricsEndpointBuilderImpl extends AbstractEndpointBuilder implements MicroProfileMetricsEndpointBuilder {
+        class MicroProfileMetricsEndpointBuilderImpl extends AbstractEndpointBuilder implements MicroProfileMetricsEndpointBuilder, AdvancedMicroProfileMetricsEndpointBuilder {
             public MicroProfileMetricsEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

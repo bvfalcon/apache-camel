@@ -60,55 +60,6 @@ public interface GoogleSecretManagerEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleSecretManagerEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleSecretManagerEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The operation to perform on the producer.
          * 
          * The option is a:
@@ -184,6 +135,55 @@ public interface GoogleSecretManagerEndpointBuilderFactory {
             return (GoogleSecretManagerEndpointBuilder) this;
         }
         /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleSecretManagerEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleSecretManagerEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
          * The client to use during service invocation.
          * 
          * The option is a:
@@ -217,6 +217,19 @@ public interface GoogleSecretManagerEndpointBuilderFactory {
     }
 
     public interface GoogleSecretManagerBuilders {
+        /**
+         * Google Secret Manager (camel-google-secret-manager)
+         * Manage Google Secret Manager Secrets
+         * 
+         * Category: cloud
+         * Since: 3.16
+         * Maven coordinates: org.apache.camel:camel-google-secret-manager
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoogleSecretManagerHeaderNameBuilder googleSecretManager() {
+            return GoogleSecretManagerHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Google Secret Manager (camel-google-secret-manager)
          * Manage Google Secret Manager Secrets
@@ -259,6 +272,58 @@ public interface GoogleSecretManagerEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return GoogleSecretManagerEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Google Secret Manager component.
+     */
+    public static class GoogleSecretManagerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoogleSecretManagerHeaderNameBuilder INSTANCE = new GoogleSecretManagerHeaderNameBuilder();
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.google.secret.manager.GoogleSecretManagerOperations} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleSecretManagerOperation}.
+         */
+        public String googleSecretManagerOperation() {
+            return "GoogleSecretManagerOperation";
+        }
+
+        /**
+         * The id of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleSecretManagerSecretId}.
+         */
+        public String googleSecretManagerSecretId() {
+            return "GoogleSecretManagerSecretId";
+        }
+
+        /**
+         * The version of the secret.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Default: latest
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleSecretManagerVersionId}.
+         */
+        public String googleSecretManagerVersionId() {
+            return "GoogleSecretManagerVersionId";
         }
     }
     static GoogleSecretManagerEndpointBuilder endpointBuilder(

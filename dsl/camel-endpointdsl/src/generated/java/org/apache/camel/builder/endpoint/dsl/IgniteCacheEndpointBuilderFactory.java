@@ -150,51 +150,6 @@ public interface IgniteCacheEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default IgniteCacheEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default IgniteCacheEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Whether to process existing results that match the query. Used on
          * initialization of the Continuous Query Consumer.
          * 
@@ -374,6 +329,51 @@ public interface IgniteCacheEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default IgniteCacheEndpointConsumerBuilder basic() {
             return (IgniteCacheEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteCacheEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteCacheEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -629,55 +629,6 @@ public interface IgniteCacheEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IgniteCacheEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default IgniteCacheEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * The cache operation to invoke. Possible values: GET, PUT, REMOVE,
          * SIZE, REBALANCE, QUERY, CLEAR.
          * 
@@ -720,6 +671,55 @@ public interface IgniteCacheEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default IgniteCacheEndpointProducerBuilder basic() {
             return (IgniteCacheEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteCacheEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedIgniteCacheEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -827,6 +827,20 @@ public interface IgniteCacheEndpointBuilderFactory {
          * Since: 2.17
          * Maven coordinates: org.apache.camel:camel-ignite
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default IgniteCacheHeaderNameBuilder igniteCache() {
+            return IgniteCacheHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Ignite Cache (camel-ignite)
+         * Perform cache operations on an Ignite cache or consume changes from a
+         * continuous query.
+         * 
+         * Category: cache,datagrid
+         * Since: 2.17
+         * Maven coordinates: org.apache.camel:camel-ignite
+         * 
          * Syntax: <code>ignite-cache:cacheName</code>
          * 
          * Path parameter: cacheName (required)
@@ -861,6 +875,115 @@ public interface IgniteCacheEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return IgniteCacheEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Ignite Cache component.
+     */
+    public static class IgniteCacheHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final IgniteCacheHeaderNameBuilder INSTANCE = new IgniteCacheHeaderNameBuilder();
+
+        /**
+         * The cache key for the entry value in the message body.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code IgniteCacheKey}.
+         */
+        public String igniteCacheKey() {
+            return "IgniteCacheKey";
+        }
+
+        /**
+         * The query to run when invoking the QUERY operation.
+         * 
+         * The option is a: {@code org.apache.ignite.cache.query.Query} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteCacheQuery}.
+         */
+        public String igniteCacheQuery() {
+            return "IgniteCacheQuery";
+        }
+
+        /**
+         * Allows you to dynamically change the cache operation to execute.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.ignite.cache.IgniteCacheOperation} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteCacheOperation}.
+         */
+        public String igniteCacheOperation() {
+            return "IgniteCacheOperation";
+        }
+
+        /**
+         * Allows you to dynamically change the cache peek mode when running the
+         * SIZE operation.
+         * 
+         * The option is a: {@code org.apache.ignite.cache.CachePeekMode} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code IgniteCachePeekMode}.
+         */
+        public String igniteCachePeekMode() {
+            return "IgniteCachePeekMode";
+        }
+
+        /**
+         * This header carries the received event type when using the continuous
+         * query consumer.
+         * 
+         * The option is a: {@code javax.cache.event.EventType} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code IgniteCacheEventType}.
+         */
+        public String igniteCacheEventType() {
+            return "IgniteCacheEventType";
+        }
+
+        /**
+         * This header carries the cache name for which a continuous query event
+         * was received (consumer). It does not allow you to dynamically change
+         * the cache against which a producer operation is performed. Use EIPs
+         * for that (e.g. recipient list, dynamic router).
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code IgniteCacheName}.
+         */
+        public String igniteCacheName() {
+            return "IgniteCacheName";
+        }
+
+        /**
+         * This header carries the old cache value when passed in the incoming
+         * cache event.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code IgniteCacheOldValue}.
+         */
+        public String igniteCacheOldValue() {
+            return "IgniteCacheOldValue";
         }
     }
     static IgniteCacheEndpointBuilder endpointBuilder(

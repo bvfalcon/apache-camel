@@ -39,52 +39,8 @@ public interface MSK2EndpointBuilderFactory {
      * component.
      */
     public interface MSK2EndpointBuilder extends EndpointProducerBuilder {
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MSK2EndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default MSK2EndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
+        default AdvancedMSK2EndpointBuilder advanced() {
+            return (AdvancedMSK2EndpointBuilder) this;
         }
         /**
          * To use a existing configured AWS MSK as client.
@@ -425,7 +381,81 @@ public interface MSK2EndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the AWS Managed Streaming for Apache
+     * Kafka (MSK) component.
+     */
+    public interface AdvancedMSK2EndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MSK2EndpointBuilder basic() {
+            return (MSK2EndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMSK2EndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedMSK2EndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface MSK2Builders {
+        /**
+         * AWS Managed Streaming for Apache Kafka (MSK) (camel-aws2-msk)
+         * Manage AWS MSK instances using AWS SDK version 2.x.
+         * 
+         * Category: cloud,management
+         * Since: 3.1
+         * Maven coordinates: org.apache.camel:camel-aws2-msk
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MSK2HeaderNameBuilder aws2Msk() {
+            return MSK2HeaderNameBuilder.INSTANCE;
+        }
         /**
          * AWS Managed Streaming for Apache Kafka (MSK) (camel-aws2-msk)
          * Manage AWS MSK instances using AWS SDK version 2.x.
@@ -467,8 +497,113 @@ public interface MSK2EndpointBuilderFactory {
             return MSK2EndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the AWS Managed Streaming for Apache
+     * Kafka (MSK) component.
+     */
+    public static class MSK2HeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MSK2HeaderNameBuilder INSTANCE = new MSK2HeaderNameBuilder();
+
+        /**
+         * The operation we want to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKOperation}.
+         */
+        public String awsMSKOperation() {
+            return "AwsMSKOperation";
+        }
+
+        /**
+         * The cluster name filter for list operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKClusterFilter}.
+         */
+        public String awsMSKClusterFilter() {
+            return "AwsMSKClusterFilter";
+        }
+
+        /**
+         * The cluster name for list and create operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKClusterName}.
+         */
+        public String awsMSKClusterName() {
+            return "AwsMSKClusterName";
+        }
+
+        /**
+         * The cluster arn for delete operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKClusterArn}.
+         */
+        public String awsMSKClusterArn() {
+            return "AwsMSKClusterArn";
+        }
+
+        /**
+         * The Kafka for the cluster during create operation.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKClusterKafkaVersion}.
+         */
+        public String awsMSKClusterKafkaVersion() {
+            return "AwsMSKClusterKafkaVersion";
+        }
+
+        /**
+         * The number of nodes for the cluster during create operation.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKBrokerNodesNumber}.
+         */
+        public String awsMSKBrokerNodesNumber() {
+            return "AwsMSKBrokerNodesNumber";
+        }
+
+        /**
+         * The Broker nodes group info to provide during the create operation.
+         * 
+         * The option is a: {@code
+         * software.amazon.awssdk.services.kafka.model.BrokerNodeGroupInfo}
+         * type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code AwsMSKBrokerNodesGroupInfo}.
+         */
+        public String awsMSKBrokerNodesGroupInfo() {
+            return "AwsMSKBrokerNodesGroupInfo";
+        }
+    }
     static MSK2EndpointBuilder endpointBuilder(String componentName, String path) {
-        class MSK2EndpointBuilderImpl extends AbstractEndpointBuilder implements MSK2EndpointBuilder {
+        class MSK2EndpointBuilderImpl extends AbstractEndpointBuilder implements MSK2EndpointBuilder, AdvancedMSK2EndpointBuilder {
             public MSK2EndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

@@ -177,8 +177,8 @@ public class DefaultDevConsoleRegistry extends ServiceSupport implements DevCons
                 for (DevConsole console : col) {
                     register(console);
                 }
-                String time = TimeUtils.printDuration(watch.taken());
-                LOG.info("Dev consoles (scanned: {}) loaded in {}", col.size(), time);
+                String time = TimeUtils.printDuration(watch.taken(), true);
+                LOG.debug("Dev consoles (scanned: {}) loaded in {}", col.size(), time);
             }
         }
     }

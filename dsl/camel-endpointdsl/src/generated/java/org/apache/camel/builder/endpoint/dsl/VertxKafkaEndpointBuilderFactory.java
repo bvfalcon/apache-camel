@@ -872,51 +872,6 @@ public interface VertxKafkaEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default VertxKafkaEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default VertxKafkaEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Automatically check the CRC32 of the records consumed. This ensures
          * no on-the-wire or on-disk corruption to the messages occurred. This
          * check adds some overhead, so it may be disabled in cases seeking
@@ -2399,6 +2354,51 @@ public interface VertxKafkaEndpointBuilderFactory {
             return (VertxKafkaEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVertxKafkaEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVertxKafkaEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -3421,55 +3421,6 @@ public interface VertxKafkaEndpointBuilderFactory {
         default VertxKafkaEndpointProducerBuilder keySerializer(
                 String keySerializer) {
             doSetProperty("keySerializer", keySerializer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default VertxKafkaEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default VertxKafkaEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -4639,6 +4590,55 @@ public interface VertxKafkaEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default VertxKafkaEndpointProducerBuilder basic() {
             return (VertxKafkaEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVertxKafkaEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedVertxKafkaEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
     }
 
@@ -6109,6 +6109,20 @@ public interface VertxKafkaEndpointBuilderFactory {
          * Since: 3.7
          * Maven coordinates: org.apache.camel:camel-vertx-kafka
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default VertxKafkaHeaderNameBuilder vertxKafka() {
+            return VertxKafkaHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Vert.x Kafka (camel-vertx-kafka)
+         * Sent and receive messages to/from an Apache Kafka broker using vert.x
+         * Kafka client
+         * 
+         * Category: messaging
+         * Since: 3.7
+         * Maven coordinates: org.apache.camel:camel-vertx-kafka
+         * 
          * Syntax: <code>vertx-kafka:topic</code>
          * 
          * Path parameter: topic (required)
@@ -6149,6 +6163,145 @@ public interface VertxKafkaEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return VertxKafkaEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Vert.x Kafka component.
+     */
+    public static class VertxKafkaHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final VertxKafkaHeaderNameBuilder INSTANCE = new VertxKafkaHeaderNameBuilder();
+
+        /**
+         * Producer: Explicitly specify the partition identifier, for example
+         * partition 0. This will trigger the component to produce all the
+         * massages to the specified partition. Consumer: The partition
+         * identifier where the message were consumed from.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code VertxKafkaPartitionId}.
+         */
+        public String vertxKafkaPartitionId() {
+            return "VertxKafkaPartitionId";
+        }
+
+        /**
+         * Producer: Explicitly specify the message key, if partition ID is not
+         * specified, this will trigger the messages to go into the same
+         * partition. Consumer: The message key.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code VertxKafkaMessageKey}.
+         */
+        public String vertxKafkaMessageKey() {
+            return "VertxKafkaMessageKey";
+        }
+
+        /**
+         * Producer: Explicitly specify the topic to where produce the messages,
+         * this will be preserved in case of header aggregation. Consumer: The
+         * topic from where the message originated.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code VertxKafkaTopic}.
+         */
+        public String vertxKafkaTopic() {
+            return "VertxKafkaTopic";
+        }
+
+        /**
+         * Produced record metadata.
+         * 
+         * The option is a: {@code List<RecordMetadata>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VertxKafkaRecordMetadata}.
+         */
+        public String vertxKafkaRecordMetadata() {
+            return "VertxKafkaRecordMetadata";
+        }
+
+        /**
+         * The offset of the message in Kafka topic.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code VertxKafkaOffset}.
+         */
+        public String vertxKafkaOffset() {
+            return "VertxKafkaOffset";
+        }
+
+        /**
+         * The record Kafka headers.
+         * 
+         * The option is a: {@code List<KafkaHeader>} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code VertxKafkaHeaders}.
+         */
+        public String vertxKafkaHeaders() {
+            return "VertxKafkaHeaders";
+        }
+
+        /**
+         * The timestamp of this record.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code VertxKafkaTimestamp}.
+         */
+        public String vertxKafkaTimestamp() {
+            return "VertxKafkaTimestamp";
+        }
+
+        /**
+         * The ProducerRecord also has an associated timestamp. If the user did
+         * provide a timestamp, the producer will stamp the record with the
+         * provided timestamp and the header is not preserved.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VertxKafkaOverrideTimestamp}.
+         */
+        public String vertxKafkaOverrideTimestamp() {
+            return "VertxKafkaOverrideTimestamp";
+        }
+
+        /**
+         * Explicitly specify the topic to where produce the messages, this will
+         * not be preserved in case of header aggregation and it will take
+         * precedence over CamelVertxKafkaTopic.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code VertxKafkaOverrideTopic}.
+         */
+        public String vertxKafkaOverrideTopic() {
+            return "VertxKafkaOverrideTopic";
         }
     }
     @Deprecated

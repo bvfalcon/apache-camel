@@ -4,7 +4,7 @@
 :artifactid: camel-azure-key-vault
 :description: Manage secrets and keys in Azure Key Vault Service
 :since: 3.17
-:supportlevel: Preview
+:supportlevel: Stable
 :component-header: Only producer is supported
 //Manually maintained attributes
 :group: Azure
@@ -14,7 +14,7 @@
 
 *{component-header}*
 
-The azure-key-vault component that integrates https://azure.microsoft.com/en-us/services/key-vault/[Azure ServiceBus]. 
+The azure-key-vault component that integrates https://azure.microsoft.com/en-us/services/key-vault/[Azure Key Vault]. 
 
 Prerequisites
 

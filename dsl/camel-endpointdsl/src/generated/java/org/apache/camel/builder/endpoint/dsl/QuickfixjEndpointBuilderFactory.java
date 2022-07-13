@@ -103,6 +103,17 @@ public interface QuickfixjEndpointBuilderFactory {
             doSetProperty("sessionID", sessionID);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint consumers for the QuickFix component.
+     */
+    public interface AdvancedQuickfixjEndpointConsumerBuilder
+            extends
+                EndpointConsumerBuilder {
+        default QuickfixjEndpointConsumerBuilder basic() {
+            return (QuickfixjEndpointConsumerBuilder) this;
+        }
         /**
          * Allows for bridging the consumer to the Camel routing Error Handler,
          * which mean any exceptions occurred while the consumer is trying to
@@ -115,12 +126,12 @@ public interface QuickfixjEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default QuickfixjEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedQuickfixjEndpointConsumerBuilder bridgeErrorHandler(
                 boolean bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
@@ -138,26 +149,15 @@ public interface QuickfixjEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: consumer
+         * Group: consumer (advanced)
          * 
          * @param bridgeErrorHandler the value to set
          * @return the dsl builder
          */
-        default QuickfixjEndpointConsumerBuilder bridgeErrorHandler(
+        default AdvancedQuickfixjEndpointConsumerBuilder bridgeErrorHandler(
                 String bridgeErrorHandler) {
             doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint consumers for the QuickFix component.
-     */
-    public interface AdvancedQuickfixjEndpointConsumerBuilder
-            extends
-                EndpointConsumerBuilder {
-        default QuickfixjEndpointConsumerBuilder basic() {
-            return (QuickfixjEndpointConsumerBuilder) this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -299,6 +299,17 @@ public interface QuickfixjEndpointBuilderFactory {
             doSetProperty("sessionID", sessionID);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the QuickFix component.
+     */
+    public interface AdvancedQuickfixjEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default QuickfixjEndpointProducerBuilder basic() {
+            return (QuickfixjEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -313,12 +324,12 @@ public interface QuickfixjEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default QuickfixjEndpointProducerBuilder lazyStartProducer(
+        default AdvancedQuickfixjEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -338,26 +349,15 @@ public interface QuickfixjEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default QuickfixjEndpointProducerBuilder lazyStartProducer(
+        default AdvancedQuickfixjEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the QuickFix component.
-     */
-    public interface AdvancedQuickfixjEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default QuickfixjEndpointProducerBuilder basic() {
-            return (QuickfixjEndpointProducerBuilder) this;
         }
     }
 
@@ -454,6 +454,20 @@ public interface QuickfixjEndpointBuilderFactory {
          * Since: 2.1
          * Maven coordinates: org.apache.camel:camel-quickfix
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default QuickfixjHeaderNameBuilder quickfix() {
+            return QuickfixjHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * QuickFix (camel-quickfix)
+         * Open a Financial Interchange (FIX) session using an embedded
+         * QuickFix/J engine.
+         * 
+         * Category: messaging
+         * Since: 2.1
+         * Maven coordinates: org.apache.camel:camel-quickfix
+         * 
          * Syntax: <code>quickfix:configurationName</code>
          * 
          * Path parameter: configurationName (required)
@@ -498,6 +512,57 @@ public interface QuickfixjEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return QuickfixjEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the QuickFix component.
+     */
+    public static class QuickfixjHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final QuickfixjHeaderNameBuilder INSTANCE = new QuickfixjHeaderNameBuilder();
+
+        /**
+         * The event category.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.quickfixj.QuickfixjEventCategory} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code EventCategory}.
+         */
+        public String eventCategory() {
+            return "EventCategory";
+        }
+
+        /**
+         * The FIX message SessionID.
+         * 
+         * The option is a: {@code quickfix.SessionID} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code SessionID}.
+         */
+        public String sessionID() {
+            return "SessionID";
+        }
+
+        /**
+         * The FIX MsgType tag value.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code MessageType}.
+         */
+        public String messageType() {
+            return "MessageType";
         }
     }
     static QuickfixjEndpointBuilder endpointBuilder(

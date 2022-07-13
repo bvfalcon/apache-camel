@@ -31,6 +31,7 @@ import org.apache.camel.model.language.GroovyExpression;
 import org.apache.camel.model.language.HeaderExpression;
 import org.apache.camel.model.language.Hl7TerserExpression;
 import org.apache.camel.model.language.JoorExpression;
+import org.apache.camel.model.language.JqExpression;
 import org.apache.camel.model.language.JsonPathExpression;
 import org.apache.camel.model.language.LanguageExpression;
 import org.apache.camel.model.language.MethodCallExpression;
@@ -368,6 +369,91 @@ public class ExpressionClauseSupport<T> implements ExpressionFactoryAware, Predi
     public T joor(String text, Class<?> resultType) {
         JoorExpression exp = new JoorExpression(text);
         exp.setResultType(resultType);
+        return expression(exp);
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text the expression to be evaluated
+     * @return      the builder to continue processing the DSL
+     */
+    public T jq(String text) {
+        return expression(new JqExpression(text));
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text       the expression to be evaluated
+     * @param  resultType the return type expected by the expression
+     * @return            the builder to continue processing the DSL
+     */
+    public T jq(String text, Class<?> resultType) {
+        JqExpression exp = new JqExpression(text);
+        exp.setResultType(resultType);
+        return expression(exp);
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text                 the expression to be evaluated
+     * @param  headerOrPropertyName the name of the header or the property to apply the expression to
+     * @return                      the builder to continue processing the DSL
+     */
+    public T jq(String text, String headerOrPropertyName) {
+        JqExpression exp = new JqExpression(text);
+        exp.setHeaderName(headerOrPropertyName);
+        exp.setPropertyName(headerOrPropertyName);
+        return expression(exp);
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text         the expression to be evaluated
+     * @param  headerName   the name of the header to apply the expression to
+     * @param  propertyName the name of the propertyName to apply the expression to
+     * @return              the builder to continue processing the DSL
+     */
+    public T jq(String text, String headerName, String propertyName) {
+        JqExpression exp = new JqExpression(text);
+        exp.setHeaderName(headerName);
+        exp.setPropertyName(propertyName);
+        return expression(exp);
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text                 the expression to be evaluated
+     * @param  resultType           the return type expected by the expression
+     * @param  headerOrPropertyName the name of the header or the property to apply the expression to
+     * @return                      the builder to continue processing the DSL
+     */
+    public T jq(String text, Class<?> resultType, String headerOrPropertyName) {
+        JqExpression exp = new JqExpression(text);
+        exp.setResultType(resultType);
+        exp.setHeaderName(headerOrPropertyName);
+        exp.setPropertyName(headerOrPropertyName);
+        return expression(exp);
+    }
+
+    /**
+     * Evaluates <a href="http://camel.apache.org/jq.html">JQ expression</a>
+     *
+     * @param  text         the expression to be evaluated
+     * @param  resultType   the return type expected by the expression
+     * @param  headerName   the name of the header to apply the expression to
+     * @param  propertyName the name of the propertyName to apply the expression to
+     * @return              the builder to continue processing the DSL
+     */
+    public T jq(String text, Class<?> resultType, String headerName, String propertyName) {
+        JqExpression exp = new JqExpression(text);
+        exp.setResultType(resultType);
+        exp.setHeaderName(headerName);
+        exp.setPropertyName(propertyName);
         return expression(exp);
     }
 

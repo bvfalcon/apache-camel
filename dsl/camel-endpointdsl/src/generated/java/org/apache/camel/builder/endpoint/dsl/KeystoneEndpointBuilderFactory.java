@@ -39,6 +39,9 @@ public interface KeystoneEndpointBuilderFactory {
      * Builder for endpoint for the OpenStack Keystone component.
      */
     public interface KeystoneEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedKeystoneEndpointBuilder advanced() {
+            return (AdvancedKeystoneEndpointBuilder) this;
+        }
         /**
          * OpenStack configuration.
          * 
@@ -83,55 +86,6 @@ public interface KeystoneEndpointBuilderFactory {
          */
         default KeystoneEndpointBuilder domain(String domain) {
             doSetProperty("domain", domain);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KeystoneEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KeystoneEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -210,7 +164,81 @@ public interface KeystoneEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the OpenStack Keystone component.
+     */
+    public interface AdvancedKeystoneEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default KeystoneEndpointBuilder basic() {
+            return (KeystoneEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKeystoneEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKeystoneEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface KeystoneBuilders {
+        /**
+         * OpenStack Keystone (camel-openstack)
+         * Access OpenStack Keystone for API client authentication, service
+         * discovery and distributed multi-tenant authorization.
+         * 
+         * Category: cloud,paas
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-openstack
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KeystoneHeaderNameBuilder openstackKeystone() {
+            return KeystoneHeaderNameBuilder.INSTANCE;
+        }
         /**
          * OpenStack Keystone (camel-openstack)
          * Access OpenStack Keystone for API client authentication, service
@@ -256,10 +284,151 @@ public interface KeystoneEndpointBuilderFactory {
             return KeystoneEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the OpenStack Keystone component.
+     */
+    public static class KeystoneHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KeystoneHeaderNameBuilder INSTANCE = new KeystoneHeaderNameBuilder();
+
+        /**
+         * The description.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code description}.
+         */
+        public String description() {
+            return "description";
+        }
+
+        /**
+         * ID of the domain.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: group project user
+         * 
+         * @return the name of the header {@code domainId}.
+         */
+        public String domainId() {
+            return "domainId";
+        }
+
+        /**
+         * The parent project ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: project
+         * 
+         * @return the name of the header {@code parentId}.
+         */
+        public String parentId() {
+            return "parentId";
+        }
+
+        /**
+         * User's password.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: user
+         * 
+         * @return the name of the header {@code password}.
+         */
+        public String password() {
+            return "password";
+        }
+
+        /**
+         * User's email.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: user
+         * 
+         * @return the name of the header {@code email}.
+         */
+        public String email() {
+            return "email";
+        }
+
+        /**
+         * ID of the user.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: group
+         * 
+         * @return the name of the header {@code userId}.
+         */
+        public String userId() {
+            return "userId";
+        }
+
+        /**
+         * ID of the group.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: group
+         * 
+         * @return the name of the header {@code groupId}.
+         */
+        public String groupId() {
+            return "groupId";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code operation}.
+         */
+        public String operation() {
+            return "operation";
+        }
+
+        /**
+         * The ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ID}.
+         */
+        public String iD() {
+            return "ID";
+        }
+
+        /**
+         * The name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code name}.
+         */
+        public String name() {
+            return "name";
+        }
+    }
     static KeystoneEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class KeystoneEndpointBuilderImpl extends AbstractEndpointBuilder implements KeystoneEndpointBuilder {
+        class KeystoneEndpointBuilderImpl extends AbstractEndpointBuilder implements KeystoneEndpointBuilder, AdvancedKeystoneEndpointBuilder {
             public KeystoneEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

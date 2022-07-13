@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.camel</groupId>
     <artifactId>camel</artifactId>
-    <version>3.17.0-SNAPSHOT</version>
+    <version>3.19.0-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
   <artifactId>camel-bom</artifactId>
@@ -569,7 +569,37 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-cxf</artifactId>
+        <artifactId>camel-cxf-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-rest</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-soap</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-spring-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-spring-rest</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-spring-soap</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-spring-transport</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -924,6 +954,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-hashicorp-vault</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-hazelcast</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1199,6 +1234,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jq</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-js-dsl</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1285,11 +1325,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-knative-http</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-kotlin-dsl</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -2040,11 +2075,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-uberjar-main</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-undertow</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -2141,6 +2171,11 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-weka</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-whatsapp</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

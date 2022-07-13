@@ -57,6 +57,7 @@ import org.apache.camel.util.IOHelper;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
+import org.apache.commons.pool2.PooledObjectState;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -113,8 +114,8 @@ public class NettyProducer extends DefaultAsyncProducer {
             config.setMaxIdle(configuration.getProducerPoolMaxIdle());
             // we should test on borrow to ensure the channel is still valid
             config.setTestOnBorrow(true);
-            // only evict channels which are no longer valid
-            config.setTestWhileIdle(true);
+            // idle channels can be evicted
+            config.setTestWhileIdle(false);
             // run eviction every 30th second
             config.setTimeBetweenEvictionRuns(Duration.ofSeconds(30));
             config.setMinEvictableIdleTime(Duration.ofMillis(configuration.getProducerPoolMinEvictableIdle()));
@@ -354,7 +355,7 @@ public class NettyProducer extends DefaultAsyncProducer {
         }
 
         // write body
-        NettyHelper.writeBodyAsync(LOG, channel, remoteAddress, body, exchange, new ChannelFutureListener() {
+        NettyHelper.writeBodyAsync(LOG, channel, remoteAddress, body, new ChannelFutureListener() {
             public void operationComplete(ChannelFuture channelFuture) throws Exception {
                 LOG.trace("Operation complete {}", channelFuture);
                 if (!channelFuture.isSuccess()) {
@@ -610,8 +611,9 @@ public class NettyProducer extends DefaultAsyncProducer {
             ChannelFuture channelFuture = p.getObject();
             LOG.trace("activateObject channel request: {}", channelFuture);
 
+            PooledObjectState state = p.getState();
             if (channelFuture.isSuccess() && producer.getConfiguration().getRequestTimeout() > 0) {
-                LOG.trace("reset the request timeout as we activate the channel");
+                LOG.trace("Reset the request timeout as we activate the channel");
                 Channel channel = channelFuture.channel();
 
                 ChannelHandler handler = channel.pipeline().get("timeout");

@@ -80,6 +80,7 @@ import static org.apache.camel.main.MainHelper.computeProperties;
 import static org.apache.camel.main.MainHelper.optionKey;
 import static org.apache.camel.main.MainHelper.setPropertiesOnTarget;
 import static org.apache.camel.main.MainHelper.validateOptionAndValue;
+import static org.apache.camel.util.LocationHelper.locationSummary;
 import static org.apache.camel.util.StringHelper.matches;
 
 /**
@@ -1015,19 +1016,19 @@ public abstract class BaseMainSupport extends BaseService {
         if (!threadPoolProperties.isEmpty() || mainConfigurationProperties.hasThreadPoolConfiguration()) {
             LOG.debug("Auto-configuring Thread Pool from loaded properties: {}", threadPoolProperties.size());
             MainSupportModelConfigurer.setThreadPoolProperties(camelContext, mainConfigurationProperties, threadPoolProperties,
-                    mainConfigurationProperties.isAutoConfigurationFailFast(), autoConfiguredProperties);
+                    autoConfiguredProperties);
         }
         // need to let camel-main setup health-check using its convention over configuration
         boolean hc = mainConfigurationProperties.health().getEnabled() != null; // health-check is enabled by default
         if (hc || !healthProperties.isEmpty() || mainConfigurationProperties.hasHealthCheckConfiguration()) {
             LOG.debug("Auto-configuring HealthCheck from loaded properties: {}", healthProperties.size());
-            setHealthCheckProperties(camelContext, healthProperties, mainConfigurationProperties.isAutoConfigurationFailFast(),
+            setHealthCheckProperties(camelContext, healthProperties,
                     autoConfiguredProperties);
         }
         if (!routeTemplateProperties.isEmpty()) {
             LOG.debug("Auto-configuring Route templates from loaded properties: {}", routeTemplateProperties.size());
             setRouteTemplateProperties(camelContext, routeTemplateProperties,
-                    mainConfigurationProperties.isAutoConfigurationFailFast(), autoConfiguredProperties);
+                    autoConfiguredProperties);
         }
         if (!lraProperties.isEmpty() || mainConfigurationProperties.hasLraConfiguration()) {
             LOG.debug("Auto-configuring Saga LRA from loaded properties: {}", lraProperties.size());
@@ -1103,7 +1104,7 @@ public abstract class BaseMainSupport extends BaseService {
 
     private void setRouteTemplateProperties(
             CamelContext camelContext, OrderedLocationProperties routeTemplateProperties,
-            boolean failIfNotSet, OrderedLocationProperties autoConfiguredProperties)
+            OrderedLocationProperties autoConfiguredProperties)
             throws Exception {
 
         // store the route template parameters as a source and register it on the camel context
@@ -1127,7 +1128,7 @@ public abstract class BaseMainSupport extends BaseService {
 
     private void setHealthCheckProperties(
             CamelContext camelContext, OrderedLocationProperties healthCheckProperties,
-            boolean failIfNotSet, OrderedLocationProperties autoConfiguredProperties)
+            OrderedLocationProperties autoConfiguredProperties)
             throws Exception {
 
         HealthConfigurationProperties health = mainConfigurationProperties.health();
@@ -1685,37 +1686,6 @@ public abstract class BaseMainSupport extends BaseService {
             camelContext.addService(answer, true, false);
         }
         return answer;
-    }
-
-    private static String locationSummary(OrderedLocationProperties autoConfiguredProperties, String key) {
-        String loc = autoConfiguredProperties.getLocation(key);
-        if (loc == null) {
-            loc = "";
-        }
-        // remove scheme to make it shorter
-        if (loc.contains(":")) {
-            loc = StringHelper.after(loc, ":");
-        }
-        // strip paths so location is only the name
-        loc = FileUtil.stripPath(loc);
-        // clip long name
-        if (loc.length() > 28) {
-            int pos = loc.length() - 28;
-            loc = loc.substring(pos);
-        }
-        // let us have human friendly locations
-        if ("initial".equals(loc) || "override".equals(loc)) {
-            loc = "camel-main";
-        } else if ("SYS".equals(loc)) {
-            loc = "JVM System Property";
-        } else if ("ENV".equals(loc)) {
-            loc = "OS Environment Variable";
-        } else if ("arguments".equals(loc) || "CLI".equals(loc)) {
-            loc = "Command Line";
-        }
-        loc = "[" + loc + "]";
-        loc = String.format("%-30s", loc);
-        return loc;
     }
 
     private static final class PropertyPlaceholderListener implements PropertiesLookupListener {

@@ -41,6 +41,9 @@ public interface MicrometerEndpointBuilderFactory {
     public interface MicrometerEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedMicrometerEndpointBuilder advanced() {
+            return (AdvancedMicrometerEndpointBuilder) this;
+        }
         /**
          * Action expression when using timer type.
          * 
@@ -84,6 +87,31 @@ public interface MicrometerEndpointBuilderFactory {
             return this;
         }
         /**
+         * Value expression when using histogram type.
+         * 
+         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
+         * 
+         * Group: producer
+         * 
+         * @param value the value to set
+         * @return the dsl builder
+         */
+        default MicrometerEndpointBuilder value(String value) {
+            doSetProperty("value", value);
+            return this;
+        }
+    }
+
+    /**
+     * Advanced builder for endpoint for the Micrometer component.
+     */
+    public interface AdvancedMicrometerEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default MicrometerEndpointBuilder basic() {
+            return (MicrometerEndpointBuilder) this;
+        }
+        /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
          * startup in situations where a producer may otherwise fail during
@@ -97,12 +125,12 @@ public interface MicrometerEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MicrometerEndpointBuilder lazyStartProducer(
+        default AdvancedMicrometerEndpointBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -122,33 +150,33 @@ public interface MicrometerEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default MicrometerEndpointBuilder lazyStartProducer(
+        default AdvancedMicrometerEndpointBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Value expression when using histogram type.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: producer
-         * 
-         * @param value the value to set
-         * @return the dsl builder
-         */
-        default MicrometerEndpointBuilder value(String value) {
-            doSetProperty("value", value);
             return this;
         }
     }
 
     public interface MicrometerBuilders {
+        /**
+         * Micrometer (camel-micrometer)
+         * Collect various metrics directly from Camel routes using the
+         * Micrometer library.
+         * 
+         * Category: monitoring
+         * Since: 2.22
+         * Maven coordinates: org.apache.camel:camel-micrometer
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default MicrometerHeaderNameBuilder micrometer() {
+            return MicrometerHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Micrometer (camel-micrometer)
          * Collect various metrics directly from Camel routes using the
@@ -210,10 +238,100 @@ public interface MicrometerEndpointBuilderFactory {
             return MicrometerEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Micrometer component.
+     */
+    public static class MicrometerHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final MicrometerHeaderNameBuilder INSTANCE = new MicrometerHeaderNameBuilder();
+
+        /**
+         * Override timer action in URI.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.micrometer.MicrometerTimerAction} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsTimerAction}.
+         */
+        public String metricsTimerAction() {
+            return "MetricsTimerAction";
+        }
+
+        /**
+         * Override histogram value in URI.
+         * 
+         * The option is a: {@code long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsHistogramValue}.
+         */
+        public String metricsHistogramValue() {
+            return "MetricsHistogramValue";
+        }
+
+        /**
+         * Override decrement value in URI.
+         * 
+         * The option is a: {@code Double} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsCounterDecrement}.
+         */
+        public String metricsCounterDecrement() {
+            return "MetricsCounterDecrement";
+        }
+
+        /**
+         * Override increment value in URI.
+         * 
+         * The option is a: {@code Double} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsCounterIncrement}.
+         */
+        public String metricsCounterIncrement() {
+            return "MetricsCounterIncrement";
+        }
+
+        /**
+         * Override name value in URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsName}.
+         */
+        public String metricsName() {
+            return "MetricsName";
+        }
+
+        /**
+         * To augment meter tags defined as URI parameters.
+         * 
+         * The option is a: {@code java.lang.Iterable<Tag>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code MetricsTags}.
+         */
+        public String metricsTags() {
+            return "MetricsTags";
+        }
+    }
     static MicrometerEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class MicrometerEndpointBuilderImpl extends AbstractEndpointBuilder implements MicrometerEndpointBuilder {
+        class MicrometerEndpointBuilderImpl extends AbstractEndpointBuilder implements MicrometerEndpointBuilder, AdvancedMicrometerEndpointBuilder {
             public MicrometerEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

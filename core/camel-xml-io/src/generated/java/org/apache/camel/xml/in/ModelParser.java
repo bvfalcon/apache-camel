@@ -927,11 +927,12 @@ public class ModelParser extends BaseParser {
     }
     protected ResumableDefinition doParseResumableDefinition() throws IOException, XmlPullParserException {
         return doParse(new ResumableDefinition(), (def, key, val) -> {
-            if ("resumeStrategy".equals(key)) {
-                def.setResumeStrategy(val);
-                return true;
+            switch (key) {
+                case "intermittent": def.setIntermittent(val); break;
+                case "resumeStrategy": def.setResumeStrategy(val); break;
+                default: return processorDefinitionAttributeHandler().accept(def, key, val);
             }
-            return processorDefinitionAttributeHandler().accept(def, key, val);
+            return true;
         }, (def, key) -> {
             if ("loggingLevel".equals(key)) {
                 def.setLoggingLevel(doParseText());
@@ -2644,6 +2645,22 @@ public class ModelParser extends BaseParser {
             return true;
         }, noElementHandler(), expressionDefinitionValueHandler());
     }
+    protected JqExpression doParseJqExpression() throws IOException, XmlPullParserException {
+        return doParse(new JqExpression(), (def, key, val) -> {
+            switch (key) {
+                case "headerName": def.setHeaderName(val); break;
+                case "resultType": def.setResultTypeName(val); break;
+                default: return expressionDefinitionAttributeHandler().accept(def, key, val);
+            }
+            return true;
+        }, (def, key) -> {
+            if ("propertyName".equals(key)) {
+                def.setPropertyName(doParseText());
+                return true;
+            }
+            return false;
+        }, expressionDefinitionValueHandler());
+    }
     protected JsonPathExpression doParseJsonPathExpression() throws IOException, XmlPullParserException {
         return doParse(new JsonPathExpression(), (def, key, val) -> {
             switch (key) {
@@ -3300,6 +3317,7 @@ public class ModelParser extends BaseParser {
             case "header": return doParseHeaderExpression();
             case "hl7terser": return doParseHl7TerserExpression();
             case "joor": return doParseJoorExpression();
+            case "jq": return doParseJqExpression();
             case "jsonpath": return doParseJsonPathExpression();
             case "language": return doParseLanguageExpression();
             case "method": return doParseMethodCallExpression();

@@ -22,10 +22,12 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
-import org.apache.camel.component.cassandra.consumer.support.CassandraResumeAdapter;
 import org.apache.camel.resume.ResumeAware;
 import org.apache.camel.resume.ResumeStrategy;
 import org.apache.camel.support.ScheduledPollConsumer;
+import org.apache.camel.support.resume.ResumeStrategyHelper;
+
+import static org.apache.camel.component.cassandra.CassandraConstants.CASSANDRA_RESUME_ACTION;
 
 /**
  * Cassandra 2 CQL3 consumer.
@@ -79,20 +81,13 @@ public class CassandraConsumer extends ScheduledPollConsumer implements ResumeAw
 
     @Override
     protected void doStart() throws Exception {
-        super.doStart();
         if (isPrepareStatements()) {
             preparedStatement = getEndpoint().prepareStatement();
         }
 
-        if (resumeStrategy != null) {
-            CqlSession session = getEndpoint().getSessionHolder().getSession();
+        ResumeStrategyHelper.resume(getEndpoint().getCamelContext(), this, resumeStrategy, CASSANDRA_RESUME_ACTION);
 
-            CassandraResumeAdapter resumeAdapter = resumeStrategy.getAdapter(CassandraResumeAdapter.class);
-            if (resumeAdapter != null) {
-                resumeAdapter.setSession(session);
-                resumeAdapter.resume();
-            }
-        }
+        super.doStart();
     }
 
     @Override

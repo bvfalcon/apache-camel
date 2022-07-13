@@ -43,49 +43,6 @@ public interface JMXEndpointBuilderFactory {
             return (AdvancedJMXEndpointBuilder) this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JMXEndpointBuilder bridgeErrorHandler(boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JMXEndpointBuilder bridgeErrorHandler(String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Format for the message body. Either xml or raw. If xml, the
          * notification is serialized to xml. If raw, then the raw java object
          * is set as the body.
@@ -572,6 +529,51 @@ public interface JMXEndpointBuilderFactory {
             return (JMXEndpointBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJMXEndpointBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJMXEndpointBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -904,6 +906,19 @@ public interface JMXEndpointBuilderFactory {
          * Since: 2.6
          * Maven coordinates: org.apache.camel:camel-jmx
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JMXHeaderNameBuilder jmx() {
+            return JMXHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * JMX (camel-jmx)
+         * Receive JMX notifications.
+         * 
+         * Category: monitoring
+         * Since: 2.6
+         * Maven coordinates: org.apache.camel:camel-jmx
+         * 
          * Syntax: <code>jmx:serverURL</code>
          * 
          * Path parameter: serverURL
@@ -937,6 +952,30 @@ public interface JMXEndpointBuilderFactory {
          */
         default JMXEndpointBuilder jmx(String componentName, String path) {
             return JMXEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the JMX component.
+     */
+    public static class JMXHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JMXHeaderNameBuilder INSTANCE = new JMXHeaderNameBuilder();
+
+        /**
+         * The handback.
+         * 
+         * The option is a: {@code Object} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code jmx.handback}.
+         */
+        public String jmxHandback() {
+            return "jmx.handback";
         }
     }
     static JMXEndpointBuilder endpointBuilder(String componentName, String path) {

@@ -38,6 +38,9 @@ public interface ChunkEndpointBuilderFactory {
      * Builder for endpoint for the Chunk component.
      */
     public interface ChunkEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedChunkEndpointBuilder advanced() {
+            return (AdvancedChunkEndpointBuilder) this;
+        }
         /**
          * Sets whether the context map should allow access to all details. By
          * default only the message body and headers can be accessed. This
@@ -180,53 +183,6 @@ public interface ChunkEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ChunkEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ChunkEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Define the themes folder to scan.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -270,7 +226,80 @@ public interface ChunkEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Chunk component.
+     */
+    public interface AdvancedChunkEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default ChunkEndpointBuilder basic() {
+            return (ChunkEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedChunkEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedChunkEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface ChunkBuilders {
+        /**
+         * Chunk (camel-chunk)
+         * Transform messages using Chunk templating engine.
+         * 
+         * Category: transformation
+         * Since: 2.15
+         * Maven coordinates: org.apache.camel:camel-chunk
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default ChunkHeaderNameBuilder chunk() {
+            return ChunkHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Chunk (camel-chunk)
          * Transform messages using Chunk templating engine.
@@ -322,10 +351,48 @@ public interface ChunkEndpointBuilderFactory {
             return ChunkEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Chunk component.
+     */
+    public static class ChunkHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final ChunkHeaderNameBuilder INSTANCE = new ChunkHeaderNameBuilder();
+
+        /**
+         * A URI for the template resource to use instead of the endpoint
+         * configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ChunkResourceUri}.
+         */
+        public String chunkResourceUri() {
+            return "ChunkResourceUri";
+        }
+
+        /**
+         * The template to use instead of the endpoint configured.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ChunkTemplate}.
+         */
+        public String chunkTemplate() {
+            return "ChunkTemplate";
+        }
+    }
     static ChunkEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class ChunkEndpointBuilderImpl extends AbstractEndpointBuilder implements ChunkEndpointBuilder {
+        class ChunkEndpointBuilderImpl extends AbstractEndpointBuilder implements ChunkEndpointBuilder, AdvancedChunkEndpointBuilder {
             public ChunkEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

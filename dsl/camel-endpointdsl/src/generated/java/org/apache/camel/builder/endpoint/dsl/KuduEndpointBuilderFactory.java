@@ -39,52 +39,8 @@ public interface KuduEndpointBuilderFactory {
      * Builder for endpoint for the Kudu component.
      */
     public interface KuduEndpointBuilder extends EndpointProducerBuilder {
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KuduEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default KuduEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
+        default AdvancedKuduEndpointBuilder advanced() {
+            return (AdvancedKuduEndpointBuilder) this;
         }
         /**
          * Operation to perform.
@@ -119,7 +75,81 @@ public interface KuduEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Kudu component.
+     */
+    public interface AdvancedKuduEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default KuduEndpointBuilder basic() {
+            return (KuduEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKuduEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedKuduEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface KuduBuilders {
+        /**
+         * Kudu (camel-kudu)
+         * Interact with Apache Kudu, a free and open source column-oriented
+         * data store of the Apache Hadoop ecosystem.
+         * 
+         * Category: database,iot,cloud
+         * Since: 3.0
+         * Maven coordinates: org.apache.camel:camel-kudu
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default KuduHeaderNameBuilder kudu() {
+            return KuduHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Kudu (camel-kudu)
          * Interact with Apache Kudu, a free and open source column-oriented
@@ -175,8 +205,46 @@ public interface KuduEndpointBuilderFactory {
             return KuduEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Kudu component.
+     */
+    public static class KuduHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final KuduHeaderNameBuilder INSTANCE = new KuduHeaderNameBuilder();
+
+        /**
+         * The schema.
+         * 
+         * The option is a: {@code org.apache.kudu.Schema} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KuduSchema}.
+         */
+        public String kuduSchema() {
+            return "KuduSchema";
+        }
+
+        /**
+         * The create table options.
+         * 
+         * The option is a: {@code org.apache.kudu.client.CreateTableOptions}
+         * type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code KuduTableOptions}.
+         */
+        public String kuduTableOptions() {
+            return "KuduTableOptions";
+        }
+    }
     static KuduEndpointBuilder endpointBuilder(String componentName, String path) {
-        class KuduEndpointBuilderImpl extends AbstractEndpointBuilder implements KuduEndpointBuilder {
+        class KuduEndpointBuilderImpl extends AbstractEndpointBuilder implements KuduEndpointBuilder, AdvancedKuduEndpointBuilder {
             public KuduEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

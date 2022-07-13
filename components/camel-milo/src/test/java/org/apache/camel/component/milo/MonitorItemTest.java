@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.milo;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -23,7 +25,11 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.milo.server.MiloServerComponent;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Testing the monitor functionality for item
@@ -40,6 +46,8 @@ public class MonitorItemTest extends AbstractMiloServerTest {
                                                         + "&allowedSecurityPolicies=None&overrideHost=true";
 
     private static final String MOCK_TEST_1 = "mock:test1";
+
+    private static final Logger LOG = LoggerFactory.getLogger(MonitorItemTest.class);
 
     @EndpointInject(MOCK_TEST_1)
     protected MockEndpoint test1Endpoint;
@@ -59,6 +67,14 @@ public class MonitorItemTest extends AbstractMiloServerTest {
         };
     }
 
+    @BeforeEach
+    public void setup(TestInfo testInfo) {
+        final var displayName = testInfo.getDisplayName();
+        LOG.info("********************************************************************************");
+        LOG.info(displayName);
+        LOG.info("********************************************************************************");
+    }
+
     /**
      * Monitor multiple events
      */
@@ -68,17 +84,19 @@ public class MonitorItemTest extends AbstractMiloServerTest {
          * we will wait 2 * 1_000 milliseconds between server updates since the
          * default server update rate is 1_000 milliseconds
          */
+        final var time = 2 * 1_000;
+
+        // item 1 ... only this one receives
+        test1Endpoint.reset();
+        test1Endpoint.setExpectedCount(3);
 
         // set server values
         this.producer1.sendBody("Foo");
-        Thread.sleep(2_000);
+        Thread.sleep(time);
         this.producer1.sendBody("Bar");
-        Thread.sleep(2_000);
+        Thread.sleep(time);
         this.producer1.sendBody("Baz");
-        Thread.sleep(2_000);
-
-        // item 1 ... only this one receives
-        this.test1Endpoint.setExpectedCount(3);
+        Thread.sleep(time);
 
         // tests
         testBody(this.test1Endpoint.message(0), assertGoodValue("Foo"));
@@ -86,6 +104,6 @@ public class MonitorItemTest extends AbstractMiloServerTest {
         testBody(this.test1Endpoint.message(2), assertGoodValue("Baz"));
 
         // assert
-        assertMockEndpointsSatisfied();
+        assertMockEndpointsSatisfied(time, TimeUnit.MILLISECONDS);
     }
 }

@@ -40,6 +40,9 @@ public interface GoogleBigQueryEndpointBuilderFactory {
     public interface GoogleBigQueryEndpointBuilder
             extends
                 EndpointProducerBuilder {
+        default AdvancedGoogleBigQueryEndpointBuilder advanced() {
+            return (AdvancedGoogleBigQueryEndpointBuilder) this;
+        }
         /**
          * ConnectionFactory to obtain connection to Bigquery Service. If not
          * provided the default one will be used.
@@ -75,55 +78,6 @@ public interface GoogleBigQueryEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleBigQueryEndpointBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default GoogleBigQueryEndpointBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Field name to use as insert id.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -155,7 +109,80 @@ public interface GoogleBigQueryEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the Google BigQuery component.
+     */
+    public interface AdvancedGoogleBigQueryEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default GoogleBigQueryEndpointBuilder basic() {
+            return (GoogleBigQueryEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleBigQueryEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedGoogleBigQueryEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface GoogleBigQueryBuilders {
+        /**
+         * Google BigQuery (camel-google-bigquery)
+         * Google BigQuery data warehouse for analytics.
+         * 
+         * Category: cloud,bigdata
+         * Since: 2.20
+         * Maven coordinates: org.apache.camel:camel-google-bigquery
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default GoogleBigQueryHeaderNameBuilder googleBigquery() {
+            return GoogleBigQueryHeaderNameBuilder.INSTANCE;
+        }
         /**
          * Google BigQuery (camel-google-bigquery)
          * Google BigQuery data warehouse for analytics.
@@ -211,10 +238,75 @@ public interface GoogleBigQueryEndpointBuilderFactory {
             return GoogleBigQueryEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the Google BigQuery component.
+     */
+    public static class GoogleBigQueryHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final GoogleBigQueryHeaderNameBuilder INSTANCE = new GoogleBigQueryHeaderNameBuilder();
+
+        /**
+         * Table suffix to use when inserting data.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleBigQueryTableSuffix}.
+         */
+        public String googleBigQueryTableSuffix() {
+            return "GoogleBigQueryTableSuffix";
+        }
+
+        /**
+         * Table id where data will be submitted. If specified will override
+         * endpoint configuration.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleBigQueryTableId}.
+         */
+        public String googleBigQueryTableId() {
+            return "GoogleBigQueryTableId";
+        }
+
+        /**
+         * InsertId to use when inserting data.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code GoogleBigQueryInsertId}.
+         */
+        public String googleBigQueryInsertId() {
+            return "GoogleBigQueryInsertId";
+        }
+
+        /**
+         * Partition decorator to indicate partition to use when inserting data.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code
+         * GoogleBigQueryPartitionDecorator}.
+         */
+        public String googleBigQueryPartitionDecorator() {
+            return "GoogleBigQueryPartitionDecorator";
+        }
+    }
     static GoogleBigQueryEndpointBuilder endpointBuilder(
             String componentName,
             String path) {
-        class GoogleBigQueryEndpointBuilderImpl extends AbstractEndpointBuilder implements GoogleBigQueryEndpointBuilder {
+        class GoogleBigQueryEndpointBuilderImpl extends AbstractEndpointBuilder implements GoogleBigQueryEndpointBuilder, AdvancedGoogleBigQueryEndpointBuilder {
             public GoogleBigQueryEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

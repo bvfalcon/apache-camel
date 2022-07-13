@@ -60,51 +60,6 @@ public interface JGroupsEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JGroupsEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default JGroupsEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * If set to true, the consumer endpoint will receive org.jgroups.View
          * messages as well (not only org.jgroups.Message instances). By default
          * only regular messages are consumed by the endpoint.
@@ -151,6 +106,51 @@ public interface JGroupsEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default JGroupsEndpointConsumerBuilder basic() {
             return (JGroupsEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJGroupsEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedJGroupsEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -249,6 +249,17 @@ public interface JGroupsEndpointBuilderFactory {
             doSetProperty("channelProperties", channelProperties);
             return this;
         }
+    }
+
+    /**
+     * Advanced builder for endpoint producers for the JGroups component.
+     */
+    public interface AdvancedJGroupsEndpointProducerBuilder
+            extends
+                EndpointProducerBuilder {
+        default JGroupsEndpointProducerBuilder basic() {
+            return (JGroupsEndpointProducerBuilder) this;
+        }
         /**
          * Whether the producer should be started lazy (on the first message).
          * By starting lazy you can use this to allow CamelContext and routes to
@@ -263,12 +274,12 @@ public interface JGroupsEndpointBuilderFactory {
          * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JGroupsEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJGroupsEndpointProducerBuilder lazyStartProducer(
                 boolean lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
@@ -288,26 +299,15 @@ public interface JGroupsEndpointBuilderFactory {
          * type.
          * 
          * Default: false
-         * Group: producer
+         * Group: producer (advanced)
          * 
          * @param lazyStartProducer the value to set
          * @return the dsl builder
          */
-        default JGroupsEndpointProducerBuilder lazyStartProducer(
+        default AdvancedJGroupsEndpointProducerBuilder lazyStartProducer(
                 String lazyStartProducer) {
             doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
-        }
-    }
-
-    /**
-     * Advanced builder for endpoint producers for the JGroups component.
-     */
-    public interface AdvancedJGroupsEndpointProducerBuilder
-            extends
-                EndpointProducerBuilder {
-        default JGroupsEndpointProducerBuilder basic() {
-            return (JGroupsEndpointProducerBuilder) this;
         }
     }
 
@@ -360,6 +360,19 @@ public interface JGroupsEndpointBuilderFactory {
          * Since: 2.13
          * Maven coordinates: org.apache.camel:camel-jgroups
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default JGroupsHeaderNameBuilder jgroups() {
+            return JGroupsHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * JGroups (camel-jgroups)
+         * Exchange messages with JGroups clusters.
+         * 
+         * Category: clustering,messaging
+         * Since: 2.13
+         * Maven coordinates: org.apache.camel:camel-jgroups
+         * 
          * Syntax: <code>jgroups:clusterName</code>
          * 
          * Path parameter: clusterName (required)
@@ -391,6 +404,77 @@ public interface JGroupsEndpointBuilderFactory {
          */
         default JGroupsEndpointBuilder jgroups(String componentName, String path) {
             return JGroupsEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the JGroups component.
+     */
+    public static class JGroupsHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final JGroupsHeaderNameBuilder INSTANCE = new JGroupsHeaderNameBuilder();
+
+        /**
+         * Address (org.jgroups.Address) of the channel associated with the
+         * endpoint.
+         * 
+         * The option is a: {@code org.jgroups.Address} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JGROUPS_CHANNEL_ADDRESS}.
+         */
+        public String jgroupsChannelAddress() {
+            return "JGROUPS_CHANNEL_ADDRESS";
+        }
+
+        /**
+         * Consumer: The org.jgroups.Address instance extracted by
+         * org.jgroups.Message.getDest() method of the consumed message.
+         * Producer: The custom destination org.jgroups.Address of the message
+         * to be sent.
+         * 
+         * The option is a: {@code org.jgroups.Address} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JGROUPS_DEST}.
+         */
+        public String jgroupsDest() {
+            return "JGROUPS_DEST";
+        }
+
+        /**
+         * Consumer : The org.jgroups.Address instance extracted by
+         * org.jgroups.Message.getSrc() method of the consumed message.
+         * Producer: The custom source org.jgroups.Address of the message to be
+         * sent.
+         * 
+         * The option is a: {@code org.jgroups.Address} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JGROUPS_SRC}.
+         */
+        public String jgroupsSrc() {
+            return "JGROUPS_SRC";
+        }
+
+        /**
+         * The original org.jgroups.Message instance from which the body of the
+         * consumed message has been extracted.
+         * 
+         * The option is a: {@code org.jgroups.Message} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code JGROUPS_ORIGINAL_MESSAGE}.
+         */
+        public String jgroupsOriginalMessage() {
+            return "JGROUPS_ORIGINAL_MESSAGE";
         }
     }
     static JGroupsEndpointBuilder endpointBuilder(

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-soap</artifactId>
@@ -81,7 +81,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-cxf</artifactId>
+            <artifactId>camel-cxf-spring-transport</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf-soap</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

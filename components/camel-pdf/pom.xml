@@ -23,7 +23,7 @@
     <parent>
         <artifactId>components</artifactId>
         <groupId>org.apache.camel</groupId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-pdf</artifactId>
@@ -55,12 +55,12 @@
         <!-- Encryption libraries required for PDFBox -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
+            <artifactId>bcprov-jdk18on</artifactId>
             <version>${bouncycastle-version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcmail-jdk15on</artifactId>
+            <artifactId>bcmail-jdk18on</artifactId>
             <version>${bouncycastle-version}</version>
         </dependency>
         <dependency>

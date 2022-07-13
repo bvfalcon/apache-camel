@@ -38,6 +38,9 @@ public interface NovaEndpointBuilderFactory {
      * Builder for endpoint for the OpenStack Nova component.
      */
     public interface NovaEndpointBuilder extends EndpointProducerBuilder {
+        default AdvancedNovaEndpointBuilder advanced() {
+            return (AdvancedNovaEndpointBuilder) this;
+        }
         /**
          * OpenStack API version.
          * 
@@ -97,53 +100,6 @@ public interface NovaEndpointBuilderFactory {
          */
         default NovaEndpointBuilder domain(String domain) {
             doSetProperty("domain", domain);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NovaEndpointBuilder lazyStartProducer(boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default NovaEndpointBuilder lazyStartProducer(String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -222,7 +178,80 @@ public interface NovaEndpointBuilderFactory {
         }
     }
 
+    /**
+     * Advanced builder for endpoint for the OpenStack Nova component.
+     */
+    public interface AdvancedNovaEndpointBuilder
+            extends
+                EndpointProducerBuilder {
+        default NovaEndpointBuilder basic() {
+            return (NovaEndpointBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNovaEndpointBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedNovaEndpointBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+    }
+
     public interface NovaBuilders {
+        /**
+         * OpenStack Nova (camel-openstack)
+         * Access OpenStack to manage compute resources.
+         * 
+         * Category: cloud,paas
+         * Since: 2.19
+         * Maven coordinates: org.apache.camel:camel-openstack
+         * 
+         * @return the dsl builder for the headers' name.
+         */
+        default NovaHeaderNameBuilder openstackNova() {
+            return NovaHeaderNameBuilder.INSTANCE;
+        }
         /**
          * OpenStack Nova (camel-openstack)
          * Access OpenStack to manage compute resources.
@@ -266,8 +295,201 @@ public interface NovaEndpointBuilderFactory {
             return NovaEndpointBuilderFactory.endpointBuilder(componentName, path);
         }
     }
+
+    /**
+     * The builder of headers' name for the OpenStack Nova component.
+     */
+    public static class NovaHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final NovaHeaderNameBuilder INSTANCE = new NovaHeaderNameBuilder();
+
+        /**
+         * ID of the flavor.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: flavor server
+         * 
+         * @return the name of the header {@code FlavorId}.
+         */
+        public String flavorId() {
+            return "FlavorId";
+        }
+
+        /**
+         * Size of RAM.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: flavor
+         * 
+         * @return the name of the header {@code RAM}.
+         */
+        public String rAM() {
+            return "RAM";
+        }
+
+        /**
+         * The number of flavor VCPU.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: flavor
+         * 
+         * @return the name of the header {@code VCPU}.
+         */
+        public String vCPU() {
+            return "VCPU";
+        }
+
+        /**
+         * Size of disk.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: flavor
+         * 
+         * @return the name of the header {@code disk}.
+         */
+        public String disk() {
+            return "disk";
+        }
+
+        /**
+         * Size of swap.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: flavor
+         * 
+         * @return the name of the header {@code swap}.
+         */
+        public String swap() {
+            return "swap";
+        }
+
+        /**
+         * Rxtx Factor.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: flavor
+         * 
+         * @return the name of the header {@code rxtxFactor}.
+         */
+        public String rxtxFactor() {
+            return "rxtxFactor";
+        }
+
+        /**
+         * Admin password of the new server.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: server
+         * 
+         * @return the name of the header {@code AdminPassword}.
+         */
+        public String adminPassword() {
+            return "AdminPassword";
+        }
+
+        /**
+         * The Image ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: server
+         * 
+         * @return the name of the header {@code ImageId}.
+         */
+        public String imageId() {
+            return "ImageId";
+        }
+
+        /**
+         * The Keypair name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: server
+         * 
+         * @return the name of the header {@code KeypairName}.
+         */
+        public String keypairName() {
+            return "KeypairName";
+        }
+
+        /**
+         * The list of networks (by id).
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: server
+         * 
+         * @return the name of the header {@code NetworkId}.
+         */
+        public String networkId() {
+            return "NetworkId";
+        }
+
+        /**
+         * An action to perform.
+         * 
+         * The option is a: {@code org.openstack4j.model.compute.Action} type.
+         * 
+         * Group: server
+         * 
+         * @return the name of the header {@code action}.
+         */
+        public String action() {
+            return "action";
+        }
+
+        /**
+         * The operation to perform.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code operation}.
+         */
+        public String operation() {
+            return "operation";
+        }
+
+        /**
+         * The ID.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ID}.
+         */
+        public String iD() {
+            return "ID";
+        }
+
+        /**
+         * The name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code name}.
+         */
+        public String name() {
+            return "name";
+        }
+    }
     static NovaEndpointBuilder endpointBuilder(String componentName, String path) {
-        class NovaEndpointBuilderImpl extends AbstractEndpointBuilder implements NovaEndpointBuilder {
+        class NovaEndpointBuilderImpl extends AbstractEndpointBuilder implements NovaEndpointBuilder, AdvancedNovaEndpointBuilder {
             public NovaEndpointBuilderImpl(String path) {
                 super(componentName, path);
             }

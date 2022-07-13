@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.17.0-SNAPSHOT</version>
+        <version>3.19.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-atom</artifactId>
@@ -195,6 +195,11 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-security</artifactId>
             <version>${jetty-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

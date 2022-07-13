@@ -346,51 +346,6 @@ public interface ConsulEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default ConsulEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default ConsulEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Sets the ACL token to be used with Consul.
          * 
          * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
@@ -570,6 +525,51 @@ public interface ConsulEndpointBuilderFactory {
                 EndpointConsumerBuilder {
         default ConsulEndpointConsumerBuilder basic() {
             return (ConsulEndpointConsumerBuilder) this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedConsulEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedConsulEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
         }
         /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
@@ -1067,55 +1067,6 @@ public interface ConsulEndpointBuilderFactory {
             return this;
         }
         /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ConsulEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default ConsulEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
          * Default to transform values retrieved from Consul i.e. on KV endpoint
          * to string.
          * 
@@ -1235,6 +1186,55 @@ public interface ConsulEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default ConsulEndpointProducerBuilder basic() {
             return (ConsulEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedConsulEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedConsulEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * The consistencyMode used for queries, default
@@ -1839,6 +1839,19 @@ public interface ConsulEndpointBuilderFactory {
          * Since: 2.18
          * Maven coordinates: org.apache.camel:camel-consul
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default ConsulHeaderNameBuilder consul() {
+            return ConsulHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Consul (camel-consul)
+         * Integrate with Consul service discovery and configuration store.
+         * 
+         * Category: cloud,api
+         * Since: 2.18
+         * Maven coordinates: org.apache.camel:camel-consul
+         * 
          * Syntax: <code>consul:apiEndpoint</code>
          * 
          * Path parameter: apiEndpoint (required)
@@ -1870,6 +1883,425 @@ public interface ConsulEndpointBuilderFactory {
          */
         default ConsulEndpointBuilder consul(String componentName, String path) {
             return ConsulEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Consul component.
+     */
+    public static class ConsulHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final ConsulHeaderNameBuilder INSTANCE = new ConsulHeaderNameBuilder();
+
+        /**
+         * The Producer action.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulAction}.
+         */
+        public String consulAction() {
+            return "ConsulAction";
+        }
+
+        /**
+         * The Key on which the action should applied.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ConsulKey}.
+         */
+        public String consulKey() {
+            return "ConsulKey";
+        }
+
+        /**
+         * The event id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulEventId}.
+         */
+        public String consulEventId() {
+            return "ConsulEventId";
+        }
+
+        /**
+         * The event name.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulEventName}.
+         */
+        public String consulEventName() {
+            return "ConsulEventName";
+        }
+
+        /**
+         * The event LTime.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulEventLTime}.
+         */
+        public String consulEventLTime() {
+            return "ConsulEventLTime";
+        }
+
+        /**
+         * The Node filter.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulNodeFilter}.
+         */
+        public String consulNodeFilter() {
+            return "ConsulNodeFilter";
+        }
+
+        /**
+         * The tag filter.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulTagFilter}.
+         */
+        public String consulTagFilter() {
+            return "ConsulTagFilter";
+        }
+
+        /**
+         * The session filter.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulSessionFilter}.
+         */
+        public String consulSessionFilter() {
+            return "ConsulSessionFilter";
+        }
+
+        /**
+         * The data version.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulVersion}.
+         */
+        public String consulVersion() {
+            return "ConsulVersion";
+        }
+
+        /**
+         * Flags associated with a value.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ConsulFlags}.
+         */
+        public String consulFlags() {
+            return "ConsulFlags";
+        }
+
+        /**
+         * The optional value index.
+         * 
+         * The option is a: {@code BigInteger} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulIndex}.
+         */
+        public String consulIndex() {
+            return "ConsulIndex";
+        }
+
+        /**
+         * The optional value wait.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulWait}.
+         */
+        public String consulWait() {
+            return "ConsulWait";
+        }
+
+        /**
+         * The internal index value that represents when the entry was created.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulCreateIndex}.
+         */
+        public String consulCreateIndex() {
+            return "ConsulCreateIndex";
+        }
+
+        /**
+         * The number of times this key has successfully been acquired in a
+         * lock.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulLockIndex}.
+         */
+        public String consulLockIndex() {
+            return "ConsulLockIndex";
+        }
+
+        /**
+         * The last index that modified this key.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code ConsulModifyIndex}.
+         */
+        public String consulModifyIndex() {
+            return "ConsulModifyIndex";
+        }
+
+        /**
+         * Options associated to the request.
+         * 
+         * The option is a: {@code } type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ConsulOptions}.
+         */
+        public String consulOptions() {
+            return "ConsulOptions";
+        }
+
+        /**
+         * true if the response has a result.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ConsulResult}.
+         */
+        public String consulResult() {
+            return "ConsulResult";
+        }
+
+        /**
+         * The session id.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code ConsulSession}.
+         */
+        public String consulSession() {
+            return "ConsulSession";
+        }
+
+        /**
+         * To transform values retrieved from Consul i.e. on KV endpoint to
+         * string.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulValueAsString}.
+         */
+        public String consulValueAsString() {
+            return "ConsulValueAsString";
+        }
+
+        /**
+         * The node.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulNode}.
+         */
+        public String consulNode() {
+            return "ConsulNode";
+        }
+
+        /**
+         * The service.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulService}.
+         */
+        public String consulService() {
+            return "ConsulService";
+        }
+
+        /**
+         * The data center.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulDatacenter}.
+         */
+        public String consulDatacenter() {
+            return "ConsulDatacenter";
+        }
+
+        /**
+         * The near node to use for queries.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulNearNode}.
+         */
+        public String consulNearNode() {
+            return "ConsulNearNode";
+        }
+
+        /**
+         * The note meta-data to use for queries.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulNodeMeta}.
+         */
+        public String consulNodeMeta() {
+            return "ConsulNodeMeta";
+        }
+
+        /**
+         * The last contact.
+         * 
+         * The option is a: {@code Long} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulLastContact}.
+         */
+        public String consulLastContact() {
+            return "ConsulLastContact";
+        }
+
+        /**
+         * Indicates whether it is the known leader.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulKnownLeader}.
+         */
+        public String consulKnownLeader() {
+            return "ConsulKnownLeader";
+        }
+
+        /**
+         * The consistencyMode used for queries.
+         * 
+         * The option is a: {@code com.orbitz.consul.option.ConsistencyMode}
+         * type.
+         * 
+         * Default: DEFAULT
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulConsistencyMode}.
+         */
+        public String consulConsistencyMode() {
+            return "ConsulConsistencyMode";
+        }
+
+        /**
+         * Only on healthy services.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Default: false
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulHealthyOnly}.
+         */
+        public String consulHealthyOnly() {
+            return "ConsulHealthyOnly";
+        }
+
+        /**
+         * The state to query.
+         * 
+         * The option is a: {@code com.orbitz.consul.model.State} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulHealthyState}.
+         */
+        public String consulHealthyState() {
+            return "ConsulHealthyState";
+        }
+
+        /**
+         * The id of the prepared query.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulPreparedQueryID}.
+         */
+        public String consulPreparedQueryID() {
+            return "ConsulPreparedQueryID";
+        }
+
+        /**
+         * The service id for agent deregistration.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code ConsulServiceId}.
+         */
+        public String consulServiceId() {
+            return "ConsulServiceId";
         }
     }
     static ConsulEndpointBuilder endpointBuilder(

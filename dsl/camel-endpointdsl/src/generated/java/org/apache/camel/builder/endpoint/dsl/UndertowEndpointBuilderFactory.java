@@ -121,51 +121,6 @@ public interface UndertowEndpointBuilderFactory {
             return this;
         }
         /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default UndertowEndpointConsumerBuilder bridgeErrorHandler(
-                boolean bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
-         * Allows for bridging the consumer to the Camel routing Error Handler,
-         * which mean any exceptions occurred while the consumer is trying to
-         * pickup incoming messages, or the likes, will now be processed as a
-         * message and handled by the routing Error Handler. By default the
-         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
-         * with exceptions, that will be logged at WARN or ERROR level and
-         * ignored.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: consumer
-         * 
-         * @param bridgeErrorHandler the value to set
-         * @return the dsl builder
-         */
-        default UndertowEndpointConsumerBuilder bridgeErrorHandler(
-                String bridgeErrorHandler) {
-            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
-            return this;
-        }
-        /**
          * Used to only allow consuming if the HttpMethod matches, such as
          * GET/POST/PUT etc. Multiple methods can be specified separated by
          * comma.
@@ -503,6 +458,51 @@ public interface UndertowEndpointBuilderFactory {
             return (UndertowEndpointConsumerBuilder) this;
         }
         /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedUndertowEndpointConsumerBuilder bridgeErrorHandler(
+                boolean bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
+         * Allows for bridging the consumer to the Camel routing Error Handler,
+         * which mean any exceptions occurred while the consumer is trying to
+         * pickup incoming messages, or the likes, will now be processed as a
+         * message and handled by the routing Error Handler. By default the
+         * consumer will use the org.apache.camel.spi.ExceptionHandler to deal
+         * with exceptions, that will be logged at WARN or ERROR level and
+         * ignored.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: consumer (advanced)
+         * 
+         * @param bridgeErrorHandler the value to set
+         * @return the dsl builder
+         */
+        default AdvancedUndertowEndpointConsumerBuilder bridgeErrorHandler(
+                String bridgeErrorHandler) {
+            doSetProperty("bridgeErrorHandler", bridgeErrorHandler);
+            return this;
+        }
+        /**
          * To let the consumer use a custom ExceptionHandler. Notice if the
          * option bridgeErrorHandler is enabled then this option is not in use.
          * By default the consumer will deal with exceptions, that will be
@@ -812,55 +812,6 @@ public interface UndertowEndpointBuilderFactory {
          */
         default UndertowEndpointProducerBuilder keepAlive(String keepAlive) {
             doSetProperty("keepAlive", keepAlive);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default UndertowEndpointProducerBuilder lazyStartProducer(
-                boolean lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
-            return this;
-        }
-        /**
-         * Whether the producer should be started lazy (on the first message).
-         * By starting lazy you can use this to allow CamelContext and routes to
-         * startup in situations where a producer may otherwise fail during
-         * starting and cause the route to fail being started. By deferring this
-         * startup to be lazy then the startup failure can be handled during
-         * routing messages via Camel's routing error handlers. Beware that when
-         * the first message is processed then creating and starting the
-         * producer may take a little time and prolong the total processing time
-         * of the processing.
-         * 
-         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
-         * type.
-         * 
-         * Default: false
-         * Group: producer
-         * 
-         * @param lazyStartProducer the value to set
-         * @return the dsl builder
-         */
-        default UndertowEndpointProducerBuilder lazyStartProducer(
-                String lazyStartProducer) {
-            doSetProperty("lazyStartProducer", lazyStartProducer);
             return this;
         }
         /**
@@ -1246,6 +1197,55 @@ public interface UndertowEndpointBuilderFactory {
                 EndpointProducerBuilder {
         default UndertowEndpointProducerBuilder basic() {
             return (UndertowEndpointProducerBuilder) this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option is a: &lt;code&gt;boolean&lt;/code&gt; type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedUndertowEndpointProducerBuilder lazyStartProducer(
+                boolean lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
+        }
+        /**
+         * Whether the producer should be started lazy (on the first message).
+         * By starting lazy you can use this to allow CamelContext and routes to
+         * startup in situations where a producer may otherwise fail during
+         * starting and cause the route to fail being started. By deferring this
+         * startup to be lazy then the startup failure can be handled during
+         * routing messages via Camel's routing error handlers. Beware that when
+         * the first message is processed then creating and starting the
+         * producer may take a little time and prolong the total processing time
+         * of the processing.
+         * 
+         * The option will be converted to a &lt;code&gt;boolean&lt;/code&gt;
+         * type.
+         * 
+         * Default: false
+         * Group: producer (advanced)
+         * 
+         * @param lazyStartProducer the value to set
+         * @return the dsl builder
+         */
+        default AdvancedUndertowEndpointProducerBuilder lazyStartProducer(
+                String lazyStartProducer) {
+            doSetProperty("lazyStartProducer", lazyStartProducer);
+            return this;
         }
         /**
          * Which Undertow AccessLogReceiver should be used Will use
@@ -1653,6 +1653,20 @@ public interface UndertowEndpointBuilderFactory {
          * Since: 2.16
          * Maven coordinates: org.apache.camel:camel-undertow
          * 
+         * @return the dsl builder for the headers' name.
+         */
+        default UndertowHeaderNameBuilder undertow() {
+            return UndertowHeaderNameBuilder.INSTANCE;
+        }
+        /**
+         * Undertow (camel-undertow)
+         * Expose HTTP and WebSocket endpoints and access external
+         * HTTP/WebSocket servers.
+         * 
+         * Category: http,websocket
+         * Since: 2.16
+         * Maven coordinates: org.apache.camel:camel-undertow
+         * 
          * Syntax: <code>undertow:httpURI</code>
          * 
          * Path parameter: httpURI (required)
@@ -1687,6 +1701,220 @@ public interface UndertowEndpointBuilderFactory {
                 String componentName,
                 String path) {
             return UndertowEndpointBuilderFactory.endpointBuilder(componentName, path);
+        }
+    }
+
+    /**
+     * The builder of headers' name for the Undertow component.
+     */
+    public static class UndertowHeaderNameBuilder {
+        /**
+         * The internal instance of the builder used to access to all the
+         * methods representing the name of headers.
+         */
+        private static final UndertowHeaderNameBuilder INSTANCE = new UndertowHeaderNameBuilder();
+
+        /**
+         * An identifier of WebSocketChannel through which the message was
+         * received or should be sent.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code websocket.connectionKey}.
+         */
+        public String websocketConnectionkey() {
+            return "websocket.connectionKey";
+        }
+
+        /**
+         * The list of websocket connection keys.
+         * 
+         * The option is a: {@code List<String>} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code websocket.connectionKey.list}.
+         */
+        public String websocketConnectionkeyList() {
+            return "websocket.connectionKey.list";
+        }
+
+        /**
+         * To send to all websocket subscribers. Can be used to configure on
+         * endpoint level, instead of having to use the
+         * UndertowConstants.SEND_TO_ALL header on the message.
+         * 
+         * The option is a: {@code Boolean} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code websocket.sendToAll}.
+         */
+        public String websocketSendtoall() {
+            return "websocket.sendToAll";
+        }
+
+        /**
+         * The numeric identifier of the type of websocket event.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.eventType}.
+         */
+        public String websocketEventtype() {
+            return "websocket.eventType";
+        }
+
+        /**
+         * The type of websocket event.
+         * 
+         * The option is a: {@code
+         * org.apache.camel.component.undertow.UndertowConstants.EventType}
+         * type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.eventTypeEnum}.
+         */
+        public String websocketEventtypeenum() {
+            return "websocket.eventTypeEnum";
+        }
+
+        /**
+         * The WebSocketChannel through which the message was received.
+         * 
+         * The option is a: {@code io.undertow.websockets.core.WebSocketChannel}
+         * type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.channel}.
+         */
+        public String websocketChannel() {
+            return "websocket.channel";
+        }
+
+        /**
+         * The exchange for the websocket transport, only available for ON_OPEN
+         * events.
+         * 
+         * The option is a: {@code
+         * io.undertow.websockets.spi.WebSocketHttpExchange} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code websocket.exchange}.
+         */
+        public String websocketExchange() {
+            return "websocket.exchange";
+        }
+
+        /**
+         * The http response code.
+         * 
+         * The option is a: {@code Integer} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpResponseCode}.
+         */
+        public String httpResponseCode() {
+            return "HttpResponseCode";
+        }
+
+        /**
+         * The content type.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code Content-Type}.
+         */
+        public String contentType() {
+            return "Content-Type";
+        }
+
+        /**
+         * The http character encoding.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: consumer
+         * 
+         * @return the name of the header {@code HttpCharacterEncoding}.
+         */
+        public String httpCharacterEncoding() {
+            return "HttpCharacterEncoding";
+        }
+
+        /**
+         * The http path.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpPath}.
+         */
+        public String httpPath() {
+            return "HttpPath";
+        }
+
+        /**
+         * The http query.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpQuery}.
+         */
+        public String httpQuery() {
+            return "HttpQuery";
+        }
+
+        /**
+         * The http URI.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: common
+         * 
+         * @return the name of the header {@code HttpUri}.
+         */
+        public String httpUri() {
+            return "HttpUri";
+        }
+
+        /**
+         * The http method.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code HttpMethod}.
+         */
+        public String httpMethod() {
+            return "HttpMethod";
+        }
+
+        /**
+         * The host http header.
+         * 
+         * The option is a: {@code String} type.
+         * 
+         * Group: producer
+         * 
+         * @return the name of the header {@code Host}.
+         */
+        public String host() {
+            return "Host";
         }
     }
     static UndertowEndpointBuilder endpointBuilder(
