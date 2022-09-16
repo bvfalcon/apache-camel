@@ -21,8 +21,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.xml.ws.Holder;
 
+import jakarta.xml.ws.Holder;
 import org.apache.camel.cxf.mtom_feature.Hello;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;

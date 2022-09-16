@@ -33,7 +33,7 @@
     <properties>
         <java.awt.headless>true</java.awt.headless>
         <camel.osgi.import.before.defaults>
-            javax.activation.*;version="${jakarta-activation-version-range}"
+            jakarta.activation.*;version="${jakarta-activation-version-range}"
         </camel.osgi.import.before.defaults>
         <camel.osgi.import.additional>
             org.apache.solr.*;version="${solr-version-range}"
@@ -137,13 +137,13 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>9.4.44.v20210927</version>
+            <version>${jetty-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
-            <version>9.4.44.v20210927</version>
+            <version>${jetty-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

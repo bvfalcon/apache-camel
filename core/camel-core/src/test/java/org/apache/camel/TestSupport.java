@@ -124,7 +124,7 @@ public abstract class TestSupport {
     }
 
     protected Path testFile(String dir) {
-        return testDirectory().resolve(dir);
+        return testDirectory().resolve(dir.replace('/', File.separatorChar));
     }
 
     protected Path testDirectory(String dir) {

@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.stream.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.endpoint.AbstractEndpointBuilder;
@@ -1398,41 +1398,6 @@ public interface MailEndpointBuilderFactory {
          */
         default AdvancedMailEndpointConsumerBuilder folderName(String folderName) {
             doSetProperty("folderName", folderName);
-            return this;
-        }
-        /**
-         * Set this to 'uuid' to set a UUID for the filename of the attachment
-         * if no filename was set.
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: consumer (advanced)
-         * 
-         * @param generateMissingAttachmentNames the value to set
-         * @return the dsl builder
-         */
-        default AdvancedMailEndpointConsumerBuilder generateMissingAttachmentNames(
-                String generateMissingAttachmentNames) {
-            doSetProperty("generateMissingAttachmentNames", generateMissingAttachmentNames);
-            return this;
-        }
-        /**
-         * Set the strategy to handle duplicate filenames of attachments never:
-         * attachments that have a filename which is already present in the
-         * attachments will be ignored unless failOnDuplicateFileAttachment is
-         * set to true uuidPrefix: this will prefix the duplicate attachment
-         * filenames each with a uuid and underscore (uuid_).
-         * 
-         * The option is a: &lt;code&gt;java.lang.String&lt;/code&gt; type.
-         * 
-         * Group: consumer (advanced)
-         * 
-         * @param handleDuplicateAttachmentNames the value to set
-         * @return the dsl builder
-         */
-        default AdvancedMailEndpointConsumerBuilder handleDuplicateAttachmentNames(
-                String handleDuplicateAttachmentNames) {
-            doSetProperty("handleDuplicateAttachmentNames", handleDuplicateAttachmentNames);
             return this;
         }
         /**

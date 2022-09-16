@@ -47,7 +47,7 @@
             !org.apache.camel.component.cxf.util,
             !org.apache.camel.blueprint,
             !org.apache.camel.test,
-            javax.xml.soap*;version="[1.3,2)";resolution:=optional,
+            jakarta.xml.soap*;version="[2.0,3)";resolution:=optional,
             javax.xml.stream*;version="[0.0,2)";resolution:=optional,
             org.apache.camel.*;${camel.osgi.import.camel.version},
             org.apache.camel.component.cxf.blueprint;${camel.osgi.import.camel.version};resolution:=optional,
@@ -96,9 +96,11 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>${jakarta-servlet-api-version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>jakarta.xml.soap</groupId>
+            <artifactId>jakarta.xml.soap-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-junit5</artifactId>

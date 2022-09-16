@@ -21,9 +21,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.mail.search.SearchTerm;
-
 import com.sun.mail.imap.SortTerm;
+import jakarta.mail.search.SearchTerm;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.SSLContextParametersAware;

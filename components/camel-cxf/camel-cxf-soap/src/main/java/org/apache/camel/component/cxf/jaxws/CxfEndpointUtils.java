@@ -18,10 +18,10 @@ package org.apache.camel.component.cxf.jaxws;
 
 import java.lang.annotation.Annotation;
 
-import javax.jws.WebService;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceProvider;
 
+import jakarta.jws.WebService;
+import jakarta.xml.ws.WebServiceProvider;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelException;
 import org.apache.camel.Exchange;

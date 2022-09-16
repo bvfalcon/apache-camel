@@ -34,8 +34,8 @@
 
     <properties>
         <camel.osgi.import.before.defaults>
-            org.eclipse.jetty.*;version="[10,12)",
-            javax.servlet.*;version="${servlet-version-range}"
+            org.eclipse.jetty.*;version="[11,12)",
+            jakarta.servlet.*;version="${servlet-version-range}"
         </camel.osgi.import.before.defaults>
         <firstVersion>2.15.0</firstVersion>
     </properties>
@@ -53,7 +53,6 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>${jakarta-servlet-api-version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -61,12 +60,6 @@
             <version>${jetty-version}</version>
             <!-- provided scope as the Jetty8/9 component will provide the proper version -->
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.orbit</groupId>
-                    <artifactId>javax.servlet</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>

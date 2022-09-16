@@ -24,12 +24,11 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.MimeMessage;
-
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.MimeMessage;
 import org.apache.camel.Exchange;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.attachment.Attachment;
@@ -37,7 +36,7 @@ import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit5.CamelTestSupport;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jvnet.mock_javamail.Mailbox;
@@ -85,14 +84,14 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultEndpoint.assertIsSatisfied();
         Exchange exchange = resultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertNotNull(exchange.getIn(AttachmentMessage.class));
-        Assert.assertNotNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
-        Assert.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
+        Assertions.assertNotNull(exchange.getIn(AttachmentMessage.class));
+        Assertions.assertNotNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
+        Assertions.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
 
         Map.Entry<String, Attachment> entry
                 = exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().iterator().next();
         String name = entry.getKey();
-        Assert.assertTrue(isUUID(name));
+        Assertions.assertTrue(isUUID(name));
     }
 
     @Test
@@ -101,12 +100,12 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultEndpoint.assertIsSatisfied();
         Exchange exchange = resultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
+        Assertions.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
 
         Map.Entry<String, Attachment> entry
                 = exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().iterator().next();
         String name = entry.getKey();
-        Assert.assertTrue(isUUID(name));
+        Assertions.assertTrue(isUUID(name));
     }
 
     @Test
@@ -115,13 +114,13 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultEndpoint.assertIsSatisfied();
         Exchange exchange = resultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertEquals(2, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
+        Assertions.assertEquals(2, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
 
         Map<String, Attachment> attachments = exchange.getIn(AttachmentMessage.class).getAttachmentObjects();
         for (Map.Entry<String, Attachment> entry : attachments.entrySet()) {
-            Assert.assertEquals(48, entry.getKey().length());
-            Assert.assertTrue(startsWithUUID(entry.getKey()));
-            Assert.assertTrue(entry.getKey().endsWith("Capture.PNG"));
+            Assertions.assertEquals(48, entry.getKey().length());
+            Assertions.assertTrue(startsWithUUID(entry.getKey()));
+            Assertions.assertTrue(entry.getKey().endsWith("Capture.PNG"));
         }
     }
 
@@ -136,10 +135,10 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultDefaultEndpoint.assertIsSatisfied();
         Exchange exchange = resultDefaultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
+        Assertions.assertEquals(1, exchange.getIn(AttachmentMessage.class).getAttachmentObjects().entrySet().size());
         Map<String, Attachment> attachments = exchange.getIn(AttachmentMessage.class).getAttachmentObjects();
 
-        Assert.assertNotNull(attachments.get("Capture.PNG"));
+        Assertions.assertNotNull(attachments.get("Capture.PNG"));
     }
 
     /**
@@ -153,8 +152,8 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultDefaultEndpoint.assertIsSatisfied();
         Exchange exchange = resultDefaultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertNotNull(exchange.getIn(AttachmentMessage.class));
-        Assert.assertNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
+        Assertions.assertNotNull(exchange.getIn(AttachmentMessage.class));
+        Assertions.assertNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
     }
 
     /**
@@ -168,8 +167,8 @@ public class MailAttachmentNamesTest extends CamelTestSupport {
 
         resultDefaultEndpoint.assertIsSatisfied();
         Exchange exchange = resultDefaultEndpoint.getReceivedExchanges().get(0);
-        Assert.assertNotNull(exchange.getIn(AttachmentMessage.class));
-        Assert.assertNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
+        Assertions.assertNotNull(exchange.getIn(AttachmentMessage.class));
+        Assertions.assertNull(exchange.getIn(AttachmentMessage.class).getAttachmentObjects());
     }
 
     private void sendTestMessage(String filename, String recipient) throws MessagingException, FileNotFoundException {

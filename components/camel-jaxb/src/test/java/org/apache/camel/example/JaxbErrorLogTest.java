@@ -16,8 +16,7 @@
  */
 package org.apache.camel.example;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.RuntimeCamelException;

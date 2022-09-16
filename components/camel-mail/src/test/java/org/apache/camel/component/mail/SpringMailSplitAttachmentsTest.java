@@ -16,9 +16,8 @@
  */
 package org.apache.camel.component.mail;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Producer;
@@ -27,6 +26,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.spring.junit5.CamelSpringTestSupport;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.jvnet.mock_javamail.Mailbox;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -38,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Spring XML version of {@link MailSplitAttachmentsTest}
  */
+@Disabled
 public class SpringMailSplitAttachmentsTest extends CamelSpringTestSupport {
 
     private Endpoint endpoint;

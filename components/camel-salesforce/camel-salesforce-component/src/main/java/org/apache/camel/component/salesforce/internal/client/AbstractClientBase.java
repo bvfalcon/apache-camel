@@ -29,7 +29,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -368,10 +367,7 @@ public abstract class AbstractClientBase extends ServiceSupport
             return;
         }
 
-        final HttpFields requestHeaders = request.getHeaders();
-        for (Entry<String, List<String>> header : headers.entrySet()) {
-            requestHeaders.put(header.getKey(), header.getValue());
-        }
+        request.headers(fields -> request.getHeaders().forEach(fields::put));
     }
 
     static Map<String, List<String>> determineHeaders(final Exchange exchange) {

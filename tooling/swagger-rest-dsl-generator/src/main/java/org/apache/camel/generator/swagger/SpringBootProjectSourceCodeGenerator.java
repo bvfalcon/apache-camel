@@ -19,7 +19,6 @@ package org.apache.camel.generator.swagger;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javax.annotation.Generated;
 import javax.lang.model.element.Modifier;
 
 import com.squareup.javapoet.AnnotationSpec;
@@ -27,6 +26,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+import jakarta.annotation.Generated;
 import org.apache.camel.util.ObjectHelper;
 
 import static org.apache.camel.util.StringHelper.notEmpty;
