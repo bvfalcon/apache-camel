@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.20.0-SNAPSHOT</version>
+        <version>100.500-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-zendesk</artifactId>
@@ -84,7 +84,7 @@
                                     <apiName />
                                     <proxyClass>org.zendesk.client.v2.Zendesk</proxyClass>
                                     <fromJavasource>
-                                        <excludeMethods>isClosed|close|getTicketsByStatus|createGroups|importTickets|recoverSuspendedTickets|createMapper|getSearchResults
+                                        <excludeMethods>isClosed|close|getTicketsByStatus|createGroups|importTickets|createMappe
                                         </excludeMethods>
                                     </fromJavasource>
                                     <substitutions>
@@ -183,18 +183,6 @@
                                             <argType>java.lang.String</argType>
                                             <argName>params</argName>
                                             <replacement>parameters</replacement>
-                                        </substitution>
-                                        <substitution>
-                                            <method>getUsersByExternalIds</method>
-                                            <argType>long</argType>
-                                            <argName>externalId</argName>
-                                            <replacement>externalId0</replacement>
-                                        </substitution>
-                                        <substitution>
-                                            <method>getTriggers</method>
-                                            <argType>java.lang.String</argType>
-                                            <argName>categoryId</argName>
-                                            <replacement>categoryId0</replacement>
                                         </substitution>
                                     </substitutions>
                                 </api>

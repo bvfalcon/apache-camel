@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.camel</groupId>
     <artifactId>camel</artifactId>
-    <version>3.20.0-SNAPSHOT</version>
+    <version>100.500-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
   <artifactId>camel-bom</artifactId>
@@ -1657,11 +1657,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-pulsar</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-python</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

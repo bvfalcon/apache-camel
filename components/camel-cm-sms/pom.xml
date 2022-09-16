@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.20.0-SNAPSHOT</version>
+        <version>100.500-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-cm-sms</artifactId>
@@ -48,6 +48,11 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup-version}</version>
         </dependency>
 
         <dependency>
