@@ -14,26 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.sjms.jms;
 
-import jakarta.jms.Session;
+package org.apache.camel.test.infra.openmq.common;
 
-/**
- * Session acknowledge enum keys
- */
-public enum SessionAcknowledgementType {
-    AUTO_ACKNOWLEDGE(Session.AUTO_ACKNOWLEDGE),
-    CLIENT_ACKNOWLEDGE(Session.CLIENT_ACKNOWLEDGE),
-    DUPS_OK_ACKNOWLEDGE(Session.DUPS_OK_ACKNOWLEDGE),
-    SESSION_TRANSACTED(Session.SESSION_TRANSACTED);
+public final class OpenMQProperties {
+    public static final String SERVICE_ADDRESS = "activemq.service.address";
 
-    private int intValue = -1;
+    public static final String AMQ_EXTERNAL = "amq.external";
+    public static final String AMQ_USERNAME = "amq.username";
+    public static final String AMQ_PASSWORD = "amq.password";
 
-    SessionAcknowledgementType(int intValue) {
-        this.intValue = intValue;
-    }
+    private OpenMQProperties() {
 
-    public int intValue() {
-        return intValue;
     }
 }

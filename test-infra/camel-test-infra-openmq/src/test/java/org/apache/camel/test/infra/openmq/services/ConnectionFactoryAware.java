@@ -14,26 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.sjms.jms;
 
-import jakarta.jms.Session;
+package org.apache.camel.test.infra.openmq.services;
 
-/**
- * Session acknowledge enum keys
- */
-public enum SessionAcknowledgementType {
-    AUTO_ACKNOWLEDGE(Session.AUTO_ACKNOWLEDGE),
-    CLIENT_ACKNOWLEDGE(Session.CLIENT_ACKNOWLEDGE),
-    DUPS_OK_ACKNOWLEDGE(Session.DUPS_OK_ACKNOWLEDGE),
-    SESSION_TRANSACTED(Session.SESSION_TRANSACTED);
+import jakarta.jms.ConnectionFactory;
 
-    private int intValue = -1;
+public interface ConnectionFactoryAware {
+    ConnectionFactory createConnectionFactory();
 
-    SessionAcknowledgementType(int intValue) {
-        this.intValue = intValue;
-    }
-
-    public int intValue() {
-        return intValue;
-    }
+    ConnectionFactory createConnectionFactory(Integer maximumRedeliveries);
 }

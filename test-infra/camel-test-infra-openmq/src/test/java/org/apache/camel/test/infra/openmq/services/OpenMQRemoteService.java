@@ -14,26 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.sjms.jms;
+package org.apache.camel.test.infra.openmq.services;
 
-import jakarta.jms.Session;
+import org.apache.camel.test.infra.openmq.common.OpenMQProperties;
 
-/**
- * Session acknowledge enum keys
- */
-public enum SessionAcknowledgementType {
-    AUTO_ACKNOWLEDGE(Session.AUTO_ACKNOWLEDGE),
-    CLIENT_ACKNOWLEDGE(Session.CLIENT_ACKNOWLEDGE),
-    DUPS_OK_ACKNOWLEDGE(Session.DUPS_OK_ACKNOWLEDGE),
-    SESSION_TRANSACTED(Session.SESSION_TRANSACTED);
+public class OpenMQRemoteService implements OpenMQService {
 
-    private int intValue = -1;
-
-    SessionAcknowledgementType(int intValue) {
-        this.intValue = intValue;
+    @Override
+    public void initialize() {
+        registerProperties();
     }
 
-    public int intValue() {
-        return intValue;
+    @Override
+    public void shutdown() {
+        // NO-OP
+    }
+
+    @Override
+    public void restart() {
+        // NO-OP
+    }
+
+    @Override
+    public String serviceAddress() {
+        return System.getProperty(OpenMQProperties.SERVICE_ADDRESS);
+    }
+
+    @Override
+    public String userName() {
+        return System.getProperty(OpenMQProperties.AMQ_USERNAME);
+    }
+
+    @Override
+    public String password() {
+        return System.getProperty(OpenMQProperties.AMQ_PASSWORD);
     }
 }

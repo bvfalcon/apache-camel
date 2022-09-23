@@ -410,6 +410,7 @@
         <olingo4-version>4.8.0</olingo4-version>
         <ognl-version>3.1.12</ognl-version>
         <openjpa-version>3.2.2</openjpa-version>
+        <openmq-version>6.2.1</openmq-version>
         <openstack4j-version>3.10</openstack4j-version>
         <opentelemetry-version>1.17.0</opentelemetry-version>
         <opentelemetry-alpha-version>${opentelemetry-version}-alpha</opentelemetry-alpha-version>
@@ -5008,4 +5009,11 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>eclipse-openmq</id>
+            <url>https://maven.pkg.github.com/bvfalcon/eclipse-openmq</url>
+        </repository>
+    </repositories>
 </project>
