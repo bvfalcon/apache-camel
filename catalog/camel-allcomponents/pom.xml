@@ -33,10 +33,10 @@
     <description>Depends on all components to ensure correct build ordering</description>
 
 	<dependencies>
-            <dependency>
+		<!--dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-activemq</artifactId>
-		</dependency>
+		</dependency-->
             <dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-amqp</artifactId>
@@ -445,10 +445,10 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-docker</artifactId>
 		</dependency>
-            <dependency>
+		<!--dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-dozer</artifactId>
-		</dependency>
+		</dependency-->
             <dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-drill</artifactId>
@@ -985,10 +985,10 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-minio</artifactId>
 		</dependency>
-            <dependency>
+		<!--dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-mllp</artifactId>
-		</dependency>
+		</dependency-->
             <dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-mock</artifactId>
@@ -1245,14 +1245,14 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-shiro</artifactId>
 		</dependency>
-            <dependency>
+		<!--dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-sjms2</artifactId>
-		</dependency>
-            <dependency>
+		</dependency-->
+		<!--dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-sjms</artifactId>
-		</dependency>
+		</dependency-->
             <dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-slack</artifactId>

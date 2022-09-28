@@ -17,6 +17,7 @@
 package org.apache.camel.maven.packaging;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +49,8 @@ import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.util.FileUtil;
 import org.apache.camel.tooling.util.PackageHelper;
 import org.apache.camel.tooling.util.Strings;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -56,6 +59,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import static org.apache.camel.maven.packaging.MojoHelper.getComponentPath;
 import static org.apache.camel.tooling.util.PackageHelper.loadText;
@@ -1089,13 +1093,15 @@ public class PrepareCatalogMojo extends AbstractMojo {
 
     private Stream<Path> list(Path dir) {
         try {
-            if (Files.isDirectory(dir)) {
-                return Files.list(dir);
+            if (dir.resolve("pom.xml").toFile().exists()) {
+                MavenXpp3Reader pomReader = new MavenXpp3Reader();
+                Model model = pomReader.read(new FileReader(dir.resolve("pom.xml").toFile()));
+                return model.getModules().stream().map(module -> dir.resolve(module));
             } else {
                 return Stream.empty();
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to list files in directory: " + dir, e);
+        } catch (IOException | XmlPullParserException e) {
+            throw new RuntimeException("Unable to list modules in project directory: " + dir, e);
         }
     }
 

@@ -112,11 +112,11 @@
         </dependency>
 
         <!-- for testing activemq component -->
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-activemq</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
