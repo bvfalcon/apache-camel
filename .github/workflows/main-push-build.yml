@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '11' ]
+        java: [ '17' ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -54,7 +54,7 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
       - name: mvn formatter and build
-        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -l build.log -Dmvnd.threads=2 -V -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 --no-transfer-progress -e -Pformat,fastinstall -DskipTests verify
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -l build.log -Dmvnd.threads=2 -V -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 --no-transfer-progress -e -Pformat,fastinstall -DskipTests verify -fae
       - name: Generate a thread dump in case of a lock issue
         if: failure()
         run: cat build.log | grep "Could not acquire write lock for '.*.resolverlock'" > /dev/null && jstack $(jcmd | grep MavenDaemon | awk '{print $1;}') >> build.log
