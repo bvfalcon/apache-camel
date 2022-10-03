@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.models.ArrayModel;
 import io.swagger.models.Model;
 import io.swagger.models.ModelImpl;
@@ -60,6 +59,8 @@ import io.swagger.models.properties.LongProperty;
 import io.swagger.models.properties.Property;
 import io.swagger.models.properties.RefProperty;
 import io.swagger.models.properties.StringProperty;
+import io.swagger.v3.oas.models.OpenAPI;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.model.rest.ApiKeyDefinition;
@@ -98,7 +99,7 @@ public class RestSwaggerReader {
      */
     public Swagger read(
             CamelContext camelContext,
-            List<RestDefinition> rests, BeanConfig config, String camelContextId, ClassResolver classResolver)
+            List<RestDefinition> rests, OpenAPI config, String camelContextId, ClassResolver classResolver)
             throws ClassNotFoundException {
         Swagger swagger = new Swagger();
 

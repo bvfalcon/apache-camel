@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.models.Swagger;
+import io.swagger.v3.oas.models.OpenAPI;
+
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.engine.DefaultClassResolver;
@@ -65,7 +66,7 @@ public class RestSwaggerReaderTest extends CamelTestSupport {
 
     @Test
     public void testReaderRead() throws Exception {
-        BeanConfig config = new BeanConfig();
+        OpenAPI config = new OpenAPI();
         config.setHost("localhost:8080");
         config.setSchemes(new String[] { "http" });
         config.setBasePath("/api");

@@ -17,6 +17,7 @@
 package org.apache.camel.swagger;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +27,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.models.Contact;
-import io.swagger.models.Info;
-import io.swagger.models.License;
 import io.swagger.models.Scheme;
 import io.swagger.models.Swagger;
 import io.swagger.util.Json;
 import io.swagger.util.Yaml;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.servers.ServerVariable;
+import io.swagger.v3.oas.models.servers.ServerVariables;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExtendedCamelContext;
@@ -64,19 +69,30 @@ public class RestSwaggerSupport {
     private RestSwaggerReader reader = new RestSwaggerReader();
     private boolean cors;
 
-    public void initSwagger(BeanConfig swaggerConfig, Map<String, Object> config) {
-        // configure swagger options
-        String s = (String) config.get("swagger.version");
-        if (s != null) {
-            swaggerConfig.setVersion(s);
+    private void changeServer(OpenAPI swaggerConfig, String variableName, String variableValue) {
+        if (swaggerConfig.getServers() == null || swaggerConfig.getServers().isEmpty()) {
+            Server server = new Server();
+            List<Server> servers = new ArrayList<>();
+            servers.add(server);
+            swaggerConfig.setServers(servers);
         }
-        s = (String) config.get("base.path");
+        ServerVariable sv = new ServerVariable();
+        sv.setDefault(variableValue);
+        ServerVariables svs = new ServerVariables();
+        svs.addServerVariable(variableName, sv);
+        swaggerConfig.getServers().get(0).setVariables(svs);
+    }
+
+    public void initSwagger(OpenAPI swaggerConfig, Map<String, Object> config) {
+        // configure swagger options
+        String s = (String) config.get("base.path");
         if (s != null) {
-            swaggerConfig.setBasePath(s);
+            changeServer(swaggerConfig, "basePath", s);
         }
         s = (String) config.get("host");
         if (s != null) {
             swaggerConfig.setHost(s);
+            changeServer(swaggerConfig, "basePath", s);
         }
         s = (String) config.get("cors");
         if (s != null) {
@@ -157,7 +173,7 @@ public class RestSwaggerSupport {
     }
 
     public void renderResourceListing(
-            CamelContext camelContext, RestApiResponseAdapter response, BeanConfig swaggerConfig,
+            CamelContext camelContext, RestApiResponseAdapter response, OpenAPI swaggerConfig,
             boolean json, boolean yaml,
             Map<String, Object> headers, ClassResolver classResolver, RestConfiguration configuration)
             throws Exception {

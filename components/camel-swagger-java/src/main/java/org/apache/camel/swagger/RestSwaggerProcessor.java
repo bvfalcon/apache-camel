@@ -20,17 +20,19 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
-import io.swagger.jaxrs.config.BeanConfig;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.spi.RestConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+
 public class RestSwaggerProcessor implements Processor {
 
     private static final Logger LOG = LoggerFactory.getLogger(RestSwaggerProcessor.class);
-    private final BeanConfig swaggerConfig;
+    private final OpenAPI swaggerConfig;
     private final RestSwaggerSupport support;
     private final RestConfiguration configuration;
 
@@ -39,7 +41,7 @@ public class RestSwaggerProcessor implements Processor {
                                 RestConfiguration configuration) {
         this.configuration = configuration;
         this.support = new RestSwaggerSupport();
-        this.swaggerConfig = new BeanConfig();
+        this.swaggerConfig = new OpenAPI();
 
         if (parameters == null) {
             parameters = Collections.EMPTY_MAP;
