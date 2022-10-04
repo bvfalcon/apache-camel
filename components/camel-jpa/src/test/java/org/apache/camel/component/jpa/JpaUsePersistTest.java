@@ -65,7 +65,7 @@ public class JpaUsePersistTest extends AbstractJpaMethodTest {
         transactionTemplate.execute(new TransactionCallback<Object>() {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
-                entityManager.createQuery("delete from " + Order.class.getName()).executeUpdate();
+                entityManager.createQuery("delete from " + Order.class.getName() + " x").executeUpdate();
                 return null;
             }
         });

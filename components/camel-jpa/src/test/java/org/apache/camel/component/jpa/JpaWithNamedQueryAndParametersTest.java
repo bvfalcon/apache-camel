@@ -66,7 +66,7 @@ public class JpaWithNamedQueryAndParametersTest {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
                 // lets delete any exiting records before the test
-                entityManager.createQuery("delete from " + entityName).executeUpdate();
+                entityManager.createQuery("delete from " + entityName + " x").executeUpdate();
                 // now lets create a dummy entry
                 Customer dummy = new Customer();
                 dummy.setName("Test");

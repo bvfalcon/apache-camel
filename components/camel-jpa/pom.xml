@@ -114,142 +114,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa-persistence-jdbc</artifactId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jpa_2.0_spec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jpa_2.2_spec</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.apache.openjpa</groupId>
-                                    <artifactId>openjpa</artifactId>
-                                    <version>${openjpa-version}</version>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>-javaagent:${project.basedir}/target/openjpa-${openjpa-version}.jar
-                        ${camel.surefire.fork.vmargs}
-                    </argLine>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <profile>
-            <id>openjpa</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Eclipse m2e Lifecycle Management -->
-                        <plugin>
-                            <groupId>org.eclipse.m2e</groupId>
-                            <artifactId>lifecycle-mapping</artifactId>
-                            <version>${lifecycle-mapping-version}</version>
-                            <configuration>
-                                <lifecycleMappingMetadata>
-                                    <pluginExecutions>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.apache.openjpa</groupId>
-                                                <artifactId>openjpa-maven-plugin</artifactId>
-                                                <versionRange>${openjpa-version}</versionRange>
-                                                <goals>
-                                                    <goal>enhance</goal>
-                                                    <goal>test-enhance</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                    </pluginExecutions>
-                                </lifecycleMappingMetadata>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.openjpa</groupId>
-                        <artifactId>openjpa-maven-plugin</artifactId>
-                        <version>${openjpa-version}</version>
-                        <configuration>
-                            <persistenceXmlFile>${project.basedir}/src/test/resources/META-INF/persistence.xml
-                            </persistenceXmlFile>
-                            <includes>org/apache/camel/examples/*.class</includes>
-                            <addDefaultConstructor>true</addDefaultConstructor>
-                            <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>test enhancer</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>test-enhance</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.openjpa</groupId>
-                                <artifactId>openjpa</artifactId>
-                                <version>${openjpa-version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.openjpa</groupId>
-                    <artifactId>openjpa-persistence-jdbc</artifactId>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.apache.geronimo.specs</groupId>
-                            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
         <profile>
             <id>hibernate</id>
             <build>

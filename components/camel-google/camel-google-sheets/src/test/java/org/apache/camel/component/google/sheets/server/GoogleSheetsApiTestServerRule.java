@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.consol.citrus.dsl.endpoint.jakarta.CitrusEndpoints;
+import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
 import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
@@ -37,7 +38,7 @@ public class GoogleSheetsApiTestServerRule implements InvocationInterceptor {
     public static final String SERVER_KEYSTORE_PASSWORD = "secret";
 
     private GoogleSheetsApiTestServer googleApiTestServer;
-    private int serverPort = SocketUtils.findAvailableTcpPort();
+    private int serverPort = AvailablePortFinder.getNextAvailable();
 
     public GoogleSheetsApiTestServerRule(String optionFile) {
         try {

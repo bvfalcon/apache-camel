@@ -17,21 +17,15 @@
     limitations under the License.
 
 -->
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             version="2.1"
-             xsi:schemaLocation="
-             http://xmlns.jcp.org/xml/ns/persistence persistence_2_1.xsd">
+             version="3.0"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 
   <persistence-unit name="camel" transaction-type="RESOURCE_LOCAL">
-    <!--
-        The default provider can be OpenJPA, or some other product.
-        This element is optional if OpenJPA is the only JPA provider
-        in the current classloading environment, but can be specified
-        in cases where there are multiple JPA implementations available.
-    -->
     <provider>
-      org.apache.openjpa.persistence.PersistenceProviderImpl
+      org.eclipse.persistence.jpa.PersistenceProvider
     </provider>
 
     <class>org.apache.camel.examples.MultiSteps</class>
@@ -39,71 +33,66 @@
     <class>org.apache.camel.examples.Customer</class>
     <class>org.apache.camel.examples.Address</class>
     <class>org.apache.camel.examples.Order</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:derby:target/derby;create=true"/>
-      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-      <!-- <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO, SQL=TRACE"/> -->
-      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
-      <property name="openjpa.Multithreaded" value="true"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:target/derby;create=true"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
     </properties>
   </persistence-unit>
 
   <persistence-unit name="custom" transaction-type="RESOURCE_LOCAL">
     <class>org.apache.camel.examples.MultiSteps</class>
     <class>org.apache.camel.examples.SendEmail</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:derby:target/custom;create=true"/>
-      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
-      <property name="openjpa.Multithreaded" value="true"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:target/custom;create=true"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
     </properties>
   </persistence-unit>
 
   <persistence-unit name="pooling" transaction-type="RESOURCE_LOCAL">
     <class>org.apache.camel.examples.SendEmail</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
-      <property name="openjpa.ConnectionProperties"
-                value="DriverClassName=org.apache.derby.jdbc.EmbeddedDriver,
-                   Url=jdbc:derby:target/custom;create=true,
-                   MaxTotal=1,
-                   MaxWaitMillis=1000,
-                   TestOnBorrow=true"/>
-      <property name="openjpa.ConnectionDriverName" value="org.apache.commons.dbcp2.BasicDataSource"/>
-      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
-      <property name="openjpa.Multithreaded" value="true"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:target/custom;create=true"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.commons.dbcp2.BasicDataSource"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
     </properties>
   </persistence-unit>
 
   <!-- START SNIPPET: e1 -->
   <persistence-unit name="idempotentDb" transaction-type="RESOURCE_LOCAL">
     <class>org.apache.camel.processor.idempotent.jpa.MessageProcessed</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
     <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:derby:target/idempotentTest;create=true"/>
-      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
-      <property name="openjpa.Multithreaded" value="true"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:target/custom;create=true"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
     </properties>
   </persistence-unit>
   <!-- END SNIPPET: e1 -->
 
   <persistence-unit name="skipLockedEntiy" transaction-type="RESOURCE_LOCAL">
-  	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>org.apache.camel.examples.VersionedItem</class>
-	
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
   <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:derby:target/derby;create=true"/>
-      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
-      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
-      <property name="openjpa.Multithreaded" value="false"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:target/derby;create=true"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
     </properties>
   </persistence-unit>
   

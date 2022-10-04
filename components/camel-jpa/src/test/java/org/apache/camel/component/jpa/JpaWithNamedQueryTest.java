@@ -64,7 +64,7 @@ public class JpaWithNamedQueryTest {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
                 // lets delete any exiting records before the test
-                entityManager.createQuery("delete from " + entityName).executeUpdate();
+                entityManager.createQuery("delete from " + entityName + " x").executeUpdate();
 
                 // now lets create a dummy entry
                 MultiSteps dummy = new MultiSteps("cheese");

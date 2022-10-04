@@ -21,12 +21,11 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.stream.JsonParser;
-
 import io.smallrye.health.SmallRyeHealth;
 import io.smallrye.health.SmallRyeHealthReporter;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.stream.JsonParser;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

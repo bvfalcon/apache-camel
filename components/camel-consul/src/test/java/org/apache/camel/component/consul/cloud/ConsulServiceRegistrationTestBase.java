@@ -28,6 +28,7 @@ import com.orbitz.consul.model.health.ServiceHealth;
 import org.apache.camel.CamelContext;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.consul.ConsulTestSupport;
+import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,7 @@ public abstract class ConsulServiceRegistrationTestBase extends ConsulTestSuppor
     protected static final String SERVICE_ID = UUID.randomUUID().toString();
     protected static final String SERVICE_NAME = "my-service";
     protected static final String SERVICE_HOST = "localhost";
-    protected static final int SERVICE_PORT = SocketUtils.findAvailableTcpPort();
+    protected static final int SERVICE_PORT = AvailablePortFinder.getNextAvailable();
 
     protected Map<String, String> getMetadata() {
         return Collections.emptyMap();

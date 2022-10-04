@@ -157,7 +157,8 @@ public abstract class AbstractJpaMethodTest extends CamelTestSupport {
         transactionTemplate.execute(new TransactionCallback<Object>() {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
-                entityManager.createQuery("delete from " + Customer.class.getName()).executeUpdate();
+                entityManager.createQuery("delete from " + Customer.class.getName() + " x").executeUpdate();
+                entityManager.createQuery("delete from " + Address.class.getName() + " x").executeUpdate();
                 return null;
             }
         });
