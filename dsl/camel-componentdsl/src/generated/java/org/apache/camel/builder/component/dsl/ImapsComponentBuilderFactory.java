@@ -885,8 +885,6 @@ public interface ImapsComponentBuilderFactory {
             case "failOnDuplicateFileAttachment": getOrCreateConfiguration((MailComponent) component).setFailOnDuplicateFileAttachment((boolean) value); return true;
             case "fetchSize": getOrCreateConfiguration((MailComponent) component).setFetchSize((int) value); return true;
             case "folderName": getOrCreateConfiguration((MailComponent) component).setFolderName((java.lang.String) value); return true;
-            case "generateMissingAttachmentNames": getOrCreateConfiguration((MailComponent) component).setGenerateMissingAttachmentNames((java.lang.String) value); return true;
-            case "handleDuplicateAttachmentNames": getOrCreateConfiguration((MailComponent) component).setHandleDuplicateAttachmentNames((java.lang.String) value); return true;
             case "mapMailMessage": getOrCreateConfiguration((MailComponent) component).setMapMailMessage((boolean) value); return true;
             case "bcc": getOrCreateConfiguration((MailComponent) component).setBcc((java.lang.String) value); return true;
             case "cc": getOrCreateConfiguration((MailComponent) component).setCc((java.lang.String) value); return true;

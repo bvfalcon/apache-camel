@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
+import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -29,7 +29,7 @@ import org.springframework.util.ReflectionUtils;
  * Trivial post processor which sets the value of the annotation to the field it is applied to
  */
 @Component
-public class MagicAnnotationPostProcessor extends InstantiationAwareBeanPostProcessorAdapter {
+public class MagicAnnotationPostProcessor implements InstantiationAwareBeanPostProcessor {
 
     protected Logger log = LoggerFactory.getLogger(getClass());
 

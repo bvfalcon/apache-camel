@@ -18,8 +18,7 @@ package org.apache.camel.model.errorhandler;
 
 import java.util.concurrent.ScheduledExecutorService;
 
-import javax.xml.bind.annotation.XmlTransient;
-
+import jakarta.xml.bind.annotation.XmlTransient;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;

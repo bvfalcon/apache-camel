@@ -40,7 +40,7 @@
         <camel.osgi.import>
             !org.apache.camel.component.cxf.*,
             !META-INF.cxf.camel,
-            javax.servlet.*;version="${servlet-version-range}",
+            jakarta.servlet.*;version="${servlet-version-range}",
             org.apache.camel.*;${camel.osgi.import.camel.version},
             org.apache.camel.component.cxf.transport.blueprint;${camel.osgi.import.camel.version};resolution:=optional,
             org.springframework*;version="${spring-version-range}";resolution:=optional,
@@ -123,6 +123,10 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

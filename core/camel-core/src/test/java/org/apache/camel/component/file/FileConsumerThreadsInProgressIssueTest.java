@@ -85,7 +85,7 @@ public class FileConsumerThreadsInProgressIssueTest extends ContextTestSupport {
     private void createManyFiles(int number) throws Exception {
         Path dir = testDirectory();
         for (int i = 0; i < number; i++) {
-            String pad = String.format("%04d%n", i);
+            String pad = String.format("%04d", i);
             try (Writer writer = Files.newBufferedWriter(dir.resolve("newFile-" + pad))) {
                 writer.write(pad);
             }

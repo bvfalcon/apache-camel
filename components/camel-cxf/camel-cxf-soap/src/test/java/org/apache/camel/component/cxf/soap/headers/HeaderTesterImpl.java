@@ -20,16 +20,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
 
 import org.w3c.dom.Node;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxb.JAXBDataBinding;
@@ -37,9 +37,9 @@ import org.apache.cxf.outofband.header.OutofBandHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@javax.jws.WebService(serviceName = "HeaderService",
-                      targetNamespace = "http://apache.org/camel/cxf/soap/headers",
-                      endpointInterface = "org.apache.camel.component.cxf.soap.headers.HeaderTester")
+@jakarta.jws.WebService(serviceName = "HeaderService",
+                        targetNamespace = "http://apache.org/camel/cxf/soap/headers",
+                        endpointInterface = "org.apache.camel.component.cxf.soap.headers.HeaderTester")
 
 public class HeaderTesterImpl implements HeaderTester {
     private static final Logger LOG = LoggerFactory.getLogger(HeaderTesterImpl.class);

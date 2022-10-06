@@ -159,11 +159,6 @@
             <version>${jakarta.el-version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-spring</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- arquillian and shrinkwrap test dependencies -->
         <dependency>
@@ -236,8 +231,8 @@
         <!-- jetty test dependencies -->
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-jetty-embedded-9</artifactId>
-            <version>${arquillian-jetty-embedded-9-version}</version>
+            <artifactId>arquillian-jetty-embedded-11</artifactId>
+            <version>${arquillian-jetty-embedded-11-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

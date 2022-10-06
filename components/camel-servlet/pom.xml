@@ -34,8 +34,8 @@
 
     <properties>
         <camel.osgi.import.before.defaults>
-            javax.activation.*;version="${jakarta-activation-version-range}",
-            javax.servlet.*;version="${servlet-version-range}"
+            jakarta.activation.*;version="${jakarta-activation-version-range}",
+            jakarta.servlet.*;version="${servlet-version-range}"
         </camel.osgi.import.before.defaults>
     </properties>
 
@@ -105,7 +105,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-swagger-java</artifactId>
+            <artifactId>camel-openapi-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -115,7 +120,7 @@
         </dependency>
         <dependency>
             <groupId>io.undertow</groupId>
-            <artifactId>undertow-servlet</artifactId>
+            <artifactId>undertow-servlet-jakarta</artifactId>
             <version>${undertow-version}</version>
             <scope>test</scope>
         </dependency>

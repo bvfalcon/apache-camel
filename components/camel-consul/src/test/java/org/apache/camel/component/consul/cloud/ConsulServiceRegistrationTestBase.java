@@ -29,7 +29,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.consul.ConsulTestSupport;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.SocketUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

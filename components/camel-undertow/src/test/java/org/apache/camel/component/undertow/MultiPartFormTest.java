@@ -19,8 +19,7 @@ package org.apache.camel.component.undertow;
 import java.io.File;
 import java.util.Map;
 
-import javax.activation.DataHandler;
-
+import jakarta.activation.DataHandler;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.util.IOHelper;

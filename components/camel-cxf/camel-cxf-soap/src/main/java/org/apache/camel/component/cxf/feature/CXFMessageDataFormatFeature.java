@@ -19,9 +19,9 @@ package org.apache.camel.component.cxf.feature;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
 
+import jakarta.xml.soap.SOAPMessage;
 import org.apache.camel.component.cxf.interceptors.CxfMessageSoapHeaderOutInterceptor;
 import org.apache.cxf.Bus;
 import org.apache.cxf.binding.Binding;

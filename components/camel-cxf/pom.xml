@@ -43,5 +43,49 @@
         <module>camel-cxf-spring-transport</module>
     </modules>
 
-
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>maven-replacer-plugin</artifactId>
+                    <version>1.4.1</version>
+                    <executions>
+                        <execution>
+                            <id>replace-for-jakarta-test</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>replace</goal>
+                            </goals>
+                            <configuration>
+                                <basedir>${project.build.directory}/generated/src/test/java</basedir>
+                                <includes>
+                                    <include>**/*.java</include>
+                                </includes>
+                                <preserveDir>true</preserveDir>
+                                <replacements>
+                                    <replacement>
+                                        <token>javax.xml.bind</token>
+                                        <value>jakarta.xml.bind</value>
+                                    </replacement>
+                                    <replacement>
+                                        <token>javax.annotation</token>
+                                        <value>jakarta.annotation</value>
+                                    </replacement>
+                                    <replacement>
+                                        <token>javax.xml.ws</token>
+                                        <value>jakarta.xml.ws</value>
+                                    </replacement>
+                                    <replacement>
+                                        <token>javax.jws</token>
+                                        <value>jakarta.jws</value>
+                                    </replacement>
+                                </replacements>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

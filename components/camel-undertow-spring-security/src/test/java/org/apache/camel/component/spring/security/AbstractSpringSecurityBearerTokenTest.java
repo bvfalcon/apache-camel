@@ -21,10 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.Filter;
-
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.PlainJWT;
+import jakarta.servlet.Filter;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.apache.camel.BindToRegistry;

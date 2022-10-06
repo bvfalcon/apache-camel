@@ -19,8 +19,8 @@ package org.apache.camel.component.cxf.jaxrs.simplebinding.testbean;
 import java.io.InputStream;
 
 import javax.activation.DataHandler;
-import javax.ws.rs.core.Response;
 
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.component.cxf.jaxrs.testbean.Customer;
 
 public class CustomerServiceImpl implements CustomerService {

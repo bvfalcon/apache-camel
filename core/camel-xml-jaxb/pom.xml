@@ -44,7 +44,7 @@
             org.apache.camel.model.rest;${camel.osgi.import.camel.version},
             org.apache.camel.model.transformer;${camel.osgi.import.camel.version},
             org.apache.camel.model.validator;${camel.osgi.import.camel.version},
-            javax.xml.bind.*;version="[2.2,3.0)",
+            jakarta.xml.bind.*;version="[3.0,4.0)",
             *
         </camel.osgi.import>
     </properties>
@@ -55,7 +55,6 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jakarta-jaxb-version}</version>
         </dependency>
 
         <!-- need JAXB implementation -->

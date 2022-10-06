@@ -61,8 +61,10 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.dynamic.HttpClientTransportDynamic;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.ClientConnector;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -619,9 +621,13 @@ public class RestApiIntegrationTest extends AbstractSalesforceTestBase {
         final SalesforceComponent sf = context().getComponent("salesforce", SalesforceComponent.class);
         final String accessToken = sf.getSession().getAccessToken();
 
-        final SslContextFactory sslContextFactory = new SslContextFactory.Client();
+        final SslContextFactory.Client sslContextFactory = new SslContextFactory.Client();
         sslContextFactory.setSslContext(new SSLContextParameters().createSSLContext(context));
-        final HttpClient httpClient = new HttpClient(sslContextFactory);
+
+        ClientConnector clientConnector = new ClientConnector();
+        clientConnector.setSslContextFactory(sslContextFactory);
+
+        final HttpClient httpClient = new HttpClient(new HttpClientTransportDynamic(clientConnector));
         httpClient.setConnectTimeout(60000);
         httpClient.start();
 
@@ -639,9 +645,13 @@ public class RestApiIntegrationTest extends AbstractSalesforceTestBase {
         final SalesforceComponent sf = context().getComponent("salesforce", SalesforceComponent.class);
         final String accessToken = sf.getSession().getAccessToken();
 
-        final SslContextFactory sslContextFactory = new SslContextFactory.Client();
+        final SslContextFactory.Client sslContextFactory = new SslContextFactory.Client();
         sslContextFactory.setSslContext(new SSLContextParameters().createSSLContext(context));
-        final HttpClient httpClient = new HttpClient(sslContextFactory);
+
+        ClientConnector clientConnector = new ClientConnector();
+        clientConnector.setSslContextFactory(sslContextFactory);
+
+        final HttpClient httpClient = new HttpClient(new HttpClientTransportDynamic(clientConnector));
         httpClient.setConnectTimeout(60000);
         httpClient.start();
 

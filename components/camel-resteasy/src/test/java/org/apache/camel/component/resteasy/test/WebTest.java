@@ -26,11 +26,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.servlet.ServletContext;
-
+import jakarta.servlet.ServletContext;
 import org.eclipse.jetty.deploy.App;
-import org.jboss.arquillian.container.jetty.embedded_9.JettyEmbeddedConfiguration;
-import org.jboss.arquillian.container.jetty.embedded_9.JettyEmbeddedContainer;
+import org.jboss.arquillian.container.jetty.embedded_11.JettyEmbeddedConfiguration;
+import org.jboss.arquillian.container.jetty.embedded_11.JettyEmbeddedContainer;
 import org.jboss.arquillian.container.spi.client.protocol.metadata.ProtocolMetaData;
 import org.jboss.arquillian.container.test.impl.enricher.resource.URIResourceProvider;
 import org.jboss.arquillian.container.test.impl.enricher.resource.URLResourceProvider;

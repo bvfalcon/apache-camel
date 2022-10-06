@@ -33,7 +33,7 @@
 
     <properties>
         <camel.osgi.import>
-            javax.xml.bind*;version="[2.2,3.0)",
+            jakarta.xml.bind*;version="[3.0,4.0)",
             *
         </camel.osgi.import>
     </properties>
@@ -143,6 +143,33 @@
                         <goals>
                             <goal>xsdtojava</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>replace-for-jakarta</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <basedir>${project.build.directory}/xjc</basedir>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <preserveDir>true</preserveDir>
+                            <replacements>
+                                <replacement>
+                                    <token>javax.xml.bind</token>
+                                    <value>jakarta.xml.bind</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
