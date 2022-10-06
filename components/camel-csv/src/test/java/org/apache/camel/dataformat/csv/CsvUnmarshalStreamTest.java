@@ -80,7 +80,7 @@ public class CsvUnmarshalStreamTest extends CamelTestSupport {
                     .getIn().getBody(List.class);
             assertEquals(2, body.size());
             assertEquals(String.valueOf(i), body.get(0));
-            assertEquals(String.format("%d%s%d", i, LS, i), body.get(1));
+            assertEquals(String.format("%d%s%d", i, "\n", i), body.get(1));
         }
     }
 

@@ -20,11 +20,11 @@ import java.io.StringReader;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Holder;
 
 import org.w3c.dom.Element;
 
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Holder;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;

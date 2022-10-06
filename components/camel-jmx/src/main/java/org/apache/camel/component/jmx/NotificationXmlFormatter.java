@@ -30,12 +30,12 @@ import javax.management.monitor.MonitorNotification;
 import javax.management.relation.RelationNotification;
 import javax.management.remote.JMXConnectionNotification;
 import javax.management.timer.TimerNotification;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.apache.camel.component.jmx.jaxb.NotificationEventType;
 import org.apache.camel.component.jmx.jaxb.ObjectFactory;
 import org.apache.camel.component.jmx.jaxb.ObjectNamesType;

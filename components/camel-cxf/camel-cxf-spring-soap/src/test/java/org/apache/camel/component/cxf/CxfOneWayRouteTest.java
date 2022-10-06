@@ -19,8 +19,8 @@ package org.apache.camel.component.cxf;
 import java.io.ByteArrayOutputStream;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 
+import jakarta.xml.ws.Service;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Processor;

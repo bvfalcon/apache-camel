@@ -20,13 +20,16 @@ import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.support.DefaultProducer;
 import org.apache.camel.util.StopWatch;
+import org.eclipse.jetty.websocket.api.WriteCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,18 +163,61 @@ public class WebsocketProducer extends DefaultProducer implements WebsocketProdu
     }
 
     Future<Void> sendMessage(DefaultWebsocket websocket, Object message) {
-        Future<Void> future = null;
+        SendMessageCallback callback = null;
         // in case there is web socket and socket connection is open - send message
         if (websocket != null && websocket.getSession().isOpen()) {
             LOG.trace("Sending to websocket {} -> {}", websocket.getConnectionKey(), message);
             if (message instanceof String) {
-                future = websocket.getSession().getRemote().sendStringByFuture((String) message);
+                callback = new SendMessageCallback();
+                websocket.getSession().getRemote().sendString((String) message, callback);
             } else if (message instanceof byte[]) {
                 ByteBuffer buf = ByteBuffer.wrap((byte[]) message);
-                future = websocket.getSession().getRemote().sendBytesByFuture(buf);
+                callback = new SendMessageCallback();
+                websocket.getSession().getRemote().sendBytes(buf, callback);
             }
         }
-        return future;
+        return callback;
+    }
+
+    static class SendMessageCallback implements WriteCallback, Future<Void> {
+        @Override
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        @Override
+        public boolean isCancelled() {
+            return false;
+        }
+
+        @Override
+        public boolean isDone() {
+            return done;
+        }
+
+        @Override
+        public Void get() throws InterruptedException, ExecutionException {
+            return null;
+        }
+
+        @Override
+        public Void get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+            long millis = unit.convert(timeout, TimeUnit.MILLISECONDS);
+            this.wait(millis);
+            return null;
+        }
+
+        boolean done;
+
+        @Override
+        public void writeFailed(Throwable x) {
+            done = true;
+        }
+
+        @Override
+        public void writeSuccess() {
+            done = true;
+        }
     }
 
     //Store is set/unset upon connect/disconnect of the producer

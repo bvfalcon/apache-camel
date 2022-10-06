@@ -19,21 +19,22 @@ package org.apache.camel.component.resteasy.test;
 import java.io.File;
 import java.net.URI;
 
-import javax.ws.rs.core.Response;
-
-import org.apache.camel.component.resteasy.test.WebTest.Deployment;
-import org.apache.camel.component.resteasy.test.WebTest.Resource;
+import jakarta.ws.rs.core.Response;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * See the Servlet 3.0 spec, section 8.2.4 for implementation and processing the details of ServletContainerInitializer.
+ * See the Servlet 5.0 spec, section 8.2.4 for implementation and processing the details of ServletContainerInitializer.
  * 
  * Resteasy's implementation of ServletContainerInitializer is declared in the META-INF/services directory of archive
  * org.jboss.resteasy:resteasy-servlet-initializer as required by the spec. This archive MUST be included in the
@@ -44,10 +45,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * well as no web.xml file.
  */
 
-@WebTest
+@ExtendWith(ArquillianExtension.class)
 public class ServletInitializerTest {
 
-    @Resource
+    @ArquillianResource
     URI baseUri;
 
     @Deployment

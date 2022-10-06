@@ -18,6 +18,7 @@ package org.apache.camel.component.jms;
 
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
@@ -25,7 +26,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +110,7 @@ public class JmsSimpleRequestCustomReplyToTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent component = super.setupComponent(camelContext, service, componentName);
 
         // as this is a unit test I don't want to wait 20 sec before timeout occurs, so we use 10

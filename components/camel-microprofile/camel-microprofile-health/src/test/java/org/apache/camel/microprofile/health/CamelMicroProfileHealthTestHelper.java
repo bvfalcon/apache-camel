@@ -22,27 +22,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.stream.JsonParser;
-
 import io.smallrye.health.SmallRyeHealth;
 import io.smallrye.health.SmallRyeHealthReporter;
-import org.apache.camel.Component;
-import org.apache.camel.Endpoint;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.Producer;
-import org.apache.camel.health.HealthCheck;
-import org.apache.camel.health.HealthCheckHelper;
-import org.apache.camel.health.HealthCheckResultBuilder;
-import org.apache.camel.impl.health.AbstractHealthCheck;
-import org.apache.camel.impl.health.ComponentsHealthCheckRepository;
-import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.DefaultConsumer;
-import org.apache.camel.support.DefaultEndpoint;
-import org.apache.camel.support.DefaultProducer;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.stream.JsonParser;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

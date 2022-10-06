@@ -20,11 +20,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-
 import org.xml.sax.InputSource;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -103,7 +102,7 @@ public class JaxbDataFormatSchemaValidationSpringTest extends CamelSpringTestSup
 
         Throwable cause = ex.getCause();
         assertIsInstanceOf(IOException.class, cause);
-        assertTrue(cause.getMessage().contains("javax.xml.bind.MarshalException"));
+        assertTrue(cause.getMessage().contains("jakarta.xml.bind.MarshalException"));
         assertTrue(cause.getMessage().contains("org.xml.sax.SAXParseException"));
         assertTrue(cause.getMessage().contains("cvc-complex-type.2.4.a"));
     }
@@ -144,7 +143,7 @@ public class JaxbDataFormatSchemaValidationSpringTest extends CamelSpringTestSup
 
         Throwable cause = ex.getCause();
         assertIsInstanceOf(IOException.class, cause);
-        assertTrue(cause.getMessage().contains("javax.xml.bind.UnmarshalException"));
+        assertTrue(cause.getMessage().contains("jakarta.xml.bind.UnmarshalException"));
         assertTrue(cause.getMessage().contains("org.xml.sax.SAXParseException"));
         assertTrue(cause.getMessage().contains("cvc-complex-type.2.4.b"));
     }
@@ -157,7 +156,7 @@ public class JaxbDataFormatSchemaValidationSpringTest extends CamelSpringTestSup
 
         Throwable cause = ex.getCause();
         assertIsInstanceOf(IOException.class, cause);
-        assertTrue(cause.getMessage().contains("javax.xml.bind.MarshalException"));
+        assertTrue(cause.getMessage().contains("jakarta.xml.bind.MarshalException"));
         assertTrue(cause.getMessage().contains("org.xml.sax.SAXParseException"));
         assertTrue(cause.getMessage().contains("cvc-complex-type.2.4.b"));
     }
@@ -177,7 +176,7 @@ public class JaxbDataFormatSchemaValidationSpringTest extends CamelSpringTestSup
 
         Throwable cause = ex.getCause();
         assertIsInstanceOf(IOException.class, cause);
-        assertTrue(cause.getMessage().contains("javax.xml.bind.UnmarshalException"));
+        assertTrue(cause.getMessage().contains("jakarta.xml.bind.UnmarshalException"));
         assertTrue(cause.getMessage().contains("org.xml.sax.SAXParseException"));
         assertTrue(cause.getMessage().contains("cvc-complex-type.2.4.b"));
     }

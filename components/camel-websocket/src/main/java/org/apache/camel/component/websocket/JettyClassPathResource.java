@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 
@@ -74,13 +76,17 @@ public class JettyClassPathResource extends Resource {
     }
 
     @Override
-    public URL getURL() {
-        return resolver.loadResourceAsURL(path);
+    public URI getURI() {
+        try {
+            return resolver.loadResourceAsURL(path).toURI();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public File getFile() throws IOException {
-        URL url = getURL();
+        URL url = resolver.loadResourceAsURL(path);
         if (url != null) {
             return new File(url.getFile());
         }

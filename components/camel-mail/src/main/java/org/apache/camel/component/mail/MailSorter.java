@@ -22,11 +22,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-
 import com.sun.mail.imap.SortTerm;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 
 /**
  * Utility class for sorting of mail messages
@@ -111,11 +110,11 @@ public final class MailSorter {
     /**
      * Compare the value of the property of the two messages.
      *
-     * @param  msg1                          Message 1
-     * @param  msg2                          Message 2
-     * @param  property                      Property to compare
-     * @return                               msg1.property.compareTo(msg2.property)
-     * @throws javax.mail.MessagingException If message data could not be read.
+     * @param  msg1                            Message 1
+     * @param  msg2                            Message 2
+     * @param  property                        Property to compare
+     * @return                                 msg1.property.compareTo(msg2.property)
+     * @throws jakarta.mail.MessagingException If message data could not be read.
      */
     private static int compareMessageProperty(Message msg1, Message msg2, SortTerm property) throws MessagingException {
         if (property.equals(SortTerm.TO)) {

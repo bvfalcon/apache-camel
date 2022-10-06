@@ -45,12 +45,12 @@
             !org.apache.camel.component.cxf.jaxrs,
             !org.apache.camel.component.cxf.spring,
             !org.apache.camel.blueprint,
-            javax.activation.*;version="${jakarta-activation-version-range}",
-            javax.jws*;version="[0.0,3)";resolution:=optional,
-            javax.ws.rs*;version="[0.0,3)",
-            javax.xml.soap*;version="[1.3,2)";resolution:=optional,
+            jakarta.activation.*;version="${jakarta-activation-version-range}",
+            jakarta.jws*;version="[3.0,4)";resolution:=optional,
+            jakarta.ws.rs*;version="[3.0,4)",
+            jakarta.xml.soap*;version="[2.0,3)";resolution:=optional,
             javax.xml.stream*;version="[0.0,2)";resolution:=optional,
-            javax.xml.ws*;version="[0.0,3.0)";resolution:=optional,
+            jakarta.xml.ws*;version="[3.0,4)";resolution:=optional,
             org.apache.camel.*;${camel.osgi.import.camel.version},
             org.apache.camel.component.cxf.blueprint;${camel.osgi.import.camel.version};resolution:=optional,
             org.apache.camel.component.cxf.jaxrs.blueprint;${camel.osgi.import.camel.version};resolution:=optional,
@@ -190,7 +190,6 @@
             <artifactId>camel-jetty</artifactId>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import javax.transaction.TransactionRolledbackException;
-
+import jakarta.transaction.TransactionRolledbackException;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;

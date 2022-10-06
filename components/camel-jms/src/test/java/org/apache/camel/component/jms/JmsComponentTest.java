@@ -16,16 +16,16 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
-import org.apache.camel.test.infra.activemq.services.LegacyEmbeddedBroker;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,6 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class JmsComponentTest extends CamelTestSupport {
+
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getPersistentConfig());
 
     protected final String componentName = "activemq123";
     protected JmsEndpoint endpoint;
@@ -73,9 +76,7 @@ public class JmsComponentTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        // Note: this one seems to mess with the component configuration, so we use a disposable broker
-        final String brokerUrl = LegacyEmbeddedBroker.createBrokerUrl();
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(brokerUrl, 0);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         JmsComponent comp = jmsComponentAutoAcknowledge(connectionFactory);
 
         comp.setAcceptMessagesWhileStopping(true);

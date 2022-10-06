@@ -46,12 +46,12 @@
             <type>test-jar</type>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
             <version>${activemq-version}</version>
             <type>test-jar</type>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>commons-io</groupId>
@@ -59,40 +59,56 @@
         </dependency>
 
         <dependency>
+           <groupId>org.apache.activemq</groupId>
+           <artifactId>artemis-jakarta-client-all</artifactId>
+           <version>${activemq-artemis-version}</version>
+        </dependency>
+
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
             <version>${activemq-version}</version>
+        </dependency-->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-server</artifactId>
+            <version>${activemq-artemis-version}</version>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-jaas</artifactId>
             <version>${activemq-version}</version>
-        </dependency>
+        </dependency-->
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-ra</artifactId>
             <version>${activemq-version}</version>
-        </dependency>
+        </dependency-->
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-amqp</artifactId>
             <version>${activemq-version}</version>
+        </dependency-->
+        <dependency>
+            <groupId>org.apache.qpid</groupId>
+            <artifactId>qpid-jms-client</artifactId>
+            <version>${qpid-jms-client-version}</version>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-mqtt</artifactId>
             <version>${activemq-version}</version>
-        </dependency>
+        </dependency-->
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-stomp</artifactId>
             <version>${activemq-version}</version>
-        </dependency>
+        </dependency-->
     </dependencies>
 
     <build>

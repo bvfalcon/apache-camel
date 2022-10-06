@@ -87,8 +87,7 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>${jakarta-servlet-api-version}</version>
-            <scope>optional</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- logging -->

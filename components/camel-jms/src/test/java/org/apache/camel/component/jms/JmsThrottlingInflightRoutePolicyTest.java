@@ -16,12 +16,11 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
 import org.apache.camel.throttling.ThrottlingInflightRoutePolicy;
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +60,7 @@ public class JmsThrottlingInflightRoutePolicyTest extends AbstractPersistentJMST
 
     @Override
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(service);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentTransacted(connectionFactory));
 
         // and use another component for sender

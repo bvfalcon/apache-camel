@@ -26,24 +26,23 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ReadListener;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
-
 import com.consol.citrus.Citrus;
 import com.consol.citrus.dsl.runner.DefaultTestRunner;
 import com.consol.citrus.dsl.runner.TestRunner;
 import com.consol.citrus.exceptions.CitrusRuntimeException;
-import com.consol.citrus.http.server.HttpServer;
-import com.consol.citrus.http.server.HttpServerBuilder;
-import com.consol.citrus.http.servlet.GzipHttpServletResponseWrapper;
+import com.consol.citrus.http.server.jakarta.HttpServer;
+import com.consol.citrus.http.server.jakarta.HttpServerBuilder;
 import com.consol.citrus.http.servlet.RequestCachingServletFilter;
+import com.consol.citrus.http.servlet.jakarta.GzipHttpServletResponseWrapper;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.SecureRequestCustomizer;
@@ -58,7 +57,7 @@ import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
+import org.springframework.security.oauth2.provider.authentication.jakarta.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -83,7 +82,7 @@ public final class GoogleSheetsApiTestServer {
      * Initialize new test run.
      */
     public void init() {
-        runner = new DefaultTestRunner(citrus.getApplicationContext(), citrus.createTestContext());
+        runner = new DefaultTestRunner(citrus.getCitrusContext().createTestContext());
     }
 
     /**
@@ -103,10 +102,6 @@ public final class GoogleSheetsApiTestServer {
      */
     public HttpServer getHttpServer() {
         return httpServer;
-    }
-
-    public void afterPropertiesSet() throws Exception {
-        httpServer.afterPropertiesSet();
     }
 
     public TestRunner getRunner() {
@@ -177,7 +172,7 @@ public final class GoogleSheetsApiTestServer {
         }
 
         public GoogleSheetsApiTestServer build() throws Exception {
-            SslContextFactory sslContextFactory = new SslContextFactory(true);
+            SslContextFactory.Server sslContextFactory = new SslContextFactory.Server();
             sslContextFactory.setKeyStorePath(keyStorePath.toAbsolutePath().toString());
             sslContextFactory.setKeyStorePassword(keyStorePassword);
 
@@ -205,10 +200,7 @@ public final class GoogleSheetsApiTestServer {
 
             serverBuilder.filters(filterMap);
 
-            serverBuilder.applicationContext(citrus.getApplicationContext());
-
             GoogleSheetsApiTestServer server = new GoogleSheetsApiTestServer(serverBuilder.build());
-            server.afterPropertiesSet();
             return server;
         }
 

@@ -18,8 +18,7 @@ package org.apache.camel.component.jpa;
 
 import java.security.SecureRandom;
 
-import javax.persistence.PersistenceException;
-
+import jakarta.persistence.PersistenceException;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.examples.Order;
 import org.junit.jupiter.api.Test;
@@ -66,7 +65,7 @@ public class JpaUsePersistTest extends AbstractJpaMethodTest {
         transactionTemplate.execute(new TransactionCallback<Object>() {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
-                entityManager.createQuery("delete from " + Order.class.getName()).executeUpdate();
+                entityManager.createQuery("delete from " + Order.class.getName() + " x").executeUpdate();
                 return null;
             }
         });

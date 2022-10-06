@@ -16,10 +16,9 @@
  */
 package org.apache.camel.component.mail;
 
-import javax.mail.Message;
-import javax.mail.search.SearchTerm;
-
 import com.sun.mail.imap.SortTerm;
+import jakarta.mail.Message;
+import jakarta.mail.search.SearchTerm;
 import org.apache.camel.Category;
 import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
@@ -216,7 +215,7 @@ public class MailEndpoint extends ScheduledPollEndpoint implements HeaderFilterS
     }
 
     /**
-     * Refers to a {@link javax.mail.search.SearchTerm} which allows to filter mails based on search criteria such as
+     * Refers to a {@link jakarta.mail.search.SearchTerm} which allows to filter mails based on search criteria such as
      * subject, body, from, sent after a certain date etc.
      */
     public void setSearchTerm(SearchTerm searchTerm) {

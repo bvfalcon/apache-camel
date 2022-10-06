@@ -18,13 +18,13 @@ package org.apache.camel.component.jms.issues;
 
 import java.util.Map;
 
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.AbstractJMSTest;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.component.jms.PassThroughJmsKeyFormatStrategy;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,7 +58,7 @@ public class JmsPassThroughtJmsKeyFormatStrategyTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent component = super.setupComponent(camelContext, service, componentName);
 
         // configure to use passthrough

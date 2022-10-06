@@ -140,7 +140,7 @@ public class JpaProducerWithQueryTest {
                 from("direct:addCustomer")
                         .to("jpa://" + Customer.class.getName());
                 from("direct:deleteCustomers")
-                        .to("jpa://" + Customer.class.getName() + "?query=delete from " + Customer.class.getName());
+                        .to("jpa://" + Customer.class.getName() + "?query=delete from " + Customer.class.getName() + " x");
                 from("direct:addMultiSteps")
                         .to("jpa://" + MultiSteps.class.getName());
                 from("direct:deleteMultiSteps")

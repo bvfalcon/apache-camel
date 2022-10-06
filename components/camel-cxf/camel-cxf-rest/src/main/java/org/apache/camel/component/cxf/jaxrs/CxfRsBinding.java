@@ -19,10 +19,9 @@ package org.apache.camel.component.cxf.jaxrs;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import javax.ws.rs.client.AsyncInvoker;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MultivaluedMap;
-
+import jakarta.ws.rs.client.AsyncInvoker;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MultivaluedMap;
 import org.apache.cxf.message.Exchange;
 
 /**

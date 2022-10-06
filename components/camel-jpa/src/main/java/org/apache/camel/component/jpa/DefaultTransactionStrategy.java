@@ -16,8 +16,7 @@
  */
 package org.apache.camel.component.jpa;
 
-import javax.persistence.EntityManagerFactory;
-
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;

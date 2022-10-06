@@ -20,10 +20,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.ws.WebFault;
-
 import org.w3c.dom.Element;
 
+import jakarta.xml.ws.WebFault;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ExchangeTimedOutException;

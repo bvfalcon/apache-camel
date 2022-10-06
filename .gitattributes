@@ -2,4 +2,4 @@
 mvnw text eol=lf
 mvnw.cmd text eol=crlf
 *.adoc text eol=lf
-
+*.java text eol=lf

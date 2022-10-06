@@ -22,15 +22,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.activemq.pool.PooledConnectionFactory;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
 import static org.apache.camel.test.junit5.TestSupport.body;
@@ -41,8 +45,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class JmsRequestReplyTempQueueMultipleConsumersTest extends CamelTestSupport {
 
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
+
     private final Map<String, AtomicInteger> msgsPerThread = new ConcurrentHashMap<>();
-    private PooledConnectionFactory connectionFactory;
+    private JmsPoolConnectionFactory connectionFactory;
     private ExecutorService executorService;
 
     @Test
@@ -89,7 +96,10 @@ public class JmsRequestReplyTempQueueMultipleConsumersTest extends CamelTestSupp
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        connectionFactory = CamelJmsTestHelper.createPooledConnectionFactory();
+        this.connectionFactory = new JmsPoolConnectionFactory();
+        connectionFactory.setConnectionFactory(CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL()));
+        connectionFactory.setMaxConnections(8);
+
         camelContext.addComponent("jms", jmsComponentAutoAcknowledge(connectionFactory));
 
         return camelContext;

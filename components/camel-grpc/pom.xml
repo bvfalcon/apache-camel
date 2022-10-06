@@ -251,6 +251,34 @@
             </plugin>
 
             <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>replace-test-for-jakarta</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <basedir>${project.build.directory}/generated-test-sources/protobuf/grpc-java</basedir>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <preserveDir>true</preserveDir>
+                            <replacements>
+                                <replacement>
+                                    <token>javax.annotation</token>
+                                    <value>jakarta.annotation</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
                     <execution>

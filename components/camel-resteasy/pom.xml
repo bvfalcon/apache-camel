@@ -85,6 +85,11 @@
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-validator-provider</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy.spring</groupId>
+            <artifactId>resteasy-spring</artifactId>
+            <version>${resteasy-spring-version}</version>
+        </dependency>
 
         <!-- camel dependencies -->
         <dependency>
@@ -159,26 +164,16 @@
             <version>${jakarta.el-version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-spring</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- arquillian and shrinkwrap test dependencies -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-core</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -191,6 +186,12 @@
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
             <version>${shrinkwrap-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -236,8 +237,8 @@
         <!-- jetty test dependencies -->
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-jetty-embedded-9</artifactId>
-            <version>${arquillian-jetty-embedded-9-version}</version>
+            <artifactId>arquillian-jetty-embedded-11</artifactId>
+            <version>${arquillian-jetty-embedded-11-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -268,11 +269,6 @@
             <groupId>org.jboss.spec.javax.el</groupId>
             <artifactId>jboss-el-api_3.0_spec</artifactId>
             <version>${jboss-el-api_3.0_spec-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

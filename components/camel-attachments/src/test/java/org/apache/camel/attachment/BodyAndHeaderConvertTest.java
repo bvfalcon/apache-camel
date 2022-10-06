@@ -18,12 +18,11 @@ package org.apache.camel.attachment;
 
 import java.net.URL;
 
-import javax.activation.DataHandler;
-import javax.activation.URLDataSource;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.URLDataSource;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;

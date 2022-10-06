@@ -20,9 +20,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.DataHandler;
 import javax.xml.namespace.QName;
 
+import jakarta.activation.DataHandler;
 import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.component.spring.ws.SpringWebserviceConstants;

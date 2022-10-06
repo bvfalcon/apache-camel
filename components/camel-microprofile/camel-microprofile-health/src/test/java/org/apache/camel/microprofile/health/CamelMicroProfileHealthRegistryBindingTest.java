@@ -16,10 +16,9 @@
  */
 package org.apache.camel.microprofile.health;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-
 import io.smallrye.health.SmallRyeHealth;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;

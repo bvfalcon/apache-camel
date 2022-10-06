@@ -33,7 +33,7 @@
 
     <properties>
         <camel.osgi.import.pkg>
-            org.eclipse.jetty.*;version="[9.4,10)",
+            org.eclipse.jetty.*;version="[11.0,12)",
             ${camel.osgi.import.defaults},
             *
         </camel.osgi.import.pkg>
@@ -65,13 +65,23 @@
             <version>${jetty-version}</version>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util-ajax</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jmx</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.cometd.java</groupId>
-            <artifactId>cometd-java-server</artifactId>
+            <artifactId>cometd-java-server-common</artifactId>
             <version>${cometd-java-server}</version>
         </dependency>
         <dependency>
             <groupId>org.cometd.java</groupId>
-            <artifactId>bayeux-api</artifactId>
+            <artifactId>cometd-java-api-server</artifactId>
             <version>${cometd-java-server}</version>
         </dependency>
         <dependency>

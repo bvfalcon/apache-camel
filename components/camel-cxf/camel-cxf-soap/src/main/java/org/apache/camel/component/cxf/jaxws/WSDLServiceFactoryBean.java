@@ -21,8 +21,8 @@ import java.util.Map;
 import javax.wsdl.Definition;
 import javax.wsdl.Service;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Provider;
 
+import jakarta.xml.ws.Provider;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.endpoint.EndpointException;

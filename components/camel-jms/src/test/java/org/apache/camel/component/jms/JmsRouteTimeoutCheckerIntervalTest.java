@@ -16,11 +16,11 @@
  */
 package org.apache.camel.component.jms;
 
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangeTimedOutException;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -61,7 +61,7 @@ public class JmsRouteTimeoutCheckerIntervalTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent component = super.setupComponent(camelContext, service, componentName);
 
         // check 4 times per second

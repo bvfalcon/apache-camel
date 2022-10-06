@@ -17,13 +17,14 @@
 
 package org.apache.camel.test.infra.activemq.common;
 
-import javax.jms.ConnectionFactory;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.camel.test.infra.activemq.services.AbstractActiveMQEmbeddedService;
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.test.infra.activemq.services.ActiveMQService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQServiceFactory;
-import org.apache.camel.test.infra.activemq.services.ConnectionFactoryAware;
+
+//import org.apache.camel.test.infra.activemq.services.ConnectionFactoryAware;
 
 public final class ConnectionFactoryHelper {
     private ConnectionFactoryHelper() {
@@ -34,16 +35,23 @@ public final class ConnectionFactoryHelper {
     }
 
     public static ConnectionFactory createConnectionFactory(ActiveMQService service, Integer maximumRedeliveries) {
-        if (service instanceof ConnectionFactoryAware) {
+        /*if (service instanceof ConnectionFactoryAware) {
             return createConnectionFactory(((AbstractActiveMQEmbeddedService) service).getVmURL(), maximumRedeliveries);
+        }*/
+        try {
+            InitialContext initialContext = new InitialContext();
+            ConnectionFactory cf = (ConnectionFactory) initialContext.lookup("ConnectionFactory");
+            return cf;
+        } catch (NamingException e) {
+            throw new UnsupportedOperationException(e);
         }
 
-        if (service instanceof ActiveMQServiceFactory.SingletonActiveMQService) {
+        /*if (service instanceof ActiveMQServiceFactory.SingletonActiveMQService) {
             return createConnectionFactory(((ActiveMQServiceFactory.SingletonActiveMQService) service).getService(),
                     maximumRedeliveries);
-        }
+        }*/
 
-        throw new UnsupportedOperationException("The test service does not implement ConnectionFactoryAware");
+        //throw new UnsupportedOperationException("The test service does not implement ConnectionFactoryAware");
     }
 
     public static ConnectionFactory createConnectionFactory(String url, Integer maximumRedeliveries) {
@@ -53,20 +61,20 @@ public final class ConnectionFactoryHelper {
     public static ConnectionFactory createConnectionFactory(
             ActiveMQConnectionFactory connectionFactory, Integer maximumRedeliveries) {
         // optimize AMQ to be as fast as possible so unit testing is quicker
-        connectionFactory.setCopyMessageOnSend(false);
+        /*connectionFactory.setCopyMessageOnSend(false);
         connectionFactory.setOptimizeAcknowledge(true);
-        connectionFactory.setOptimizedMessageDispatch(true);
+        connectionFactory.setOptimizedMessageDispatch(true);*/
 
         // When using asyncSend, producers will not be guaranteed to send in the order we
         // have in the tests (which may be confusing for queues) so we need this set to false.
         // Another way of guaranteeing order is to use persistent messages or transactions.
-        connectionFactory.setUseAsyncSend(false);
+        /*connectionFactory.setUseAsyncSend(false);
         connectionFactory.setAlwaysSessionAsync(false);
         if (maximumRedeliveries != null) {
             connectionFactory.getRedeliveryPolicy().setMaximumRedeliveries(maximumRedeliveries);
         }
         connectionFactory.setTrustAllPackages(true);
-        connectionFactory.setWatchTopicAdvisories(false);
+        connectionFactory.setWatchTopicAdvisories(false);*/
         return connectionFactory;
     }
 
@@ -76,11 +84,11 @@ public final class ConnectionFactoryHelper {
     }
 
     public static ConnectionFactory createPersistentConnectionFactory(ActiveMQConnectionFactory connectionFactory) {
-        connectionFactory.setCopyMessageOnSend(false);
+        /*connectionFactory.setCopyMessageOnSend(false);
         connectionFactory.setOptimizeAcknowledge(true);
         connectionFactory.setOptimizedMessageDispatch(true);
         connectionFactory.setAlwaysSessionAsync(false);
-        connectionFactory.setTrustAllPackages(true);
+        connectionFactory.setTrustAllPackages(true);*/
         return connectionFactory;
     }
 }

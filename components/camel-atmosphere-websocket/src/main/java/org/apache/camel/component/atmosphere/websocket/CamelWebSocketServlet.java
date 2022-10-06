@@ -19,11 +19,10 @@ package org.apache.camel.component.atmosphere.websocket;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.http.common.HttpConsumer;
 
@@ -35,7 +34,7 @@ import org.apache.camel.http.common.HttpConsumer;
  */
 public class CamelWebSocketServlet extends CamelHttpTransportServlet {
     private static final long serialVersionUID = 1764707448550670635L;
-    private static final String RESEND_ALL_WEBSOCKET_EVENTS_PARAM_KEY = "events";
+    static final String RESEND_ALL_WEBSOCKET_EVENTS_PARAM_KEY = "events";
     private boolean enableEventsResending;
 
     @Override

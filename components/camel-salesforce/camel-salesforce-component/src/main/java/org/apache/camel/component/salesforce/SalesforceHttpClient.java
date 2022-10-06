@@ -66,7 +66,7 @@ public class SalesforceHttpClient extends HttpClient {
     }
 
     public SalesforceHttpClient(CamelContext context, ExecutorService workerPool, SslContextFactory sslContextFactory) {
-        super(new HttpClientTransportOverHTTP(), sslContextFactory);
+        super(new HttpClientTransportOverHTTP());
         this.workerPool = workerPool;
         this.camelContext = context;
 
