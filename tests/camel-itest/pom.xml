@@ -156,11 +156,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>name.bychkov</groupId>
-            <artifactId>junit5-fakesmtp</artifactId>
-            <version>${junit-fakesmtp-version}</version>
+            <groupId>org.jvnet.mock-javamail</groupId>
+            <artifactId>mock-javamail</artifactId>
+            <version>${mock-javamail-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
-            <classifier>jakarta</classifier>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
