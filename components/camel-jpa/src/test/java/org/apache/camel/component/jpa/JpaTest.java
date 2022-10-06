@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.EntityManager;
-
+import jakarta.persistence.EntityManager;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
@@ -33,6 +32,7 @@ import org.apache.camel.examples.SendEmail;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -99,12 +99,13 @@ public class JpaTest {
     @Test
     public void testProducerInsertsList() {
         // lets produce some objects
+        String address1 = "foo@bar.com", address2 = "foo2@bar.com";
         template.send(listEndpoint, new Processor() {
             public void process(Exchange exchange) {
                 // use a list
                 List<Object> list = new ArrayList<>();
-                list.add(new SendEmail("foo@bar.com"));
-                list.add(new SendEmail("foo2@bar.com"));
+                list.add(new SendEmail(address1));
+                list.add(new SendEmail(address2));
                 exchange.getIn().setBody(list);
             }
         });
@@ -113,11 +114,12 @@ public class JpaTest {
         List<?> results = entityManager.createQuery(queryText).getResultList();
         assertEquals(2, results.size(), "Should have results: " + results);
         SendEmail mail = (SendEmail) results.get(0);
-        assertEquals("foo@bar.com", mail.getAddress(), "address property");
+        SendEmail mail2 = (SendEmail) results.get(1);
+
+        Assertions.assertTrue(address1.equals(mail.getAddress()) || address1.equals(mail2.getAddress()), "address property");
         assertNotNull(mail.getId(), "id");
 
-        SendEmail mail2 = (SendEmail) results.get(1);
-        assertEquals("foo2@bar.com", mail2.getAddress(), "address property");
+        Assertions.assertTrue(address2.equals(mail.getAddress()) || address2.equals(mail2.getAddress()), "address property");
         assertNotNull(mail2.getId(), "id");
     }
 
@@ -142,7 +144,7 @@ public class JpaTest {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
                 // lets delete any exiting records before the test
-                entityManager.createQuery("delete from " + entityName).executeUpdate();
+                entityManager.createQuery("delete from " + entityName + " x").executeUpdate();
                 return null;
             }
         });

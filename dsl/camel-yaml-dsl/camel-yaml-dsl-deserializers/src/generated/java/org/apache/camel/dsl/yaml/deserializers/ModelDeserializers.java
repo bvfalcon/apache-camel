@@ -6,72 +6,8 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 import org.apache.camel.CamelContext;
-import org.apache.camel.dsl.yaml.common.YamlDeserializerBase;
 import org.apache.camel.dsl.yaml.common.YamlDeserializerEndpointAwareBase;
 import org.apache.camel.dsl.yaml.common.YamlDeserializerSupport;
-import org.apache.camel.model.AggregateDefinition;
-import org.apache.camel.model.BeanDefinition;
-import org.apache.camel.model.CatchDefinition;
-import org.apache.camel.model.ChoiceDefinition;
-import org.apache.camel.model.CircuitBreakerDefinition;
-import org.apache.camel.model.ClaimCheckDefinition;
-import org.apache.camel.model.ContextScanDefinition;
-import org.apache.camel.model.ConvertBodyDefinition;
-import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.model.DelayDefinition;
-import org.apache.camel.model.DescriptionDefinition;
-import org.apache.camel.model.DynamicRouterDefinition;
-import org.apache.camel.model.EnrichDefinition;
-import org.apache.camel.model.ErrorHandlerDefinition;
-import org.apache.camel.model.FaultToleranceConfigurationDefinition;
-import org.apache.camel.model.FilterDefinition;
-import org.apache.camel.model.FinallyDefinition;
-import org.apache.camel.model.GlobalOptionDefinition;
-import org.apache.camel.model.GlobalOptionsDefinition;
-import org.apache.camel.model.IdempotentConsumerDefinition;
-import org.apache.camel.model.InOnlyDefinition;
-import org.apache.camel.model.InOutDefinition;
-import org.apache.camel.model.InputTypeDefinition;
-import org.apache.camel.model.InterceptDefinition;
-import org.apache.camel.model.InterceptFromDefinition;
-import org.apache.camel.model.InterceptSendToEndpointDefinition;
-import org.apache.camel.model.LoadBalanceDefinition;
-import org.apache.camel.model.LogDefinition;
-import org.apache.camel.model.LoopDefinition;
-import org.apache.camel.model.MarshalDefinition;
-import org.apache.camel.model.MulticastDefinition;
-import org.apache.camel.model.OnCompletionDefinition;
-import org.apache.camel.model.OnExceptionDefinition;
-import org.apache.camel.model.OnFallbackDefinition;
-import org.apache.camel.model.OptimisticLockRetryPolicyDefinition;
-import org.apache.camel.model.OtherwiseDefinition;
-import org.apache.camel.model.OutputDefinition;
-import org.apache.camel.model.OutputTypeDefinition;
-import org.apache.camel.model.PackageScanDefinition;
-import org.apache.camel.model.PausableDefinition;
-import org.apache.camel.model.PipelineDefinition;
-import org.apache.camel.model.PolicyDefinition;
-import org.apache.camel.model.PollEnrichDefinition;
-import org.apache.camel.model.ProcessDefinition;
-import org.apache.camel.model.PropertyDefinition;
-import org.apache.camel.model.PropertyExpressionDefinition;
-import org.apache.camel.model.RecipientListDefinition;
-import org.apache.camel.model.RedeliveryPolicyDefinition;
-import org.apache.camel.model.RemoveHeaderDefinition;
-import org.apache.camel.model.RemoveHeadersDefinition;
-import org.apache.camel.model.RemovePropertiesDefinition;
-import org.apache.camel.model.RemovePropertyDefinition;
-import org.apache.camel.model.ResequenceDefinition;
-import org.apache.camel.model.Resilience4jConfigurationDefinition;
-import org.apache.camel.model.RestContextRefDefinition;
-import org.apache.camel.model.ResumableDefinition;
-import org.apache.camel.model.RollbackDefinition;
-import org.apache.camel.model.RouteBuilderDefinition;
-import org.apache.camel.model.RouteConfigurationContextRefDefinition;
-import org.apache.camel.model.RouteContextRefDefinition;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RouteTemplateParameterDefinition;
-import org.apache.camel.model.RoutingSlipDefinition;
 import org.apache.camel.model.SagaActionUriDefinition;
 import org.apache.camel.model.SagaDefinition;
 import org.apache.camel.model.SamplingDefinition;
@@ -235,7 +171,6 @@ import org.apache.camel.model.validator.ValidatorsDefinition;
 import org.apache.camel.spi.annotations.YamlIn;
 import org.apache.camel.spi.annotations.YamlProperty;
 import org.apache.camel.spi.annotations.YamlType;
-import org.snakeyaml.engine.v2.nodes.MappingNode;
 import org.snakeyaml.engine.v2.nodes.Node;
 
 public final class ModelDeserializers extends YamlDeserializerSupport {
@@ -243,7 +178,6 @@ public final class ModelDeserializers extends YamlDeserializerSupport {
     }
 
     @YamlType(
-            nodes = "asn1",
             inline = true,
             types = org.apache.camel.model.dataformat.ASN1DataFormat.class,
             order = org.apache.camel.dsl.yaml.common.YamlDeserializerResolver.ORDER_LOWEST - 1,
@@ -13619,9 +13553,7 @@ public final class ModelDeserializers extends YamlDeserializerSupport {
                     @YamlProperty(name = "description", type = "string"),
                     @YamlProperty(name = "disabled", type = "boolean"),
                     @YamlProperty(name = "id", type = "string"),
-                    @YamlProperty(name = "inherit-error-handler", type = "boolean"),
-                    @YamlProperty(name = "parameters", type = "object"),
-                    @YamlProperty(name = "uri", type = "string", required = true)
+                    @YamlProperty(name = "parameters", type = "object")
             }
     )
     public static class SagaActionUriDefinitionDeserializer extends YamlDeserializerEndpointAwareBase<SagaActionUriDefinition> {
@@ -13667,18 +13599,17 @@ public final class ModelDeserializers extends YamlDeserializerSupport {
                 case "id": {
                     String val = asText(node);
                     target.setId(val);
-                    break;
+                    return true;
                 }
                 case "description": {
                     org.apache.camel.model.DescriptionDefinition val = asType(node, org.apache.camel.model.DescriptionDefinition.class);
                     target.setDescription(val);
-                    break;
+                    return true;
                 }
                 default: {
                     return false;
                 }
             }
-            return true;
         }
     }
 

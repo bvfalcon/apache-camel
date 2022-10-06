@@ -21,6 +21,7 @@ import org.apache.camel.test.infra.jetty.services.JettyConfiguration;
 import org.apache.camel.test.infra.jetty.services.JettyConfigurationBuilder;
 import org.apache.camel.test.infra.jetty.services.JettyEmbeddedService;
 import org.apache.camel.test.junit5.CamelTestSupport;
+import org.eclipse.jetty.websocket.jakarta.server.config.JakartaWebSocketServletContainerInitializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -40,7 +41,7 @@ public abstract class WebsocketCamelRouterTestSupport extends CamelTestSupport {
                 .addServletConfiguration(new JettyConfiguration.ServletHandlerConfiguration.ServletConfiguration<>(
                         new CamelWebSocketServlet(),
                         JettyConfiguration.ServletHandlerConfiguration.ServletConfiguration.ROOT_PATH_SPEC, "CamelWsServlet"))
-                .build()
+                .customize(handler -> JakartaWebSocketServletContainerInitializer.configure(handler, null)).build()
                 .build();
 
         service = new JettyEmbeddedService(jettyConfiguration);

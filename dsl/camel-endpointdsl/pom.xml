@@ -37,7 +37,7 @@
         <title>Java Endpoint DSL</title>
         <label>dsl</label>
         <camel.osgi.import>
-            javax.xml.bind*;version="[2.2,3.0)",
+            jakarta.xml.bind*;version="[3.0,4.0)",
             *
         </camel.osgi.import>
     </properties>
@@ -88,6 +88,14 @@
                     <artifactId>hadoop-common</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

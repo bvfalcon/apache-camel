@@ -50,14 +50,14 @@ public class ActiveMQConsumeWildcardQueuesTest extends AbstractJMSTest {
         return new RouteBuilder() {
             public void configure() {
                 // use wildcard to consume from all sports
-                from("activemq:queue:sport.>")
+                from("activemq:queue:sport.#")
                         .to("log:received?showHeaders=true")
                         .choice()
                         // the JMSDestination contains from which queue the message was consumed from
-                        .when(header("JMSDestination").isEqualTo("queue://sport.pl.chelsea"))
+                        .when(header("JMSDestination").convertToString().isEqualTo("ActiveMQQueue[sport.pl.chelsea]"))
                         .to("mock:chelsea")
                         // we can use a reg exp to match any message from 1st division
-                        .when(header("JMSDestination").regex("queue://sport.1st.*"))
+                        .when(header("JMSDestination").regex("ActiveMQQueue\\[sport.1st.*\\]"))
                         .to("mock:1st")
                         .otherwise()
                         .to("mock:other")

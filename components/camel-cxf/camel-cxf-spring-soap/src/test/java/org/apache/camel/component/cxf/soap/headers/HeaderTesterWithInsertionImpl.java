@@ -18,13 +18,12 @@ package org.apache.camel.component.cxf.soap.headers;
 
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.ws.handler.MessageContext;
-
 import org.w3c.dom.Node;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.ws.handler.MessageContext;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.outofband.header.OutofBandHeader;

@@ -27,7 +27,7 @@
         <servlet-name>Resteasy</servlet-name>
        <servlet-class>org.apache.camel.component.resteasy.servlet.ResteasyCamelServlet</servlet-class>
         <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
+            <param-name>jakarta.ws.rs.core.Application</param-name>
             <param-value>org.apache.camel.component.resteasy.test.beans.ResteasyProducerProxyTestApp</param-value>
         </init-param>
     </servlet>

@@ -39,7 +39,7 @@
         <camel.osgi.export.pkg>$${replace;{local-packages};;;\;},org.apache.camel.spi.annotations
         </camel.osgi.export.pkg>
         <camel.osgi.import>
-            javax.xml.bind*;version="[2.2,3.0)",
+            jakarta.xml.bind*;version="[3.0,4.0)",
             *
         </camel.osgi.import>
     </properties>
@@ -59,7 +59,6 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jakarta-jaxb-version}</version>
             <scope>compile</scope>
         </dependency>
 

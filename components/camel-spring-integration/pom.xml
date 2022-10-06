@@ -33,8 +33,8 @@
 
     <properties>
         <camel.osgi.import.before.defaults>
-            org.springframework.integration.*;version="[5,6)",
-            org.springframework.messaging.*;version="[5,6)"
+            org.springframework.integration.*;version="[6,7)",
+            org.springframework.messaging.*;version="[6,7)"
         </camel.osgi.import.before.defaults>
     </properties>
 

@@ -102,7 +102,8 @@ public class JacksonJSonNodeConverterTest extends CamelTestSupport {
         String text = context.getTypeConverter().convertTo(String.class, exchange, node);
         assertNotNull(text);
 
-        Assertions.assertEquals("{\n  \"message\" : \"Hello Camel\"\n}", text);
+        final String lineEndChar = System.lineSeparator();
+        Assertions.assertEquals("{" + lineEndChar + "  \"message\" : \"Hello Camel\"" + lineEndChar + "}", text);
     }
 
     @Test

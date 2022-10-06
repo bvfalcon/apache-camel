@@ -19,22 +19,25 @@ package org.apache.camel.component.jms.issues;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.jms.ConnectionFactory;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerPlugin;
-import org.apache.activemq.broker.BrokerPluginSupport;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.ProducerBrokerExchange;
-import org.apache.activemq.command.Message;
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.api.core.ActiveMQException;
+import org.apache.activemq.artemis.api.core.ActiveMQExceptionType;
+import org.apache.activemq.artemis.api.core.Message;
+import org.apache.activemq.artemis.core.server.ServerSession;
+import org.apache.activemq.artemis.core.server.plugin.ActiveMQServerMessagePlugin;
+import org.apache.activemq.artemis.core.transaction.Transaction;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jms.JmsTestHelper;
 import org.apache.camel.spi.Synchronization;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,8 +50,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Timeout(30)
 public class JmsBlockedAsyncRoutingEngineTest extends CamelTestSupport {
 
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service
+            = new EmbeddedActiveMQExtension(JmsTestHelper.getPersistentWithPluginConfig(new DelayerBrokerPlugin()));
+
     private static final Logger LOG = LoggerFactory.getLogger(JmsBlockedAsyncRoutingEngineTest.class);
-    private BrokerService broker;
     private final CountDownLatch latch = new CountDownLatch(5);
     private final Synchronization callback = new Synchronization() {
         @Override
@@ -64,24 +70,10 @@ public class JmsBlockedAsyncRoutingEngineTest extends CamelTestSupport {
         }
     };
 
-    public void startBroker() throws Exception {
-        String brokerName = "JmsBlockedAsyncRoutingEngineTest-broker-" + System.currentTimeMillis();
-        String brokerUri = "vm://" + brokerName;
-        broker = new BrokerService();
-        broker.setBrokerName(brokerName);
-        broker.setBrokerId(brokerName);
-        broker.addConnector(brokerUri);
-        broker.setPersistent(false);
-        // This Broker Plugin simulates Producer Flow Control by delaying the broker's ACK by 2 seconds
-        broker.setPlugins(new BrokerPlugin[] { new DelayerBrokerPlugin() });
-        broker.start();
-    }
-
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
-        startBroker();
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(broker.getVmConnectorURI());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
         return camelContext;
     }
@@ -141,22 +133,27 @@ public class JmsBlockedAsyncRoutingEngineTest extends CamelTestSupport {
         };
     }
 
-    private static class DelayerBrokerPlugin extends BrokerPluginSupport {
+    private static class DelayerBrokerPlugin implements ActiveMQServerMessagePlugin {
         int i;
 
         @Override
-        public void send(ProducerBrokerExchange producerExchange, Message messageSend) throws Exception {
-            String destinationName = messageSend.getDestination().getPhysicalName();
+        public void beforeSend(
+                ServerSession session, Transaction tx, Message messageSend, boolean direct, boolean noAutoCreateQueue)
+                throws ActiveMQException {
+            //public void send(ProducerBrokerExchange producerExchange, Message messageSend) throws Exception {
+            String destinationName = messageSend.getAddress();
             LOG.info("******** Received message for destination {}", destinationName);
 
             // do not intercept sends to DLQ
             if (destinationName.toLowerCase().contains("JmsBlockedAsyncRoutingEngineTest") && i == 0) {
-                Thread.sleep(2000);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new ActiveMQException(e.getMessage(), e, ActiveMQExceptionType.INTERNAL_ERROR);
+                }
                 LOG.info("******** Waited 2 seconds for destination: {}", destinationName);
                 i++;
             }
-
-            super.send(producerExchange, messageSend);
         }
 
     }

@@ -16,8 +16,7 @@
  */
 package org.apache.camel.component.cxf;
 
-import javax.xml.ws.Endpoint;
-
+import jakarta.xml.ws.Endpoint;
 import org.apache.camel.component.cxf.common.CXFTestSupport;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.BeforeEach;

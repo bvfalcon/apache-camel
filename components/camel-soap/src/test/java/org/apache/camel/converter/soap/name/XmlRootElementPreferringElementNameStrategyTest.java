@@ -18,10 +18,10 @@ package org.apache.camel.converter.soap.name;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import org.apache.camel.converter.soap.name.testpackage.RequestWithDefaultNs;
 import org.apache.camel.dataformat.soap.name.XmlRootElementPreferringElementNameStrategy;
 import org.junit.jupiter.api.Test;

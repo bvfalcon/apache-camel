@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.EntityManager;
-
+import jakarta.persistence.EntityManager;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
@@ -65,7 +64,7 @@ public class JpaWithNamedQueryTest {
             public Object doInTransaction(TransactionStatus status) {
                 entityManager.joinTransaction();
                 // lets delete any exiting records before the test
-                entityManager.createQuery("delete from " + entityName).executeUpdate();
+                entityManager.createQuery("delete from " + entityName + " x").executeUpdate();
 
                 // now lets create a dummy entry
                 MultiSteps dummy = new MultiSteps("cheese");

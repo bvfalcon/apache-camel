@@ -16,10 +16,9 @@
  */
 package org.apache.camel.component.jms.issues;
 
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.TextMessage;
-
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.Destination;
+import jakarta.jms.TextMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.AbstractJMSTest;
 import org.apache.camel.component.jms.JmsComponent;
@@ -49,10 +48,10 @@ public class JmsCustomJMSReplyToIssueTest extends AbstractJMSTest {
 
         // there should be a JMSReplyTo so we know where to send the reply
         Destination replyTo = msg.getJMSReplyTo();
-        assertEquals("queue://JmsCustomJMSReplyToIssueTest.reply", replyTo.toString());
+        assertEquals("ActiveMQQueue[JmsCustomJMSReplyToIssueTest.reply]", replyTo.toString());
 
         // send reply
-        template.sendBody("activemq:" + replyTo, "Bye World");
+        template.sendBody("activemq:queue:JmsCustomJMSReplyToIssueTest.reply", "Bye World");
 
         MockEndpoint.assertIsSatisfied(context);
     }

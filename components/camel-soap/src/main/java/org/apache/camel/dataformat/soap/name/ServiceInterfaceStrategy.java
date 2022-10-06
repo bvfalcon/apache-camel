@@ -24,14 +24,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
 import javax.xml.namespace.QName;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
-import javax.xml.ws.WebFault;
 
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.RequestWrapper;
+import jakarta.xml.ws.ResponseWrapper;
+import jakarta.xml.ws.WebFault;
 import org.apache.camel.RuntimeCamelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,7 +160,7 @@ public class ServiceInterfaceStrategy implements ElementNameStrategy {
                 TypeInfo ti = info.getIn()[i];
                 if (inTypeNameToQName.containsKey(ti.getTypeName())) {
                     if (ti.getTypeName() != null) {
-                        if (!ti.getTypeName().equals("javax.xml.ws.Holder")
+                        if (!ti.getTypeName().equals(Holder.class.getCanonicalName())
                                 && !inTypeNameToQName.get(ti.getTypeName()).equals(ti.getElName())) {
                             LOG.warn("Ambiguous QName mapping. The type [{}] is already mapped to a QName in this context.",
                                     ti.getTypeName());

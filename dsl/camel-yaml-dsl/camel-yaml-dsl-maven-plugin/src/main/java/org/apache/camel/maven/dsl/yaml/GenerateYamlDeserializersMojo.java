@@ -472,12 +472,12 @@ public class GenerateYamlDeserializersMojo extends GenerateYamlSupportMojo {
             setProperty.beginControlFlow("case $S:", "id");
             setProperty.addStatement("String val = asText(node)");
             setProperty.addStatement("target.setId(val)");
-            setProperty.addStatement("break");
+            setProperty.addStatement("return true");
             setProperty.endControlFlow();
             setProperty.beginControlFlow("case $S:", "description");
             setProperty.addStatement("org.apache.camel.model.DescriptionDefinition val = asType(node, org.apache.camel.model.DescriptionDefinition.class)");
             setProperty.addStatement("target.setDescription(val)");
-            setProperty.addStatement("break");
+            setProperty.addStatement("return true");
             setProperty.endControlFlow();
 
             properties.add(

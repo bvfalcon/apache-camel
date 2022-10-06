@@ -16,8 +16,7 @@
  */
 package org.apache.camel.converter.jaxb;
 
-import javax.xml.bind.JAXBContext;
-
+import jakarta.xml.bind.JAXBContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;

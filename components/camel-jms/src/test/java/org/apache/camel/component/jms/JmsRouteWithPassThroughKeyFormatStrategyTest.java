@@ -16,6 +16,10 @@
  */
 package org.apache.camel.component.jms;
 
+import jakarta.jms.JMSRuntimeException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 /**
  * With the passthrough option
  */
@@ -24,5 +28,12 @@ public class JmsRouteWithPassThroughKeyFormatStrategyTest extends JmsRouteWithDe
     @Override
     protected String getUri() {
         return "activemq:queue:JmsRouteWithPassThroughKeyFormatStrategyTest?jmsKeyFormatStrategy=passthrough";
+    }
+
+    @Test
+    @Override
+    public void testWithMixedHeader() throws Exception {
+        Exception exception = Assertions.assertThrows(Exception.class, () -> super.testWithMixedHeader());
+        Assertions.assertInstanceOf(JMSRuntimeException.class, exception.getCause());
     }
 }

@@ -22,9 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 import com.google.common.base.Supplier;
+import jakarta.xml.bind.annotation.XmlTransient;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.milo.KeyStoreLoader;
 import org.apache.camel.component.milo.KeyStoreLoader.Result;

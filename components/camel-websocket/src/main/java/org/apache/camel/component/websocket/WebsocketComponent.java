@@ -24,8 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.DispatcherType;
-
+import jakarta.servlet.DispatcherType;
 import org.apache.camel.Endpoint;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.SSLContextParametersAware;
@@ -514,12 +513,12 @@ public class WebsocketComponent extends DefaultComponent implements SSLContextPa
     private ServerConnector getSslSocketConnector(Server server, SSLContextParameters sslContextParameters) throws Exception {
         ServerConnector sslSocketConnector = null;
         if (sslContextParameters != null) {
-            SslContextFactory sslContextFactory = new WebSocketComponentSslContextFactory();
+            SslContextFactory.Server sslContextFactory = new WebSocketComponentSslContextFactory();
             sslContextFactory.setEndpointIdentificationAlgorithm(null);
             sslContextFactory.setSslContext(sslContextParameters.createSSLContext(getCamelContext()));
             sslSocketConnector = new ServerConnector(server, sslContextFactory);
         } else {
-            SslContextFactory sslContextFactory = new SslContextFactory();
+            SslContextFactory.Server sslContextFactory = new SslContextFactory.Server();
             sslContextFactory.setEndpointIdentificationAlgorithm(null);
             sslContextFactory.setKeyStorePassword(sslKeyPassword);
             sslContextFactory.setKeyManagerPassword(sslPassword);
@@ -536,7 +535,7 @@ public class WebsocketComponent extends DefaultComponent implements SSLContextPa
      * Override the key/trust store check method as it does not account for a factory that has a pre-configured
      * {@link javax.net.ssl.SSLContext}.
      */
-    private static final class WebSocketComponentSslContextFactory extends SslContextFactory {
+    private static final class WebSocketComponentSslContextFactory extends SslContextFactory.Server {
         // This method is for Jetty 7.0.x ~ 7.4.x
         @SuppressWarnings("unused")
         public boolean checkConfig() {

@@ -19,7 +19,9 @@ package org.apache.camel.component.paho;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Route;
@@ -30,10 +32,9 @@ import org.apache.camel.spi.RouteController;
 import org.apache.camel.spi.SupervisingRouteController;
 import org.apache.camel.support.RoutePolicySupport;
 import org.apache.camel.test.AvailablePortFinder;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedServiceBuilder;
 import org.apache.camel.test.junit5.CamelTestSupport;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -42,9 +43,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class PahoReconnectAfterFailureTest extends CamelTestSupport {
 
     public static final String TESTING_ROUTE_ID = "testingRoute";
-    BrokerService broker;
+    static String protocol = "CORE";
+    private static int mqttPort = AvailablePortFinder.getNextAvailable();
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl()
+                    .addAcceptorConfiguration(protocol, "tcp://localhost:" + mqttPort + "?protocols=MQTT")
+                    .setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
-    int mqttPort = AvailablePortFinder.getNextAvailable();
     CountDownLatch routeStartedLatch = new CountDownLatch(1);
 
     @EndpointInject("mock:test")
@@ -56,19 +69,6 @@ public class PahoReconnectAfterFailureTest extends CamelTestSupport {
     }
 
     @Override
-    public void doPreSetup() throws Exception {
-        super.doPreSetup();
-
-        broker = ActiveMQEmbeddedServiceBuilder
-                .bare()
-                .withPersistent(false)
-                .build().getBrokerService();
-
-        // Broker will be started later, after camel context is started,
-        // to ensure first consumer connection fails
-    }
-
-    @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
         // Setup supervisor to restart routes because paho consumer 
@@ -77,13 +77,6 @@ public class PahoReconnectAfterFailureTest extends CamelTestSupport {
         supervising.setBackOffDelay(500);
         supervising.setIncludeRoutes("paho:*");
         return context;
-    }
-
-    @Override
-    @AfterEach
-    public void tearDown() throws Exception {
-        super.tearDown();
-        broker.stop();
     }
 
     @Override
@@ -115,7 +108,7 @@ public class PahoReconnectAfterFailureTest extends CamelTestSupport {
 
         // Start broker and wait for supervisor to restart route
         // consumer should now connect
-        startBroker();
+        //startBroker();
         routeStartedLatch.await(5, TimeUnit.SECONDS);
         assertEquals(ServiceStatus.Started, routeController.getRouteStatus(TESTING_ROUTE_ID),
                 "Expecting consumer connected to broker and route started");
@@ -144,16 +137,11 @@ public class PahoReconnectAfterFailureTest extends CamelTestSupport {
             // ignore
         }
 
-        startBroker();
+        //startBroker();
         routeStartedLatch.await(5, TimeUnit.SECONDS);
 
         template.sendBody("direct:test", msg);
 
         mock.assertIsSatisfied(10000);
-    }
-
-    private void startBroker() throws Exception {
-        broker.addConnector("mqtt://localhost:" + mqttPort);
-        broker.start();
     }
 }

@@ -33,7 +33,7 @@
 
     <properties>
         <camel.osgi.import>
-            javax.xml.bind*;version="[2.2,3.0)",
+            jakarta.xml.bind*;version="[3.0,4.0)",
             *
         </camel.osgi.import>
     </properties>

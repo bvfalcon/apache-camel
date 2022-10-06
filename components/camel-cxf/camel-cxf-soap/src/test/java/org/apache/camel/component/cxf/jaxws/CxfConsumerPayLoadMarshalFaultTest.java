@@ -18,11 +18,11 @@ package org.apache.camel.component.cxf.jaxws;
 
 import java.io.StringReader;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 
 import org.w3c.dom.Element;
 
+import jakarta.xml.bind.JAXBContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;

@@ -16,8 +16,7 @@
  */
 package org.apache.camel.model;
 
-import javax.xml.bind.JAXBException;
-
+import jakarta.xml.bind.JAXBException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -18,8 +18,6 @@ package org.apache.camel.dataformat.soap;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import com.example.customerservice.Customer;
 import com.example.customerservice.CustomerService;
 import com.example.customerservice.GetAllCustomersResponse;
@@ -28,6 +26,7 @@ import com.example.customerservice.GetCustomersByNameResponse;
 import com.example.customerservice.NoSuchCustomer;
 import com.example.customerservice.NoSuchCustomerException;
 import com.example.customerservice.SaveCustomer;
+import jakarta.annotation.Resource;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.soap.name.ElementNameStrategy;
 import org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy;

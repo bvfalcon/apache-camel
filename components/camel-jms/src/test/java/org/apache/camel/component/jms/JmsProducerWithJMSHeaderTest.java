@@ -20,9 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.jms.Destination;
-
-import org.apache.activemq.command.ActiveMQQueue;
+import jakarta.jms.Destination;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -33,9 +32,9 @@ import org.junit.jupiter.api.Timeout;
 
 import static org.apache.camel.component.jms.JmsConstants.JMS_X_GROUP_ID;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 
 @Tags({ @Tag("slow") })
 @Timeout(60)
@@ -246,7 +245,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://fooJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[fooJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 
@@ -261,7 +260,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://fooJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[fooJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 
@@ -301,7 +300,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://bJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[bJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 

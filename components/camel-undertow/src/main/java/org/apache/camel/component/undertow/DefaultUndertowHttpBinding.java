@@ -30,8 +30,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.activation.FileDataSource;
-
 import io.undertow.client.ClientExchange;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
@@ -44,6 +42,7 @@ import io.undertow.util.HeaderMap;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
 import io.undertow.util.Methods;
+import jakarta.activation.FileDataSource;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.TypeConverter;

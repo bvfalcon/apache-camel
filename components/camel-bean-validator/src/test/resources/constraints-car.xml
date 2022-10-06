@@ -24,13 +24,13 @@
 	
 	<bean class="CarWithoutAnnotations" ignore-annotations="true">
 		<field name="manufacturer">
-			<constraint annotation="javax.validation.constraints.NotNull" />
+			<constraint annotation="jakarta.validation.constraints.NotNull" />
 		</field>
 		
 		<field name="licensePlate">
-			<constraint annotation="javax.validation.constraints.NotNull" />
+			<constraint annotation="jakarta.validation.constraints.NotNull" />
 			
-			<constraint annotation="javax.validation.constraints.Size">
+			<constraint annotation="jakarta.validation.constraints.Size">
 				<groups>
 					<value>org.apache.camel.component.bean.validator.OptionalChecks</value>
 				</groups>
