@@ -25,13 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.ws.WebFault;
-import javax.xml.ws.soap.SOAPFaultException;
 
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBIntrospector;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.ws.WebFault;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePropertyKey;
 import org.apache.camel.RuntimeCamelException;

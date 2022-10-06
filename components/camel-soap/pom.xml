@@ -99,6 +99,11 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- needed by jetty http server to load class: org.jvnet.staxex.util.XMLStreamReaderToXMLStreamWriter -->
         <dependency>
@@ -290,6 +295,10 @@
                                 <replacement>
                                     <token>javax.jws</token>
                                     <value>jakarta.jws</value>
+                                </replacement>
+                                <replacement>
+                                    <token>javax.xml.ws</token>
+                                    <value>jakarta.xml.ws</value>
                                 </replacement>
                             </replacements>
                         </configuration>

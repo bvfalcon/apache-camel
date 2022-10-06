@@ -19,9 +19,8 @@ package org.apache.camel.dataformat.soap12;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.xml.ws.soap.SOAPFaultException;
-
 import com.example.customerservice.GetCustomersByName;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;

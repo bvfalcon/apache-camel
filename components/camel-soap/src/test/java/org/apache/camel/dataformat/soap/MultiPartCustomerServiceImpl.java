@@ -16,8 +16,6 @@
  */
 package org.apache.camel.dataformat.soap;
 
-import javax.xml.ws.Holder;
-
 import com.example.customerservice.multipart.Company;
 import com.example.customerservice.multipart.CompanyType;
 import com.example.customerservice.multipart.Customer;
@@ -27,6 +25,7 @@ import com.example.customerservice.multipart.GetCustomersByNameResponse;
 import com.example.customerservice.multipart.MultiPartCustomerService;
 import com.example.customerservice.multipart.Product;
 import com.example.customerservice.multipart.SaveCustomer;
+import jakarta.xml.ws.Holder;
 
 public class MultiPartCustomerServiceImpl implements MultiPartCustomerService {
 

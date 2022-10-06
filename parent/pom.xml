@@ -4065,7 +4065,7 @@
             <dependency>
                 <groupId>com.sun.xml.messaging.saaj</groupId>
                 <artifactId>saaj-impl</artifactId>
-                <version>1.5.3</version>
+                <version>2.0.1</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.xml.soap</groupId>
