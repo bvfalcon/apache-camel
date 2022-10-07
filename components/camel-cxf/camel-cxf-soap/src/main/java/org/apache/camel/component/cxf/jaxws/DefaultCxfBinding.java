@@ -1053,7 +1053,7 @@ public class DefaultCxfBinding implements CxfBinding, HeaderFilterStrategyAware 
     public void extractJaxWsContext(org.apache.cxf.message.Exchange cxfExchange, Map<String, Object> context) {
         org.apache.cxf.message.Message inMessage = cxfExchange.getInMessage();
         for (Map.Entry<String, Object> entry : inMessage.entrySet()) {
-            if (entry.getKey().startsWith("javax.xml.ws")) {
+            if (entry.getKey().startsWith("jakarta.xml.ws")) {
                 context.put(entry.getKey(), entry.getValue());
             }
         }

@@ -29,6 +29,7 @@ import javax.xml.namespace.QName;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
+import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 import jakarta.xml.ws.WebFault;
@@ -159,7 +160,7 @@ public class ServiceInterfaceStrategy implements ElementNameStrategy {
                 TypeInfo ti = info.getIn()[i];
                 if (inTypeNameToQName.containsKey(ti.getTypeName())) {
                     if (ti.getTypeName() != null) {
-                        if (!ti.getTypeName().equals("javax.xml.ws.Holder")
+                        if (!ti.getTypeName().equals(Holder.class.getCanonicalName())
                                 && !inTypeNameToQName.get(ti.getTypeName()).equals(ti.getElName())) {
                             LOG.warn("Ambiguous QName mapping. The type [{}] is already mapped to a QName in this context.",
                                     ti.getTypeName());

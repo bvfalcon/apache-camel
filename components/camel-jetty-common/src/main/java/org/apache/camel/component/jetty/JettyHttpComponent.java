@@ -435,7 +435,7 @@ public abstract class JettyHttpComponent extends HttpCommonComponent
                         "The temp file directory of camel-jetty is not exists, please recheck it with directory name :"
                                                 + camelContext.getGlobalOptions().get(TMP_DIR));
             }
-            context.setAttribute("javax.servlet.context.tempdir", file);
+            context.setAttribute("jakarta.servlet.context.tempdir", file);
         }
         // if a filter ref was provided, use it.
         Filter filter = ((JettyHttpEndpoint) endpoint).getMultipartFilter();

@@ -58,7 +58,7 @@ public class CamelFilterWrapper implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        Object o = config.getServletContext().getAttribute("javax.servlet.context.tempdir");
+        Object o = config.getServletContext().getAttribute("jakarta.servlet.context.tempdir");
         if (o == null) {
             //when run in embedded mode, Jetty 8 will forget to set this property,
             //but the MultiPartFilter requires it (will NPE if not set) so we'll 
@@ -69,7 +69,7 @@ public class CamelFilterWrapper implements Filter {
                 if (!result) {
                     LOG.error("failed to delete {}", file);
                 }
-                config.getServletContext().setAttribute("javax.servlet.context.tempdir",
+                config.getServletContext().setAttribute("jakarta.servlet.context.tempdir",
                         file.getParentFile());
             } catch (IOException e) {
                 //ignore

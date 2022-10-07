@@ -81,8 +81,8 @@ public class SpringBootProjectSourceCodeGenerator {
     }
 
     MethodSpec generateRestMethod() {
-        final ClassName req = ClassName.bestGuess("javax.servlet.http.HttpServletRequest");
-        final ClassName res = ClassName.bestGuess("javax.servlet.http.HttpServletResponse");
+        final ClassName req = ClassName.bestGuess("jakarta.servlet.http.HttpServletRequest");
+        final ClassName res = ClassName.bestGuess("jakarta.servlet.http.HttpServletResponse");
 
         final AnnotationSpec.Builder reqAnnotation
                 = AnnotationSpec.builder(ClassName.bestGuess("org.springframework.web.bind.annotation.RequestMapping"))

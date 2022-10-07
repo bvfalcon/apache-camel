@@ -198,6 +198,10 @@
             <url>https://repo.jenkins-ci.org/releases/</url>
         </repository>
         <repository>
+            <id>Spring Milestones</id>
+            <url>https://repo.spring.io/milestone/</url>
+        </repository>
+        <repository>
             <id>apache-cxf</id>
             <url>https://maven.pkg.github.com/bvfalcon/apache-cxf</url>
         </repository>

@@ -21,6 +21,8 @@ import java.util.Map;
 
 import org.apache.camel.RuntimeCamelException;
 
+import jakarta.xml.ws.Holder;
+
 /**
  * Value object to hold information about a method in a JAX-WS service interface. Method can have many parameters in the
  * signature, but only one response object.
@@ -51,7 +53,7 @@ public final class MethodInfo {
         this.inTypeMap = new HashMap<>();
         for (TypeInfo typeInfo : in) {
             if (inTypeMap.containsKey(typeInfo.getTypeName())
-                    && !typeInfo.getTypeName().equals("jakarta.xml.ws.Holder")
+                    && !typeInfo.getTypeName().equals(Holder.class.getCanonicalName())
                     && !inTypeMap.get(typeInfo.getTypeName()).getElName().equals(typeInfo.getElName())) {
                 throw new RuntimeCamelException(
                         "Ambiguous QName mapping. The type [ "

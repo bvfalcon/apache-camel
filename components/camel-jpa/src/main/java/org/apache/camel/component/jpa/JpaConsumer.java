@@ -64,7 +64,7 @@ public class JpaConsumer extends ScheduledBatchPollingConsumer {
 
     static {
         NOWAIT = new HashMap<>();
-        NOWAIT.put("javax.persistence.lock.timeout", 0L);
+        NOWAIT.put("jakarta.persistence.lock.timeout", 0L);
     }
 
     private static final class DataHolder {
