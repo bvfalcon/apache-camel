@@ -19,11 +19,11 @@ package org.apache.camel.component.cxf.soap.headers;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 
 import org.w3c.dom.Node;
 
+import jakarta.annotation.Resource;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;

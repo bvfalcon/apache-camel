@@ -235,7 +235,7 @@
     <hbase-version>2.5.0</hbase-version>
     <hdrhistrogram-version>2.1.11</hdrhistrogram-version>
     <hibernate-validator-version>7.0.5.Final</hibernate-validator-version>
-    <hibernate-version>5.6.11.Final</hibernate-version>
+    <hibernate-version>6.1.4.Final</hibernate-version>
     <hk2-version>2.6.1</hk2-version>
     <hsqldb-version>2.7.0</hsqldb-version>
     <httpasyncclient-version>4.1.5</httpasyncclient-version>
@@ -499,7 +499,7 @@
     <spring-vault-core-version>2.3.2</spring-vault-core-version>
     <spring-version-range>[6,7)</spring-version-range>
     <spring-ws-version>4.0.0-M1</spring-ws-version>
-    <spring-version>6.0.0-M5</spring-version>
+    <spring-version>6.0.0-M6</spring-version>
     <sql-maven-plugin-version>1.5</sql-maven-plugin-version>
     <squareup-okhttp-version>3.14.9</squareup-okhttp-version>
     <squareup-okio-version>1.17.2</squareup-okio-version>

@@ -16,8 +16,7 @@
  */
 package org.apache.camel.component.cxf.jaxrs.simplebinding.testbean;
 
-import javax.activation.DataHandler;
-
+import jakarta.activation.DataHandler;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;

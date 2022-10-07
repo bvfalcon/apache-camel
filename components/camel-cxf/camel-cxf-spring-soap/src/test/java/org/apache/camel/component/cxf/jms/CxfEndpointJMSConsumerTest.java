@@ -22,12 +22,14 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.spring.junit5.CamelSpringTestSupport;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.hello_world_soap_http.Greeter;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled("Disabled while Active MQ has not support for JMS 3.0 and was excluded from dependencies")
 public class CxfEndpointJMSConsumerTest extends CamelSpringTestSupport {
 
     @Override

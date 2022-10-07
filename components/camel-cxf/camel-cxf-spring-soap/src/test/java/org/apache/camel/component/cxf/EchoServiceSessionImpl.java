@@ -16,8 +16,7 @@
  */
 package org.apache.camel.component.cxf;
 
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
