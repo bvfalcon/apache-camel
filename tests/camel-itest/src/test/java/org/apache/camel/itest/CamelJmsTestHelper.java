@@ -19,11 +19,11 @@ package org.apache.camel.itest;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.camel.util.FileUtil;
+import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 
 /**
  * A helper for unit testing with Apache ActiveMQ as embedded JMS broker.
@@ -60,7 +60,8 @@ public final class CamelJmsTestHelper {
 
         connectionFactory.setAlwaysSessionAsync(false);
         // use a pooled connection factory
-        PooledConnectionFactory pooled = new PooledConnectionFactory(connectionFactory);
+        JmsPoolConnectionFactory pooled = new JmsPoolConnectionFactory();
+        pooled.setConnectionFactory(connectionFactory);
         pooled.setMaxConnections(8);
         return pooled;
     }
@@ -95,7 +96,8 @@ public final class CamelJmsTestHelper {
         connectionFactory.setTrustAllPackages(true);
 
         // use a pooled connection factory
-        PooledConnectionFactory pooled = new PooledConnectionFactory(connectionFactory);
+        JmsPoolConnectionFactory pooled = new JmsPoolConnectionFactory();
+        pooled.setConnectionFactory(connectionFactory);
         pooled.setMaxConnections(8);
         return pooled;
     }

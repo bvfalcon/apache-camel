@@ -19,10 +19,10 @@ package org.apache.camel.component.jms;
 import java.io.File;
 import java.io.InputStream;
 
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.apache.camel.util.FileUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +53,7 @@ public class JmsStreamMessageTypeTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent component = super.setupComponent(camelContext, service, componentName);
 
         component.getConfiguration().setStreamMessageTypeEnabled(true); // turn on streaming

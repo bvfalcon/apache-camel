@@ -22,7 +22,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,6 +30,7 @@ import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
 import static org.apache.camel.test.junit5.TestSupport.body;
@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JmsRequestReplyTempQueueMultipleConsumersTest extends CamelTestSupport {
 
     private final Map<String, AtomicInteger> msgsPerThread = new ConcurrentHashMap<>();
-    private PooledConnectionFactory connectionFactory;
+    private JmsPoolConnectionFactory connectionFactory;
     private ExecutorService executorService;
 
     @Test

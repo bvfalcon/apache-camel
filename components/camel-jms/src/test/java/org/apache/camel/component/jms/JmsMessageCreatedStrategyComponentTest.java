@@ -16,15 +16,14 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.Session;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.junit.jupiter.api.Test;
 
 public class JmsMessageCreatedStrategyComponentTest extends AbstractJMSTest {
@@ -48,7 +47,7 @@ public class JmsMessageCreatedStrategyComponentTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent jms = super.setupComponent(camelContext, service, componentName);
         jms.setMessageCreatedStrategy(new MyMessageCreatedStrategy());
         return jms;

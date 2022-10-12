@@ -20,9 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.jms.Destination;
-
-import org.apache.activemq.command.ActiveMQQueue;
+import jakarta.jms.Destination;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;

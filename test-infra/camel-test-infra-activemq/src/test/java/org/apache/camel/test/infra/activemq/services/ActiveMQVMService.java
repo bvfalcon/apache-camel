@@ -17,7 +17,7 @@
 
 package org.apache.camel.test.infra.activemq.services;
 
-import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +30,11 @@ public class ActiveMQVMService extends AbstractActiveMQEmbeddedService {
     private static final Logger LOG = LoggerFactory.getLogger(ActiveMQVMService.class);
 
     public ActiveMQVMService() {
-        this(ActiveMQEmbeddedServiceBuilder.defaultBroker().brokerService());
+        this(ActiveMQEmbeddedServiceBuilder.defaultBroker().withVmTransport().embeddedServer());
     }
 
-    public ActiveMQVMService(BrokerService brokerService) {
-        super(brokerService);
+    public ActiveMQVMService(EmbeddedActiveMQ embeddedServer) {
+        super(embeddedServer);
 
         super.initialize();
     }

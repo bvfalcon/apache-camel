@@ -18,9 +18,8 @@ package org.apache.camel.component.jms.temp;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.jms.ConnectionFactory;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
@@ -84,14 +83,13 @@ public class JmsRequestReplyTemporaryRefreshFailureOnStartupTest extends CamelTe
         }
         //wait for connection recovery before starting the broker
         Thread.sleep(recoveryInterval + 500L);
-        String brokerUri = "vm://" + brokerName;
 
         ActiveMQEmbeddedService service = ActiveMQEmbeddedServiceBuilder
                 .bare()
                 .withBrokerName(brokerName)
                 .withPersistent(false)
                 .withUseJmx(false)
-                .withTransport(brokerUri, 0)
+                .withVmTransport()
                 .build();
 
         service.initialize();

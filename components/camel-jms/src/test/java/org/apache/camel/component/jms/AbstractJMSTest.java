@@ -17,12 +17,12 @@
 
 package org.apache.camel.component.jms;
 
-import javax.jms.ConnectionFactory;
-
+import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQServiceFactory;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -32,8 +32,18 @@ import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknow
 
 @Tags({ @Tag("jms") })
 public abstract class AbstractJMSTest extends CamelTestSupport {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @RegisterExtension
-    public ActiveMQService service = ActiveMQServiceFactory.createVMService();
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     public static String queueNameForClass(String desiredName, Class<?> requestingClass) {
         return desiredName + "." + requestingClass.getSimpleName();
@@ -50,8 +60,8 @@ public abstract class AbstractJMSTest extends CamelTestSupport {
         return buildComponent(connectionFactory);
     }
 
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(service);
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
 
         return setupComponent(camelContext, connectionFactory, componentName);
     }
