@@ -16,13 +16,12 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.Destination;
-
+import jakarta.jms.Destination;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Message;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +61,7 @@ public class JmsRequestReplyReplyToOverrideTest extends AbstractJMSTest {
     }
 
     @Override
-    protected JmsComponent setupComponent(CamelContext camelContext, ActiveMQService service, String componentName) {
+    protected JmsComponent setupComponent(CamelContext camelContext, EmbeddedActiveMQExtension service, String componentName) {
         final JmsComponent jmsComponent = super.setupComponent(camelContext, service, componentName);
 
         jmsComponent.getConfiguration().setReplyTo("baz");

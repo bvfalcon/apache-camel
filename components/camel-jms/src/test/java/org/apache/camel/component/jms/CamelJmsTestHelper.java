@@ -16,11 +16,10 @@
  */
 package org.apache.camel.component.jms;
 
-import javax.jms.ConnectionFactory;
-
-import org.apache.activemq.pool.PooledConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
 import org.apache.camel.test.infra.activemq.services.LegacyEmbeddedBroker;
+import org.messaginghub.pooled.jms.JmsPoolConnectionFactory;
 
 /**
  * A helper for unit testing with Apache ActiveMQ as embedded JMS broker.
@@ -31,19 +30,19 @@ public final class CamelJmsTestHelper {
     }
 
     @Deprecated
-    public static PooledConnectionFactory createPooledConnectionFactory() {
+    public static JmsPoolConnectionFactory createPooledConnectionFactory() {
         final String brokerUrl = LegacyEmbeddedBroker.createBrokerUrl();
         ConnectionFactory cf = ConnectionFactoryHelper.createConnectionFactory(brokerUrl, null);
 
-        PooledConnectionFactory pooled = new PooledConnectionFactory();
+        JmsPoolConnectionFactory pooled = new JmsPoolConnectionFactory();
         pooled.setConnectionFactory(cf);
         pooled.setMaxConnections(8);
         return pooled;
     }
 
-    public static PooledConnectionFactory createPooledPersistentConnectionFactory(String brokerUrl) {
+    public static JmsPoolConnectionFactory createPooledPersistentConnectionFactory(String brokerUrl) {
         ConnectionFactory cf = ConnectionFactoryHelper.createPersistentConnectionFactory(brokerUrl);
-        PooledConnectionFactory pooled = new PooledConnectionFactory();
+        JmsPoolConnectionFactory pooled = new JmsPoolConnectionFactory();
         pooled.setConnectionFactory(cf);
         pooled.setMaxConnections(8);
         return pooled;

@@ -254,22 +254,27 @@
             <artifactId>camel-test-spring-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jakarta-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-kahadb-store</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
+        </dependency-->
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-client</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
+        </dependency-->
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-pool</artifactId>
             <exclusions>
@@ -278,6 +283,12 @@
                     <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
                 </exclusion>
             </exclusions>
+            <scope>test</scope>
+        </dependency-->
+        <dependency>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -455,6 +466,45 @@
                         <goals>
                             <goal>wsdl2java</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>replace-for-jakarta-test</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <basedir>${project.build.directory}/generated/src/test/java</basedir>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <preserveDir>true</preserveDir>
+                            <replacements>
+                                <replacement>
+                                    <token>javax.xml.bind</token>
+                                    <value>jakarta.xml.bind</value>
+                                </replacement>
+                                <replacement>
+                                    <token>javax.annotation</token>
+                                    <value>jakarta.annotation</value>
+                                </replacement>
+                                <replacement>
+                                    <token>javax.xml.ws</token>
+                                    <value>jakarta.xml.ws</value>
+                                </replacement>
+                                <replacement>
+                                    <token>javax.jws</token>
+                                    <value>jakarta.jws</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

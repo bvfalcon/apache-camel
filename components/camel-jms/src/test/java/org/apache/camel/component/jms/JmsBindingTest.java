@@ -21,8 +21,11 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.Date;
 
-import org.apache.activemq.command.ActiveMQBlobMessage;
-import org.apache.activemq.command.ActiveMQTextMessage;
+import jakarta.jms.BytesMessage;
+import jakarta.jms.Connection;
+import jakarta.jms.JMSException;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,18 +64,24 @@ public class JmsBindingTest {
     @Test
     public void noEndpointTest() throws Exception {
         JmsBinding testBindingWithoutEndpoint = new JmsBinding();
-        ActiveMQTextMessage message = new ActiveMQTextMessage();
-        message.setText("test");
+        Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection();
+        Session session = connection.createSession();
+        TextMessage message = session.createTextMessage("test");
         DefaultCamelContext camelContext = new DefaultCamelContext();
         Exchange exchange = camelContext.getEndpoint("jms:queue:foo").createExchange();
         exchange.getIn().setBody("test");
         exchange.getIn().setHeader("JMSCorrelationID", null);
         assertDoesNotThrow(() -> testBindingWithoutEndpoint.appendJmsProperties(message, exchange));
+        connection.close();
     }
 
     @Test
-    public void testExtractNullBodyFromJmsShouldReturnNull() {
-        assertNull(jmsBindingUnderTest.extractBodyFromJms(null, new ActiveMQBlobMessage()));
+    public void testExtractNullBodyFromJmsShouldReturnNull() throws JMSException {
+        Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection();
+        Session session = connection.createSession();
+        BytesMessage message = session.createBytesMessage();
+        assertNull(jmsBindingUnderTest.extractBodyFromJms(null, message));
+        connection.close();
     }
 
     @Test

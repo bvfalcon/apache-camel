@@ -35,7 +35,7 @@
 
     <properties>
         <camel.osgi.export.pkg>org.apache.camel.component.jms*</camel.osgi.export.pkg>
-        <camel.osgi.import.additional>javax.jms;version="[1.1,3)"</camel.osgi.import.additional>
+        <camel.osgi.import.additional>jakarta.jms;version="[3.0,4)"</camel.osgi.import.additional>
 
         <camel.surefire.reuseForks>true</camel.surefire.reuseForks>
         <camel.surefire.forkCount>1</camel.surefire.forkCount>
@@ -117,40 +117,57 @@
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-junit-5</artifactId>
+            <version>${activemq-artemis-test-version}</version>
+            <scope>test</scope>
+        </dependency>
+       <dependency>
+           <groupId>org.apache.activemq</groupId>
+           <artifactId>artemis-junit-commons</artifactId>
+           <version>${activemq-artemis-test-version}</version>
+           <scope>test</scope>
+       </dependency>
+        <dependency>
+            <groupId>org.apache.activemq.tests</groupId>
+            <artifactId>artemis-test-support-jakarta</artifactId>
+            <version>${activemq-artemis-test-version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-spring</artifactId>
+            <artifactId>artemis-spring-integration</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-kahadb-store</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-client</artifactId>
+            <artifactId>artemis-jakarta-client</artifactId>
             <scope>test</scope>
-            <!-- lets use JMS 2.0 api but camel-jms still works with ActiveMQ 5.x that is JMS 1.1 only -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jms_1.1_spec</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-pool</artifactId>
             <scope>test</scope>
-            <!-- lets use JMS 2.0 api but camel-jms still works with ActiveMQ 5.x that is JMS 1.1 only -->
+            <!- - lets use JMS 2.0 api but camel-jms still works with ActiveMQ 5.x that is JMS 1.1 only - ->
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-jms_1.1_spec</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency-->
+        <dependency>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.xbean</groupId>

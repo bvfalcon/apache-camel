@@ -16,8 +16,8 @@
  */
 package org.apache.camel.component.jms.temp;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.Produce;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
@@ -60,18 +60,18 @@ public class JmsReconnectManualTest {
     @Disabled("This test is disabled as the problem can currently not be reproduced using ActiveMQ.")
     @Test
     public void testRequestReply() throws Exception {
-        BrokerService broker = ActiveMQEmbeddedServiceBuilder
+        EmbeddedActiveMQ broker = ActiveMQEmbeddedServiceBuilder
                 .bare()
                 .withPersistent(false)
                 .withTimeBeforePurgeTempDestinations(1000)
-                .withTcpTransport()
-                .build().getBrokerService();
+                .withNettyTransport()
+                .build().getEmbeddedServer();
 
         DefaultCamelContext context = new DefaultCamelContext();
         JmsComponent jmsComponent = new JmsComponent();
 
         String brokerUrl = String.format("failover://(%s)?maxReconnectAttempts=1",
-                ActiveMQEmbeddedService.getBrokerUri(broker, 0));
+                ActiveMQEmbeddedService.getBrokerUri(broker));
 
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
@@ -111,7 +111,7 @@ public class JmsReconnectManualTest {
         Thread.sleep(5000);
 
         System.in.read();
-        broker.start(true);
+        broker.start();
 
         /**
          * Before the fix to this issue this call will throw a spring UncategorizedJmsException which contains an
