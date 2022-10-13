@@ -56,6 +56,18 @@
             <artifactId>camel-core-catalog</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-junit-5</artifactId>
+            <version>${activemq-artemis-test-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq.tests</groupId>
+            <artifactId>artemis-test-support-jakarta</artifactId>
+            <version>${activemq-artemis-test-version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- test infra -->
         <dependency>
             <groupId>org.apache.camel</groupId>

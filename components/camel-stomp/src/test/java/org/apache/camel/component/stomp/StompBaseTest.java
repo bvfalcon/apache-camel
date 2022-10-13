@@ -18,8 +18,9 @@ package org.apache.camel.component.stomp;
 
 import javax.net.ssl.SSLContext;
 
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.SslContext;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.SimpleRegistry;
 import org.apache.camel.support.jsse.KeyManagersParameters;
@@ -27,27 +28,28 @@ import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
 import org.apache.camel.test.AvailablePortFinder;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedServiceBuilder;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.fusesource.stomp.client.Stomp;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 public abstract class StompBaseTest extends CamelTestSupport {
 
+    static int port = AvailablePortFinder.getNextAvailable();
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl()
+                    .addAcceptorConfiguration(protocol, "stomp://localhost:" + port + "?protocols=STOMP")
+                    .setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @RegisterExtension
-    public ActiveMQEmbeddedService service = ActiveMQEmbeddedServiceBuilder
-            .bare()
-            .withPersistent(false)
-            .withUseJmx(true)
-            .withDeleteAllMessagesOnStartup(true)
-            .withAdvisorySupport(true)
-            .withCustomSetup(this::configureBroker)
-            .buildWithRecycle();
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
     protected int numberOfMessages = 100;
@@ -75,40 +77,14 @@ public abstract class StompBaseTest extends CamelTestSupport {
         return registry;
     }
 
-    private void configureBroker(BrokerService brokerService) {
-        int port = AvailablePortFinder.getNextAvailable();
-
-        if (isUseSsl()) {
-            SslContext sslContext = new SslContext();
-            try {
-                sslContext.setSSLContext(getServerSSLContext());
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-
-            brokerService.setSslContext(sslContext);
-            try {
-                brokerService.addConnector("stomp+ssl://localhost:" + port + "?trace=true");
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-        } else {
-            try {
-                brokerService.addConnector("stomp://localhost:" + port + "?trace=true");
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-        }
-    }
-
     protected Stomp createStompClient() throws Exception {
         Stomp stomp;
 
         if (isUseSsl()) {
-            stomp = new Stomp("ssl://localhost:" + service.getPort());
+            stomp = new Stomp("ssl://localhost:" + port);
             stomp.setSslContext(getClientSSLContext());
         } else {
-            stomp = new Stomp("tcp://localhost:" + service.getPort());
+            stomp = new Stomp("tcp://localhost:" + port);
         }
 
         return stomp;

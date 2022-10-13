@@ -123,6 +123,12 @@
             <version>${activemq-artemis-test-version}</version>
             <scope>test</scope>
         </dependency>
+       <dependency>
+           <groupId>org.apache.activemq</groupId>
+           <artifactId>artemis-junit-commons</artifactId>
+           <version>${activemq-artemis-test-version}</version>
+           <scope>test</scope>
+       </dependency>
         <dependency>
             <groupId>org.apache.activemq.tests</groupId>
             <artifactId>artemis-test-support-jakarta</artifactId>
