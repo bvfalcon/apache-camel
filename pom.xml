@@ -183,17 +183,6 @@
             </releases>
         </repository>
         <repository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
             <id>Jenkins Releases</id>
             <url>https://repo.jenkins-ci.org/releases/</url>
         </repository>
@@ -208,6 +197,21 @@
         <repository>
             <id>apache-activemq-artemis</id>
             <url>https://maven.pkg.github.com/bvfalcon/activemq-artemis</url>
+        </repository>
+        <repository>
+            <id>apache-meecrowave</id>
+            <url>https://maven.pkg.github.com/bvfalcon/apache-meecrowave</url>
+        </repository>
+        <repository>
+            <id>apache.snapshots</id>
+            <url>https://repository.apache.org/snapshots/</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
     </repositories>
     <pluginRepositories>

@@ -31,7 +31,7 @@
 
     <properties>
         <tomcat-version>10.1.1</tomcat-version>
-        <meecrowave-version>1.2.14</meecrowave-version>
+        <meecrowave-version>1.2.15-SNAPSHOT</meecrowave-version>
         <johnzon-version>1.2.18</johnzon-version>
 
         <camel.osgi.import.pkg>
