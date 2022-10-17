@@ -23,6 +23,7 @@ import java.util.Date;
 
 import jakarta.jms.BytesMessage;
 import jakarta.jms.Connection;
+import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
 import jakarta.jms.Session;
 import jakarta.jms.TextMessage;
@@ -32,6 +33,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -50,38 +52,50 @@ public class JmsBindingTest {
     private JmsConfiguration mockJmsConfiguration;
     @Mock
     private JmsEndpoint mockJmsEndpoint;
+    @Mock
+    private ConnectionFactory mockConnectionFactory;
+    @Mock
+    private Connection mockConnection;
+    @Mock
+    private Session mockSession;
+    @Mock
+    private TextMessage mockMessage;
 
     private JmsBinding jmsBindingUnderTest;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws JMSException {
         lenient().when(mockJmsConfiguration.isFormatDateHeadersToIso8601()).thenReturn(false);
         lenient().when(mockJmsConfiguration.isMapJmsMessage()).thenReturn(true);
         lenient().when(mockJmsEndpoint.getConfiguration()).thenReturn(mockJmsConfiguration);
+        lenient().when(mockJmsEndpoint.getConnectionFactory()).thenReturn(mockConnectionFactory);
+        lenient().when(mockConnectionFactory.createConnection()).thenReturn(mockConnection);
+        lenient().when(mockConnection.createSession()).thenReturn(mockSession);
+        lenient().when(mockSession.createTextMessage(Mockito.anyString())).thenReturn(mockMessage);
         jmsBindingUnderTest = new JmsBinding(mockJmsEndpoint);
     }
 
     @Test
     public void noEndpointTest() throws Exception {
         JmsBinding testBindingWithoutEndpoint = new JmsBinding();
-        Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection();
-        Session session = connection.createSession();
-        TextMessage message = session.createTextMessage("test");
-        DefaultCamelContext camelContext = new DefaultCamelContext();
-        Exchange exchange = camelContext.getEndpoint("jms:queue:foo").createExchange();
-        exchange.getIn().setBody("test");
-        exchange.getIn().setHeader("JMSCorrelationID", null);
-        assertDoesNotThrow(() -> testBindingWithoutEndpoint.appendJmsProperties(message, exchange));
-        connection.close();
+        try (Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection()) {
+            Session session = connection.createSession();
+            TextMessage message = session.createTextMessage("test");
+            DefaultCamelContext camelContext = new DefaultCamelContext();
+            Exchange exchange = camelContext.getEndpoint("jms:queue:foo").createExchange();
+            exchange.getIn().setBody("test");
+            exchange.getIn().setHeader("JMSCorrelationID", null);
+            assertDoesNotThrow(() -> testBindingWithoutEndpoint.appendJmsProperties(message, exchange));
+        }
     }
 
     @Test
     public void testExtractNullBodyFromJmsShouldReturnNull() throws JMSException {
-        Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection();
-        Session session = connection.createSession();
-        BytesMessage message = session.createBytesMessage();
-        assertNull(jmsBindingUnderTest.extractBodyFromJms(null, message));
-        connection.close();
+        try (Connection connection = mockJmsEndpoint.getConnectionFactory().createConnection()) {
+            Session session = connection.createSession();
+            BytesMessage message = session.createBytesMessage();
+            assertNull(jmsBindingUnderTest.extractBodyFromJms(null, message));
+        }
     }
 
     @Test

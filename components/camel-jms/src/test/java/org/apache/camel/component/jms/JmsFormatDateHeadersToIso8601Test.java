@@ -20,13 +20,16 @@ import java.time.Instant;
 import java.util.Date;
 
 import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
-import org.apache.camel.test.infra.activemq.services.LegacyEmbeddedBroker;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,6 +39,18 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class JmsFormatDateHeadersToIso8601Test extends CamelTestSupport {
 
     private static final Date DATE = Date.from(Instant.ofEpochMilli(1519672338000L));
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     @Test
     public void testComponentFormatDateHeaderToIso8601() {
@@ -53,9 +68,7 @@ public class JmsFormatDateHeadersToIso8601Test extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        // Note: this one does something strange that requires a fresh new broker
-        final String brokerUrl = LegacyEmbeddedBroker.createBrokerUrl();
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(brokerUrl, 0);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
 
         JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
         jms.getConfiguration().setFormatDateHeadersToIso8601(true);

@@ -17,8 +17,8 @@
 package org.apache.camel.component.jms;
 
 import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentTransacted;
@@ -43,7 +43,7 @@ public class ConsumerTemplateJmsSelectorTest extends AbstractPersistentJMSTest {
 
     @Override
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(service);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
         JmsComponent component = jmsComponentTransacted(connectionFactory);
         camelContext.addComponent("activemq", component);
     }

@@ -18,10 +18,11 @@
 package org.apache.camel.component.jms;
 
 import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQServiceFactory;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -31,8 +32,18 @@ import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknow
 
 @Tags({ @Tag("jms") })
 public abstract class AbstractPersistentJMSTest extends CamelTestSupport {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @RegisterExtension
-    public ActiveMQService service = ActiveMQServiceFactory.createPersistentVMService();
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     @Override
     protected CamelContext createCamelContext() throws Exception {
@@ -44,7 +55,7 @@ public abstract class AbstractPersistentJMSTest extends CamelTestSupport {
     }
 
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(service);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
     }
 }
