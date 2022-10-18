@@ -23,14 +23,17 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper;
-import org.apache.camel.test.infra.activemq.services.LegacyEmbeddedBroker;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.parallel.Isolated;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
@@ -39,6 +42,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Isolated
 public class ManagedJmsSelectorTest extends CamelTestSupport {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     @Override
     protected boolean useJmx() {
@@ -49,8 +64,7 @@ public class ManagedJmsSelectorTest extends CamelTestSupport {
     protected CamelContext createCamelContext() {
         CamelContext context = new DefaultCamelContext();
 
-        final String brokerUrl = LegacyEmbeddedBroker.createBrokerUrl();
-        final ConnectionFactory connectionFactory = ConnectionFactoryHelper.createConnectionFactory(brokerUrl, null);
+        final ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
 
         context.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
 

@@ -191,10 +191,6 @@
             <url>https://repo.spring.io/milestone/</url>
         </repository>
         <repository>
-            <id>apache-cxf</id>
-            <url>https://maven.pkg.github.com/bvfalcon/apache-cxf</url>
-        </repository>
-        <repository>
             <id>apache-activemq-artemis</id>
             <url>https://maven.pkg.github.com/bvfalcon/activemq-artemis</url>
         </repository>

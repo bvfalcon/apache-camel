@@ -17,11 +17,13 @@
 package org.apache.camel.component.jms;
 
 import jakarta.jms.ConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQServiceFactory;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,6 @@ import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
-import static org.apache.camel.test.infra.activemq.common.ConnectionFactoryHelper.createConnectionFactory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -38,8 +39,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Timeout(10)
 public class JmsLoadBalanceFailoverTest extends CamelTestSupport {
 
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @RegisterExtension
-    public ActiveMQService service = ActiveMQServiceFactory.createVMService();
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     @BeforeEach
     void configureTest() {
@@ -83,7 +93,7 @@ public class JmsLoadBalanceFailoverTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        ConnectionFactory connectionFactory = createConnectionFactory(service);
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
         camelContext.addComponent("jms", jmsComponentAutoAcknowledge(connectionFactory));
 
         return camelContext;

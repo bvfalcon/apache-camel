@@ -16,17 +16,18 @@
  */
 package org.apache.camel.component.jms.temp;
 
-import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.Produce;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spring.xml.CamelBeanPostProcessor;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedServiceBuilder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,6 +36,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Temporary destinations have to be recreated as they may become invalid
  */
 public class JmsReconnectManualTest {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0")
+                    .setSecurityEnabled(false).setPersistenceEnabled(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     public interface MyService {
         String echo(String st);
@@ -60,18 +74,10 @@ public class JmsReconnectManualTest {
     @Disabled("This test is disabled as the problem can currently not be reproduced using ActiveMQ.")
     @Test
     public void testRequestReply() throws Exception {
-        EmbeddedActiveMQ broker = ActiveMQEmbeddedServiceBuilder
-                .bare()
-                .withPersistent(false)
-                .withTimeBeforePurgeTempDestinations(1000)
-                .withNettyTransport()
-                .build().getEmbeddedServer();
-
         DefaultCamelContext context = new DefaultCamelContext();
         JmsComponent jmsComponent = new JmsComponent();
 
-        String brokerUrl = String.format("failover://(%s)?maxReconnectAttempts=1",
-                ActiveMQEmbeddedService.getBrokerUri(broker));
+        String brokerUrl = String.format("failover://(%s)?maxReconnectAttempts=1", service.getVmURL());
 
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
@@ -103,7 +109,6 @@ public class JmsReconnectManualTest {
         String ret = proxy.echo("test");
         assertEquals("test", ret);
 
-        broker.stop();
         /**
          * Wait long enough for the jms client to do a full reconnect. In the Tibco EMS case this means that a Temporary
          * Destination created before is invalid now
@@ -111,7 +116,6 @@ public class JmsReconnectManualTest {
         Thread.sleep(5000);
 
         System.in.read();
-        broker.start();
 
         /**
          * Before the fix to this issue this call will throw a spring UncategorizedJmsException which contains an

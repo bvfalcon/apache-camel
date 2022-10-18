@@ -29,16 +29,17 @@ import org.apache.activemq.artemis.core.server.ServerSession;
 import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 import org.apache.activemq.artemis.core.server.plugin.ActiveMQServerMessagePlugin;
 import org.apache.activemq.artemis.core.transaction.Transaction;
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.Synchronization;
-import org.apache.camel.test.infra.activemq.services.AbstractActiveMQEmbeddedService;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +51,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @Timeout(30)
 public class JmsBlockedAsyncRoutingEngineTest extends CamelTestSupport {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0")
+                    .setSecurityEnabled(false).setPersistenceEnabled(true);
+            config.registerBrokerPlugin(new DelayerBrokerPlugin());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     private static final Logger LOG = LoggerFactory.getLogger(JmsBlockedAsyncRoutingEngineTest.class);
     private EmbeddedActiveMQ embeddedServer;
@@ -68,28 +83,10 @@ public class JmsBlockedAsyncRoutingEngineTest extends CamelTestSupport {
         }
     };
 
-    public void startBroker() throws Exception {
-        String brokerName = "JmsBlockedAsyncRoutingEngineTest-broker-" + System.currentTimeMillis();
-        String brokerUri = "vm://" + brokerName;
-
-        Configuration config = new ConfigurationImpl();
-        config.setName(brokerName);
-        config.addConnectorConfiguration("in-vm", brokerUri);
-        config.setPersistenceEnabled(false);
-        // This Broker Plugin simulates Producer Flow Control by delaying the broker's ACK by 2 seconds
-        config.registerBrokerPlugin(new DelayerBrokerPlugin());
-
-        embeddedServer = new EmbeddedActiveMQ();
-        embeddedServer.setConfiguration(config);
-        embeddedServer.start();
-    }
-
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
-        startBroker();
-        ConnectionFactory connectionFactory
-                = new ActiveMQConnectionFactory(AbstractActiveMQEmbeddedService.getBrokerUri(embeddedServer));
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
         return camelContext;
     }

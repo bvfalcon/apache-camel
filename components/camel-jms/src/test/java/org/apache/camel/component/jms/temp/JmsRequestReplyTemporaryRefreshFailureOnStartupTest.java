@@ -19,22 +19,37 @@ package org.apache.camel.component.jms.temp;
 import java.util.concurrent.TimeUnit;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.core.config.Configuration;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
+import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
+import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedService;
-import org.apache.camel.test.infra.activemq.services.ActiveMQEmbeddedServiceBuilder;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknowledge;
 
 @Tags({ @Tag("not-parallel") })
 public class JmsRequestReplyTemporaryRefreshFailureOnStartupTest extends CamelTestSupport {
+
+    static String protocol = "CORE";
+    private static Configuration config;
+    static {
+        try {
+            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0")
+                    .setSecurityEnabled(false).setPersistenceEnabled(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @RegisterExtension
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
 
     private String brokerName;
     private final Long recoveryInterval = 1000L;
@@ -44,7 +59,7 @@ public class JmsRequestReplyTemporaryRefreshFailureOnStartupTest extends CamelTe
         brokerName = "test-broker-" + System.currentTimeMillis();
         CamelContext camelContext = super.createCamelContext();
 
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://" + brokerName + "?create=false");
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
         camelContext.addComponent("jms", jmsComponentAutoAcknowledge(connectionFactory));
 
         return camelContext;
@@ -84,20 +99,20 @@ public class JmsRequestReplyTemporaryRefreshFailureOnStartupTest extends CamelTe
         //wait for connection recovery before starting the broker
         Thread.sleep(recoveryInterval + 500L);
 
-        ActiveMQEmbeddedService service = ActiveMQEmbeddedServiceBuilder
+        /*ActiveMQEmbeddedService service = ActiveMQEmbeddedServiceBuilder
                 .bare()
                 .withBrokerName(brokerName)
                 .withPersistent(false)
                 .withUseJmx(false)
                 .withVmTransport()
                 .build();
-
-        service.initialize();
+        
+        service.initialize();*/
 
         template.asyncRequestBody("direct:start", "ping");
 
         MockEndpoint.assertIsSatisfied(context, 10, TimeUnit.SECONDS);
-        service.shutdown();
+        //service.shutdown();
     }
 
 }
