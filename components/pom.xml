@@ -77,9 +77,9 @@
         <module>camel-service</module>
 
         <!-- regular modules in alphabetic order -->
-        <module>camel-activemq</module>
+        <!--module>camel-activemq</module-->
         <module>camel-amqp</module>
-        <module>camel-any23</module>
+        <!--module>camel-any23</module-->
         <module>camel-arangodb</module>
         <module>camel-as2</module>
         <module>camel-asn1</module>
@@ -128,7 +128,7 @@
         <module>camel-djl</module>
         <module>camel-dns</module>
         <module>camel-docker</module>
-        <module>camel-dozer</module>
+        <!--module>camel-dozer</module-->
         <module>camel-drill</module>
         <module>camel-dropbox</module>
         <module>camel-dynamic-router</module>
@@ -227,7 +227,7 @@
         <module>camel-milo</module>
         <module>camel-mina</module>
         <module>camel-minio</module>
-        <module>camel-mllp</module>
+        <!--module>camel-mllp</module-->
         <module>camel-mongodb-gridfs</module>
         <module>camel-mongodb</module>
         <module>camel-mustache</module>
@@ -281,8 +281,8 @@
         <module>camel-servicenow</module>
         <module>camel-servlet</module>
         <module>camel-shiro</module>
-        <module>camel-sjms2</module>
-        <module>camel-sjms</module>
+        <!--module>camel-sjms2</module-->
+        <!--module>camel-sjms</module-->
         <module>camel-slack</module>
         <module>camel-smpp</module>
         <module>camel-snakeyaml</module>
