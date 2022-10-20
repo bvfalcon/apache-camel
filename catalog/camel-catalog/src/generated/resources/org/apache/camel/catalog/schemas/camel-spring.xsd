@@ -1368,11 +1368,11 @@ Rest PUT command
     
   <xs:element name="python" type="tns:pythonExpression">
     <xs:annotation>
-      <xs:documentation xml:lang="en">
-        <![CDATA[
+      <xs:documentation xml:lang="en"><![CDATA[
+
 Evaluates a Python expression.
-      ]]>
-      </xs:documentation>
+
+      ]]></xs:documentation>
     </xs:annotation>
   </xs:element>
     
@@ -4042,12 +4042,13 @@ create the SecureRandom represented by this object's configuration.
                 
         <xs:attribute name="disabled" type="xs:string">
           <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
+            <xs:documentation xml:lang="en"><![CDATA[
+
 Whether to disable this EIP from the route during build time. Once an EIP has
+
 been disabled then it cannot be enabled later at runtime. Default value: false
-            ]]>
-            </xs:documentation>
+
+            ]]></xs:documentation>
           </xs:annotation>
         </xs:attribute>
                 
@@ -5828,6 +5829,20 @@ greater than 100. Default value is 50 percentage. Default value: 50
 Configures the number of permitted calls when the CircuitBreaker is half open.
 
 The size must be greater than 0. Default size is 10. Default value: 10
+
+            ]]></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="throwExceptionWhenHalfOpenOrOpenState" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en"><![CDATA[
+
+Whether to throw io.github.resilience4j.circuitbreaker.CallNotPermittedException
+
+when the call is rejected due circuit breaker is half open or open. Default
+
+value: false
 
             ]]></xs:documentation>
           </xs:annotation>
@@ -22509,11 +22524,11 @@ false
                 
         <xs:attribute name="routeId" type="xs:string">
           <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
+            <xs:documentation xml:lang="en"><![CDATA[
+
 Sets the id of the route.
-            ]]>
-            </xs:documentation>
+
+            ]]></xs:documentation>
           </xs:annotation>
         </xs:attribute>
               
@@ -23515,16 +23530,21 @@ Default value: false
         
     <xs:attribute name="inlineRoutes" type="xs:boolean">
       <xs:annotation>
-        <xs:documentation xml:lang="en">
-          <![CDATA[
+        <xs:documentation xml:lang="en"><![CDATA[
+
 Inline routes in rest-dsl which are linked using direct endpoints. By default,
+
 each service in Rest DSL is an individual route, meaning that you would have at
+
 least two routes per service (rest-dsl, and the route linked from rest-dsl).
+
 Enabling this allows Camel to optimize and inline this as a single route,
+
 however this requires to use direct endpoints, which must be unique per service.
+
 This option is default false. Default value: false
-        ]]>
-        </xs:documentation>
+
+        ]]></xs:documentation>
       </xs:annotation>
     </xs:attribute>
         
