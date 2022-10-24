@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.camel.component.salesforce.api.dto.AbstractDescribedSObjectBase;
@@ -108,7 +109,7 @@ public class SObjectCompositeTest {
     @Test
     public void shouldSerializeToJson() throws IOException {
 
-        final String expectedJson = IOUtils
+        final String expectedJsonStr = IOUtils
                 .toString(
                         SObjectCompositeTest.class.getResourceAsStream(
                                 "/org/apache/camel/component/salesforce/api/dto/composite_request_example.json"),
@@ -118,7 +119,9 @@ public class SObjectCompositeTest {
                 = JsonUtils.createObjectMapper().copy().configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
                         .configure(SerializationFeature.INDENT_OUTPUT, true);
 
-        final String serialized = mapper.writerFor(SObjectComposite.class).writeValueAsString(composite);
-        assertThat(serialized).as("Should serialize as expected by Salesforce").isEqualTo(expectedJson);
+        JsonNode expectedJson = mapper.readTree(expectedJsonStr);
+        JsonNode actualJson = mapper.valueToTree(composite);
+
+        assertThat(actualJson).as("Should serialize as expected by Salesforce").isEqualTo(expectedJson);
     }
 }

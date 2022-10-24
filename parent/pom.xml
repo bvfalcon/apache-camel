@@ -293,9 +293,7 @@
         <jetcd-grpc-version>1.47.0</jetcd-grpc-version>
         <jetcd-guava-version>31.1-jre</jetcd-guava-version>
         <jetcd-version>0.7.3</jetcd-version>
-        <jetty9-version>9.4.48.v20220622</jetty9-version>
-        <jetty11-version>11.0.12</jetty11-version>
-        <jetty-version>${jetty11-version}</jetty-version>
+        <jetty-version>11.0.12</jetty-version>
         <jetty-plugin-version>${jetty-version}</jetty-plugin-version>
         <jetty-runner-groupId>org.eclipse.jetty</jetty-runner-groupId>
         <jettison-version>1.5.1</jettison-version>
