@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-query</artifactId>
+            <artifactId>infinispan-query-jakarta</artifactId>
             <version>${infinispan-version}</version>
         </dependency>
         <dependency>
