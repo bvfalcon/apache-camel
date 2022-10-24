@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
+            <artifactId>infinispan-core-jakarta</artifactId>
             <version>${infinispan-version}</version>
             <exclusions>
                 <exclusion>
