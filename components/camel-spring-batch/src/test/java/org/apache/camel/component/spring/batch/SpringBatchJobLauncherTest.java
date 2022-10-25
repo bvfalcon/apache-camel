@@ -20,10 +20,12 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.spring.junit5.CamelSpringTestSupport;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+@Disabled("Test uses obsolete Spring classes and cannot be run with Spring Batch 5")
 public class SpringBatchJobLauncherTest extends CamelSpringTestSupport {
 
     @EndpointInject("mock:output")

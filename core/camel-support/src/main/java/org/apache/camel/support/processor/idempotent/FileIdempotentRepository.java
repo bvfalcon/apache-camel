@@ -55,7 +55,7 @@ public class FileIdempotentRepository extends ServiceSupport implements Idempote
 
     private static final Logger LOG = LoggerFactory.getLogger(FileIdempotentRepository.class);
 
-    private static final String STORE_DELIMITER = "\n";
+    public static final String STORE_DELIMITER = "\n";
 
     private final AtomicBoolean init = new AtomicBoolean();
 

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.cometd;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class SslCometdProducerConsumerTest extends CamelTestSupport {
                 component.setSslPassword(pwd);
                 component.setSslKeyPassword(pwd);
                 URL keyStoreUrl = this.getClass().getClassLoader().getResource("jsse/localhost.p12");
-                component.setSslKeystore(keyStoreUrl.getPath());
+                component.setSslKeystore(new File(keyStoreUrl.getFile()).getAbsolutePath());
 
                 from("direct:input").to(uri);
 

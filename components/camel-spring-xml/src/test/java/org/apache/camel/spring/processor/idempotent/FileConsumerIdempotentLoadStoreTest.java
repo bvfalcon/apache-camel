@@ -25,6 +25,7 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.support.processor.idempotent.FileIdempotentRepository;
 import org.apache.camel.util.FileUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ public class FileConsumerIdempotentLoadStoreTest extends ContextTestSupport {
 
         Path file = testFile(".filestore.dat");
         try (Writer w = Files.newBufferedWriter(file)) {
-            w.write(testFile("report.txt").toAbsolutePath().toString() + LS);
+            w.write(testFile("report.txt").toAbsolutePath().toString() + FileIdempotentRepository.STORE_DELIMITER);
         }
 
         // add a file to the repo

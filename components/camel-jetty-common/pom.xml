@@ -30,7 +30,7 @@
     <packaging>jar</packaging>
 
     <name>Camel :: Jetty :: Common</name>
-    <description>Camel Jetty 10.x support</description>
+    <description>Camel Jetty 11.x support</description>
 
     <properties>
         <camel.osgi.import.before.defaults>
