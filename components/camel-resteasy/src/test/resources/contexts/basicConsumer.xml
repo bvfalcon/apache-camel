@@ -27,7 +27,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
        
     <context:component-scan base-package="org.apache.camel.component.resteasy.test">
-        <context:include-filter type="annotation" expression="javax.ws.rs.Path"/>
+        <context:include-filter type="annotation" expression="jakarta.ws.rs.Path"/>
     </context:component-scan>
     <context:annotation-config/>
 

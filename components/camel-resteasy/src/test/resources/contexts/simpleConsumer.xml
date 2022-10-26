@@ -27,7 +27,7 @@
 
 	<context:component-scan base-package="org.apache.camel.component.resteasy.test">
 		<context:include-filter type="annotation"
-			expression="javax.ws.rs.Path" />
+			expression="jakarta.ws.rs.Path" />
 	</context:component-scan>
 	<context:annotation-config />
 
