@@ -34,8 +34,8 @@
     <properties>
         <camel.osgi.import.before.defaults>
             jakarta.xml.bind*;version="[3.0,4.0)",
-            jakarta.xml.ws*;version="[0.0,3)",
-            jakarta.xml.soap*;version="[2.0,3)"
+            jakarta.xml.ws*;version="[3.0,4)",
+            jakarta.xml.soap*;version="[3.0,4)"
         </camel.osgi.import.before.defaults>
     </properties>
 
