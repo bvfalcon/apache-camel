@@ -34,7 +34,7 @@ import org.apache.camel.http.common.HttpConsumer;
  */
 public class CamelWebSocketServlet extends CamelHttpTransportServlet {
     private static final long serialVersionUID = 1764707448550670635L;
-    private static final String RESEND_ALL_WEBSOCKET_EVENTS_PARAM_KEY = "events";
+    static final String RESEND_ALL_WEBSOCKET_EVENTS_PARAM_KEY = "events";
     private boolean enableEventsResending;
 
     @Override
