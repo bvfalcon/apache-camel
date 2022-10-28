@@ -21,22 +21,24 @@ import java.net.URI;
 
 import javax.ws.rs.core.Response;
 
-import org.apache.camel.component.resteasy.test.WebTest.Deployment;
-import org.apache.camel.component.resteasy.test.WebTest.Resource;
 import org.apache.camel.component.resteasy.test.beans.SimpleService;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WebTest
+@ExtendWith(ArquillianExtension.class)
 public class ResteasyConsumerMatchUriOnPrefix {
 
-    @Resource
+    @ArquillianResource
     URI baseUri;
 
     @Deployment

@@ -29,8 +29,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.resteasy.ResteasyComponent;
 import org.apache.camel.component.resteasy.ResteasyConstants;
-import org.apache.camel.component.resteasy.test.WebTest.Deployment;
-import org.apache.camel.component.resteasy.test.WebTest.Resource;
 import org.apache.camel.component.resteasy.test.beans.Customer;
 import org.apache.camel.component.resteasy.test.beans.CustomerList;
 import org.apache.camel.component.resteasy.test.beans.CustomerService;
@@ -38,20 +36,24 @@ import org.apache.camel.component.resteasy.test.beans.ProxyProducerInterface;
 import org.apache.camel.component.resteasy.test.beans.ResteasyProducerProxyTestApp;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.test.junit5.CamelTestSupport;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@WebTest
+@ExtendWith(ArquillianExtension.class)
 public class ResteasyProducerProxyTest extends CamelTestSupport {
 
-    @Resource
+    @ArquillianResource
     URI baseUri;
 
     @Deployment
