@@ -245,7 +245,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://fooJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[fooJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 
@@ -260,7 +260,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://fooJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[fooJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 
@@ -300,7 +300,7 @@ public class JmsProducerWithJMSHeaderTest extends AbstractJMSTest {
 
         MockEndpoint.assertIsSatisfied(context);
 
-        assertEquals("queue://bJmsProducerWithJMSHeaderTest",
+        assertEquals("ActiveMQQueue[bJmsProducerWithJMSHeaderTest]",
                 mock.getReceivedExchanges().get(0).getIn().getHeader("JMSDestination", Destination.class).toString());
     }
 

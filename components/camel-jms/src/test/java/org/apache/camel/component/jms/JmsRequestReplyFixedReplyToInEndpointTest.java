@@ -47,7 +47,7 @@ public class JmsRequestReplyFixedReplyToInEndpointTest extends AbstractJMSTest {
                 exchange -> exchange.getIn().setBody("World"));
         assertEquals("Hello World", reply.getMessage().getBody());
         assertTrue(reply.getMessage().hasHeaders(), "Should have headers");
-        assertEquals("queue://JmsRequestReplyFixedReplyToInEndpointTest.reply",
+        assertEquals("ActiveMQQueue[JmsRequestReplyFixedReplyToInEndpointTest.reply]",
                 reply.getMessage().getHeader("JMSReplyTo", String.class));
     }
 
@@ -58,7 +58,7 @@ public class JmsRequestReplyFixedReplyToInEndpointTest extends AbstractJMSTest {
                 exchange -> exchange.getIn().setBody("World"));
         assertEquals("Hello World", reply.getMessage().getBody());
         assertTrue(reply.getMessage().hasHeaders(), "Should have headers");
-        assertEquals("queue://JmsRequestReplyFixedReplyToInEndpointTest.reply",
+        assertEquals("ActiveMQQueue[JmsRequestReplyFixedReplyToInEndpointTest.reply]",
                 reply.getMessage().getHeader("JMSReplyTo", String.class));
 
         reply = template.request(
@@ -66,7 +66,7 @@ public class JmsRequestReplyFixedReplyToInEndpointTest extends AbstractJMSTest {
                 exchange -> exchange.getIn().setBody("Moon"));
         assertEquals("Hello Moon", reply.getMessage().getBody());
         assertTrue(reply.getMessage().hasHeaders(), "Should have headers");
-        assertEquals("queue://JmsRequestReplyFixedReplyToInEndpointTest.reply",
+        assertEquals("ActiveMQQueue[JmsRequestReplyFixedReplyToInEndpointTest.reply]",
                 reply.getMessage().getHeader("JMSReplyTo", String.class));
     }
 

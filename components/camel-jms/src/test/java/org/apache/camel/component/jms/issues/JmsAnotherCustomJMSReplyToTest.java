@@ -49,7 +49,7 @@ public class JmsAnotherCustomJMSReplyToTest extends AbstractJMSTest {
 
         // there should be a JMSReplyTo so we know where to send the reply
         Destination replyTo = msg.getJMSReplyTo();
-        assertEquals("queue://JmsAnotherCustomJMSReplyToTest.reply", replyTo.toString());
+        assertEquals("ActiveMQQueue[JmsAnotherCustomJMSReplyToTest.reply]", replyTo.toString());
 
         // send reply
         template.sendBody("activemq:" + replyTo, "My name is Arnio");

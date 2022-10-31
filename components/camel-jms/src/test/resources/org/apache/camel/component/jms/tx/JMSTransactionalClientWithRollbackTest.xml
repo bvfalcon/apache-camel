@@ -24,6 +24,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <bean id="EmbeddedActiveMQ" class="org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ" init-method="start" destroy-method="stop" />
+
     <!-- START SNIPPET: e1 -->
     <!-- here we define our camel context -->
     <camelContext id="myroutes" xmlns="http://camel.apache.org/schema/spring">

@@ -49,12 +49,16 @@ public class JmsRouteWithCustomKeyFormatStrategyTest extends JmsRouteWithDefault
 
         @Override
         public String encodeKey(String key) {
-            return "FOO" + key + "BAR";
+            return "FOO" + key.replace("-", "$").replace(".", "_") + "BAR";
         }
 
         @Override
         public String decodeKey(String key) {
-            return StringHelper.between(key, "FOO", "BAR");
+            if (key.startsWith("FOO") && key.endsWith("BAR")) {
+                return StringHelper.between(key, "FOO", "BAR").replace("$", "-").replace("_", ".");
+            } else {
+                return key;
+            }
         }
     }
 }

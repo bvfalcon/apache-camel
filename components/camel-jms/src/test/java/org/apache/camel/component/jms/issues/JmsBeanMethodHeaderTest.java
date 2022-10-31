@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class JmsBeanMethodHeaderTest extends AbstractJMSTest {
 
     @BindToRegistry("approveService")
-    private final ApproveService service = new ApproveService();
+    private final ApproveService approveService = new ApproveService();
 
     @Test
     public void testPlainHeader() throws Exception {
