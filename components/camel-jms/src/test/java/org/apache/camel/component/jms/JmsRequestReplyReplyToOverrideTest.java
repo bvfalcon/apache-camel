@@ -34,7 +34,7 @@ public class JmsRequestReplyReplyToOverrideTest extends AbstractJMSTest {
 
     private static final String REQUEST_BODY = "Something";
     private static final String EXPECTED_REPLY_BODY = "Re: " + REQUEST_BODY;
-    private static final String EXPECTED_REPLY_HEADER = "queue://JmsRequestReplyReplyToOverrideTest.reply";
+    private static final String EXPECTED_REPLY_HEADER = "ActiveMQQueue[JmsRequestReplyReplyToOverrideTest.reply]";
 
     @Override
     public boolean isUseRouteBuilder() {

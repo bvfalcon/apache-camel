@@ -16,13 +16,12 @@
  */
 package org.apache.camel.component.jms.temp;
 
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.camel.Produce;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.component.jms.JmsTestHelper;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spring.xml.CamelBeanPostProcessor;
 import org.junit.jupiter.api.Disabled;
@@ -37,18 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class JmsReconnectManualTest {
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0")
-                    .setSecurityEnabled(false).setPersistenceEnabled(true);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     public interface MyService {
         String echo(String st);

@@ -49,7 +49,7 @@ public class JmsAsyncStartListenerTest extends AbstractPersistentJMSTest {
     protected void createConnectionFactory(CamelContext camelContext) {
         // use a persistent queue as the consumer is started asynchronously
         // so we need a persistent store in case no active consumers when we send the messages
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
         jms.getConfiguration().setAsyncStartListener(true);
         camelContext.addComponent(componentName, jms);

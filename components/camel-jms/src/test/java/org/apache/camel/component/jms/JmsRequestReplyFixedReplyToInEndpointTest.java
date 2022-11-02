@@ -37,7 +37,7 @@ public class JmsRequestReplyFixedReplyToInEndpointTest extends AbstractJMSTest {
 
         assertTrue(reply.getMessage().hasHeaders(), "Should have headers");
         String replyTo = reply.getMessage().getHeader("JMSReplyTo", String.class);
-        assertTrue(replyTo.startsWith("temp-queue"), "Should be a temp queue");
+        assertTrue(replyTo.startsWith("ActiveMQTemporaryQueue["), "Should be a temp queue");
     }
 
     @Test

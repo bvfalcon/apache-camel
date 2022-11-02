@@ -20,8 +20,6 @@ import java.time.Instant;
 import java.util.Date;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -40,17 +38,8 @@ public class JmsFormatDateHeadersToIso8601Test extends CamelTestSupport {
 
     private static final Date DATE = Date.from(Instant.ofEpochMilli(1519672338000L));
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     @Test
     public void testComponentFormatDateHeaderToIso8601() {
@@ -68,7 +57,7 @@ public class JmsFormatDateHeadersToIso8601Test extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
         JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
         jms.getConfiguration().setFormatDateHeadersToIso8601(true);

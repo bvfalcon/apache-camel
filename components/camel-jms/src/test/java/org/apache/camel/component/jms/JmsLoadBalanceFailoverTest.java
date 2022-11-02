@@ -17,8 +17,6 @@
 package org.apache.camel.component.jms;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -39,17 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Timeout(10)
 public class JmsLoadBalanceFailoverTest extends CamelTestSupport {
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     @BeforeEach
     void configureTest() {
@@ -93,7 +82,7 @@ public class JmsLoadBalanceFailoverTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
 
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         camelContext.addComponent("jms", jmsComponentAutoAcknowledge(connectionFactory));
 
         return camelContext;

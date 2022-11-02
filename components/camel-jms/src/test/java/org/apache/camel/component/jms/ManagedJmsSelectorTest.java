@@ -23,8 +23,6 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -43,17 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Isolated
 public class ManagedJmsSelectorTest extends CamelTestSupport {
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     @Override
     protected boolean useJmx() {
@@ -64,7 +53,7 @@ public class ManagedJmsSelectorTest extends CamelTestSupport {
     protected CamelContext createCamelContext() {
         CamelContext context = new DefaultCamelContext();
 
-        final ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        final ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
         context.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
 
@@ -103,7 +92,7 @@ public class ManagedJmsSelectorTest extends CamelTestSupport {
         mbeanServer.setAttribute(on, new Attribute("MessageSelector", "brand='softdrink'"));
 
         // give it a little time to adjust
-        Thread.sleep(100);
+        // Thread.sleep(100);
 
         getMockEndpoint("mock:result").expectedBodiesReceived("Pepsi");
 

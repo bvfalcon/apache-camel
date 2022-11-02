@@ -18,8 +18,6 @@
 package org.apache.camel.component.jms;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -33,17 +31,8 @@ import static org.apache.camel.component.jms.JmsComponent.jmsComponentAutoAcknow
 @Tags({ @Tag("jms") })
 public abstract class AbstractPersistentJMSTest extends CamelTestSupport {
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getPersistentConfig());
 
     @Override
     protected CamelContext createCamelContext() throws Exception {
@@ -55,7 +44,7 @@ public abstract class AbstractPersistentJMSTest extends CamelTestSupport {
     }
 
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentAutoAcknowledge(connectionFactory));
     }
 }

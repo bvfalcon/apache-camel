@@ -17,8 +17,6 @@
 package org.apache.camel.component.jms.issues;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -27,6 +25,7 @@ import org.apache.camel.Handler;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.component.jms.JmsTestHelper;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -39,17 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // This test cannot run in parallel: it reads from the default DLQ and there could be more messages there
 @Tags({ @Tag("not-parallel"), @Tag("transaction") })
 public class JmsTransactedOnExceptionRollbackOnExceptionTest extends CamelTestSupport {
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     public static class BadErrorHandler {
 
@@ -91,7 +81,7 @@ public class JmsTransactedOnExceptionRollbackOnExceptionTest extends CamelTestSu
         CamelContext camelContext = super.createCamelContext();
 
         // no redeliveries
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
         JmsComponent component = jmsComponentTransacted(connectionFactory);
         camelContext.addComponent("activemq", component);

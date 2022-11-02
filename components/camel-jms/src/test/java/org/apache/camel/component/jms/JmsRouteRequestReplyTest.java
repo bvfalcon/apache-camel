@@ -29,8 +29,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import jakarta.jms.ConnectionFactory;
-import org.apache.activemq.artemis.core.config.Configuration;
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.junit.EmbeddedActiveMQExtension;
 import org.apache.activemq.artemis.tests.util.CFUtil;
 import org.apache.camel.CamelContext;
@@ -55,17 +53,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JmsRouteRequestReplyTest extends CamelTestSupport {
 
-    static String protocol = "CORE";
-    private static Configuration config;
-    static {
-        try {
-            config = new ConfigurationImpl().addAcceptorConfiguration(protocol, "vm://0").setSecurityEnabled(false);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     @RegisterExtension
-    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(config);
+    public static EmbeddedActiveMQExtension service = new EmbeddedActiveMQExtension(JmsTestHelper.getConfig());
 
     protected static final String REPLY_TO_DESTINATION_SELECTOR_NAME = "camelProducer";
     protected static final String COMPONENT_NAME = "amq";
@@ -156,7 +145,7 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
     public static class ContextBuilderMessageID implements ContextBuilder {
         @Override
         public CamelContext buildContext(CamelContext context) {
-            ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+            ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
             JmsComponent jmsComponent = jmsComponentAutoAcknowledge(connectionFactory);
             jmsComponent.getConfiguration().setUseMessageIDAsCorrelationID(true);
@@ -172,7 +161,8 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
             ContextBuilder contextBuilderMessageID = new ContextBuilderMessageID();
 
             ContextBuilder contextBuilderCorrelationID = context -> {
-                ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+                ConnectionFactory connectionFactory
+                        = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
                 JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
                 jms.getConfiguration().setUseMessageIDAsCorrelationID(false);
@@ -182,7 +172,8 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
             };
 
             ContextBuilder contextBuilderMessageIDNamedReplyToSelector = context -> {
-                ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+                ConnectionFactory connectionFactory
+                        = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
                 JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
                 jms.getConfiguration().setReplyToDestinationSelectorName(REPLY_TO_DESTINATION_SELECTOR_NAME);
@@ -193,7 +184,8 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
             };
 
             ContextBuilder contextBuilderCorrelationIDNamedReplyToSelector = context -> {
-                ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+                ConnectionFactory connectionFactory
+                        = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
 
                 JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
                 jms.getConfiguration().setReplyToDestinationSelectorName(REPLY_TO_DESTINATION_SELECTOR_NAME);
@@ -204,7 +196,8 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
             };
 
             ContextBuilder contextBuilderCorrelationIDDiffComp = context -> {
-                ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+                ConnectionFactory connectionFactory
+                        = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
                 JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
                 jms.getConfiguration().setConcurrentConsumers(maxServerTasks);
                 context.addComponent(COMPONENT_NAME, jms);
@@ -217,7 +210,8 @@ public class JmsRouteRequestReplyTest extends CamelTestSupport {
             };
 
             ContextBuilder contextBuilderMessageIDDiffComp = context -> {
-                ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+                ConnectionFactory connectionFactory
+                        = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
                 JmsComponent jms = jmsComponentAutoAcknowledge(connectionFactory);
                 jms.getConfiguration().setUseMessageIDAsCorrelationID(true);
                 jms.getConfiguration().setConcurrentConsumers(maxServerTasks);

@@ -60,7 +60,7 @@ public class JmsThrottlingInflightRoutePolicyTest extends AbstractPersistentJMST
 
     @Override
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         camelContext.addComponent("activemq", jmsComponentTransacted(connectionFactory));
 
         // and use another component for sender

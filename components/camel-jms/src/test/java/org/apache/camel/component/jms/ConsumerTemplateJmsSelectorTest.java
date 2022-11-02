@@ -43,7 +43,7 @@ public class ConsumerTemplateJmsSelectorTest extends AbstractPersistentJMSTest {
 
     @Override
     protected void createConnectionFactory(CamelContext camelContext) {
-        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(protocol, service.getVmURL());
+        ConnectionFactory connectionFactory = CFUtil.createConnectionFactory(JmsTestHelper.protocol, service.getVmURL());
         JmsComponent component = jmsComponentTransacted(connectionFactory);
         camelContext.addComponent("activemq", component);
     }

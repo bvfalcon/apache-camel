@@ -51,7 +51,7 @@ public class JmsCustomJMSReplyToIssueTest extends AbstractJMSTest {
         assertEquals("ActiveMQQueue[JmsCustomJMSReplyToIssueTest.reply]", replyTo.toString());
 
         // send reply
-        template.sendBody("activemq:" + replyTo, "Bye World");
+        template.sendBody("activemq:queue:JmsCustomJMSReplyToIssueTest.reply", "Bye World");
 
         MockEndpoint.assertIsSatisfied(context);
     }
