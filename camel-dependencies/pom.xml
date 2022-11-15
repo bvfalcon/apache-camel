@@ -402,11 +402,11 @@
     <microprofile-metrics-version>4.0.1</microprofile-metrics-version>
     <milo-guava-version>31.1-jre</milo-guava-version>
     <milo-version>0.6.8</milo-version>
-    <mock-javamail-version>2.0</mock-javamail-version>
     <mina-version>2.1.6</mina-version>
     <minidns-version>0.3.4</minidns-version>
     <minimal-json-version>0.9.5</minimal-json-version>
     <minio-version>8.4.5</minio-version>
+    <mock-javamail-version>2.0</mock-javamail-version>
     <mockito-version>3.12.4</mockito-version>
     <mockwebserver-version>0.2.2</mockwebserver-version>
     <mongo-hadoop-version>1.5.0</mongo-hadoop-version>
@@ -466,8 +466,8 @@
     <redisson-version>3.16.7</redisson-version>
     <resilience4j-version>1.7.1</resilience4j-version>
     <rest-assured-version>4.5.1</rest-assured-version>
-    <resteasy-version>6.0.3.Final</resteasy-version>
     <resteasy-spring-version>3.0.0.Beta3</resteasy-spring-version>
+    <resteasy-version>6.0.3.Final</resteasy-version>
     <roaster-version>2.26.0.Final</roaster-version>
     <robotframework-version>4.1.2</robotframework-version>
     <rome-version>1.18.0</rome-version>
@@ -506,7 +506,7 @@
     <spring-rabbitmq-version>3.0.0-RC1</spring-rabbitmq-version>
     <spring-security-version>6.0.0-RC1</spring-security-version>
     <spring-vault-core-version>3.0.0-RC1</spring-vault-core-version>
-    <spring-version>6.0.0-RC2</spring-version>
+    <spring-version>6.0.0-RC3</spring-version>
     <spring-version-range>[6,7)</spring-version-range>
     <spring-ws-version>4.0.0-RC1</spring-ws-version>
     <sql-maven-plugin-version>1.5</sql-maven-plugin-version>
