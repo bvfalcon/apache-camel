@@ -133,11 +133,11 @@
 
         <!-- eclipse plugin need the jaxb in this pom.xml file -->
         <!-- Make sure to keep JAXB version up to date in parent/pom.xml in the bottom of the file -->
-        <jaxb-api-version>3.0.1</jaxb-api-version>
-        <jaxb-core-version>3.0.2</jaxb-core-version>
-        <jaxb-impl-version>3.0.1</jaxb-impl-version>
-        <jaxb-osgi-version>3.0.2</jaxb-osgi-version>
-        <jaxb-xjc-version>3.0.2</jaxb-xjc-version>
+        <jaxb-api-version>4.0.0</jaxb-api-version>
+        <jaxb-core-version>4.0.1</jaxb-core-version>
+        <jaxb-impl-version>4.0.1</jaxb-impl-version>
+        <jaxb-osgi-version>4.0.1</jaxb-osgi-version>
+        <jaxb-xjc-version>4.0.1</jaxb-xjc-version>
         <errorprone-version>2.5</errorprone-version>
         <mycila-license-version>3.0</mycila-license-version>
         <gmavenplus-plugin-version>1.11.1</gmavenplus-plugin-version>

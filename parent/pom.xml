@@ -240,8 +240,8 @@
         <jackson2-version>2.14.1</jackson2-version>
         <jackson2-module-scala-version>2.14.0</jackson2-module-scala-version>
         <jackrabbit-version>2.21.13</jackrabbit-version>
-        <jakarta-ee-version>9.1.0</jakarta-ee-version>
-        <jakarta.activation.version>2.0.1</jakarta.activation.version>
+        <jakarta-ee-version>10.0.0</jakarta-ee-version>
+        <jakarta.activation.version>2.1.0</jakarta.activation.version>
         <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
         <jasminb-jsonapi-version>0.11</jasminb-jsonapi-version>
         <jandex-version>3.0.3</jandex-version>
@@ -256,8 +256,8 @@
         <javapoet-version>1.11.1</javapoet-version>
         <javassist-version>3.28.0-GA</javassist-version>
         <glassfish-el-version>4.0.2</glassfish-el-version>
-        <glassfish-jaxb-runtime-version>3.0.2</glassfish-jaxb-runtime-version>
-        <glassfish-json-version>2.0.0</glassfish-json-version>
+        <glassfish-jaxb-runtime-version>4.0.1</glassfish-jaxb-runtime-version>
+        <glassfish-json-version>2.0.1</glassfish-json-version>
         <jaxb2-maven-plugin-version>2.5.0</jaxb2-maven-plugin-version>
         <jbpm-version>7.64.0.Final</jbpm-version>
         <jboss-el-api_3.0_spec-version>2.0.0.Final</jboss-el-api_3.0_spec-version>
@@ -4003,8 +4003,8 @@
             </dependency>
 
             <dependency>
-                <groupId>com.sun.activation</groupId>
-                <artifactId>jakarta.activation</artifactId>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-activation</artifactId>
                 <version>${jakarta.activation.version}</version>
             </dependency>
 
