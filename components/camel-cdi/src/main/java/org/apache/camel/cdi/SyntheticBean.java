@@ -85,11 +85,6 @@ class SyntheticBean<T> extends SyntheticBeanAttributes<T> implements Bean<T>, Pa
     }
 
     @Override
-    public boolean isNullable() {
-        return false;
-    }
-
-    @Override
     public String toString() {
         return toString.apply(this);
     }

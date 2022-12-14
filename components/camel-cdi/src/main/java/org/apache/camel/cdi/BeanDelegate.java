@@ -84,11 +84,6 @@ final class BeanDelegate<T> implements Bean<T> {
     }
 
     @Override
-    public boolean isNullable() {
-        return delegate.isNullable();
-    }
-
-    @Override
     public T create(CreationalContext<T> creationalContext) {
         return delegate.create(creationalContext);
     }

@@ -241,8 +241,9 @@
         <jackson2-module-scala-version>2.14.0</jackson2-module-scala-version>
         <jackrabbit-version>2.21.13</jackrabbit-version>
         <jakarta-ee-version>10.0.0</jakarta-ee-version>
-        <jakarta.activation.version>2.1.0</jakarta.activation.version>
+        <jakarta.activation.version>1.0.0</jakarta.activation.version>
         <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
+        <jakarta.mail.version>1.0.0</jakarta.mail.version>
         <jasminb-jsonapi-version>0.11</jasminb-jsonapi-version>
         <jandex-version>3.0.3</jandex-version>
         <jansi-version>2.4.0</jansi-version>
@@ -4006,6 +4007,12 @@
                 <groupId>org.eclipse.angus</groupId>
                 <artifactId>angus-activation</artifactId>
                 <version>${jakarta.activation.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-mail</artifactId>
+                <version>${jakarta.mail.version}</version>
             </dependency>
 
             <dependency>

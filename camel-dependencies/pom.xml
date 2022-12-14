@@ -262,8 +262,9 @@
     <jackson2-module-scala-version>2.14.0</jackson2-module-scala-version>
     <jackson2-version>2.14.1</jackson2-version>
     <jakarta-ee-version>10.0.0</jakarta-ee-version>
-    <jakarta.activation.version>2.1.0</jakarta.activation.version>
+    <jakarta.activation.version>1.0.0</jakarta.activation.version>
     <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
+    <jakarta.mail.version>1.0.0</jakarta.mail.version>
     <jandex-version>2.4.3.Final</jandex-version>
     <jansi-version>2.4.0</jansi-version>
     <jasminb-jsonapi-version>0.11</jasminb-jsonapi-version>
