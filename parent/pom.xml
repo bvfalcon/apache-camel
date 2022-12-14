@@ -155,7 +155,7 @@
         <dropbox-version>5.4.4</dropbox-version>
         <debezium-version>1.9.6.Final</debezium-version>
         <debezium-mysql-connector-version>8.0.28</debezium-mysql-connector-version>
-        <eclipselink-version>3.0.3</eclipselink-version>
+        <eclipselink-version>4.0.0</eclipselink-version>
         <eddsa-version>0.3.0</eddsa-version>
         <egit-github-core-version>2.1.5</egit-github-core-version>
         <ehcache3-version>3.10.8</ehcache3-version>
