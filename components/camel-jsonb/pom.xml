@@ -39,12 +39,10 @@
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>${jakarta-json-api}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.json.bind</groupId>
             <artifactId>jakarta.json.bind-api</artifactId>
-            <version>${jakarta-jsonb-api}</version>
         </dependency>
 
         <!-- testing -->

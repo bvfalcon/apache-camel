@@ -52,12 +52,10 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${jakarta-cdi-api-version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.transaction</groupId>
             <artifactId>jakarta.transaction-api</artifactId>
-            <version>${jta-api-version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>

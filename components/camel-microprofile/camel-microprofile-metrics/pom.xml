@@ -54,7 +54,6 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>${jakarta-annotation-api-version}</version>
         </dependency>
         
         <!-- testing -->
@@ -85,7 +84,6 @@
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>${jakarta-json-api}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

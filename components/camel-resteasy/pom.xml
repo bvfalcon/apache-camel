@@ -62,7 +62,6 @@
             <dependency>
                 <groupId>jakarta.servlet</groupId>
                 <artifactId>jakarta.servlet-api</artifactId>
-                <version>${jakarta-servlet-api-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -161,7 +160,6 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.el</artifactId>
-            <version>${jakarta.el-version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -266,9 +264,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.spec.javax.el</groupId>
-            <artifactId>jboss-el-api_3.0_spec</artifactId>
-            <version>${jboss-el-api_3.0_spec-version}</version>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

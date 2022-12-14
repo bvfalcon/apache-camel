@@ -172,7 +172,6 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${jakarta-cdi-api-version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -253,7 +252,7 @@
                                 <artifactItem>
                                     <groupId>jakarta.xml.bind</groupId>
                                     <artifactId>jakarta.xml.bind-api</artifactId>
-                                    <version>${jakarta-jaxb-version}</version>
+                                    <version>${jakarta.xml.bind-api.version}</version>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.basedir}/target/java9</outputDirectory>
                                 </artifactItem>
@@ -297,7 +296,6 @@
                 <dependency>
                     <groupId>jakarta.enterprise</groupId>
                     <artifactId>jakarta.enterprise.cdi-api</artifactId>
-                    <version>${jakarta-cdi-api-version}</version>
                     <scope>provided</scope>
                 </dependency>
 
