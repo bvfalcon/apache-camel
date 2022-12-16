@@ -261,9 +261,9 @@
     <jackson-version>1.9.12</jackson-version>
     <jackson2-module-scala-version>2.14.0</jackson2-module-scala-version>
     <jackson2-version>2.14.1</jackson2-version>
+    <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
     <jakarta-ee-version>10.0.0</jakarta-ee-version>
     <jakarta.activation.version>1.0.0</jakarta.activation.version>
-    <jakarta-activation-version-range>[2,3)</jakarta-activation-version-range>
     <jakarta.mail.version>1.0.0</jakarta.mail.version>
     <jandex-version>2.4.3.Final</jandex-version>
     <jansi-version>2.4.0</jansi-version>
@@ -276,7 +276,7 @@
     <javaparser-version>3.13.10</javaparser-version>
     <javapoet-version>1.11.1</javapoet-version>
     <javassist-version>3.28.0-GA</javassist-version>
-    <jaxb2-maven-plugin-version>3.1.0</jaxb2-maven-plugin-version>
+    <jaxb2-maven-plugin-version>2.5.0</jaxb2-maven-plugin-version>
     <jboss-el-api_3.0_spec-version>2.0.0.Final</jboss-el-api_3.0_spec-version>
     <jboss-logging-version>3.4.3.Final</jboss-logging-version>
     <jboss-marshalling-version>1.4.10.Final</jboss-marshalling-version>
@@ -483,16 +483,16 @@
     <spark-version>3.2.2</spark-version>
     <splunk-version>1.9.0_1</splunk-version>
     <spock-version>2.1-groovy-3.0</spock-version>
-    <spring-batch-version>5.0.0-RC2</spring-batch-version>
-    <spring-data-redis-version>3.0.0-RC2</spring-data-redis-version>
-    <spring-integration-version>6.0.0-RC2</spring-integration-version>
-    <spring-ldap-version>3.0.0-RC1</spring-ldap-version>
-    <spring-rabbitmq-version>3.0.0-RC1</spring-rabbitmq-version>
-    <spring-security-version>6.0.0-RC2</spring-security-version>
-    <spring-vault-core-version>3.0.0-RC1</spring-vault-core-version>
-    <spring-version>6.0.0</spring-version>
+    <spring-batch-version>5.0.0</spring-batch-version>
+    <spring-data-redis-version>3.0.0</spring-data-redis-version>
+    <spring-integration-version>6.0.0</spring-integration-version>
+    <spring-ldap-version>3.0.0</spring-ldap-version>
+    <spring-rabbitmq-version>3.0.0</spring-rabbitmq-version>
+    <spring-security-version>6.0.0</spring-security-version>
+    <spring-vault-core-version>3.0.0</spring-vault-core-version>
+    <spring-version>6.0.2</spring-version>
     <spring-version-range>[6,7)</spring-version-range>
-    <spring-ws-version>4.0.0-RC1</spring-ws-version>
+    <spring-ws-version>4.0.0</spring-ws-version>
     <sql-maven-plugin-version>1.5</sql-maven-plugin-version>
     <squareup-okhttp-version>3.14.9</squareup-okhttp-version>
     <squareup-okio-version>1.17.2</squareup-okio-version>
@@ -520,7 +520,7 @@
     <vysper-version>0.7</vysper-version>
     <web3j-quorum-version>0.8.0</web3j-quorum-version>
     <web3j-version>3.6.0</web3j-version>
-    <weld-version>4.0.3.Final</weld-version>
+    <weld-version>5.1.0.Final</weld-version>
     <wildfly-elytron>2.0.0.Final</wildfly-elytron>
     <wiremock-version>2.32.0</wiremock-version>
     <woodstox-core-version>6.3.1</woodstox-core-version>

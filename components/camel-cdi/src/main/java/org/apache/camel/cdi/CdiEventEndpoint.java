@@ -155,7 +155,8 @@ public final class CdiEventEndpoint<T> extends DefaultEndpoint {
             }
         }
 
-        InjectionTarget<AnyEvent> target = manager.createInjectionTarget(manager.createAnnotatedType(AnyEvent.class));
+        InjectionTarget<AnyEvent> target
+                = manager.getInjectionTargetFactory(manager.createAnnotatedType(AnyEvent.class)).createInjectionTarget(null);
         CreationalContext<AnyEvent> ctx = manager.createCreationalContext(null);
         AnyEvent instance = target.produce(ctx);
         target.inject(instance, ctx);
