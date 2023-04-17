@@ -477,7 +477,7 @@
         <spring-ldap-version>3.0.0</spring-ldap-version>
         <spring-vault-core-version>3.0.0</spring-vault-core-version>
         <spring-version-range>[6,7)</spring-version-range>
-        <spring-version>6.0.2</spring-version>
+        <spring-version>6.0.8</spring-version>
         <spring-rabbitmq-version>3.0.0</spring-rabbitmq-version>
         <spring-security-version>6.0.0</spring-security-version>
         <spring-ws-version>4.0.0</spring-ws-version>
